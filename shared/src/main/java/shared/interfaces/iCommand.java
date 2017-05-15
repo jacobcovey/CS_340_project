@@ -1,4 +1,9 @@
 package shared.interfaces;
 
-public class iCommand {
+public interface iCommand {
+
+    Object data = null;
+
+    public void execute();
+
 }
