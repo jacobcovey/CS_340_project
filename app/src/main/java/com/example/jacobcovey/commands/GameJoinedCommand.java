@@ -1,5 +1,6 @@
 package com.example.jacobcovey.commands;
 
+import shared.classes.Game;
 import shared.interfaces.iCommand;
 
 /**
@@ -8,7 +9,7 @@ import shared.interfaces.iCommand;
 
 public class GameJoinedCommand implements iCommand {
 
-    String data;
+    Game data;
 
     @Override
     public void execute() {

@@ -1,5 +1,7 @@
 package com.example.jacobcovey.commands;
 
+import com.example.jacobcovey.model.ClientFacade;
+
 import shared.interfaces.iCommand;
 
 /**
@@ -12,6 +14,8 @@ public class LoginSuccessfulCommand implements iCommand {
 
     @Override
     public void execute() {
+
+        ClientFacade._instance.setAuthToken(data);
 
     }
 }

@@ -1,7 +1,10 @@
 package com.example.jacobcovey.commands;
 
+import com.example.jacobcovey.model.ClientFacade;
+
 import java.util.List;
 
+import shared.classes.Game;
 import shared.interfaces.iCommand;
 
 /**
@@ -10,10 +13,12 @@ import shared.interfaces.iCommand;
 
 public class UpdateGameListCommand implements iCommand {
 
-    List<String> data;
+    List<Game> data;
 
     @Override
     public void execute() {
+
+        ClientFacade._instance.setGameList(data);
 
     }
 }

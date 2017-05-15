@@ -1,5 +1,7 @@
 package com.example.jacobcovey.commands;
 
+import com.example.jacobcovey.model.ClientFacade;
+
 import shared.interfaces.iCommand;
 
 /**
@@ -8,10 +10,13 @@ import shared.interfaces.iCommand;
 
 public class GameLeftCommand implements iCommand {
 
-    String data;
+    Object data;
 
     @Override
     public void execute() {
+
+        ClientFacade._instance.setCurrentGame(null);
+        ClientFacade._instance.setColor(null);
 
     }
 }

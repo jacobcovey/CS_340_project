@@ -1,5 +1,6 @@
-package shared;
+package shared.classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -7,7 +8,17 @@ public class Game {
     private String id;
     private String name;
     private int playerLimit;
+    private User owner;
     private List<User> players;
+
+    public Game(String id, String name, int playerLimit, User owner) {
+        this.id = id;
+        this.name = name;
+        this.playerLimit = playerLimit;
+        this.owner = owner;
+        this.players = new ArrayList<>();
+        this.players.add(owner);
+    }
 
     public User getOwner() {
         return owner;
@@ -49,5 +60,4 @@ public class Game {
         this.id = id;
     }
 
-    private User owner;
 }
