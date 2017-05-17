@@ -16,6 +16,14 @@ public class ClientFacade implements iClient {
 
     private ClientFacade() {}
 
+    public ClientModelRoot.State getState() {
+        return ClientModelRoot._instance.getCurrentState();
+    }
+
+    public void setState(ClientModelRoot.State state) {
+        ClientModelRoot._instance.setCurrentState(state);
+    }
+
     @Override
     public void setUser(User user) {
 

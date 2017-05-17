@@ -12,18 +12,28 @@ public class ClientModelRoot {
 
     public static ClientModelRoot _instance = new ClientModelRoot();
 
-    private String currentState;
+    public enum State {
+        LOGIN,
+        GAMELIST,
+        GAMECREATION,
+        GAMELOBBY,
+        GAMESTARTED
+    }
+
+    private State currentState;
     private User user;
     private List<Game> gameList;
     private Game currentGame;
     private String color;
 
-    private ClientModelRoot() {}
+    private ClientModelRoot() {
+        currentState = State.LOGIN;
+    }
 
-    public String getCurrentState() {
+    public State getCurrentState() {
         return currentState;
     }
-    public void setCurrentState(String currentState) {
+    public void setCurrentState(State currentState) {
         this.currentState = currentState;
     }
     public User getUser() {

@@ -62,4 +62,8 @@ public class ClientPresenterFacade {
         return ClientModelRoot._instance.getUser();
     }
 
+    public void setState(ClientModelRoot.State state) {
+        ClientModelRoot._instance.setCurrentState(state);
+    }
+
 }
