@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="40dp"
+    android:layout_marginLeft="40dp"
+    android:orientation="horizontal"
+    android:padding="8dp">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".3"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/game_name_textview"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Game Name"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".3"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/number_of_players_textview"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Number of players"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".3"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/created_by_textview"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Created By: Player"/>
+    </RelativeLayout>
+</LinearLayout>

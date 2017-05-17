@@ -2,6 +2,7 @@ package shared.classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Game {
 
@@ -11,8 +12,8 @@ public class Game {
     private User owner;
     private List<User> players;
 
-    public Game(String id, String name, int playerLimit, User owner) {
-        this.id = id;
+    public Game(String name, int playerLimit, User owner) {
+        this.id = String.valueOf(UUID.randomUUID());
         this.name = name;
         this.playerLimit = playerLimit;
         this.owner = owner;
