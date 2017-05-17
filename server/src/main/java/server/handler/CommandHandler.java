@@ -27,7 +27,8 @@ public class CommandHandler implements HttpHandler {
         } catch (IOException e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             exchange.getResponseBody().close();
-            e.printStackTrace(); }
+            e.printStackTrace();
+        }
     }
 
     private static String readString(InputStream is) throws IOException {
