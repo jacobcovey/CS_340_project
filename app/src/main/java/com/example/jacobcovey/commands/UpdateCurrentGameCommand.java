@@ -16,8 +16,8 @@ public class UpdateCurrentGameCommand implements iCommand {
 
     Game data;
 
-    public UpdateCurrentGameCommand(Game data) {
-        this.data = data;
+    public UpdateCurrentGameCommand(CommandData data) {
+        this.data = (Game) data.getData();
     }
 
     @Override

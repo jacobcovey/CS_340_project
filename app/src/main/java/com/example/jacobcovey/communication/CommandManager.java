@@ -30,17 +30,17 @@ public class CommandManager implements iCommandManager {
 
         switch (data.getType()) {
             case LOGINSUCCESSFUL:
-                return new LoginSuccessfulCommand((User) data.getData());
+                return new LoginSuccessfulCommand(data);
             case GAMEJOINED:
-                return new GameJoinedCommand((Game) data.getData());
+                return new GameJoinedCommand(data);
             case GAMELEFT:
-                return new GameLeftCommand(data.getData());
+                return new GameLeftCommand(data);
             case GAMESTARTED:
-                return new GameStartedCommand((Game) data.getData());
+                return new GameStartedCommand(data);
             case UPDATEGAMELIST:
-                return new UpdateGameListCommand((List<Game>) data.getData());
+                return new UpdateGameListCommand(data);
             case UPDATECURRENTGAME:
-                return new UpdateCurrentGameCommand((Game) data.getData());
+                return new UpdateCurrentGameCommand(data);
             default:
                 return null;
         }

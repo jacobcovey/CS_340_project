@@ -16,15 +16,14 @@ public class LoginSuccessfulCommand implements iCommand {
 
     User data;
 
-    public LoginSuccessfulCommand(User data) {
-        this.data = data;
+    public LoginSuccessfulCommand(CommandData data) {
+        this.data = (User) data.getData();
     }
 
     @Override
     public List<CommandData> execute() {
 
         ClientFacade._instance.setUser(data);
-        ClientFacade._instance.setAuthToken(data.getAuthToken());
         return null;
 
     }

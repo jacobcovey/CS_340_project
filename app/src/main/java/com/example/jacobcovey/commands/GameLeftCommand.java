@@ -15,8 +15,8 @@ public class GameLeftCommand implements iCommand {
 
     Object data;
 
-    public GameLeftCommand(Object data) {
-        this.data = data;
+    public GameLeftCommand(CommandData data) {
+        this.data = data.getData();
     }
 
     @Override

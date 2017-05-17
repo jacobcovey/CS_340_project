@@ -16,8 +16,8 @@ public class GameJoinedCommand implements iCommand {
 
     Game data;
 
-    public GameJoinedCommand(Game data) {
-        this.data = data;
+    public GameJoinedCommand(CommandData data) {
+        this.data = (Game) data.getData();
     }
 
     @Override

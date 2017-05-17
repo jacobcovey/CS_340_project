@@ -16,8 +16,8 @@ public class GameStartedCommand implements iCommand {
 
     Game data;
 
-    public GameStartedCommand(Game data) {
-        this.data = data;
+    public GameStartedCommand(CommandData data) {
+        this.data = (Game) data.getData();
     }
 
     @Override

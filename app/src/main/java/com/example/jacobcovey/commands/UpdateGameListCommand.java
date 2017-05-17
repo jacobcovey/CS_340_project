@@ -16,8 +16,8 @@ public class UpdateGameListCommand implements iCommand {
 
     List<Game> data;
 
-    public UpdateGameListCommand(List<Game> data) {
-        this.data = data;
+    public UpdateGameListCommand(CommandData data) {
+        this.data = (List<Game>) data.getData();
     }
 
     @Override

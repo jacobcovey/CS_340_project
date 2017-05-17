@@ -19,25 +19,28 @@ public class ClientFacade implements iClient {
     @Override
     public void setUser(User user) {
 
-    }
-
-    @Override
-    public void setAuthToken(String token) {
+        ClientModelRoot._instance.setUser(user);
 
     }
 
     @Override
     public void setGameList(List<Game> gameList) {
 
+        ClientModelRoot._instance.setGameList(gameList);
+
     }
 
     @Override
     public void setColor(String color) {
 
+        ClientModelRoot._instance.setColor(color);
+
     }
 
     @Override
     public void setCurrentGame(Game game) {
+
+        ClientModelRoot._instance.setCurrentGame(game);
 
     }
 
