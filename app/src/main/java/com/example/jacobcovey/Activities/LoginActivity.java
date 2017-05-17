@@ -1,6 +1,6 @@
-package com.example.jacobcovey.ticket_to_ride.Activities;
+package com.example.jacobcovey.Activities;
 
-import com.example.jacobcovey.ticket_to_ride.Views.LoginFragment;
+import com.example.jacobcovey.Views.LoginFragment;
 
 public class LoginActivity extends SingleFragmentActivity {
 

@@ -1,4 +1,4 @@
-package com.example.jacobcovey.ticket_to_ride.Views;
+package com.example.jacobcovey.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.jacobcovey.ticket_to_ride.Activities.GameLobbyActivity;
-import com.example.jacobcovey.ticket_to_ride.Activities.GameOptionsActivity;
-import com.example.jacobcovey.ticket_to_ride.Presenters.GameListPresenter;
-import com.example.jacobcovey.ticket_to_ride.Presenters.IGameListPresenter;
+import com.example.jacobcovey.Activities.GameLobbyActivity;
+import com.example.jacobcovey.Activities.GameOptionsActivity;
+import com.example.jacobcovey.Presenters.GameListPresenter;
+import com.example.jacobcovey.Presenters.IGameListPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.List;

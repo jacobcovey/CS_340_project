@@ -1,4 +1,4 @@
-package com.example.jacobcovey.ticket_to_ride.Views;
+package com.example.jacobcovey.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.jacobcovey.ticket_to_ride.Activities.GameListActivity;
-import com.example.jacobcovey.ticket_to_ride.Presenters.ILoginPresenter;
-import com.example.jacobcovey.ticket_to_ride.Presenters.LoginPresenter;
+import com.example.jacobcovey.Activities.GameListActivity;
+import com.example.jacobcovey.Presenters.ILoginPresenter;
+import com.example.jacobcovey.Presenters.LoginPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 /**

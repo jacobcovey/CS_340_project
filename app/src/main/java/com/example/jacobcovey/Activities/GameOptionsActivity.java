@@ -1,8 +1,8 @@
-package com.example.jacobcovey.ticket_to_ride.Activities;
+package com.example.jacobcovey.Activities;
 
 import android.support.v4.app.Fragment;
 
-import com.example.jacobcovey.ticket_to_ride.Views.GameOptionsFragment;
+import com.example.jacobcovey.Views.GameOptionsFragment;
 
 /**
  * Created by jacobcovey on 5/16/17.

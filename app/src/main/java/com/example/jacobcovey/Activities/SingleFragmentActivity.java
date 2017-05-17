@@ -1,4 +1,4 @@
-package com.example.jacobcovey.ticket_to_ride.Activities;
+package com.example.jacobcovey.Activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.example.jacobcovey.ticket_to_ride.Views;
+package com.example.jacobcovey.Views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.jacobcovey.ticket_to_ride.Presenters.GameLobbyPresenter;
-import com.example.jacobcovey.ticket_to_ride.Presenters.IGameLobbyPresenter;
+import com.example.jacobcovey.Presenters.GameLobbyPresenter;
+import com.example.jacobcovey.Presenters.IGameLobbyPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;

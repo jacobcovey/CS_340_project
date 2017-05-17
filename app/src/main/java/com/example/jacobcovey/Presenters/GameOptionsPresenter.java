@@ -1,6 +1,6 @@
-package com.example.jacobcovey.ticket_to_ride.Presenters;
+package com.example.jacobcovey.Presenters;
 
-import com.example.jacobcovey.ticket_to_ride.Views.IGameOptionsView;
+import com.example.jacobcovey.Views.IGameOptionsView;
 
 /**
  * Created by jacobcovey on 5/16/17.

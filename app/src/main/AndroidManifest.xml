@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.LoginActivity"
+        <activity android:name="com.example.jacobcovey.Activities.LoginActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,13 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.GameListActivity"
+        <activity android:name="com.example.jacobcovey.Activities.GameListActivity"
             android:screenOrientation="landscape">>
         </activity>
-        <activity android:name=".Activities.GameOptionsActivity"
+        <activity android:name="com.example.jacobcovey.Activities.GameOptionsActivity"
             android:screenOrientation="landscape">>
         </activity>
-        <activity android:name=".Activities.GameLobbyActivity"
+        <activity android:name="com.example.jacobcovey.Activities.GameLobbyActivity"
             android:screenOrientation="landscape">>
         </activity>
     </application>

@@ -1,4 +1,4 @@
-package com.example.jacobcovey.ticket_to_ride.Views;
+package com.example.jacobcovey.Views;
 
 /**
  * Created by jacobcovey on 5/17/17.
