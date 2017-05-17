@@ -16,37 +16,37 @@ public class ClientPresenterFacade {
 
     void login(User user) {
         
-        ServerProxy._instance.executeCommand(new CommandData("login", user));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LOGIN, user));
 
     }
 
     void register(User user) {
 
-        ServerProxy._instance.executeCommand(new CommandData("register", user));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.REGISTER, user));
 
     }
 
     void joinGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("joinGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, game));
 
     }
 
     void createGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("createGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, game));
 
     }
 
     void startGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("startGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.STARTGAME, game));
 
     }
 
     void leaveGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("leaveGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, game));
 
     }
 
