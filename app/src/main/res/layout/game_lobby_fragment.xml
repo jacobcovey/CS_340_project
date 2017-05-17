@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lobby_game_name_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Game Name"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp" />
+    <TextView
+        android:id="@+id/lobby_created_by_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Created By: Bob"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:layout_marginTop="0dp" />
+
+    <LinearLayout
+        android:id="@+id/lobby_player_one_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="4dp"
+        android:background="@drawable/border"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 1: "
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/lobby_player_one_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waiting for player..."
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lobby_player_two_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="4dp"
+        android:background="@drawable/border"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 2: "
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/lobby_player_two_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waiting for player..."
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lobby_player_three_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="4dp"
+        android:background="@drawable/border"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 3: "
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/lobby_player_three_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waiting for player..."
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lobby_player_four_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="4dp"
+        android:background="@drawable/border"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 4: "
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/lobby_player_four_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waiting for player..."
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lobby_player_five_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="4dp"
+        android:background="@drawable/border"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 5: "
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/lobby_player_five_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waiting for player..."
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Game will start when all \n players have joined"
+                android:textSize="18dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".1"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/lobby_leave_game_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave Game" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
