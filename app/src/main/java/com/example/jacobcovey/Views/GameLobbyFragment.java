@@ -1,5 +1,6 @@
 package com.example.jacobcovey.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.jacobcovey.Activities.GameListActivity;
 import com.example.jacobcovey.Presenters.GameLobbyPresenter;
 import com.example.jacobcovey.Presenters.IGameLobbyPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
@@ -26,6 +29,9 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
     public static final int MAXNUMBEROFPLAYERS = 5;
 
     private Button mLeaveGameButton;
+
+    private TextView mGameName;
+    private TextView mGameCreatorName;
 
     private LinearLayout mPlayerOneBox;
     private LinearLayout mPlayerTwoBox;
@@ -64,6 +70,9 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
 
         View v = inflater.inflate(R.layout.game_lobby_fragment, container, false);
 
+        mGameName = (TextView) v.findViewById(R.id.lobby_game_name_textView);
+        mGameCreatorName = (TextView) v.findViewById(R.id.lobby_created_by_textView);
+
         mPlayerOneBox = (LinearLayout) v.findViewById(R.id.lobby_player_one_box);
         mPlayerTwoBox = (LinearLayout) v.findViewById(R.id.lobby_player_two_box);
         mPlayerThreeBox = (LinearLayout) v.findViewById(R.id.lobby_player_three_box);
@@ -99,17 +108,10 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
     }
 
     @Override
-    public void setPlayerList() {
-        playerNameList.add("Ringo");
-        playerNameList.add("John");
-
-        writePlayerNames();
-    }
-
-    @Override
-    public void addPlayerToList() {
-        playerNameList.add("Paul");
-
+    public void setPlayerList(List<String> names) {
+        for (String name: names) {
+            playerNameList.add(name);
+        }
         writePlayerNames();
     }
 
@@ -123,6 +125,28 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
             LinearLayout box = tempStack.pop();
             box.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void navToGameListScreenActivity() {
+        Intent intent = new Intent(getActivity(), GameListActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void navToGameBoardScreenActivity() {
+        Toast.makeText(getActivity(), "Game will now begin",
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setGameName(String gameName) {
+        mGameName.setText(gameName);
+    }
+
+    @Override
+    public void setGameCreator(String gameCreator) {
+        mGameCreatorName.setText(gameCreator);
     }
 
     public void writePlayerNames() {

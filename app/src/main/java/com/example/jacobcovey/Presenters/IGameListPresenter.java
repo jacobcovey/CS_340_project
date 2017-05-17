@@ -6,13 +6,13 @@ import com.example.jacobcovey.Views.IGameListView;
  * Created by jacobcovey on 5/15/17.
  */
 
-public interface IGameListPresenter {
+public interface IGameListPresenter extends IObserver {
 
     void setGameListView(IGameListView gameListView);
 
     void setUpGame();
 
-    void joinGame(Object game);
+    void joinGame();
 
 
 

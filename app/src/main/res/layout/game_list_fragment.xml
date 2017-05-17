@@ -3,12 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:id="@+id/games_recyclerView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="250dp"-->
-    <!--android:scrollbars="vertical"/>-->
+    <android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/games_recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:scrollbars="vertical"/>
 
     <Button
         android:id="@+id/gameList_create_game_button"
@@ -17,6 +17,5 @@
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:text="Create Game"/>
-
 
 </LinearLayout>

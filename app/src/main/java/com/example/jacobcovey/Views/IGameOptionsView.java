@@ -14,4 +14,6 @@ public interface IGameOptionsView {
 
     void setNumPlayers(String numPlayers);
 
+    void navToGameLobbyScreenActivity();
+
 }

@@ -14,51 +14,51 @@ import shared.classes.User;
 
 public class ClientPresenterFacade {
 
-    void login(User user) {
+    public void login(User user) {
         
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LOGIN, user));
 
     }
 
-    void register(User user) {
+    public void register(User user) {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.REGISTER, user));
 
     }
 
-    void joinGame(Game game) {
+    public void joinGame(Game game) {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, game));
 
     }
 
-    void createGame(Game game) {
+    public void createGame(Game game) {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, game));
 
     }
 
-    void startGame(Game game) {
+    public void startGame(Game game) {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.STARTGAME, game));
 
     }
 
-    void leaveGame(Game game) {
+    public void leaveGame(Game game) {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, game));
 
     }
 
-    List<Game> getGameList() {
+    public List<Game> getGameList() {
         return ClientModelRoot._instance.getGameList();
     }
 
-    Game getGame() {
+    public Game getGame() {
         return ClientModelRoot._instance.getCurrentGame();
     }
 
-    User getUser() {
+    public User getUser() {
         return ClientModelRoot._instance.getUser();
     }
 

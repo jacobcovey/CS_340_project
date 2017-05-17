@@ -10,4 +10,8 @@ public interface IGameListView {
 
     void setList(List<Object> list);
 
+    void navToGameOptionsScreenActivity();
+
+    void navToGameLobbyScreenActivity();
+
 }

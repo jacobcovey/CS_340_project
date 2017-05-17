@@ -47,7 +47,6 @@ public class LoginFragment extends android.support.v4.app.Fragment implements IL
             @Override
             public void onClick(View v) {
                 loginPresenter.login();
-                navToGameListScreenActivity();
             }
         });
 
@@ -56,13 +55,13 @@ public class LoginFragment extends android.support.v4.app.Fragment implements IL
             @Override
             public void onClick(View v) {
                 loginPresenter.register();
-                navToGameListScreenActivity();
             }
         });
 
         return v;
     }
 
+    @Override
     public void navToGameListScreenActivity() {
         Intent intent = new Intent(getActivity(), GameListActivity.class);
         startActivity(intent);
