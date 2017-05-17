@@ -6,15 +6,30 @@ package shared.classes;
 
 public class CommandData {
 
-    private String type;
+    public enum Type {
+        LOGIN,
+        REGISTER,
+        JOINGAME,
+        CREATEGAME,
+        STARTGAME,
+        LEAVEGAME,
+        GAMEJOINED,
+        GAMELEFT,
+        GAMESTARTED,
+        LOGINSUCCESSFUL,
+        UPDATECURRENTGAME,
+        UPDATEGAMELIST
+    }
+
+    private Type type;
     private Object data;
 
-    public CommandData(String type, Object data) {
+    public CommandData(Type type, Object data) {
         this.type = type;
         this.data = data;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 

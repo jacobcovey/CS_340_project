@@ -9,11 +9,16 @@ import shared.classes.Game;
 import shared.classes.User;
 
 public class ClientModelRoot {
+
+    public static ClientModelRoot _instance = new ClientModelRoot();
+
     private String currentState;
     private User user;
     private List<Game> gameList;
     private Game currentGame;
     private String color;
+
+    private ClientModelRoot() {}
 
     public String getCurrentState() {
         return currentState;

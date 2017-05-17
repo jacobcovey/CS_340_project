@@ -16,50 +16,50 @@ public class ClientPresenterFacade {
 
     public void login(User user) {
         
-        ServerProxy._instance.executeCommand(new CommandData("login", user));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LOGIN, user));
 
     }
 
     public void register(User user) {
 
-        ServerProxy._instance.executeCommand(new CommandData("register", user));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.REGISTER, user));
 
     }
 
     public void joinGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("joinGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, game));
 
     }
 
     public void createGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("createGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, game));
 
     }
 
     public void startGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("startGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.STARTGAME, game));
 
     }
 
     public void leaveGame(Game game) {
 
-        ServerProxy._instance.executeCommand(new CommandData("leaveGame", game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, game));
 
     }
 
-    public List<Game> getGameList() {
-        return null;
+    List<Game> getGameList() {
+        return ClientModelRoot._instance.getGameList();
     }
 
-    public Game getGame() {
-        return null;
+    Game getGame() {
+        return ClientModelRoot._instance.getCurrentGame();
     }
 
-    public User getUser() {
-        return null;
+    User getUser() {
+        return ClientModelRoot._instance.getUser();
     }
 
 }
