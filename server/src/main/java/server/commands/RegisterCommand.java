@@ -5,6 +5,7 @@ import java.util.List;
 
 import server.ServerFacade;
 import shared.classes.CommandData;
+import shared.classes.CommandData.Type;
 import shared.classes.User;
 
 /**
@@ -30,10 +31,15 @@ public class RegisterCommand {
             // make the new user and return user object to client
             myFacade.addUser(mUser);
             //send myuser to the client
-
+            CommandData successCmd = new CommandData(Type.LOGINSUCCESSFUL, mUser);
+            dList.add(successCmd);
         } else {
             // send the already registered message to client
+            CommandData unSuccessCmd = new CommandData(Type.ERROR, "UNSUCCESSFUL REGISTER");
+            dList.add(unSuccessCmd);
         }
+        return dList;
+
     }
 
     public User getUser() {
