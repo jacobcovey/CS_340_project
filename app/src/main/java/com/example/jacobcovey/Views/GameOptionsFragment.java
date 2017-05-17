@@ -67,7 +67,7 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
 
     @Override
     public String getNumPlayers() {
-        return mNameOfGameEditText.getText().toString();
+        return mNumberOfPlayersEditText.getText().toString();
     }
 
     @Override

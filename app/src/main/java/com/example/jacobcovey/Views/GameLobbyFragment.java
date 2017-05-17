@@ -1,5 +1,6 @@
 package com.example.jacobcovey.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.jacobcovey.Activities.GameListActivity;
 import com.example.jacobcovey.Presenters.GameLobbyPresenter;
 import com.example.jacobcovey.Presenters.IGameLobbyPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
@@ -93,6 +95,7 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
             @Override
             public void onClick(View v) {
                 gameLobbyPresenter.leaveGame();
+                navToGameListScreenActivity();
             }
         });
         return v;
@@ -123,6 +126,11 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
             LinearLayout box = tempStack.pop();
             box.setVisibility(View.GONE);
         }
+    }
+
+    public void navToGameListScreenActivity() {
+        Intent intent = new Intent(getActivity(), GameListActivity.class);
+        startActivity(intent);
     }
 
     public void writePlayerNames() {

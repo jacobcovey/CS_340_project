@@ -12,7 +12,7 @@ public interface IGameListPresenter {
 
     void setUpGame();
 
-    void joinGame(Object game);
+    void joinGame();
 
 
 
