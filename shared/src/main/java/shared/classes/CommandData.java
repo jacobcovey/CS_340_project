@@ -18,7 +18,8 @@ public class CommandData {
         GAMESTARTED,
         LOGINSUCCESSFUL,
         UPDATECURRENTGAME,
-        UPDATEGAMELIST
+        UPDATEGAMELIST,
+        ERROR
     }
 
     private Type type;

@@ -41,4 +41,26 @@ public class ServerFacade {
     public void addAuthToken(String token) {
         serverModelRoot.getAuthTokens().add(token);
     }
+
+    public User authenticateUser(String username, String password) {
+        Set<User> theUsers = getUsers();
+        for (User u : theUsers) {
+            if (username == u.getUsername()) {
+                if (password == u.getPassword()) {
+                    return u;
+                }
+            }
+        }
+        return null;
+    }
+
+    public User getUserByUserName(String userName, String password) {
+        Set<User> theUsers = getUsers();
+        for (User u : theUsers) {
+            if (userName == u.getUsername()) {
+                return u;
+            }
+        }
+        return null;
+    }
 }

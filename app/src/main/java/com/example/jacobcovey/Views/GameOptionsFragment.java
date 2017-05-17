@@ -48,7 +48,6 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
             @Override
             public void onClick(View v) {
                 gameOptionsPresenter.createGame();
-                navToGameLobbyScreenActivity();
             }
         });
 
@@ -67,7 +66,7 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
 
     @Override
     public String getNumPlayers() {
-        return mNameOfGameEditText.getText().toString();
+        return mNumberOfPlayersEditText.getText().toString();
     }
 
     @Override
@@ -75,6 +74,7 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
         this.mNumberOfPlayersEditText.setText(numPlayers);
     }
 
+    @Override
     public void navToGameLobbyScreenActivity() {
         Intent intent = new Intent(getActivity(), GameLobbyActivity.class);
         startActivity(intent);

@@ -1,6 +1,9 @@
 package com.example.jacobcovey.Presenters;
 
 import com.example.jacobcovey.Views.ILoginView;
+import com.example.jacobcovey.model.ClientPresenterFacade;
+
+import shared.classes.User;
 
 /**
  * Created by jacobcovey on 5/15/17.
@@ -10,6 +13,11 @@ public class LoginPresenter implements ILoginPresenter {
 
     private ILoginView loginView;
 
+    private ClientPresenterFacade cpf;
+
+    public LoginPresenter() {
+        cpf = new ClientPresenterFacade();
+    }
 
     @Override
     public void setLoginView(ILoginView loginView) {
@@ -22,9 +30,11 @@ public class LoginPresenter implements ILoginPresenter {
         String username = loginView.getUserName();
         String password = loginView.getPassword();
 
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
+        User user = new User(username,password);
 
+        cpf.login(user);
+
+        loginView.navToGameListScreenActivity();
     }
 
     @Override
@@ -32,8 +42,10 @@ public class LoginPresenter implements ILoginPresenter {
         String username = loginView.getUserName();
         String password = loginView.getPassword();
 
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
+        User user = new User(username,password);
 
+        cpf.register(user);
+
+        loginView.navToGameListScreenActivity();
     }
 }
