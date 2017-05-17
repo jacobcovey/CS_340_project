@@ -50,15 +50,15 @@ public class ClientPresenterFacade {
 
     }
 
-    List<Game> getGameList() {
+    public List<Game> getGameList() {
         return ClientModelRoot._instance.getGameList();
     }
 
-    Game getGame() {
+    public Game getGame() {
         return ClientModelRoot._instance.getCurrentGame();
     }
 
-    User getUser() {
+    public User getUser() {
         return ClientModelRoot._instance.getUser();
     }
 

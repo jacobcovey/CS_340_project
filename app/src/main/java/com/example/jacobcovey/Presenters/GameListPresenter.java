@@ -24,10 +24,18 @@ public class GameListPresenter implements IGameListPresenter {
 
     @Override
     public void setUpGame() {
+        gameListView.navToGameOptionsScreenActivity();
     }
 
     @Override
     public void joinGame() {
-        ;
+
+        gameListView.navToGameLobbyScreenActivity();
     }
+
+    @Override
+    public void update() {
+
+    }
+
 }

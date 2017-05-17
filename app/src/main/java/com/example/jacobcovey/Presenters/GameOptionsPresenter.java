@@ -3,6 +3,9 @@ package com.example.jacobcovey.Presenters;
 import com.example.jacobcovey.Views.IGameOptionsView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
+import shared.classes.Game;
+import shared.classes.User;
+
 /**
  * Created by jacobcovey on 5/16/17.
  */
@@ -27,16 +30,17 @@ public class GameOptionsPresenter implements IGameOptionsPresenter {
         String gameName = gameOptionsView.getGameName();
         String numPlayers = gameOptionsView.getNumPlayers();
         int numberOfPlayers =  Integer.parseInt(numPlayers);
-        String tempIdForTesting = "123456789";
 
-//        User user = cpf.getUser();
-//
-//        Game game = new Game(tempIdForTesting,gameName,numberOfPlayers,user);
-//
-//        cpf.createGame(game);
+        User user = cpf.getUser();
+
+        Game game = new Game(gameName,numberOfPlayers,user);
+
+        cpf.createGame(game);
 //
 //        Game createdGame = cpf.getGame();
 //
 //        cpf.joinGame(createdGame);
+
+        gameOptionsView.navToGameLobbyScreenActivity();
     }
 }

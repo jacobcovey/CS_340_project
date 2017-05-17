@@ -44,18 +44,19 @@ public class GameListFragment extends Fragment implements IGameListView {
             @Override
             public void onClick(View v) {
                 gameListPresenter.setUpGame();
-                navToGameOptionsScreenActivity();
             }
         });
 
         return v;
     }
 
+    @Override
     public void navToGameOptionsScreenActivity() {
         Intent intent = new Intent(getActivity(), GameOptionsActivity.class);
         startActivity(intent);
     }
 
+    @Override
     public void navToGameLobbyScreenActivity() {
         Intent intent = new Intent(getActivity(), GameLobbyActivity.class);
         startActivity(intent);
