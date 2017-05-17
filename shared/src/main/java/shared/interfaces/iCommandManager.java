@@ -8,6 +8,6 @@ import shared.classes.CommandData;
 
 public interface iCommandManager {
 
-    public void createCommand(CommandData data);
+    public iCommand createCommand(CommandData data);
 
 }

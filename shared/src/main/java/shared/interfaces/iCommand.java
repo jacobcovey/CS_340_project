@@ -1,9 +1,13 @@
 package shared.interfaces;
 
+import java.util.List;
+
+import shared.classes.CommandData;
+
 public interface iCommand {
 
     Object data = null;
 
-    public void execute();
+    public List<CommandData> execute();
 
 }
