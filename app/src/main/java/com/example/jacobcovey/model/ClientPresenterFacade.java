@@ -51,15 +51,15 @@ public class ClientPresenterFacade {
     }
 
     List<Game> getGameList() {
-        return null;
+        return ClientModelRoot._instance.getGameList();
     }
 
     Game getGame() {
-        return null;
+        return ClientModelRoot._instance.getCurrentGame();
     }
 
     User getUser() {
-        return null;
+        return ClientModelRoot._instance.getUser();
     }
 
 }
