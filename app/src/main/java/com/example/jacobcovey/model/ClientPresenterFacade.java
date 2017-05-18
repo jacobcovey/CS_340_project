@@ -58,6 +58,8 @@ public class ClientPresenterFacade {
         return ClientModelRoot._instance.getCurrentGame();
     }
 
+    public void setGame(Game game) {ClientModelRoot._instance.setCurrentGame(game);}
+
     public User getUser() {
         return ClientModelRoot._instance.getUser();
     }

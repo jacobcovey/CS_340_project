@@ -56,6 +56,11 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (getActivity().getIntent().hasExtra("gameId")) {
+            String gameId = (String) getActivity().getIntent().getExtras().get("gameId");
+            gameLobbyPresenter.setCurrentGame(gameId);
+        }
+
         playerBoxStack = new Stack<LinearLayout>();
         playerNameTextViewList = new ArrayList<TextView>();
         playerNameList = new ArrayList<String>();
@@ -104,7 +109,10 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
                 gameLobbyPresenter.leaveGame();
             }
         });
+//        --------------Temporary
+        gameLobbyPresenter.update();
         return v;
+//        --------------------------
     }
 
     @Override

@@ -32,7 +32,7 @@ public class LoginPresenter implements ILoginPresenter {
 
         User user = new User(username,password);
 
-//        cpf.login(user);
+        cpf.login(user);
 
         loginView.navToGameListScreenActivity();
     }
@@ -44,7 +44,7 @@ public class LoginPresenter implements ILoginPresenter {
 
         User user = new User(username,password);
 
-//        cpf.register(user);
+        cpf.register(user);
 
         loginView.navToGameListScreenActivity();
     }

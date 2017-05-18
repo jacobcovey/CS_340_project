@@ -40,6 +40,16 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
     }
 
     @Override
+    public void setCurrentGame(String gameID) {
+        List<Game> games = cpf.getGameList();
+        for (Game game : games) {
+            if (game.getId() == gameID) {
+                cpf.setGame(game);
+            }
+        }
+    }
+
+    @Override
     public void update() {
         if (checkIfGameFull()) {
             startGame();

@@ -16,7 +16,7 @@ public interface IGameListPresenter extends IObserver {
 
     void setUpGame();
 
-    void joinGame();
+    void joinGame(Game game);
 
     List<Game> getGames();
 

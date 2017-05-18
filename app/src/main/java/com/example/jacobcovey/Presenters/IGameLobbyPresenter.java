@@ -14,4 +14,6 @@ public interface IGameLobbyPresenter extends IObserver {
 
     void leaveGame();
 
+    void setCurrentGame(String gameID);
+
 }

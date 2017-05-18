@@ -66,9 +66,25 @@ public class GameListFragment extends Fragment implements IGameListView {
         List<Game> games = gameListPresenter.getGames();
 
         GameListAdapter adapter = new GameListAdapter(games);
+
+//        adapter.setGameListClickListener(new IGameListClickListener() {
+//            @Override
+//            public void onGameClickedListener(Game game) {
+//                gameListPresenter.joinGame(game);
+//            }
+//        });
+
         mGamesRecyclerView.setAdapter(adapter);
 
+
         return v;
+    }
+
+    @Override
+    public void updateGameList(List<Game> games) {
+        GameListAdapter gameListAdapter = (GameListAdapter) mGamesRecyclerView.getAdapter();
+        gameListAdapter.updateGames(games);
+        gameListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -81,6 +97,11 @@ public class GameListFragment extends Fragment implements IGameListView {
     public void navToGameLobbyScreenActivity() {
         Intent intent = new Intent(getActivity(), GameLobbyActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void joinGame(Game game) {
+        gameListPresenter.joinGame(game);
     }
 
     @Override
