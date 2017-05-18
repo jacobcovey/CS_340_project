@@ -3,6 +3,8 @@ package com.example.jacobcovey.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.List;
 
+import shared.classes.Game;
+
 /**
  * Created by jacobcovey on 5/15/17.
  */
@@ -23,6 +27,10 @@ import java.util.List;
 public class GameListFragment extends Fragment implements IGameListView {
 
     private Button mCreateGameButton;
+
+    private RecyclerView mGamesRecyclerView;
+    private RecyclerView.Adapter mGamesAdapter;
+    private RecyclerView.LayoutManager mGamesLayoutManager;
 
     private IGameListPresenter gameListPresenter;
 
@@ -46,6 +54,19 @@ public class GameListFragment extends Fragment implements IGameListView {
                 gameListPresenter.setUpGame();
             }
         });
+
+        mGamesRecyclerView = (RecyclerView) v.findViewById(R.id.games_recyclerView);
+
+        mGamesRecyclerView.setHasFixedSize(true);
+
+        mGamesLayoutManager = new LinearLayoutManager(getActivity());
+        ((LinearLayoutManager)mGamesLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
+        mGamesRecyclerView.setLayoutManager(mGamesLayoutManager);
+
+        List<Game> games = gameListPresenter.getGames();
+
+        GameListAdapter adapter = new GameListAdapter(games);
+        mGamesRecyclerView.setAdapter(adapter);
 
         return v;
     }

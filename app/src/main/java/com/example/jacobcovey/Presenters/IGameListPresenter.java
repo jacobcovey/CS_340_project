@@ -2,6 +2,10 @@ package com.example.jacobcovey.Presenters;
 
 import com.example.jacobcovey.Views.IGameListView;
 
+import java.util.List;
+
+import shared.classes.Game;
+
 /**
  * Created by jacobcovey on 5/15/17.
  */
@@ -13,6 +17,8 @@ public interface IGameListPresenter extends IObserver {
     void setUpGame();
 
     void joinGame();
+
+    List<Game> getGames();
 
 
 
