@@ -45,7 +45,7 @@ public class ServerFacade {
     public User authenticateUser(String username, String password) {
         Set<User> theUsers = getUsers();
         for (User u : theUsers) {
-            if (username == u.getUsername()) {
+            if (username.equals(u.getUsername())) {
                 if (password == u.getPassword()) {
                     return u;
                 }
@@ -57,8 +57,30 @@ public class ServerFacade {
     public User getUserByUserName(String userName, String password) {
         Set<User> theUsers = getUsers();
         for (User u : theUsers) {
-            if (userName == u.getUsername()) {
+            if (userName.equals(u.getUsername())) {
                 return u;
+            }
+        }
+        return null;
+    }
+
+    public Game addUserToGame(Game game, User user) {
+        List<Game> games = getGameList();
+        for (Game g : games) {
+            if (g.getId().equals(game.getId())) {
+                g.addPlayerToGame(user);
+                return g;
+            }
+        }
+        return null;
+    }
+
+    public Game removeUserFromGame(Game game, User user) {
+        List<Game> games = getGameList();
+        for (Game g : games) {
+            if (g.getId().equals(game.getId())) {
+                g.removePlayerFromGame(user);
+                return g;
             }
         }
         return null;
