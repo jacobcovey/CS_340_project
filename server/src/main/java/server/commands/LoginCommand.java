@@ -7,12 +7,13 @@ import server.ServerFacade;
 import shared.classes.CommandData;
 import shared.classes.CommandData.Type;
 import shared.classes.User;
+import shared.interfaces.iCommand;
 
 /**
  * Created by Riley on 5/17/2017.
  */
 
-public class LoginCommand {
+public class LoginCommand implements iCommand {
     private User mUser;
 
     public LoginCommand(CommandData data) {
@@ -21,6 +22,7 @@ public class LoginCommand {
     }
 
 
+    @Override
     public List<CommandData> execute() {
 //        authenticate
         ServerFacade myFacade = new ServerFacade();
