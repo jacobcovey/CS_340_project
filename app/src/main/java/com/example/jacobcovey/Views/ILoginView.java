@@ -14,6 +14,8 @@ public interface ILoginView {
 
     void setPassword(String password);
 
+    void displayToast(String message);
+
     void navToGameListScreenActivity();
 
 }

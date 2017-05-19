@@ -51,6 +51,7 @@ public class ClientCommunicator {
            InputStreamReader is = new InputStreamReader(http.getInputStream());
             Type listType = new TypeToken<ArrayList<CommandData>>(){}.getType();
             data = (List<CommandData>) gson.fromJson(is, listType);
+            System.out.println(data.toString());
         }
         catch (IOException e) {
             e.printStackTrace();

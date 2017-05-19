@@ -59,6 +59,7 @@ public class LoginPresenter implements ILoginPresenter {
                 cpf.login(params[0]);
             } catch (IOException e) {
                 System.out.printf(e.getMessage());
+                loginView.displayToast("login failed");
                 return false;
             }
             return true;
@@ -81,6 +82,7 @@ public class LoginPresenter implements ILoginPresenter {
                 cpf.register(params[0]);
             } catch (IOException e) {
                 System.out.printf(e.getMessage());
+                loginView.displayToast("Register failed");
                 return false;
             }
             return true;

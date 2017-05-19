@@ -62,6 +62,12 @@ public class LoginFragment extends android.support.v4.app.Fragment implements IL
     }
 
     @Override
+    public void displayToast(String message) {
+//        Toast.makeText(getActivity(), message,
+//                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void navToGameListScreenActivity() {
         Intent intent = new Intent(getActivity(), GameListActivity.class);
         startActivity(intent);
