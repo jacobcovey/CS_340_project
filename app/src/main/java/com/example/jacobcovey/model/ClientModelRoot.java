@@ -42,18 +42,24 @@ public class ClientModelRoot extends Observable {
     }
     public void setUser(User user) {
         this.user = user;
+        setChanged();
+        notifyObservers();
     }
     public List<Game> getGameList() {
         return gameList;
     }
     public void setGameList(List<Game> gameList) {
         this.gameList = gameList;
+        setChanged();
+        notifyObservers();
     }
     public Game getCurrentGame() {
         return currentGame;
     }
     public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
+        setChanged();
+        notifyObservers();
     }
     public String getColor() {
         return color;
