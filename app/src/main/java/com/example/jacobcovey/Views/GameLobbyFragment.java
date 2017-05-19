@@ -110,7 +110,7 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
             }
         });
 //        --------------Temporary
-        gameLobbyPresenter.update();
+//        gameLobbyPresenter.update();
         return v;
 //        --------------------------
     }

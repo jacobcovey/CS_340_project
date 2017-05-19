@@ -10,7 +10,7 @@ import shared.classes.Game;
  * Created by jacobcovey on 5/15/17.
  */
 
-public interface IGameListPresenter extends IObserver {
+public interface IGameListPresenter {
 
     void setGameListView(IGameListView gameListView);
 

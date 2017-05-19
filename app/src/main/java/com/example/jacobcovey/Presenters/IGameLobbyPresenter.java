@@ -6,7 +6,7 @@ import com.example.jacobcovey.Views.IGameLobbyView;
  * Created by jacobcovey on 5/17/17.
  */
 
-public interface IGameLobbyPresenter extends IObserver {
+public interface IGameLobbyPresenter {
 
     void setGameLobbyView(IGameLobbyView gameLobbyView);
 

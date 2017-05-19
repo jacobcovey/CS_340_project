@@ -4,11 +4,12 @@ package com.example.jacobcovey.model;
  * Created by Dylan on 5/15/2017.
  */
 import java.util.List;
+import java.util.Observable;
 
 import shared.classes.Game;
 import shared.classes.User;
 
-public class ClientModelRoot {
+public class ClientModelRoot extends Observable {
 
     public static ClientModelRoot _instance = new ClientModelRoot();
 

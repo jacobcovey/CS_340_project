@@ -3,6 +3,7 @@ package com.example.jacobcovey.model;
 import com.example.jacobcovey.communication.ServerProxy;
 
 import java.util.List;
+import java.util.Observer;
 
 import shared.classes.CommandData;
 import shared.classes.Game;
@@ -66,6 +67,14 @@ public class ClientPresenterFacade {
 
     public void setState(ClientModelRoot.State state) {
         ClientModelRoot._instance.setCurrentState(state);
+    }
+
+    public void addObserver(Observer observer) {
+        ClientModelRoot._instance.addObserver(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        ClientModelRoot._instance.deleteObserver(observer);
     }
 
 }

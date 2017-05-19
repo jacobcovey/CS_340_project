@@ -1,22 +1,19 @@
 package com.example.jacobcovey.communication;
 
-import shared.classes.CommandData;
-import shared.interfaces.iCommand;
-import com.google.gson.JsonObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
+import shared.classes.CommandData;
 
 /**
  * Created by billrichards on 5/15/17.
@@ -29,7 +26,7 @@ public class ClientCommunicator {
     public static List<CommandData> sendToServer(CommandData commandData) {
         List<CommandData> data = null;
         try {
-            String serverHost = "localhost";
+            String serverHost = "192.168.1.150";
             String serverPort = "3000";
 
             URL url = new URL("http://" + serverHost + ":" + serverPort + "/executecommand");
