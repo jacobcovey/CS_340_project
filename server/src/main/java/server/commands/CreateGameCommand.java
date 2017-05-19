@@ -7,6 +7,7 @@ import server.ServerFacade;
 import shared.classes.CommandData;
 import shared.classes.CommandData.Type;
 import shared.classes.Game;
+import shared.classes.GameRequest;
 import shared.classes.User;
 import shared.interfaces.iCommand;
 
@@ -15,35 +16,15 @@ import shared.interfaces.iCommand;
  */
 
 public class CreateGameCommand implements iCommand {
-    private Game mGame;
-    private User mCreator;
-
-    public Game getGame() {
-        return mGame;
-    }
-
-    public void setGame(Game game) {
-        mGame = game;
-    }
-
-    public User getCreator() {
-        return mCreator;
-    }
-
-    public void setCreator(User creator) {
-        mCreator = creator;
-    }
-
-    public CreateGameCommand(CommandData data) {
-        mGame = (Game) data.getData();
-    }
+    private GameRequest data;
 
     public List<CommandData> execute() {
+        Game game = data.getGame();
+        User user = data.getUser();
         ServerFacade myFacade = new ServerFacade();
-        myFacade.addGame(mGame);
-        Game mygame = myFacade.addUserToGame(mGame, mCreator);
+        myFacade.addGame(game);
+        Game mygame = myFacade.addUserToGame(game, user);
         ArrayList<CommandData> dList = new ArrayList<>();
-
 
         if (mygame != null) {
             CommandData successCmd = new CommandData(Type.UPDATEGAMELIST, mygame);
@@ -51,7 +32,6 @@ public class CreateGameCommand implements iCommand {
         } else {
             CommandData unSuccessCmd = new CommandData(Type.ERROR, "FAILED TO CREATE GAME");
             dList.add(unSuccessCmd);
-
         }
         return dList;
 
