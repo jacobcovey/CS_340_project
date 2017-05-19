@@ -1,12 +1,10 @@
 package com.example.jacobcovey.communication;
 
 import android.os.AsyncTask;
-import android.widget.Switch;
 
 import com.example.jacobcovey.model.ClientFacade;
 
 import java.io.IOException;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import shared.classes.CommandData;
@@ -17,16 +15,16 @@ import shared.classes.CommandData;
 
 public class Poller extends TimerTask {
 
-    private static Poller _instance = new Poller();
+//    public static Poller _instance = new Poller();
 
-    private Poller() {
-        Timer timer = new Timer();
-        timer.schedule(_instance, 0, 1000);
+    public Poller() {
+//        Timer timer = new Timer();
+//        timer.schedule(new Poller(), 0, 1000);
     }
 
     @Override
     public void run() {
-        _instance.poll();
+        poll();
     }
 
     public void poll() {
@@ -42,7 +40,7 @@ public class Poller extends TimerTask {
             case GAMECREATION:
                 return;
             case GAMELOBBY:
-                asyncPoller.execute(new CommandData(CommandData.Type.UPDATECURRENTGAME, "Player List Please"));
+                asyncPoller.execute(new CommandData(CommandData.Type.UPDATECURRENTGAME, ClientFacade._instance.getCurrentGame()));
                 return;
             case GAMESTARTED:
                 return;

@@ -29,15 +29,15 @@ public class ClientPresenterFacade {
 
     }
 
-    public void joinGame(Game game, User user) throws IOException {
+    public void joinGame(GameRequest gameRequest) throws IOException {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, new GameRequest(user, game)));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, gameRequest));
 
     }
 
-    public void createGame(Game game, User user) throws IOException {
+    public void createGame(GameRequest gameRequest) throws IOException {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, new GameRequest(user, game)));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, gameRequest));
 
     }
 
@@ -47,9 +47,9 @@ public class ClientPresenterFacade {
 
     }
 
-    public void leaveGame(Game game, User user) throws IOException {
+    public void leaveGame(GameRequest gameRequest) throws IOException {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, new GameRequest(user, game)));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, gameRequest));
 
     }
 

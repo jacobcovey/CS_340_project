@@ -58,6 +58,10 @@ public class ClientFacade implements iClient {
 
     }
 
+    public Game getCurrentGame() {
+        return ClientModelRoot._instance.getCurrentGame();
+    }
+
     public User getUser() {
         return ClientModelRoot._instance.getUser();
     }

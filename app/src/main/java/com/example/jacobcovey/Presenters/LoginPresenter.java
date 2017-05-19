@@ -3,9 +3,12 @@ package com.example.jacobcovey.Presenters;
 import android.os.AsyncTask;
 
 import com.example.jacobcovey.Views.ILoginView;
+import com.example.jacobcovey.communication.Poller;
+import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
+import java.util.Timer;
 
 import shared.classes.User;
 
@@ -21,6 +24,8 @@ public class LoginPresenter implements ILoginPresenter {
 
     public LoginPresenter() {
         cpf = new ClientPresenterFacade();
+        Timer timer = new Timer();
+        timer.schedule(new Poller(), 0, 10000);
     }
 
     @Override
@@ -73,6 +78,7 @@ public class LoginPresenter implements ILoginPresenter {
             if (success) {
 //                cpf.notifyObservers();
                 loginView.navToGameListScreenActivity();
+                cpf.setState(ClientModelRoot.State.GAMELIST);
             }
         }
     }
@@ -97,6 +103,7 @@ public class LoginPresenter implements ILoginPresenter {
             if (success) {
 //                cpf.notifyObservers();
                 loginView.navToGameListScreenActivity();
+                cpf.setState(ClientModelRoot.State.GAMELIST);
             }
         }
     }

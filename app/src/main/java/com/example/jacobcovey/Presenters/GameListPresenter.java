@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import shared.classes.Game;
+import shared.classes.GameRequest;
 import shared.classes.User;
 
 /**
@@ -43,7 +44,8 @@ public class GameListPresenter implements IGameListPresenter, Observer {
     public void joinGame(Game game) {
         User user = cpf.getUser();
         try {
-            cpf.joinGame(game, user);
+            GameRequest gameRequest = new GameRequest(user, game);
+            cpf.joinGame(gameRequest);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
