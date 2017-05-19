@@ -3,6 +3,9 @@ package com.example.jacobcovey.communication;
 import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 import shared.interfaces.iServer;
+
+import java.io.IOError;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -16,12 +19,14 @@ public class ServerProxy implements iServer {
     private ServerProxy() {}
 
     @Override
-    public void executeCommand(CommandData commandData) {
+    public void executeCommand(CommandData commandData) throws IOException {
         CommandManager manager = CommandManager._instance;
         List<CommandData> commands = ClientCommunicator.sendToServer(commandData);
         if (commands != null) {
+            iCommand command;
             for (CommandData data : commands) {
-                manager.createCommand(data);
+                command = manager.createCommand(data);
+                command.execute();
             }
         }
 

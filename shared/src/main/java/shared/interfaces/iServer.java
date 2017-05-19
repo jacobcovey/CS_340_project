@@ -1,5 +1,7 @@
 package shared.interfaces;
 
+import java.io.IOException;
+
 import shared.classes.CommandData;
 
 /**
@@ -8,6 +10,6 @@ import shared.classes.CommandData;
 
 public interface iServer {
 
-    public void executeCommand(CommandData commandData);
+    public void executeCommand(CommandData commandData) throws IOException;
 
 }

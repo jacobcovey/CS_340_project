@@ -1,5 +1,6 @@
 package com.example.jacobcovey.communication;
 
+import com.example.jacobcovey.commands.ErrorCommand;
 import com.example.jacobcovey.commands.GameJoinedCommand;
 import com.example.jacobcovey.commands.GameLeftCommand;
 import com.example.jacobcovey.commands.GameStartedCommand;
@@ -41,6 +42,8 @@ public class CommandManager implements iCommandManager {
                 return new UpdateGameListCommand(data);
             case UPDATECURRENTGAME:
                 return new UpdateCurrentGameCommand(data);
+            case ERROR:
+                return new ErrorCommand(data);
             default:
                 return null;
         }

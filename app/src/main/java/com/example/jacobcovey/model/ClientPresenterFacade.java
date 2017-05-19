@@ -2,6 +2,8 @@ package com.example.jacobcovey.model;
 
 import com.example.jacobcovey.communication.ServerProxy;
 
+import java.io.IOError;
+import java.io.IOException;
 import java.util.List;
 import java.util.Observer;
 
@@ -16,37 +18,37 @@ import shared.classes.User;
 
 public class ClientPresenterFacade {
 
-    public void login(User user) {
+    public void login(User user) throws IOException {
         
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LOGIN, user));
 
     }
 
-    public void register(User user) {
+    public void register(User user) throws IOException {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.REGISTER, user));
 
     }
 
-    public void joinGame(Game game, User user) {
+    public void joinGame(Game game, User user) throws IOException {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, new GameRequest(user, game)));
 
     }
 
-    public void createGame(Game game, User user) {
+    public void createGame(Game game, User user) throws IOException {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, new GameRequest(user, game)));
 
     }
 
-    public void startGame(Game game) {
+    public void startGame(Game game) throws IOException {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.STARTGAME, game));
 
     }
 
-    public void leaveGame(Game game, User user) {
+    public void leaveGame(Game game, User user) throws IOException {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, new GameRequest(user, game)));
 
