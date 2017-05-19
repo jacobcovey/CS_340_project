@@ -30,7 +30,7 @@ public class ClientFacade implements iClient {
     public void setUser(User user) {
 
         ClientModelRoot._instance.setUser(user);
-        ClientModelRoot._instance.notifyAll();
+        ClientModelRoot._instance.notifyObservers();
 
     }
 
@@ -38,7 +38,7 @@ public class ClientFacade implements iClient {
     public void setGameList(List<Game> gameList) {
 
         ClientModelRoot._instance.setGameList(gameList);
-        ClientModelRoot._instance.notifyAll();
+        ClientModelRoot._instance.notifyObservers();
 
     }
 
@@ -46,7 +46,7 @@ public class ClientFacade implements iClient {
     public void setColor(String color) {
 
         ClientModelRoot._instance.setColor(color);
-        ClientModelRoot._instance.notifyAll();
+        ClientModelRoot._instance.notifyObservers();
 
     }
 
@@ -54,7 +54,7 @@ public class ClientFacade implements iClient {
     public void setCurrentGame(Game game) {
 
         ClientModelRoot._instance.setCurrentGame(game);
-        ClientModelRoot._instance.notifyAll();
+        ClientModelRoot._instance.notifyObservers();
 
     }
 

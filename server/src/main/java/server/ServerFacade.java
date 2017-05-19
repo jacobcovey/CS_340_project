@@ -53,7 +53,7 @@ public class ServerFacade {
         Set<User> theUsers = getUsers();
         for (User u : theUsers) {
             if (username.equals(u.getUsername())) {
-                if (password == u.getPassword()) {
+                if (password.equals(u.getPassword())) {
                     return u;
                 }
             }
