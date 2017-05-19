@@ -23,7 +23,7 @@ public class ClientFacade implements iClient {
     public void setState(ClientModelRoot.State state) {
 
         ClientModelRoot._instance.setCurrentState(state);
-        
+
     }
 
     @Override
@@ -58,4 +58,7 @@ public class ClientFacade implements iClient {
 
     }
 
+    public User getUser() {
+        return ClientModelRoot._instance.getUser();
+    }
 }

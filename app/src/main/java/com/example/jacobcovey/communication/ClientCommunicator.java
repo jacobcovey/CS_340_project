@@ -1,5 +1,6 @@
 package com.example.jacobcovey.communication;
 
+import com.example.jacobcovey.model.ClientFacade;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -34,6 +35,8 @@ public class ClientCommunicator {
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
 
             http.setRequestMethod("POST");
+            String token = ClientFacade._instance.getUser().getAuthToken();
+            http.setRequestProperty("authorization", token);
             http.setDoOutput(true);
 
             OutputStreamWriter os = new OutputStreamWriter(http.getOutputStream());
