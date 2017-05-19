@@ -4,6 +4,7 @@ import android.widget.Switch;
 
 import com.example.jacobcovey.model.ClientFacade;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,12 +35,20 @@ public class Poller extends TimerTask {
             case LOGIN:
                 return;
             case GAMELIST:
-                ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.UPDATEGAMELIST, "Game List Please"));
+                try {
+                    ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.UPDATEGAMELIST, "Game List Please"));
+                } catch (IOException e) {
+                    System.err.println(e.getMessage());
+                }
                 return;
             case GAMECREATION:
                 return;
             case GAMELOBBY:
-                ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.UPDATECURRENTGAME, "Player List Please"));
+                try {
+                    ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.UPDATECURRENTGAME, "Player List Please"));
+                } catch (IOException e) {
+                    System.err.println(e.getMessage());
+                }
                 return;
             case GAMESTARTED:
                 return;
