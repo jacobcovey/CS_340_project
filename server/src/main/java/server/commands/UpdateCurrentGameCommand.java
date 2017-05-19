@@ -1,12 +1,16 @@
 package server.commands;
 
+import java.util.List;
+
+import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.interfaces.iCommand;
 
 /**
  * Created by Riley on 5/17/2017.
  */
 
-public class UpdateCurrentGameCommand {
+public class UpdateCurrentGameCommand implements iCommand {
     private Game mGame;
 
     public Game getGame() {
@@ -15,5 +19,14 @@ public class UpdateCurrentGameCommand {
 
     public void setGame(Game game) {
         mGame = game;
+    }
+
+    public UpdateCurrentGameCommand(CommandData data) {
+
+    }
+
+    @Override
+    public List<CommandData> execute() {
+        return null;
     }
 }

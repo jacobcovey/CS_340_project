@@ -8,12 +8,13 @@ import shared.classes.CommandData;
 import shared.classes.CommandData.Type;
 import shared.classes.Game;
 import shared.classes.User;
+import shared.interfaces.iCommand;
 
 /**
  * Created by Riley on 5/18/2017.
  */
 
-public class CreateGameCommand {
+public class CreateGameCommand implements iCommand {
     private Game mGame;
     private User mCreator;
 
@@ -31,6 +32,10 @@ public class CreateGameCommand {
 
     public void setCreator(User creator) {
         mCreator = creator;
+    }
+
+    public CreateGameCommand(CommandData data) {
+        mGame = (Game) data.getData();
     }
 
     public List<CommandData> execute() {
