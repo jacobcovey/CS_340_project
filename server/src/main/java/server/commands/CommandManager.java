@@ -1,31 +1,35 @@
 package server.commands;
 
+import com.google.gson.Gson;
+
 import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 import shared.interfaces.iCommandManager;
 
 public class CommandManager implements iCommandManager {
 
+    private Gson gson = new Gson();
+
     @Override
-    public iCommand createCommand(CommandData data) {
+    public iCommand createCommand(CommandData data, String s) {
         CommandData.Type type = data.getType();
         switch(type) {
             case CREATEGAME:
-                return new CreateGameCommand(data);
+                return gson.fromJson(s, CreateGameCommand.class);
             case JOINGAME:
-                return new JoinGameCommand(data);
+                return gson.fromJson(s, JoinGameCommand.class);
             case LEAVEGAME:
-                return new LeaveGameCommand(data);
+                return gson.fromJson(s, LeaveGameCommand.class);
             case LOGIN:
-                return new LoginCommand(data);
+                return gson.fromJson(s, LoginCommand.class);
             case REGISTER:
-                return new RegisterCommand(data);
+                return gson.fromJson(s, RegisterCommand.class);
             case STARTGAME:
-                return new StartGameCommand(data);
+                return gson.fromJson(s, StartGameCommand.class);
             case UPDATECURRENTGAME:
-                return new UpdateCurrentGameCommand(data);
+                return gson.fromJson(s, UpdateCurrentGameCommand.class);
             case UPDATEGAMELIST:
-                return new UpdateGameListCommand(data);
+                return gson.fromJson(s, UpdateGameListCommand.class);
             default:
                 return null;
         }

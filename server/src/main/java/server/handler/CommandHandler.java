@@ -33,10 +33,10 @@ public class CommandHandler implements HttpHandler {
             String serialized = readString(reqBody);
             CommandData commandData = gson.fromJson(serialized, CommandData.class);
             CommandManager manager = new CommandManager();
-            iCommand command = manager.createCommand(commandData);
+            iCommand command = manager.createCommand(commandData, serialized);
             List<CommandData> result = command.execute();
             String toClient = gson.toJson(result);
-
+            System.out.println(result.toString());
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();
             writeString(toClient, respBody);

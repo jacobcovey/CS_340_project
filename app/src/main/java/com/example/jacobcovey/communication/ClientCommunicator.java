@@ -48,7 +48,7 @@ public class ClientCommunicator {
             os.close();
 
             http.connect();
-           InputStreamReader is = new InputStreamReader(http.getInputStream());
+            InputStreamReader is = new InputStreamReader(http.getInputStream());
             Type listType = new TypeToken<ArrayList<CommandData>>(){}.getType();
             data = (List<CommandData>) gson.fromJson(is, listType);
             System.out.println(data.toString());
@@ -57,15 +57,5 @@ public class ClientCommunicator {
             e.printStackTrace();
         }
         return data;
-    }
-    private static String readString(InputStream is) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        InputStreamReader sr = new InputStreamReader(is);
-        char[] buf = new char[1024];
-        int len;
-        while ((len = sr.read(buf)) > 0) {
-            sb.append(buf, 0, len);
-        }
-        return sb.toString();
     }
 }
