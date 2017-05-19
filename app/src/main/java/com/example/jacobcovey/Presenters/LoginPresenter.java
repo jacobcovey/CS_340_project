@@ -3,6 +3,8 @@ package com.example.jacobcovey.Presenters;
 import com.example.jacobcovey.Views.ILoginView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
+import java.io.IOException;
+
 import shared.classes.User;
 
 /**
@@ -32,7 +34,11 @@ public class LoginPresenter implements ILoginPresenter {
 
         User user = new User(username,password);
 
-        cpf.login(user);
+        try {
+            cpf.login(user);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
         loginView.navToGameListScreenActivity();
     }
@@ -44,8 +50,11 @@ public class LoginPresenter implements ILoginPresenter {
 
         User user = new User(username,password);
 
-        cpf.register(user);
-
+        try {
+            cpf.register(user);
+        } catch (IOException e) {
+            System.out.printf(e.getMessage());
+        }
         loginView.navToGameListScreenActivity();
     }
 }

@@ -3,6 +3,8 @@ package com.example.jacobcovey.Presenters;
 import com.example.jacobcovey.Views.IGameOptionsView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
+import java.io.IOException;
+
 import shared.classes.Game;
 import shared.classes.User;
 
@@ -35,7 +37,11 @@ public class GameOptionsPresenter implements IGameOptionsPresenter {
 
         Game game = new Game(gameName,numberOfPlayers,user);
 
-        cpf.createGame(game);
+        try {
+            cpf.createGame(game, user);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());;
+        }
 //
 //        Game createdGame = cpf.getGame();
 //

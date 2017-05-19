@@ -3,11 +3,13 @@ package com.example.jacobcovey.Presenters;
 import com.example.jacobcovey.Views.IGameListView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import shared.classes.Game;
+import shared.classes.User;
 
 /**
  * Created by jacobcovey on 5/15/17.
@@ -39,7 +41,12 @@ public class GameListPresenter implements IGameListPresenter, Observer {
 
     @Override
     public void joinGame(Game game) {
-        cpf.joinGame(game);
+        User user = cpf.getUser()
+        try {
+            cpf.joinGame(game, user);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         cpf.removeObserver(this);
         gameListView.navToGameLobbyScreenActivity();
     }
