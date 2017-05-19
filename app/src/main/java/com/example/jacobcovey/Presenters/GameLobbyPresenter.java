@@ -145,6 +145,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             if (success) {
 //                cpf.notifyObservers();
                 cpf.setState(ClientModelRoot.State.GAMELOBBY);
+
             }
         }
     }

@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.jacobcovey.Activities.GameBoardActivity;
 import com.example.jacobcovey.Activities.GameListActivity;
 import com.example.jacobcovey.Presenters.GameLobbyPresenter;
 import com.example.jacobcovey.Presenters.IGameLobbyPresenter;
@@ -158,8 +158,8 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
 
     @Override
     public void navToGameBoardScreenActivity() {
-        Toast.makeText(getActivity(), "Game will now begin",
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), GameBoardActivity.class);
+        startActivity(intent);
     }
 
     @Override
