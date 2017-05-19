@@ -45,7 +45,7 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
 
 //        mNumberOfPlayersEditText = (EditText) v.findViewById(R.id.create_number_of_players_textEdit);
 
-        mNumberOfPlayersSpinner = (Spinner) v.findViewById(R.id.create_number_of_players_textEdit);
+        mNumberOfPlayersSpinner = (Spinner) v.findViewById(R.id.create_number_of_players_spinners);
 
         mCreateButton = (Button) v.findViewById(R.id.create_create_button);
         mCreateButton.setOnClickListener(new View.OnClickListener() {
@@ -69,16 +69,13 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
     }
 
     @Override
-//    public String getNumPlayers() {
-//        return mNumberOfPlayersEditText.getText().toString();
-//    }
     public String getNumPlayers() {
-        return mNumberOfPlayersSpinner.getSelectedItem().toString()
+        return mNumberOfPlayersSpinner.getSelectedItem().toString();
     }
 
     @Override
     public void setNumPlayers(String numPlayers) {
-//        this.mNumberOfPlayersEditText.setText(numPlayers);
+        this.mNumberOfPlayersSpinner.setSelection(0);
     }
 
     @Override

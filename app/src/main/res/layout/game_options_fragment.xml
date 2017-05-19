@@ -79,11 +79,12 @@
             android:layout_height="fill_parent"
             android:layout_weight=".3"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/create_number_of_players_textEdit"
+            <Spinner
+                android:id="@+id/create_number_of_players_spinners"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"/>
+                android:layout_marginLeft="12dp"
+                android:entries="@array/players_array"/>
         </RelativeLayout>
     </LinearLayout>
 
