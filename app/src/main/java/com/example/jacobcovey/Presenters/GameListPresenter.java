@@ -61,4 +61,18 @@ public class GameListPresenter implements IGameListPresenter, Observer {
         List<Game> games = cpf.getGameList();
         gameListView.updateGameList(games);
     }
+
+//    private class loginRequest extends AsyncTask<User, Integer, Void> {
+//
+//        @Override
+//        protected Void doInBackground(User... params) {
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//        }
+//    }
+
 }

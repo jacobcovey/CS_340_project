@@ -1,5 +1,7 @@
 package com.example.jacobcovey.Presenters;
 
+import android.os.AsyncTask;
+
 import com.example.jacobcovey.Views.ILoginView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
@@ -34,12 +36,8 @@ public class LoginPresenter implements ILoginPresenter {
 
         User user = new User(username,password);
 
-        try {
-            cpf.login(user);
-            loginView.navToGameListScreenActivity();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        loginRequest login = new loginRequest();
+        login.execute(user);
     }
 
     @Override
@@ -49,11 +47,51 @@ public class LoginPresenter implements ILoginPresenter {
 
         User user = new User(username,password);
 
-        try {
-            cpf.register(user);
-            loginView.navToGameListScreenActivity();
-        } catch (IOException e) {
-            System.out.printf(e.getMessage());
+        registerRequest regester = new registerRequest();
+        regester.execute(user);
+    }
+
+    private class loginRequest extends AsyncTask<User, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(User... params) {
+            try {
+                cpf.login(params[0]);
+            } catch (IOException e) {
+                System.out.printf(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                loginView.navToGameListScreenActivity();
+            }
+        }
+    }
+
+    private class registerRequest extends AsyncTask<User, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(User... params) {
+            try {
+                cpf.register(params[0]);
+            } catch (IOException e) {
+                System.out.printf(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                loginView.navToGameListScreenActivity();
+            }
         }
     }
 }
