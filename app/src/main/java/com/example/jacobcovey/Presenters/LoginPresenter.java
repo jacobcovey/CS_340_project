@@ -25,7 +25,7 @@ public class LoginPresenter implements ILoginPresenter {
     public LoginPresenter() {
         cpf = new ClientPresenterFacade();
         Timer timer = new Timer();
-        timer.schedule(new Poller(), 0, 10000);
+        timer.schedule(new Poller(), 0, 1000);
     }
 
     @Override
