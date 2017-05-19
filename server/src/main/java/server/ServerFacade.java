@@ -1,5 +1,6 @@
 package server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,7 +24,13 @@ public class ServerFacade {
     }
 
     public List<Game> getGameList() {
-        return serverModelRoot.getGameList();
+        List<Game> filteredGames = new ArrayList<>();
+        for (Game g : getGameList()) {
+            if (g.getPlayers().size() < g.getPlayerLimit()) {
+                filteredGames.add(g);
+            }
+        }
+        return filteredGames;
     }
 
     public Set<String> getAuthTokens() {
@@ -55,8 +62,7 @@ public class ServerFacade {
     }
 
     public User getUserByUserName(String userName, String password) {
-        Set<User> theUsers = getUsers();
-        for (User u : theUsers) {
+        for (User u : getUsers()) {
             if (userName.equals(u.getUsername())) {
                 return u;
             }
