@@ -41,7 +41,7 @@ public class GameListPresenter implements IGameListPresenter, Observer {
 
     @Override
     public void joinGame(Game game) {
-        User user = cpf.getUser()
+        User user = cpf.getUser();
         try {
             cpf.joinGame(game, user);
         } catch (IOException e) {
