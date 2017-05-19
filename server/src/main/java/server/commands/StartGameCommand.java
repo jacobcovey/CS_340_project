@@ -20,7 +20,7 @@ public class StartGameCommand implements iCommand {
     @Override
     public List<CommandData> execute() {
         List<CommandData> result = new ArrayList<>();
-        result.add(new CommandData(CommandData.Type.GAMESTARTED, null));
+        result.add(new CommandData(CommandData.Type.GAMESTARTED, data));
         return result;
     }
 }
