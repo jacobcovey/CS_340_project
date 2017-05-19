@@ -63,23 +63,27 @@ public class ServerFacade {
         }
         return null;
     }
-
     public Game addUserToGame(Game game, User user) {
-        List<Game> games = getGameList();
-        for (Game g : games) {
-            if (g.getId().equals(game.getId())) {
-                g.addPlayerToGame(user);
-                return g;
-            }
+        Game g = getGameById(game.getId());
+        if (g == null) {
+            return null;
         }
-        return null;
+        g.addPlayerToGame(user);
+        return g;
     }
 
     public Game removeUserFromGame(Game game, User user) {
-        List<Game> games = getGameList();
-        for (Game g : games) {
-            if (g.getId().equals(game.getId())) {
-                g.removePlayerFromGame(user);
+        Game g = getGameById(game.getId());
+        if (g == null) {
+            return null;
+        }
+        g.removePlayerFromGame(user);
+        return g;
+    }
+
+    public Game getGameById(String id) {
+        for (Game g : getGameList()) {
+            if (g.getId().equals(id)) {
                 return g;
             }
         }
