@@ -43,19 +43,20 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public void startGame() {
         Game currentGame = cpf.getGame();
 
-        try {
-            cpf.startGame(currentGame);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        startGameRequest startGame = new startGameRequest();
+        startGame.execute(currentGame);
         cpf.removeObserver(this);
-
-        gameLobbyView.navToGameBoardScreenActivity();
     }
 
     @Override
     public void leaveGame() {
-        gameLobbyView.navToGameListScreenActivity();
+        Game currentGame = cpf.getGame();
+        User currentUser = cpf.getUser();
+
+        GameRequest gameRequest = new GameRequest(currentUser,currentGame);
+
+        leaveGameRequest leaveGame = new leaveGameRequest();
+        leaveGame.execute(gameRequest);
     }
 
     @Override
@@ -147,4 +148,53 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             }
         }
     }
+
+    private class startGameRequest extends AsyncTask<Game, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Game... params) {
+            try {
+                cpf.startGame(params[0]);
+            } catch (IOException e) {
+                System.out.printf(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+//                cpf.notifyObservers();
+                cpf.setState(ClientModelRoot.State.GAMESTARTED);
+                gameLobbyView.navToGameBoardScreenActivity();
+            }
+        }
+    }
+
+    private class leaveGameRequest extends AsyncTask<GameRequest, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(GameRequest... params) {
+            try {
+                cpf.leaveGame(params[0]);
+            } catch (IOException e) {
+                System.out.printf(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+//                cpf.notifyObservers();
+                cpf.setState(ClientModelRoot.State.GAMELIST);
+                gameLobbyView.navToGameListScreenActivity();
+            }
+        }
+    }
+
 }
