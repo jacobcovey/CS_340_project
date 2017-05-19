@@ -21,14 +21,7 @@ import shared.classes.Game;
 class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
 
     private List<Game> games;
-//
-//    private IGameListClickListener mGameListClickListener;
-//
-//    public void setGameListClickListener(IGameListClickListener l) {
-//        mGameListClickListener = l;
-//    }
 
-    //    public static class ViewHolder extends RecyclerView.ViewHolder {
     protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mGameNameTextView;
@@ -72,13 +65,6 @@ class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
         return viewHolder;
     }
 
-    //    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_game, parent, false);
-//        view.setBackground(parent.getResources().getDrawable(R.drawable.border));
-//        ViewHolder viewHolder = new ViewHolder(view);
-//        return viewHolder;
-//    }
 
 
     @Override
@@ -86,20 +72,11 @@ class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
         Game currentGame = games.get(position);
         GameListAdapter.ViewHolder vh = (GameListAdapter.ViewHolder)holder;
         vh.mCreatorTextView.setText(currentGame.getOwner().getUsername());
-        vh.mNumberOfPlayersTextView.setText( Integer.toString(currentGame.getPlayers().size()) + "/" + Integer.toString(games.size()) );
+        vh.mNumberOfPlayersTextView.setText( Integer.toString(currentGame.getPlayers().size()) + "/" +  Integer.toString(currentGame.getPlayerLimit()) );
         vh.mGameNameTextView.setText(currentGame.getName());
         vh.game = currentGame;
     }
 
-//    @Override
-//    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//        Game currentGame = games.get(position);
-//        GameListAdapter.ViewHolder vh = (GameListAdapter.ViewHolder)holder;
-//        vh.mCreatorTextView.setText(currentGame.getOwner().getUsername());
-//        vh.mNumberOfPlayersTextView.setText( Integer.toString(currentGame.getPlayers().size()) + "/" + Integer.toString(games.size()) );
-//        vh.mGameNameTextView.setText(currentGame.getName());
-//        vh.game = currentGame;
-//    }
 
     @Override
     public int getItemCount() {

@@ -52,21 +52,29 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
 
     private IGameLobbyPresenter gameLobbyPresenter;
 
+    private Boolean unusedhidden = false;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        gameLobbyPresenter = new GameLobbyPresenter();
+        gameLobbyPresenter.setGameLobbyView(this);
+
         if (getActivity().getIntent().hasExtra("gameId")) {
+            gameLobbyPresenter.setToCurrentState();
             String gameId = (String) getActivity().getIntent().getExtras().get("gameId");
             gameLobbyPresenter.setCurrentGame(gameId);
+            gameLobbyPresenter.joinCurrentGame();
         }
 
         playerBoxStack = new Stack<LinearLayout>();
         playerNameTextViewList = new ArrayList<TextView>();
         playerNameList = new ArrayList<String>();
 
-        gameLobbyPresenter = new GameLobbyPresenter();
-        gameLobbyPresenter.setGameLobbyView(this);
+
     }
 
     @Override
@@ -109,14 +117,14 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
                 gameLobbyPresenter.leaveGame();
             }
         });
-//        --------------Temporary
-//        gameLobbyPresenter.update();
+
+        gameLobbyPresenter.setViewCreated(true);
         return v;
-//        --------------------------
     }
 
     @Override
     public void setPlayerList(List<String> names) {
+        playerNameList = new ArrayList<String>();
         for (String name: names) {
             playerNameList.add(name);
         }
@@ -124,14 +132,21 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
     }
 
     @Override
-    public void hideUnusedPlayers(int numGamePlayers) {
-        int numToHide = MAXNUMBEROFPLAYERS - numGamePlayers;
+    public void hideUnusedPlayers(final int numGamePlayers) {
+        if (unusedhidden == false) {
+            unusedhidden = true;
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    int numToHide = MAXNUMBEROFPLAYERS - numGamePlayers;
 
-        Stack<LinearLayout> tempStack = playerBoxStack;
+                    Stack<LinearLayout> tempStack = playerBoxStack;
 
-        for (int x = 0; x < numToHide; x++) {
-            LinearLayout box = tempStack.pop();
-            box.setVisibility(View.GONE);
+                    for (int x = 0; x < numToHide; x++) {
+                        LinearLayout box = tempStack.pop();
+                        box.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     }
 
@@ -148,19 +163,32 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
     }
 
     @Override
-    public void setGameName(String gameName) {
-        mGameName.setText(gameName);
+    public void setGameName(final String gameName) {
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                mGameName.setText(gameName);
+            }
+        });
     }
 
     @Override
-    public void setGameCreator(String gameCreator) {
-        mGameCreatorName.setText(gameCreator);
+    public void setGameCreator(final String gameCreator) {
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                mGameCreatorName.setText("Created by: " + gameCreator);
+            }
+        });
     }
 
     public void writePlayerNames() {
-        for (int x = 0; x < playerNameList.size(); x++ ) {
-            TextView textView = playerNameTextViewList.get(x);
-            textView.setText(playerNameList.get(x));
-        }
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                for (int x = 0; x < playerNameList.size(); x++ ) {
+                    TextView textView = playerNameTextViewList.get(x);
+                    textView.setText(playerNameList.get(x));
+                }
+            }
+        });
+
     }
 }

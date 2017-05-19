@@ -81,10 +81,17 @@ public class GameListFragment extends Fragment implements IGameListView {
     }
 
     @Override
-    public void updateGameList(List<Game> games) {
-        GameListAdapter gameListAdapter = (GameListAdapter) mGamesRecyclerView.getAdapter();
-        gameListAdapter.updateGames(games);
-        gameListAdapter.notifyDataSetChanged();
+    public void updateGameList(final List<Game> games) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                GameListAdapter gameListAdapter = (GameListAdapter) mGamesRecyclerView.getAdapter();
+                gameListAdapter.updateGames(games);
+                gameListAdapter.notifyDataSetChanged();
+            }
+        });
+
+
     }
 
     @Override
