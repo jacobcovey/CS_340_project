@@ -13,19 +13,19 @@ import shared.interfaces.iCommand;
  * Created by Riley on 5/17/2017.
  */
 
-public class RegisterCommand extends BaseCommand implements iCommand {
+public class RegisterCommand implements iCommand {
     private User data;
 
     public List<CommandData> execute() {
         // authenticate
-        User myUser = serverFacade.getUserByUserName(data.getUsername(), data.getPassword());
+        User myUser = ServerFacade._instance.getUserByUserName(data.getUsername(), data.getPassword());
         ArrayList<CommandData> dList = new ArrayList<>();
 
 
         // if the user is in the database then send client the user object
         if (myUser == null) {
             // make the new user and return user object to client
-            serverFacade.addUser(data);
+            ServerFacade._instance.addUser(data);
             //send myuser to the client
             CommandData successCmd = new CommandData(Type.LOGINSUCCESSFUL, data);
             dList.add(successCmd);

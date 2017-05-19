@@ -21,13 +21,12 @@ public class CreateGameCommand implements iCommand {
     public List<CommandData> execute() {
         Game game = data.getGame();
         User user = data.getUser();
-        ServerFacade myFacade = new ServerFacade();
-        myFacade.addGame(game);
-        Game mygame = myFacade.addUserToGame(game, user);
+        ServerFacade._instance.addGame(game);
+        Game mygame = ServerFacade._instance.addUserToGame(game, user);
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (mygame != null) {
-            CommandData successCmd = new CommandData(Type.UPDATEGAMELIST, mygame);
+            CommandData successCmd = new CommandData(Type.GAMEJOINED, mygame);
             dList.add(successCmd);
         } else {
             CommandData unSuccessCmd = new CommandData(Type.ERROR, "FAILED TO CREATE GAME");

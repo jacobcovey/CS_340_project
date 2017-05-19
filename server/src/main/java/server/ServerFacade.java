@@ -10,6 +10,10 @@ import shared.classes.User;
 
 public class ServerFacade {
 
+    public static ServerFacade _instance = new ServerFacade();
+
+    private ServerFacade() {}
+
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
 
     // FIXME needs to be a list of commands
@@ -24,7 +28,7 @@ public class ServerFacade {
     }
 
     public List<Game> getGameList() {
-        return getGameList();
+        return serverModelRoot.getGameList();
     }
 
     public Set<String> getAuthTokens() {
