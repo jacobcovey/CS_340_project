@@ -1,5 +1,6 @@
 package server.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import shared.classes.CommandData;
@@ -22,11 +23,12 @@ public class StartGameCommand implements iCommand {
     }
 
     public StartGameCommand(CommandData data) {
-
     }
 
     @Override
     public List<CommandData> execute() {
-        return null;
+        List<CommandData> result = new ArrayList<>();
+        result.add(new CommandData(CommandData.Type.GAMESTARTED, null));
+        return result;
     }
 }

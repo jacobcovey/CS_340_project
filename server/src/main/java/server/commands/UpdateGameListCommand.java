@@ -3,7 +3,6 @@ package server.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import server.ServerFacade;
 import shared.classes.CommandData;
 import shared.classes.Game;
 import shared.interfaces.iCommand;
