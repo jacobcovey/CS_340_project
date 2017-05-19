@@ -19,8 +19,10 @@ public class ServerProxy implements iServer {
     public void executeCommand(CommandData commandData) {
         CommandManager manager = CommandManager._instance;
         List<CommandData> commands = ClientCommunicator.sendToServer(commandData);
-        for (CommandData data : commands ) {
-            manager.createCommand(data);
+        if (commands != null) {
+            for (CommandData data : commands) {
+                manager.createCommand(data);
+            }
         }
 
     }
