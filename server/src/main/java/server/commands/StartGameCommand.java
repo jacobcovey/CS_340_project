@@ -12,15 +12,7 @@ import shared.interfaces.iCommand;
  */
 
 public class StartGameCommand implements iCommand {
-    private Game mGame;
-
-    public Game getGame() {
-        return mGame;
-    }
-
-    public void setGame(Game game) {
-        mGame = game;
-    }
+    private Game data;
 
     public StartGameCommand(CommandData data) {
     }

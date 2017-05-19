@@ -7,6 +7,7 @@ import server.ServerFacade;
 import shared.classes.CommandData;
 import shared.classes.CommandData.Type;
 import shared.classes.Game;
+import shared.classes.GameRequest;
 import shared.classes.User;
 import shared.interfaces.iCommand;
 
@@ -16,16 +17,13 @@ import shared.interfaces.iCommand;
 
 public class LeaveGameCommand implements iCommand {
 
-    private User mUser;
-    private Game mGame;
-
-    public LeaveGameCommand(CommandData data) {
-        mGame = (Game) data.getData();
-    }
+    private GameRequest data;
 
     public List<CommandData> execute() {
+        Game game = data.getGame();
+        User user = data.getUser();
         ServerFacade myFacade = new ServerFacade();
-        Game mygame = myFacade.removeUserFromGame(mGame, mUser);
+        Game mygame = myFacade.removeUserFromGame(game, user);
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (mygame != null) {

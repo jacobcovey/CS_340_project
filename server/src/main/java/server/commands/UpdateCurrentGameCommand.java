@@ -12,23 +12,15 @@ import shared.interfaces.iCommand;
  */
 
 public class UpdateCurrentGameCommand extends BaseCommand implements iCommand {
-    private Game mGame;
-
-    public Game getGame() {
-        return mGame;
-    }
-
-    public void setGame(Game game) {
-        mGame = game;
-    }
+    private Game data;
 
     public UpdateCurrentGameCommand(CommandData data) {
-        mGame = (Game) data.getData();
+        this.data = (Game) data.getData();
     }
 
     @Override
     public List<CommandData> execute() {
-        Game g =  serverFacade.getGameById(mGame.getId());
+        Game g =  serverFacade.getGameById(data.getId());
         CommandData result;
         if (g == null) {
             result = new CommandData(CommandData.Type.ERROR, "Game not found");
