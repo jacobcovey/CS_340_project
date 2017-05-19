@@ -1,5 +1,6 @@
 package com.example.jacobcovey.communication;
 
+import android.os.AsyncTask;
 import android.widget.Switch;
 
 import com.example.jacobcovey.model.ClientFacade;
@@ -29,32 +30,39 @@ public class Poller extends TimerTask {
     }
 
     public void poll() {
+        PollAsync asyncPoller = new PollAsync();
 
         switch (ClientFacade._instance.getState()) {
 
             case LOGIN:
                 return;
             case GAMELIST:
-                try {
-                    ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.UPDATEGAMELIST, "Game List Please"));
-                } catch (IOException e) {
-                    System.err.println(e.getMessage());
-                }
+                asyncPoller.execute(new CommandData(CommandData.Type.UPDATEGAMELIST, "Game List Please"));
                 return;
             case GAMECREATION:
                 return;
             case GAMELOBBY:
-                try {
-                    ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.UPDATECURRENTGAME, "Player List Please"));
-                } catch (IOException e) {
-                    System.err.println(e.getMessage());
-                }
+                asyncPoller.execute(new CommandData(CommandData.Type.UPDATECURRENTGAME, "Player List Please"));
                 return;
             case GAMESTARTED:
                 return;
 
         }
 
+    }
+
+
+    private class PollAsync extends AsyncTask<CommandData, Integer, Void> {
+
+        @Override
+        protected Void doInBackground(CommandData... commandData) {
+            try {
+                ServerProxy._instance.executeCommand(commandData[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
 }
