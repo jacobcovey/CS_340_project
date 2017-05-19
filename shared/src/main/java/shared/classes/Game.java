@@ -61,4 +61,16 @@ public class Game {
         this.id = id;
     }
 
+    public void addPlayerToGame(User user) {
+        this.players.add(user);
+    }
+
+    public void removePlayerFromGame(User user) {
+        for (User u : players) {
+            if (u.getUsername().equals(user.getUsername())) {
+                players.remove(u);
+                return;
+            }
+        }
+    }
 }
