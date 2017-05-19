@@ -10,18 +10,22 @@ public class CommandManager implements iCommandManager {
     public iCommand createCommand(CommandData data) {
         CommandData.Type type = data.getType();
         switch(type) {
+            case CREATEGAME:
+                return new CreateGameCommand(data);
+            case JOINGAME:
+                return new JoinGameCommand(data);
+            case LEAVEGAME:
+                return new LeaveGameCommand(data);
             case LOGIN:
                 return new LoginCommand(data);
             case REGISTER:
-                return null;
-            case JOINGAME:
-                return null;
-            case CREATEGAME:
-                return null;
+                return new RegisterCommand(data);
             case STARTGAME:
-                return null;
-            case LEAVEGAME:
-                return null;
+                return new StartGameCommand(data);
+            case UPDATECURRENTGAME:
+                return new UpdateCurrentGameCommand(data);
+            case UPDATEGAMELIST:
+                return new UpdateGameListCommand(data);
             default:
                 return null;
         }
