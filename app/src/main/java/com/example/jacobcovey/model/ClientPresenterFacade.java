@@ -81,4 +81,8 @@ public class ClientPresenterFacade {
         ClientModelRoot._instance.deleteObserver(observer);
     }
 
+    public void notifyObservers() {
+        ClientModelRoot._instance.notifyAll();
+    }
+
 }
