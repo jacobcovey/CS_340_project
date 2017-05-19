@@ -183,12 +183,15 @@ public class GameLobbyFragment extends Fragment implements IGameLobbyView {
     public void writePlayerNames() {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                for (int x = 0; x < playerNameList.size(); x++ ) {
+                for (int x = 0; x < playerNameTextViewList.size(); x++ ) {
                     TextView textView = playerNameTextViewList.get(x);
-                    textView.setText(playerNameList.get(x));
+                    if (playerNameList.size() > x) {
+                        textView.setText(playerNameList.get(x));
+                    } else {
+                        textView.setText("Waiting for Player...");
+                    }
                 }
             }
         });
-
     }
 }
