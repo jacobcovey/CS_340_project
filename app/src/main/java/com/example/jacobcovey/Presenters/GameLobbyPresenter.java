@@ -22,6 +22,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     private ClientPresenterFacade cpf;
 
     public GameLobbyPresenter() {
+        cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
     }
 

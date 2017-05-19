@@ -70,6 +70,7 @@ public class ClientPresenterFacade {
     }
 
     public void addObserver(Observer observer) {
+
         ClientModelRoot._instance.addObserver(observer);
     }
 
