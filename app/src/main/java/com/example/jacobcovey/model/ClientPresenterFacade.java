@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.classes.GameRequest;
 import shared.classes.User;
 
 /**
@@ -27,15 +28,15 @@ public class ClientPresenterFacade {
 
     }
 
-    public void joinGame(Game game) {
+    public void joinGame(Game game, User user) {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.JOINGAME, new GameRequest(user, game)));
 
     }
 
-    public void createGame(Game game) {
+    public void createGame(Game game, User user) {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CREATEGAME, new GameRequest(user, game)));
 
     }
 
@@ -45,9 +46,9 @@ public class ClientPresenterFacade {
 
     }
 
-    public void leaveGame(Game game) {
+    public void leaveGame(Game game, User user) {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, new GameRequest(user, game)));
 
     }
 
