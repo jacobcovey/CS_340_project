@@ -7,6 +7,7 @@ import com.example.jacobcovey.commands.GameStartedCommand;
 import com.example.jacobcovey.commands.LoginSuccessfulCommand;
 import com.example.jacobcovey.commands.UpdateCurrentGameCommand;
 import com.example.jacobcovey.commands.UpdateGameListCommand;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -22,28 +23,30 @@ import shared.interfaces.iCommandManager;
 
 public class CommandManager implements iCommandManager {
 
+    private Gson gson = new Gson();
+
     public static CommandManager _instance = new CommandManager();
 
     private CommandManager() {}
 
     @Override
-    public iCommand createCommand(CommandData data) {
+    public iCommand createCommand(CommandData data, String s) {
 
         switch (data.getType()) {
             case LOGINSUCCESSFUL:
-                return new LoginSuccessfulCommand(data);
+                return gson.fromJson(s, LoginSuccessfulCommand.class);
             case GAMEJOINED:
-                return new GameJoinedCommand(data);
+                return gson.fromJson(s, GameJoinedCommand.class);
             case GAMELEFT:
-                return new GameLeftCommand(data);
+                return gson.fromJson(s, GameLeftCommand.class);
             case GAMESTARTED:
-                return new GameStartedCommand(data);
+                return gson.fromJson(s, GameStartedCommand.class);
             case UPDATEGAMELIST:
-                return new UpdateGameListCommand(data);
+                return gson.fromJson(s, UpdateGameListCommand.class);
             case UPDATECURRENTGAME:
-                return new UpdateCurrentGameCommand(data);
+                return gson.fromJson(s, UpdateCurrentGameCommand.class);
             case ERROR:
-                return new ErrorCommand(data);
+                return gson.fromJson(s, ErrorCommand.class);
             default:
                 return null;
         }

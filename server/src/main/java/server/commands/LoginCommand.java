@@ -14,17 +14,18 @@ import shared.interfaces.iCommand;
  */
 
 public class LoginCommand implements iCommand {
-    private User mUser;
+    private User data;
 
     public LoginCommand(CommandData data) {
-        mUser = (User) data.getData();
+
+
     }
 
     @Override
     public List<CommandData> execute() {
 //        authenticate
         ServerFacade myFacade = new ServerFacade();
-        User myUser = myFacade.authenticateUser(mUser.getUsername(), mUser.getPassword());
+        User myUser = myFacade.authenticateUser(data.getUsername(), data.getPassword());
         ArrayList<CommandData> dList = new ArrayList<>();
 
         // if the user is in the database then send client the user object
@@ -35,7 +36,7 @@ public class LoginCommand implements iCommand {
 
         } else {
             // send the userobject to the client
-            CommandData successCmd = new CommandData(Type.LOGINSUCCESSFUL, mUser);
+            CommandData successCmd = new CommandData(Type.LOGINSUCCESSFUL, data);
             dList.add(successCmd);
 
         }
@@ -43,10 +44,10 @@ public class LoginCommand implements iCommand {
     }
 
     public User getUser() {
-        return mUser;
+        return data;
     }
 
     public void setUser(User user) {
-        mUser = user;
+        data = user;
     }
 }
