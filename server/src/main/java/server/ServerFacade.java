@@ -93,4 +93,14 @@ public class ServerFacade {
         }
         return null;
     }
+
+    public List<Game> getFilteredGamesList() {
+        List<Game> filteredGames = new ArrayList<>();
+        for (Game g : getGameList()) {
+            if (g.getPlayerLimit() > g.getPlayers().size()) {
+                filteredGames.add(g);
+            }
+        }
+        return filteredGames;
+    }
 }

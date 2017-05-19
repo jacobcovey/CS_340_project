@@ -12,7 +12,7 @@ public class UpdateGameListCommand implements iCommand {
 
     @Override
     public List<CommandData> execute() {
-        List<Game> gameList = ServerFacade._instance.getGameList();
+        List<Game> gameList = ServerFacade._instance.getFilteredGamesList();
         CommandData commandData = new CommandData(CommandData.Type.UPDATEGAMELIST, gameList);
         List<CommandData> commands = new ArrayList<CommandData>();
         commands.add(commandData);
