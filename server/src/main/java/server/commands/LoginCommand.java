@@ -18,9 +18,7 @@ public class LoginCommand implements iCommand {
 
     public LoginCommand(CommandData data) {
         mUser = (User) data.getData();
-
     }
-
 
     @Override
     public List<CommandData> execute() {
@@ -28,7 +26,6 @@ public class LoginCommand implements iCommand {
         ServerFacade myFacade = new ServerFacade();
         User myUser = myFacade.authenticateUser(mUser.getUsername(), mUser.getPassword());
         ArrayList<CommandData> dList = new ArrayList<>();
-
 
         // if the user is in the database then send client the user object
         if (myUser == null) {
