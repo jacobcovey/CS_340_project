@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.jacobcovey.Activities.GameLobbyActivity;
 import com.example.jacobcovey.Presenters.GameOptionsPresenter;
@@ -21,7 +22,8 @@ import com.example.jacobcovey.ticket_to_ride.R;
 public class GameOptionsFragment extends Fragment implements IGameOptionsView {
 
     private EditText mNameOfGameEditText;
-    private EditText mNumberOfPlayersEditText;
+//    private EditText mNumberOfPlayersEditText;
+    private Spinner mNumberOfPlayersSpinner;
     private Button mCreateButton;
 
     private IGameOptionsPresenter gameOptionsPresenter;
@@ -41,7 +43,9 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
 
         mNameOfGameEditText = (EditText) v.findViewById(R.id.create_name_of_game_textEdit);
 
-        mNumberOfPlayersEditText = (EditText) v.findViewById(R.id.create_number_of_players_textEdit);
+//        mNumberOfPlayersEditText = (EditText) v.findViewById(R.id.create_number_of_players_textEdit);
+
+        mNumberOfPlayersSpinner = (Spinner) v.findViewById(R.id.create_number_of_players_textEdit);
 
         mCreateButton = (Button) v.findViewById(R.id.create_create_button);
         mCreateButton.setOnClickListener(new View.OnClickListener() {
@@ -65,13 +69,16 @@ public class GameOptionsFragment extends Fragment implements IGameOptionsView {
     }
 
     @Override
+//    public String getNumPlayers() {
+//        return mNumberOfPlayersEditText.getText().toString();
+//    }
     public String getNumPlayers() {
-        return mNumberOfPlayersEditText.getText().toString();
+        return mNumberOfPlayersSpinner.getSelectedItem().toString()
     }
 
     @Override
     public void setNumPlayers(String numPlayers) {
-        this.mNumberOfPlayersEditText.setText(numPlayers);
+//        this.mNumberOfPlayersEditText.setText(numPlayers);
     }
 
     @Override
