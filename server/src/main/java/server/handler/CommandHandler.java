@@ -14,6 +14,7 @@ public class CommandHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        System.out.println("Request received");
         try {
             if (!exchange.getRequestMethod().toLowerCase().equals("get")) {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
