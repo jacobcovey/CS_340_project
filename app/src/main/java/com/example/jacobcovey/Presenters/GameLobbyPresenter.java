@@ -3,6 +3,7 @@ package com.example.jacobcovey.Presenters;
 import com.example.jacobcovey.Views.IGameLobbyView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -35,7 +36,11 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public void startGame() {
         Game currentGame = cpf.getGame();
 
-        cpf.startGame(currentGame);
+        try {
+            cpf.startGame(currentGame);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         cpf.removeObserver(this);
 
         gameLobbyView.navToGameBoardScreenActivity();

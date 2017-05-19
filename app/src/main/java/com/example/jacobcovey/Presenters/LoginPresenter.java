@@ -36,11 +36,10 @@ public class LoginPresenter implements ILoginPresenter {
 
         try {
             cpf.login(user);
+            loginView.navToGameListScreenActivity();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        loginView.navToGameListScreenActivity();
     }
 
     @Override
@@ -52,9 +51,9 @@ public class LoginPresenter implements ILoginPresenter {
 
         try {
             cpf.register(user);
+            loginView.navToGameListScreenActivity();
         } catch (IOException e) {
             System.out.printf(e.getMessage());
         }
-        loginView.navToGameListScreenActivity();
     }
 }

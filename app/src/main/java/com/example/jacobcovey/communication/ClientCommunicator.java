@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.classes.CommandData;
+import shared.classes.User;
 
 /**
  * Created by billrichards on 5/15/17.
@@ -35,8 +36,11 @@ public class ClientCommunicator {
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
 
             http.setRequestMethod("POST");
-            String token = ClientFacade._instance.getUser().getAuthToken();
-            http.setRequestProperty("authorization", token);
+            User user = ClientFacade._instance.getUser();
+            if (user != null) {
+                String token = user.getAuthToken();
+                http.setRequestProperty("authorization", token);
+            }
             http.setDoOutput(true);
 
             OutputStreamWriter os = new OutputStreamWriter(http.getOutputStream());
