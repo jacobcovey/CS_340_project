@@ -24,13 +24,7 @@ public class ServerFacade {
     }
 
     public List<Game> getGameList() {
-        List<Game> filteredGames = new ArrayList<>();
-        for (Game g : getGameList()) {
-            if (g.getPlayers().size() < g.getPlayerLimit()) {
-                filteredGames.add(g);
-            }
-        }
-        return filteredGames;
+        return getGameList();
     }
 
     public Set<String> getAuthTokens() {
