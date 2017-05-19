@@ -1,5 +1,7 @@
 package server.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,9 +21,9 @@ public class ServerModelRoot {
 
     private ServerModelRoot() {}
 
-    private Set<User> users;
-    private List<Game> gameList;
-    private Set<String> authTokens;
+    private Set<User> users = new HashSet<>();
+    private List<Game> gameList = new ArrayList<>();
+    private Set<String> authTokens = new HashSet<>();
 
     public Set<User> getUsers() {
         return users;
