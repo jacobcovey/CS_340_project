@@ -22,10 +22,6 @@
         <activity android:name="com.example.jacobcovey.Activities.GameListActivity"
             android:screenOrientation="landscape"
             tools:node="merge">
-            <!--<meta-data-->
-                <!--android:name="com.android.support:recyclerview-v7:26.0.0-alpha1"-->
-                <!--android:value="(25.3.1)"-->
-                <!--tools:replace="value"/>-->
         </activity>
 
 
@@ -33,6 +29,8 @@
             android:screenOrientation="landscape"/>
 
         <activity android:name="com.example.jacobcovey.Activities.GameLobbyActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name="com.example.jacobcovey.Activities.GameBoardActivity"
             android:screenOrientation="landscape"/>
     </application>
 
