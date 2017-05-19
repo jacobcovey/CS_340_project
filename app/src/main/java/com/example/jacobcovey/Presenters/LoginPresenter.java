@@ -51,6 +51,8 @@ public class LoginPresenter implements ILoginPresenter {
         regester.execute(user);
     }
 
+
+
     private class loginRequest extends AsyncTask<User, Integer, Boolean> {
 
         @Override
@@ -69,6 +71,7 @@ public class LoginPresenter implements ILoginPresenter {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
+//                cpf.notifyObservers();
                 loginView.navToGameListScreenActivity();
             }
         }
@@ -92,6 +95,7 @@ public class LoginPresenter implements ILoginPresenter {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
+//                cpf.notifyObservers();
                 loginView.navToGameListScreenActivity();
             }
         }

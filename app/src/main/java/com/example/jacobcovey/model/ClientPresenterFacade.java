@@ -2,7 +2,6 @@ package com.example.jacobcovey.model;
 
 import com.example.jacobcovey.communication.ServerProxy;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 import java.util.Observer;
@@ -82,7 +81,7 @@ public class ClientPresenterFacade {
     }
 
     public void notifyObservers() {
-        ClientModelRoot._instance.notifyAll();
+        ClientModelRoot._instance.notifyObservers();
     }
 
 }

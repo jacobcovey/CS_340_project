@@ -49,4 +49,28 @@ public class GameOptionsPresenter implements IGameOptionsPresenter {
 
         gameOptionsView.navToGameLobbyScreenActivity();
     }
+
+//    private class createGameRequest extends AsyncTask<User, Integer, Boolean> {
+//
+//        @Override
+//        protected Boolean doInBackground(User... params) {
+//            try {
+//                cpf.createGame(params[0], params[1]);
+//            } catch (IOException e) {
+//                System.out.printf(e.getMessage());
+//                loginView.displayToast("login failed");
+//                return false;
+//            }
+//            return true;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean success) {
+//            super.onPostExecute(success);
+//            if (success) {
+////                cpf.notifyObservers();
+//                loginView.navToGameListScreenActivity();
+//            }
+//        }
+//    }
 }
