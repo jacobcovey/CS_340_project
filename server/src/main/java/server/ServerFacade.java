@@ -1,5 +1,6 @@
 package server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -8,6 +9,10 @@ import shared.classes.Game;
 import shared.classes.User;
 
 public class ServerFacade {
+
+    public static ServerFacade _instance = new ServerFacade();
+
+    private ServerFacade() {}
 
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
 
@@ -55,8 +60,7 @@ public class ServerFacade {
     }
 
     public User getUserByUserName(String userName, String password) {
-        Set<User> theUsers = getUsers();
-        for (User u : theUsers) {
+        for (User u : getUsers()) {
             if (userName.equals(u.getUsername())) {
                 return u;
             }

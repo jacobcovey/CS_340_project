@@ -22,8 +22,7 @@ public class LeaveGameCommand implements iCommand {
     public List<CommandData> execute() {
         Game game = data.getGame();
         User user = data.getUser();
-        ServerFacade myFacade = new ServerFacade();
-        Game mygame = myFacade.removeUserFromGame(game, user);
+        Game mygame = ServerFacade._instance.removeUserFromGame(game, user);
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (mygame != null) {

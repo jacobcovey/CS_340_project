@@ -24,8 +24,7 @@ public class LoginCommand implements iCommand {
     @Override
     public List<CommandData> execute() {
 //        authenticate
-        ServerFacade myFacade = new ServerFacade();
-        User myUser = myFacade.authenticateUser(data.getUsername(), data.getPassword());
+        User myUser = ServerFacade._instance.authenticateUser(data.getUsername(), data.getPassword());
         ArrayList<CommandData> dList = new ArrayList<>();
 
         // if the user is in the database then send client the user object
