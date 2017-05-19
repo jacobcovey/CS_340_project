@@ -18,7 +18,6 @@ public class Game {
         this.playerLimit = playerLimit;
         this.owner = owner;
         this.players = new ArrayList<>();
-        this.players.add(owner);
     }
 
     public User getOwner() {
