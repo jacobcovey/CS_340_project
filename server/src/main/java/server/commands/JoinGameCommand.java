@@ -7,6 +7,7 @@ import server.ServerFacade;
 import shared.classes.CommandData;
 import shared.classes.CommandData.Type;
 import shared.classes.Game;
+import shared.classes.GameRequest;
 import shared.classes.User;
 import shared.interfaces.iCommand;
 
@@ -15,33 +16,14 @@ import shared.interfaces.iCommand;
  */
 
 public class JoinGameCommand implements iCommand {
-    private User mUser;
-    private Game mGame;
-
-    public User getUser() {
-        return mUser;
-    }
-
-    public void setUser(User user) {
-        mUser = user;
-    }
-
-    public Game getGame() {
-        return mGame;
-    }
-
-    public void setGame(Game game) {
-        mGame = game;
-    }
-
-    public JoinGameCommand(CommandData data) {
-        mGame = (Game) data.getData();
-    }
+    private GameRequest data;
 
     public List<CommandData> execute() {
         //add user to game
+        Game game = data.getGame();
+        User user = data.getUser();
         ServerFacade myFacade = new ServerFacade();
-        Game mygame = myFacade.addUserToGame(mGame, mUser);
+        Game mygame = myFacade.addUserToGame(game, user);
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (mygame != null) {

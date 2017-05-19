@@ -9,8 +9,6 @@ import shared.interfaces.iCommand;
 
 public class UpdateGameListCommand extends BaseCommand implements iCommand {
 
-    public UpdateGameListCommand(CommandData data) {}
-
     @Override
     public List<CommandData> execute() {
         List<Game> gameList = serverFacade.getGameList();
