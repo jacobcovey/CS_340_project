@@ -4,7 +4,7 @@ package shared.classes;
  * Created by billrichards on 5/24/17.
  */
 
-class DestinationCard {
+public class DestinationCard {
 
     private City city1;
     private City city2;
