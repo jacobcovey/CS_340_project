@@ -4,7 +4,7 @@ package shared.classes;
  * Created by billrichards on 5/24/17.
  */
 
-class HistoryAction {
+public class HistoryAction {
 
     private String player;
     private String actionMessage; //This is the message that will be output on peoples history
