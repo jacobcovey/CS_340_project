@@ -26,4 +26,29 @@ public class Player {
         this.points = 0;
         this.userName = userName;
     }
+
+    public PlayerColors getColor() {
+        return color;
+    }
+
+    public int getTrainCars() {
+        return trainCars;
+    }
+
+    public Set<TrainCard> getTrainCards() {
+        return trainCards;
+    }
+
+    public Set<DestinationCard> getDestinationCards() {
+        return destinationCards;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
 }

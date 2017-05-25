@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Observer;
 
 import shared.classes.CommandData;
+import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.GameRequest;
+import shared.classes.Player;
+import shared.classes.TrainCard;
 import shared.classes.User;
+import shared.interfaces.iGameInfo;
 
 /**
  * Created by billrichards on 5/15/17.
@@ -53,6 +57,30 @@ public class ClientPresenterFacade {
 
     }
 
+    public void pickFaceUpCard(TrainCard card) throws IOException {
+
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.PICKFACEUPCARD, card));
+
+    }
+
+    public void drawFaceDownCard() throws IOException {
+
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DRAWFACEDOWNCARD, "Give me a card please!"));
+
+    }
+
+    public void drawDestinationCards() throws IOException {
+
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DRAWDESTINATIONCARDS, "Give me some destinations to choose from!"));
+
+    }
+
+    public void destinationCardsPicked(DestinationCard[] cardsPicked) throws IOException {
+
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, cardsPicked));
+
+    }
+
     public List<Game> getGameList() {
         return ClientModelRoot._instance.getGameList();
     }
@@ -72,12 +100,21 @@ public class ClientPresenterFacade {
     }
 
     public void addObserver(Observer observer) {
-
         ClientModelRoot._instance.addObserver(observer);
     }
 
     public void removeObserver(Observer observer) {
         ClientModelRoot._instance.deleteObserver(observer);
+    }
+
+    public TrainCard[] getFaceUpDeck() {
+        return null;
+    }
+
+    public boolean isMyTurn() {
+        Player player = ClientModelRoot._instance.getPlayer();
+        iGameInfo info = ClientModelRoot._instance.getGameInfo();
+        return info.getTurn().getPlayer().equals(player.getUserName());
     }
 
 }

@@ -5,7 +5,6 @@ package shared.classes;
  */
 
 public enum TrainCardColors {
-    PINK,
     WHITE,
     BLACK,
     RED,

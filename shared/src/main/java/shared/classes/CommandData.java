@@ -19,6 +19,10 @@ public class CommandData {
         LOGINSUCCESSFUL,
         UPDATECURRENTGAME,
         UPDATEGAMELIST,
+        PICKFACEUPCARD,
+        DRAWFACEDOWNCARD,
+        DRAWDESTINATIONCARDS,
+        DESTINATIONCARDSPICKED,
         ERROR
     }
 

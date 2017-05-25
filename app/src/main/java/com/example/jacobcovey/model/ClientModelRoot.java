@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Observable;
 
 import shared.classes.Game;
+import shared.classes.Player;
 import shared.classes.User;
+import shared.interfaces.iGameInfo;
 
 public class ClientModelRoot extends Observable {
 
@@ -18,14 +20,16 @@ public class ClientModelRoot extends Observable {
         GAMELIST,
         GAMECREATION,
         GAMELOBBY,
-        GAMESTARTED
+        GAMESTARTED,
+        GAMEINPLAY
     }
 
     private State currentState;
     private User user;
     private List<Game> gameList;
     private Game currentGame;
-    private String color;
+    private iGameInfo gameInfo;
+    private Player player;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
@@ -61,10 +65,21 @@ public class ClientModelRoot extends Observable {
         setChanged();
         notifyObservers();
     }
-    public String getColor() {
-        return color;
+    public iGameInfo getGameInfo() {
+        return gameInfo;
     }
-    public void setColor(String color) {
-        this.color = color;
+    public void setGameInfo(iGameInfo gameInfo) {
+        this.gameInfo = gameInfo;
+        setChanged();
+        notifyObservers();
+    }
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+        setChanged();
+        notifyObservers();
     }
 }

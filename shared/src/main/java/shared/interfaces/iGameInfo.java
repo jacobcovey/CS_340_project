@@ -20,4 +20,23 @@ public abstract class iGameInfo {
     private History history;
     private Turn turn;
 
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public Turn getTurn() {
+        return turn;
+    }
 }
