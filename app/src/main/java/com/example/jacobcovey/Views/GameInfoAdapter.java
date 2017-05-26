@@ -38,6 +38,10 @@ public class GameInfoAdapter extends RecyclerView.Adapter<GameInfoAdapter.ViewHo
         this.routes = routes;
     }
 
+    public void updateRoutes(List<DestinationCard> routes) {
+        this.routes = routes;
+    }
+
     @Override
     public GameInfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_route, parent, false);
@@ -61,4 +65,6 @@ public class GameInfoAdapter extends RecyclerView.Adapter<GameInfoAdapter.ViewHo
         }
         return routes.size();
     }
+
+
 }

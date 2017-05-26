@@ -1,6 +1,7 @@
 package com.example.jacobcovey.Presenters;
 
 import com.example.jacobcovey.Views.IGameInfoView;
+import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.util.List;
 import java.util.Observable;
@@ -15,6 +16,7 @@ import shared.classes.DestinationCard;
 public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 
     private IGameInfoView gameInfoView;
+    private ClientPresenterFacade cpf;
 
     @Override
     public void setGameListView(IGameInfoView gameInfoView) {
@@ -23,11 +25,14 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 
     @Override
     public List<DestinationCard> getRoutes() {
-        return null;
+        return cpf.getRouts();
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        List<DestinationCard> routes = cpf.getRouts();
+        gameInfoView.setRoutesInfo(routes);
+
 
     }
 }

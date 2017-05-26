@@ -306,7 +306,15 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
     }
 
     @Override
-    public void setRoutesInfo(List<DestinationCard> routes) {
+    public void setRoutesInfo(final List<DestinationCard> routes) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                GameInfoAdapter gameInfoAdapter = (GameInfoAdapter) routesRecyclerView.getAdapter();
+                gameInfoAdapter.updateRoutes(routes);
+                gameInfoAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 }

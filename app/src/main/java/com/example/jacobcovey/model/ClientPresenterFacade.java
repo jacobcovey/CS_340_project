@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Observer;
 
+import shared.classes.Chat;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.GameRequest;
+import shared.classes.History;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.User;
@@ -79,6 +81,28 @@ public class ClientPresenterFacade {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, cardsPicked));
 
+    }
+
+    public void sendChatMessage() throws  IOException {
+
+    }
+    public void claimRoute() throws IOException {
+
+    }
+
+    public Chat getChat() {
+        return null;
+    }
+    public History getHistory() {
+        return null;
+    }
+
+    public List<Player> getPlayers() {
+        return  null;
+    }
+
+    public List<DestinationCard> getRouts() {
+        return null;
     }
 
     public List<Game> getGameList() {
