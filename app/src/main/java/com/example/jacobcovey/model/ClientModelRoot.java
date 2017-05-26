@@ -82,4 +82,8 @@ public class ClientModelRoot extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public void setColor(String color) {
+
+    }
 }
