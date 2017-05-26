@@ -268,9 +268,6 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
                         TrainCardColors color = TrainCardColors.values()[ (Integer) pair.getKey()];
 
                         switch (color) {
-                            case PINK:
-                                numPurpleCardTextView.setText(pair.getValue().toString());
-                                break;
                             case WHITE:
                                 numWhiteCardTextView.setText(pair.getValue().toString());
                                 break;
