@@ -31,24 +31,48 @@ public class Player {
         return color;
     }
 
+    public void setColor(PlayerColors color) {
+        this.color = color;
+    }
+
     public int getTrainCars() {
         return trainCars;
+    }
+
+    public void setTrainCars(int trainCars) {
+        this.trainCars = trainCars;
     }
 
     public Set<TrainCard> getTrainCards() {
         return trainCards;
     }
 
+    public void setTrainCards(Set<TrainCard> trainCards) {
+        this.trainCards = trainCards;
+    }
+
     public Set<DestinationCard> getDestinationCards() {
         return destinationCards;
+    }
+
+    public void setDestinationCards(Set<DestinationCard> destinationCards) {
+        this.destinationCards = destinationCards;
     }
 
     public int getPoints() {
         return points;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public String getUserName() {
         return userName;
     }
 
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

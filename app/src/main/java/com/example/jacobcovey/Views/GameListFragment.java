@@ -67,13 +67,6 @@ public class GameListFragment extends Fragment implements IGameListView {
 
         GameListAdapter adapter = new GameListAdapter(games);
 
-//        adapter.setGameListClickListener(new IGameListClickListener() {
-//            @Override
-//            public void onGameClickedListener(Game game) {
-//                gameListPresenter.joinGame(game);
-//            }
-//        });
-
         mGamesRecyclerView.setAdapter(adapter);
 
 

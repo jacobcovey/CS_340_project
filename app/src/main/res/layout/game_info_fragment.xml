@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="480dp"
+    android:layout_height="match_parent"
+    android:background="@color/lightGrey">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Game Info"
+                android:layout_gravity="center"
+                android:textSize="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Player"
+                    android:layout_marginLeft="12dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Points"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number\nof\nTrains"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number\nof\nCards"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number\nof\nRoutes"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/game_info_p1_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/orange"
+                >
+
+                <TextView
+                    android:id="@+id/game_info_p1_name"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="Player1"/>
+
+                <TextView
+                android:id="@+id/game_info_p1_points"
+                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:textAlignment="center"
+                android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p1_trains"
+                    android:layout_height="wrap_content"
+                    android:layout_width="78dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p1_cards"
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p1_routes"
+                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/game_info_p2_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/green"
+                >
+
+                <TextView
+                    android:id="@+id/game_info_p2_name"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="Player2"/>
+
+                <TextView
+                    android:id="@+id/game_info_p2_points"
+                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p2_trains"
+                    android:layout_height="wrap_content"
+                    android:layout_width="78dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p2_cards"
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p2_routes"
+                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/game_info_p3_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/blue"
+                >
+
+                <TextView
+                    android:id="@+id/game_info_p3_name"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="Player3"/>
+
+                <TextView
+                    android:id="@+id/game_info_p3_points"
+                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p3_trains"
+                    android:layout_height="wrap_content"
+                    android:layout_width="78dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p3_cards"
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p3_routes"
+                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/game_info_p4_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/purple"
+                >
+
+                <TextView
+                    android:id="@+id/game_info_p4_name"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="Player4"/>
+
+                <TextView
+                    android:id="@+id/game_info_p4_points"
+                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p4_trains"
+                    android:layout_height="wrap_content"
+                    android:layout_width="78dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p4_cards"
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p4_routes"
+                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/game_info_p5_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/red"
+                >
+
+                <TextView
+                    android:id="@+id/game_info_p5_name"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="Player5"/>
+
+                <TextView
+                    android:id="@+id/game_info_p5_points"
+                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p5_trains"
+                    android:layout_height="wrap_content"
+                    android:layout_width="78dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p5_cards"
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/game_info_p5_routes"
+                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:textAlignment="center"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Cards"
+                android:textSize="16dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Red: "
+                    android:textColor="@color/red"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_red_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blue: "
+                    android:textColor="@color/blue"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_blue_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Green: "
+                    android:textColor="@color/darkGreen"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_green_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Purple: "
+                    android:textColor="@color/purple"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_purple_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Orange: "
+                    android:textColor="@color/orange"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_orange_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="White: " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_white_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Black: "
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_black_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yellow: "
+                    android:textColor="@color/yellow"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_yellow_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wild: " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_info_num_wild_cards"
+                    android:text="0"
+                    android:layout_marginRight="5dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:background="@drawable/left_border">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Routs"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:textSize="16dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/game_info_routes_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"/>
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+
+</RelativeLayout>
