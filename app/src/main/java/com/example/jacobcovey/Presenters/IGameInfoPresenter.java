@@ -2,7 +2,7 @@ package com.example.jacobcovey.Presenters;
 
 import com.example.jacobcovey.Views.IGameInfoView;
 
-import java.util.List;
+import java.util.Set;
 
 import shared.classes.DestinationCard;
 
@@ -14,6 +14,6 @@ public interface IGameInfoPresenter {
 
     void setGameListView(IGameInfoView gameInfoView);
 
-    List<DestinationCard> getRoutes();
+    Set<DestinationCard> getRoutes();
 
 }

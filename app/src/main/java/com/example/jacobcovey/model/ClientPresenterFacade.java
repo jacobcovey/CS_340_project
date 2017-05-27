@@ -5,6 +5,7 @@ import com.example.jacobcovey.communication.ServerProxy;
 import java.io.IOException;
 import java.util.List;
 import java.util.Observer;
+import java.util.Set;
 
 import shared.classes.Chat;
 import shared.classes.CommandData;
@@ -101,7 +102,11 @@ public class ClientPresenterFacade {
         return  null;
     }
 
-    public List<DestinationCard> getRouts() {
+    public Player getCurrentPlayer() {
+        return  null;
+    }
+
+    public Set<DestinationCard> getRouts() {
         return null;
     }
 

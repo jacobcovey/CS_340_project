@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import shared.classes.DestinationCard;
@@ -198,7 +199,7 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
         ((LinearLayoutManager)routesLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
         routesRecyclerView.setLayoutManager(routesLayoutManager);
 
-        List<DestinationCard> routes = gameInfoPresenter.getRoutes();
+        Set<DestinationCard> routes = gameInfoPresenter.getRoutes();
 
         GameInfoAdapter adapter = new GameInfoAdapter(routes);
 
@@ -248,7 +249,7 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
     }
 
     @Override
-    public void setTrainCardsInfo(final List<TrainCard> cards) {
+    public void setTrainCardsInfo(final Set<TrainCard> cards) {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -306,7 +307,7 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
     }
 
     @Override
-    public void setRoutesInfo(final List<DestinationCard> routes) {
+    public void setRoutesInfo(final Set<DestinationCard> routes) {
 
         getActivity().runOnUiThread(new Runnable() {
             public void run() {

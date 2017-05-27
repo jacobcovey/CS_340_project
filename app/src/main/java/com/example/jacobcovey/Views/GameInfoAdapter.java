@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.example.jacobcovey.ticket_to_ride.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import shared.classes.DestinationCard;
 
@@ -34,12 +36,12 @@ public class GameInfoAdapter extends RecyclerView.Adapter<GameInfoAdapter.ViewHo
         }
     }
 
-    public GameInfoAdapter(List<DestinationCard> routes) {
-        this.routes = routes;
+    public GameInfoAdapter(Set<DestinationCard> routes) {
+        this.routes = new ArrayList<DestinationCard>(routes) ;
     }
 
-    public void updateRoutes(List<DestinationCard> routes) {
-        this.routes = routes;
+    public void updateRoutes(Set<DestinationCard> routes) {
+        this.routes = new ArrayList<DestinationCard>(routes) ;
     }
 
     @Override
