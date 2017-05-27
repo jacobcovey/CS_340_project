@@ -1,11 +1,13 @@
 package com.example.jacobcovey.Views;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -25,7 +27,30 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
 
     private ImageButton faceDownDeckButton;
     private ImageButton faceUpCardButton0, faceUpCardButton1, faceUpCardButton2, faceUpCardButton3, faceUpCardButton4;
+    private Button closeButton;
     private TrainCard faceUpCard0, faceUpCard1, faceUpCard2, faceUpCard3, faceUpCard4;
+
+    public interface TrainCardDrawerContainer {
+        public void closeTrainCardDrawer();
+    }
+
+    private TrainCardDrawerContainer trainCardDrawerContainer;
+
+    @Override
+    public void onAttach(Activity activity) {
+
+        super.onAttach(activity);
+        try {
+
+            trainCardDrawerContainer = (TrainCardDrawerContainer) activity;
+
+        } catch (ClassCastException e) {
+
+            throw new ClassCastException(activity.toString() + " must implement TrainCardDrawerContainer");
+
+        }
+
+    }
 
 
     @Override
@@ -80,6 +105,13 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
             @Override
             public void onClick(View view) {
                 trainCardDrawerPresenter.drawFaceDownCard();
+            }
+        });
+        closeButton = (Button) v.findViewById(R.id.traincard_drawer_close_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                trainCardDrawerContainer.closeTrainCardDrawer();
             }
         });
         faceUpCard0 = null;

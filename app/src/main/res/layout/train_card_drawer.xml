@@ -2,44 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/traincard_drawer_close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="X"
+        android:layout_gravity="top|right"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <ImageButton
-        android:id="@+id/faceUpCard0"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        app:srcCompat="@drawable/tickettoride_traincardback" />
-    <ImageButton
-        android:id="@+id/faceUpCard1"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        app:srcCompat="@drawable/tickettoride_traincardback" />
-    <ImageButton
-        android:id="@+id/faceUpCard2"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        app:srcCompat="@drawable/tickettoride_traincardback" />
-    <ImageButton
-        android:id="@+id/faceUpCard3"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        app:srcCompat="@drawable/tickettoride_traincardback" />
-    <ImageButton
-        android:id="@+id/faceUpCard4"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        app:srcCompat="@drawable/tickettoride_traincardback" />
+        <ImageButton
+            android:id="@+id/faceUpCard0"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/tickettoride_traincardback" />
+        <ImageButton
+            android:id="@+id/faceUpCard1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/tickettoride_traincardback" />
+        <ImageButton
+            android:id="@+id/faceUpCard2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/tickettoride_traincardback" />
+        <ImageButton
+            android:id="@+id/faceUpCard3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/tickettoride_traincardback" />
+        <ImageButton
+            android:id="@+id/faceUpCard4"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/tickettoride_traincardback" />
 
-    <ImageButton
-        android:id="@+id/faceDownDeck"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        app:srcCompat="@drawable/tickettoride_traincardback" />
+        <ImageButton
+            android:id="@+id/faceDownDeck"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/tickettoride_traincardback" />
+    </LinearLayout>
 </LinearLayout>
