@@ -2,7 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="480dp"
     android:layout_height="match_parent"
-    android:background="@color/lightGrey">
+    android:background="@color/lightGrey"
+    android:gravity="right"
+    android:layout_gravity="right">
+
+    <Button
+        android:id="@+id/game_info_drawer_close_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="5dp"
+        android:text="X"
+        android:layout_gravity="top|right"
+        />
     
     <LinearLayout
         android:layout_width="match_parent"

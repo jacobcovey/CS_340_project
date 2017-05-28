@@ -44,6 +44,8 @@ public class Poller extends TimerTask {
                 return;
             case GAMESTARTED:
                 return;
+            case GAMEINFO:
+                return;
 
         }
 

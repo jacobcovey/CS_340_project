@@ -52,7 +52,7 @@ public class GameBoardFragment extends android.support.v4.app.Fragment implement
         rightDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRightDrawer(null);
+                showRightDrawer(new GameInfoFragment());
             }
         });
 
@@ -67,6 +67,11 @@ public class GameBoardFragment extends android.support.v4.app.Fragment implement
     public void closeTrainCardDrawer() {
         dismissLeftDrawer();
     }
+
+    public void closeGameInfoDrawer() {
+        dismissRightDrawer();
+    }
+
 
     private void showLeftDrawer(Fragment fragment) {
 
@@ -85,6 +90,7 @@ public class GameBoardFragment extends android.support.v4.app.Fragment implement
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.right_drawer, fragment);
         fragmentTransaction.commit();
+        drawerLayout.requestLayout();
         drawerLayout.openDrawer(rightDrawer);
 
     }

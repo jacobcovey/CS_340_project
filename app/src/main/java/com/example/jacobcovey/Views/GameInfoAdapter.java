@@ -47,7 +47,7 @@ public class GameInfoAdapter extends RecyclerView.Adapter<GameInfoAdapter.ViewHo
     @Override
     public GameInfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_route, parent, false);
-        view.setBackground(parent.getResources().getDrawable(R.drawable.border));
+        view.setBackground(parent.getResources().getDrawable(R.drawable.yellow_box));
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

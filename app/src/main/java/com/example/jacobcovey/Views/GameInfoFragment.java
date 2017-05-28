@@ -1,12 +1,14 @@
 package com.example.jacobcovey.Views;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,12 +18,14 @@ import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import shared.classes.City;
 import shared.classes.DestinationCard;
 import shared.classes.Player;
 import shared.classes.TrainCard;
@@ -36,6 +40,8 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
     public static final int MAXNUMBEROFPLAYERS = 5;
 
     IGameInfoPresenter gameInfoPresenter;
+
+    private Button exitButton;
 
     private LinearLayout player1box;
     private LinearLayout player2box;
@@ -83,7 +89,8 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
     private TextView numYellowCardTextView;
     private TextView numWildCardTextView;
 
-    private Stack<LinearLayout> playerBoxStack;
+    private Stack<LinearLayout> playerBoxStack = new Stack<LinearLayout>();
+
     private List<TextView> playerNames = new ArrayList<TextView>();
     private List<TextView> playerPoints = new ArrayList<TextView>();
     private List<TextView> playerTrains = new ArrayList<TextView>();
@@ -95,6 +102,28 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
     private RecyclerView routesRecyclerView;
     private RecyclerView.Adapter routesAdapter;
     private RecyclerView.LayoutManager routesLayoutManager;
+
+    public interface GameInfoDrawerContainer {
+        public void closeGameInfoDrawer();
+    }
+
+    private GameInfoDrawerContainer gameInfoDrawerContainer;
+
+    @Override
+    public void onAttach(Activity activity) {
+
+        super.onAttach(activity);
+        try {
+
+            gameInfoDrawerContainer = (GameInfoDrawerContainer) activity;
+
+        } catch (ClassCastException e) {
+
+            throw new ClassCastException(activity.toString() + " must implement GameInfoDrawerContainer");
+
+        }
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +137,14 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.game_info_fragment, container, false);
+
+        exitButton = (Button) v.findViewById(R.id.game_info_drawer_close_button);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameInfoDrawerContainer.closeGameInfoDrawer();
+            }
+        });
 
         player1box = (LinearLayout) v.findViewById(R.id.game_info_p1_box);
         player2box = (LinearLayout) v.findViewById(R.id.game_info_p2_box);
@@ -199,7 +236,13 @@ public class GameInfoFragment extends Fragment implements IGameInfoView {
         ((LinearLayoutManager)routesLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
         routesRecyclerView.setLayoutManager(routesLayoutManager);
 
-        Set<DestinationCard> routes = gameInfoPresenter.getRoutes();
+//        Set<DestinationCard> routes = gameInfoPresenter.getRoutes();
+        Set<DestinationCard> routes = new HashSet<DestinationCard>();
+        DestinationCard card1 = new DestinationCard(new City("Atlanta"),new City("Miami"), 4);
+        DestinationCard card2 = new DestinationCard(new City("Pittsburgh"),new City("New York"), 3);
+
+        routes.add(card1);
+        routes.add(card2);
 
         GameInfoAdapter adapter = new GameInfoAdapter(routes);
 

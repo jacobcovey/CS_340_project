@@ -3,13 +3,14 @@ package com.example.jacobcovey.Activities;
 import android.support.v4.app.Fragment;
 
 import com.example.jacobcovey.Views.GameBoardFragment;
+import com.example.jacobcovey.Views.GameInfoFragment;
 import com.example.jacobcovey.Views.TrainCardDrawerView;
 
 /**
  * Created by jacobcovey on 5/19/17.
  */
 
-public class GameBoardActivity extends SingleFragmentActivity implements TrainCardDrawerView.TrainCardDrawerContainer {
+public class GameBoardActivity extends SingleFragmentActivity implements TrainCardDrawerView.TrainCardDrawerContainer, GameInfoFragment.GameInfoDrawerContainer {
 
     private GameBoardFragment gameBoard;
 
@@ -24,4 +25,8 @@ public class GameBoardActivity extends SingleFragmentActivity implements TrainCa
         gameBoard.closeTrainCardDrawer();
     }
 
+    @Override
+    public void closeGameInfoDrawer() {
+        gameBoard.closeGameInfoDrawer();
+    }
 }

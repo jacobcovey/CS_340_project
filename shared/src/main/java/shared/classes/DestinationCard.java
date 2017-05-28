@@ -28,4 +28,8 @@ public class DestinationCard {
         return points;
     }
 
+    @Override
+    public String toString() {
+        return  city1.toString() + " - " + city2.toString() + " " + points;
+    }
 }
