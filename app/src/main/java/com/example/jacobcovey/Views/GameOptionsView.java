@@ -19,7 +19,7 @@ import com.example.jacobcovey.ticket_to_ride.R;
  * Created by jacobcovey on 5/16/17.
  */
 
-public class GameOptionsFragment extends Fragment implements IGameOptionsView {
+public class GameOptionsView extends Fragment implements IGameOptionsView {
 
     private EditText mNameOfGameEditText;
 //    private EditText mNumberOfPlayersEditText;

@@ -35,7 +35,7 @@ import shared.classes.TrainCardColors;
  * Created by jacobcovey on 5/24/17.
  */
 
-public class GameInfoFragment extends Fragment implements IGameInfoView {
+public class GameInfoView extends Fragment implements IGameInfoView {
 
     public static final int MAXNUMBEROFPLAYERS = 5;
 

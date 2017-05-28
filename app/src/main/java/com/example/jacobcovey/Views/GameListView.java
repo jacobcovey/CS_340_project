@@ -24,7 +24,7 @@ import shared.classes.Game;
  * Created by jacobcovey on 5/15/17.
  */
 
-public class GameListFragment extends Fragment implements IGameListView {
+public class GameListView extends Fragment implements IGameListView {
 
     private Button mCreateGameButton;
 

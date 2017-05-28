@@ -18,7 +18,7 @@ import com.example.jacobcovey.ticket_to_ride.R;
  * Created by jacobcovey on 5/19/17.
  */
 
-public class GameBoardFragment extends android.support.v4.app.Fragment implements IGameBoardView {
+public class GameBoardView extends android.support.v4.app.Fragment implements IGameBoardView {
 
     private DrawerLayout drawerLayout;
     private Button leftDrawerButton, rightDrawerButton;
@@ -52,7 +52,7 @@ public class GameBoardFragment extends android.support.v4.app.Fragment implement
         rightDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRightDrawer(new GameInfoFragment());
+                showRightDrawer(new GameInfoView());
             }
         });
 

@@ -17,7 +17,7 @@ import com.example.jacobcovey.ticket_to_ride.R;
  * Created by jacobcovey on 5/15/17.
  */
 
-public class LoginFragment extends android.support.v4.app.Fragment implements ILoginView {
+public class LoginView extends android.support.v4.app.Fragment implements ILoginView {
 
     private EditText mUserNameTextEdit;
     private EditText mPasswordTextEdit;

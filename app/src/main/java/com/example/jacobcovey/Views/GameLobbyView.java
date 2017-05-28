@@ -24,7 +24,7 @@ import java.util.Stack;
  * Created by jacobcovey on 5/17/17.
  */
 
-public class GameLobbyFragment extends Fragment implements IGameLobbyView {
+public class GameLobbyView extends Fragment implements IGameLobbyView {
 
     public static final int MAXNUMBEROFPLAYERS = 5;
 
