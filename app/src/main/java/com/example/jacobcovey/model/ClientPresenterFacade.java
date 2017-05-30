@@ -78,7 +78,7 @@ public class ClientPresenterFacade {
 
     }
 
-    public void destinationCardsPicked(DestinationCard[] cardsPicked) throws IOException {
+    public void destinationCardsPicked(List<DestinationCard> cardsPicked) throws IOException {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, cardsPicked));
 

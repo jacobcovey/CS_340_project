@@ -2,6 +2,7 @@ package shared.classes;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 import static shared.constants.Constants.NUMBEROFTRAINCARS;
 
@@ -74,5 +75,19 @@ public class Player {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void drawCard(String message) {
+
+    }
+
+    public void addTrainCard(TrainCard card) {
+        trainCards.add(card);
+    }
+
+    public void addDestinationCards(List<DestinationCard> cards) {
+        for (DestinationCard card : cards) {
+            destinationCards.add(card);
+        }
     }
 }

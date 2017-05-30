@@ -7,5 +7,7 @@ import shared.interfaces.iGameInfo;
  */
 
 public class GameInfo extends iGameInfo {
+    public static GameInfo _instance = new GameInfo();
 
+    private GameInfo() {}
 }

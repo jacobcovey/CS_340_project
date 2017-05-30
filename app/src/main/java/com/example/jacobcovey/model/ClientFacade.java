@@ -2,9 +2,17 @@ package com.example.jacobcovey.model;
 
 import java.util.List;
 
+import shared.classes.Chat;
+import shared.classes.ChatMessage;
+import shared.classes.DestinationCard;
 import shared.classes.Game;
+import shared.classes.History;
+import shared.classes.HistoryAction;
+import shared.classes.Player;
+import shared.classes.TrainCard;
 import shared.classes.User;
 import shared.interfaces.iClient;
+import shared.interfaces.iGameInfo;
 
 /**
  * Created by billrichards on 5/15/17.
@@ -60,5 +68,34 @@ public class ClientFacade implements iClient {
 
     public User getUser() {
         return ClientModelRoot._instance.getUser();
+    }
+
+
+    public iGameInfo getGameInfo() {
+        return ClientModelRoot._instance.getGameInfo();
+    }
+    public Chat getChat() {
+        return ClientModelRoot._instance.getGameInfo().getChat();
+    }
+    public History getHistory() {
+        return ClientModelRoot._instance.getGameInfo().getHistory();
+    }
+    public Player getPlayer() {
+        return ClientModelRoot._instance.getPlayer();
+    }
+    public void setGameInfo(GameInfo gameInfo) {
+        ClientModelRoot._instance.setGameInfo(gameInfo);
+    }
+    public void addChatMessage(ChatMessage message) {
+        ClientModelRoot._instance.getGameInfo().getChat().addMessage(message);
+    }
+    public void addHistoryAction(HistoryAction action) {
+        ClientModelRoot._instance.getGameInfo().getHistory().addAction(action);
+    }
+    public List<TrainCard> getFaceUpDeck() {
+        return ClientModelRoot._instance.getFaceUpDeck();
+    }
+    public List<DestinationCard> getDrawnDestinationCards() {
+        return ClientModelRoot._instance.getDrawnDestinationCards();
     }
 }
