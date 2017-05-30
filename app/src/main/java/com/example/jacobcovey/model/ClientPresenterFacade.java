@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.Set;
 
 import shared.classes.Chat;
+import shared.classes.ChatMessage;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
@@ -17,6 +18,7 @@ import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.User;
 import shared.interfaces.iGameInfo;
+import shared.classes.Route;
 
 /**
  * Created by billrichards on 5/15/17.
@@ -79,31 +81,25 @@ public class ClientPresenterFacade {
     }
 
     public void destinationCardsPicked(List<DestinationCard> cardsPicked) throws IOException {
-
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, cardsPicked));
-
     }
 
-    public void sendChatMessage() throws  IOException {
-
+    public void sendChatMessage(ChatMessage chat) throws  IOException {
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDCHAT, chat));
     }
-    public void claimRoute() throws IOException {
-
+    public void claimRoute(Route route) throws IOException {
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, route));
     }
 
-    public Chat getChat() {
-        return null;
-    }
+    public Chat getChat() { return ClientModelRoot._instance.getGameInfo().getChat(); }
     public History getHistory() {
-        return null;
+        return ClientModelRoot._instance.getGameInfo().getHistory();
     }
 
-    public List<Player> getPlayers() {
-        return  null;
-    }
+    public List<Player> getPlayers() { return  ClientModelRoot._instance.getGameInfo().getPlayers(); }
 
     public Player getCurrentPlayer() {
-        return  null;
+        return  ClientModelRoot._instance.getPlayer();
     }
 
     public Set<DestinationCard> getRouts() {
@@ -136,7 +132,7 @@ public class ClientPresenterFacade {
         ClientModelRoot._instance.deleteObserver(observer);
     }
 
-    public TrainCard[] getFaceUpDeck() {
+    public List<TrainCard> getFaceUpDeck() {
         return null;
     }
 
