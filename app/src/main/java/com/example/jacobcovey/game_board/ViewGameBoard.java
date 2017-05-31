@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.jacobcovey.ticket_to_ride.R;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +72,12 @@ public class ViewGameBoard extends View {
 
             mRoutePaint.setColor(r.getColor());
             for (PointF point : r.getPoints()) {
-                canvas.drawCircle(point.x, point.y, 10, mRoutePaint);
+                canvas.drawCircle(point.x, point.y, 15, mRoutePaint);
+//                Bitmap mybitmap = BitmapFactory.decodeResource(res, R.drawable.ic_train);
+//                canvas.drawBitmap(mybitmap, point.x, point.y, mRoutePaint);
+
+//                Drawable trainIcon = new IconDrawable(getContext(), Iconify.IconValue.fa_train).colorRes(R.color.blue).sizeDp(40);
+//                canvas.drawPaint(trainIcon);
             }
 
         }
