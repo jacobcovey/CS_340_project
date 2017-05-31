@@ -9,3 +9,4 @@
 .externalNativeBuild
 server/build
 shared/build
+.idea/modules.xml
