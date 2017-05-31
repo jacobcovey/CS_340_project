@@ -23,8 +23,7 @@ public class ClientModelRoot extends Observable {
         GAMECREATION,
         GAMELOBBY,
         GAMESTARTED,
-        GAMEINPLAY,
-        GAMEINFO,
+        GAMEINPLAY
     }
 
     private State currentState;
