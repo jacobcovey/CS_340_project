@@ -3,13 +3,10 @@ package com.example.jacobcovey.Presenters;
 import com.example.jacobcovey.Views.IGameBoardView;
 import com.example.jacobcovey.game_board.Route;
 import com.example.jacobcovey.game_board.ViewGameBoard;
-import com.example.jacobcovey.model.ClientModelRoot;
 
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import shared.classes.Game;
 
 /**
  * Created by Riley on 5/31/2017.
@@ -28,7 +25,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, Observer {
 
     @Override
     public void setGameBoardView(IGameBoardView gameBoardView) {
-//        this.boardView = gameBoardView;
+        //this.boardView = gameBoardView;
     }
 
     @Override
@@ -40,10 +37,9 @@ public class GameBoardPresenter implements iGameBoardPresenter, Observer {
     public void updateClientRoot(List<Route> routes) {
 
     }
-
     @Override
     public void changeClientRoot() {
-        Game game = ClientModelRoot._instance.getCurrentGame();
 
     }
 }
+

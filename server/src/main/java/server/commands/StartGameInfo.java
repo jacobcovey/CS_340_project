@@ -7,6 +7,7 @@ import server.ServerFacade;
 import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.classes.Player;
 import shared.interfaces.iCommand;
 
 /**
@@ -15,6 +16,8 @@ import shared.interfaces.iCommand;
 
 public class StartGameInfo implements iCommand {
     private Game data;
+    private String gameId;
+    private String userName;
 
     public StartGameInfo(CommandData data) {
     }
@@ -24,7 +27,7 @@ public class StartGameInfo implements iCommand {
         ServerFacade._instance.initializeCities();
         ServerFacade._instance.addGameInfo(data);
         List<CommandData> result = new ArrayList<>();
-        result.add(new CommandData(CommandData.Type.STARTGAMEINFO, ServerFacade._instance.getGameInfo(data.getId())));
+        result.add(new CommandData(CommandData.Type.STARTGAMEINFO, ServerFacade._instance.getGameInfo(data.getId()), gameId, userName));
         return result;
     }
 }

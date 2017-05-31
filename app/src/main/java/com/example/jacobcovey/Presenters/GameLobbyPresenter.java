@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.example.jacobcovey.Views.IGameLobbyView;
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
+import com.example.jacobcovey.model.GameInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -160,6 +161,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         protected Boolean doInBackground(Game... params) {
             try {
                 cpf.startGame(params[0]);
+                cpf.startGameInfo(params[0]);
             } catch (IOException e) {
                 System.out.printf(e.getMessage());
                 return false;

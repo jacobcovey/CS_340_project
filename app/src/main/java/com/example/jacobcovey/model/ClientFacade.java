@@ -82,6 +82,9 @@ public class ClientFacade implements iClient {
     public Player getPlayer() {
         return ClientModelRoot._instance.getPlayer();
     }
+    public void setPlayer(Player player) {
+        ClientModelRoot._instance.setPlayer(player);
+    }
     public void setGameInfo(GameInfo gameInfo) {
         ClientModelRoot._instance.setGameInfo(gameInfo);
     }

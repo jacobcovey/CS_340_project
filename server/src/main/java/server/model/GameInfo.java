@@ -6,14 +6,20 @@ package server.model;
 
 import com.sun.org.apache.regexp.internal.RE;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 
 import shared.classes.City;
+import shared.classes.Game;
+import shared.classes.Player;
+import shared.classes.PlayerColors;
+import shared.classes.Route;
 import shared.classes.TrainCardColors;
 import shared.interfaces.iGameInfo;
 import shared.classes.TrainCard;
@@ -31,11 +37,18 @@ import static shared.classes.TrainCardColors.YELLOW;
 
 
 public class GameInfo extends iGameInfo {
-    private List<TrainCard> faceUpTrainCardDeck;
-    private List<TrainCard>  faceDownTrainCardDeck;
-    private List<DestinationCard> destinationCardDeck;
+    private List<TrainCard> faceUpTrainCardDeck = new ArrayList<>();
+    private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
+    private List<DestinationCard> destinationCardDeck = new ArrayList<>();
 
-    public static GameInfo _instance = new GameInfo();
+    private static GameInfo _instance;
+
+    public static GameInfo getInstance() {
+        if (_instance == null) {
+            _instance = new GameInfo();
+        }
+        return _instance;
+    }
 
     private GameInfo() {
         Set<TrainCardColors> colors = new HashSet<TrainCardColors>();
@@ -145,6 +158,23 @@ public class GameInfo extends iGameInfo {
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
         return drawnCards;
+    }
+
+    public void initializeRoutes() {
+
+    }
+
+    public void addPlayer(String userName, PlayerColors color) {
+        Set<TrainCard> dealtCards = new HashSet<>();
+        dealtCards.add(faceDownTrainCardDeck.get(0));
+        faceDownTrainCardDeck.remove(0);
+        dealtCards.add(faceDownTrainCardDeck.get(0));
+        faceDownTrainCardDeck.remove(0);
+        dealtCards.add(faceDownTrainCardDeck.get(0));
+        faceDownTrainCardDeck.remove(0);
+        dealtCards.add(faceDownTrainCardDeck.get(0));
+        faceDownTrainCardDeck.remove(0);
+        getPlayers().add(new Player(color, dealtCards, userName));
     }
 }
 
