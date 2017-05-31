@@ -10,6 +10,7 @@ import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.TrainCard;
+import shared.classes.Turn;
 import shared.classes.User;
 import shared.interfaces.iGameInfo;
 
@@ -32,7 +33,8 @@ public class ClientModelRoot extends Observable {
     private Game currentGame;
     private iGameInfo gameInfo;
     private Player player;
-    private List<TrainCard> faceUpDeck;
+    private TrainCard[] faceUpDeck;
+    private DestinationCard[] destCardsToSelectFrom;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
@@ -89,11 +91,22 @@ public class ClientModelRoot extends Observable {
     public void setColor(String color) {
 
     }
-    public List<TrainCard> getFaceUpDeck() {
+    public TrainCard[] getFaceUpDeck() {
         return faceUpDeck;
     }
-    public void setFaceUpDeck(List<TrainCard> faceUpDeck) {
+    public void setFaceUpDeck(TrainCard[] faceUpDeck) {
         this.faceUpDeck = faceUpDeck;
     }
 
+    public Turn getTurn() {
+        return gameInfo.getTurn();
+    }
+
+    public DestinationCard[] getDestCardsToSelectFrom() {
+        return destCardsToSelectFrom;
+    }
+
+    public void setDestCardsToSelectFrom(DestinationCard[] destCardsToSelectFrom) {
+        this.destCardsToSelectFrom = destCardsToSelectFrom;
+    }
 }

@@ -6,7 +6,7 @@ package shared.classes;
 
 public class Turn {
 
-    enum TurnState {
+    public enum TurnState {
         FIRSTTURN,
         BEGINNING,
         ONETRAINCARDSELECTED

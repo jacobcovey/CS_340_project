@@ -16,6 +16,7 @@ import shared.classes.GameRequest;
 import shared.classes.History;
 import shared.classes.Player;
 import shared.classes.TrainCard;
+import shared.classes.Turn;
 import shared.classes.User;
 import shared.interfaces.iGameInfo;
 import shared.classes.Route;
@@ -85,7 +86,7 @@ public class ClientPresenterFacade {
 
     }
 
-    public void destinationCardsPicked(List<DestinationCard> cardsPicked) throws IOException {
+    public void destinationCardsPicked(DestinationCard[] cardsPicked) throws IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.PICKDESTINATIONCARDS, cardsPicked, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
 
@@ -147,4 +148,11 @@ public class ClientPresenterFacade {
         return info.getTurn().getPlayer().equals(player.getUserName());
     }
 
+    public Turn getTurn() {
+        return ClientModelRoot._instance.getTurn();
+    }
+
+    public DestinationCard[] getDestCardsToSelectFrom() {
+        return ClientModelRoot._instance.getDestCardsToSelectFrom();
+    }
 }

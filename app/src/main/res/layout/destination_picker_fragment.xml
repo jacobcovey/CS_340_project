@@ -4,13 +4,19 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical">
 
+    <TextView
+        android:id="@+id/destinationMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select at least 2 Destinations" />
+
     <CheckBox
         android:id="@+id/destination0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_gravity="left"
-        android:text="Los Angels to New York - 25 points" />
+        android:text="No Destination Card Set" />
 
     <CheckBox
         android:id="@+id/destination1"
@@ -18,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_gravity="left"
-        android:text="Los Angels to New York - 25 points" />
+        android:text="No Destination Card Set" />
 
     <CheckBox
         android:id="@+id/destination2"
@@ -26,10 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_gravity="left"
-        android:text="Los Angels to New York - 25 points" />
+        android:text="No Destination Card Set" />
 
     <Button
-        android:id="@+id/routesSelectedButton"
+        android:id="@+id/destinationsSelectedButton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:padding="10dp"
