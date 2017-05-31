@@ -83,8 +83,6 @@ public class GameListView extends Fragment implements IGameListView {
                 gameListAdapter.notifyDataSetChanged();
             }
         });
-
-
     }
 
     @Override
