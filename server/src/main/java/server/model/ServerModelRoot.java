@@ -35,8 +35,8 @@ public class ServerModelRoot {
     private List<Game> gameList = new ArrayList<>();
     private Set<String> authTokens = new HashSet<>();
     private Map<String, GameInfo> gameInfos = new HashMap<>();
-    private Map<String,List<CommandData>> commandsForUser = null;
-    private List<City> cities = new LinkedList<>();
+    private Map<String,List<CommandData>> commandsForUser = new HashMap<>();
+    private List<City> cities = new ArrayList<>();
 
     public Set<User> getUsers() {
         return users;
