@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.example.jacobcovey.game_board.ViewGameBoard;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 /**
@@ -24,6 +25,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
     private Button leftDrawerButton;
     private FrameLayout leftDrawer, rightDrawer;
     private FragmentManager fragmentManager;
+    private ViewGameBoard boardView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
                 presentTrainCardDrawer();
             }
         });
+
+        boardView = (ViewGameBoard) v.findViewById(R.id.board_view);
 
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
         });
