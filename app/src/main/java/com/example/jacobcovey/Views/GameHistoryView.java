@@ -90,9 +90,24 @@ public class GameHistoryView extends Fragment implements IGameHistoryView {
     }
 
     @Override
-    public void addHistoryEvent(HistoryAction action) {
-
+    public void addHistoryEvent(final HistoryAction action) {
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                GameHistoryAdapter gameHistoryAdapter = (GameHistoryAdapter) historyRecyclerView.getAdapter();
+                gameHistoryAdapter.addHistoryActtion(action);
+                gameHistoryAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
-
+    @Override
+    public void updateHistory(final History history) {
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                GameHistoryAdapter gameHistoryAdapter = (GameHistoryAdapter) historyRecyclerView.getAdapter();
+                gameHistoryAdapter.setHistory(history);
+                gameHistoryAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 }

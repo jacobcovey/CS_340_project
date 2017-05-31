@@ -41,4 +41,24 @@ public abstract class iGameInfo {
     public Turn getTurn() {
         return turn;
     }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
+
+    public void setTurn(Turn turn) {
+        this.turn = turn;
+    }
 }

@@ -31,6 +31,10 @@ public class GameHistoryAdapter extends RecyclerView.Adapter {
         this.history = history;
     }
 
+    public void addHistoryActtion(HistoryAction historyAction) {
+        history.addAction(historyAction);
+    }
+
     private History history;
 
     public GameHistoryAdapter(History history) {

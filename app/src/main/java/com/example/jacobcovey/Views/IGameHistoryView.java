@@ -1,5 +1,6 @@
 package com.example.jacobcovey.Views;
 
+import shared.classes.History;
 import shared.classes.HistoryAction;
 
 /**
@@ -9,4 +10,6 @@ import shared.classes.HistoryAction;
 public interface IGameHistoryView {
 
     void addHistoryEvent(HistoryAction action);
+
+    void updateHistory(History history);
 }

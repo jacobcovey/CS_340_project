@@ -12,7 +12,6 @@ import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.Turn;
 import shared.classes.User;
-import shared.interfaces.iGameInfo;
 
 public class ClientModelRoot extends Observable {
 
@@ -31,7 +30,7 @@ public class ClientModelRoot extends Observable {
     private User user;
     private List<Game> gameList;
     private Game currentGame;
-    private iGameInfo gameInfo;
+    private GameInfo gameInfo;
     private Player player;
     private TrainCard[] faceUpDeck;
     private DestinationCard[] destCardsToSelectFrom;
@@ -70,10 +69,10 @@ public class ClientModelRoot extends Observable {
         setChanged();
         notifyObservers();
     }
-    public iGameInfo getGameInfo() {
+    public GameInfo getGameInfo() {
         return gameInfo;
     }
-    public void setGameInfo(iGameInfo gameInfo) {
+    public void setGameInfo(GameInfo gameInfo) {
         this.gameInfo = gameInfo;
         setChanged();
         notifyObservers();
