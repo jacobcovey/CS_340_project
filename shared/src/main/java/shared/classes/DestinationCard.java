@@ -17,6 +17,13 @@ public class DestinationCard {
         this.points = points;
     }
 
+    public DestinationCard(String id, City city1, City city2, int points) {
+        this.id = id;
+        this.city1 = city1;
+        this.city2 = city2;
+        this.points = points;
+    }
+
     public City getCity1() {
         return city1;
     }
