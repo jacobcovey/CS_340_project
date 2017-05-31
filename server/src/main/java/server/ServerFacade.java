@@ -123,4 +123,8 @@ public class ServerFacade {
     public List<CommandData> getCommandsForUser(String userName) {
         return serverModelRoot.getCommandsForUser(userName);
     }
+
+    public void initializeCities() {
+        serverModelRoot.initializeCities();
+    }
 }
