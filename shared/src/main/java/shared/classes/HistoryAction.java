@@ -22,4 +22,8 @@ public class HistoryAction {
         return actionMessage;
     }
 
+    @Override
+    public String toString() {
+        return player + " : " + actionMessage;
+    }
 }

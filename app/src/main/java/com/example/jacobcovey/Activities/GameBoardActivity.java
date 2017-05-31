@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.example.jacobcovey.Views.ChatView;
 import com.example.jacobcovey.Views.GameBoardView;
+import com.example.jacobcovey.Views.GameHistoryView;
 import com.example.jacobcovey.Views.GameInfoView;
 import com.example.jacobcovey.Views.TrainCardDrawerView;
 import com.example.jacobcovey.constants.Icons;
@@ -21,7 +22,8 @@ import com.joanzapata.iconify.fonts.FontAwesomeModule;
 public class GameBoardActivity extends SingleFragmentActivity implements
         TrainCardDrawerView.TrainCardDrawerContainer,
         GameInfoView.GameInfoDrawerContainer,
-        ChatView.ChatDrawerContainer {
+        ChatView.ChatDrawerContainer,
+        GameHistoryView.GameHistoryDrawerContainer {
 
     private GameBoardView gameBoard;
 
@@ -73,5 +75,10 @@ public class GameBoardActivity extends SingleFragmentActivity implements
     @Override
     public void closeChatDrawer() {
         gameBoard.closeChatDrawer();
+    }
+
+    @Override
+    public void closeGameHistoryDrawer() {
+        gameBoard.closeHistoryDrawer();
     }
 }

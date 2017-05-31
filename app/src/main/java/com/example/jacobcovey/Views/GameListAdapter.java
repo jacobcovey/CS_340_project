@@ -18,7 +18,7 @@ import shared.classes.Game;
  * Created by jacobcovey on 5/17/17.
  */
 
-class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
+public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
 
     private List<Game> games;
 

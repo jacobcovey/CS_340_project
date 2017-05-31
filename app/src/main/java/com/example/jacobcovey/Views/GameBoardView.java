@@ -86,6 +86,10 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
         dismissRightDrawer();
     }
 
+    public void closeHistoryDrawer() {
+        dismissRightDrawer();
+    }
+
     public void presentTrainCardDrawer() {
         showLeftDrawer(new TrainCardDrawerView());
     }
@@ -99,7 +103,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
     }
 
     public void presentHistoryDrawer() {
-        showRightDrawer(null);
+        showRightDrawer(new GameHistoryView());
     }
 
 
