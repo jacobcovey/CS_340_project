@@ -14,13 +14,4 @@ public class LoginActivity extends SingleFragmentActivity {
         return new LoginView();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        Iconify.with(new FontAwesomeModule());
-        new Icons(this);
-
-    }
-
 }

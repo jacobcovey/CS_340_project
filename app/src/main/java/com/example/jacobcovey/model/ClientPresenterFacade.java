@@ -56,6 +56,12 @@ public class ClientPresenterFacade {
 
     }
 
+    public void startGameInfo(GameInfo game) throws IOException {
+
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.STARTGAME, game));
+
+    }
+
     public void leaveGame(GameRequest gameRequest) throws IOException {
 
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.LEAVEGAME, gameRequest));
