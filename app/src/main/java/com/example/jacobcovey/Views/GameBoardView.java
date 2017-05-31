@@ -72,6 +72,10 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
         dismissRightDrawer();
     }
 
+    public void closeChatDrawer() {
+        dismissRightDrawer();
+    }
+
 
     private void showLeftDrawer(Fragment fragment) {
 
