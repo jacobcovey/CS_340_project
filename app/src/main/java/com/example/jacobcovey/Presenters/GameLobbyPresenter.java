@@ -73,10 +73,14 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public boolean checkIfGameFull(){
         Game currentGame = cpf.getGame();
 
-        if (currentGame.getPlayerLimit() == currentGame.getPlayers().size()){
-            return true;
-        }
-        else {
+        try {
+            if (currentGame.getPlayerLimit() == currentGame.getPlayers().size()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e ) {
+            System.out.println("Current game is null");
             return false;
         }
     }

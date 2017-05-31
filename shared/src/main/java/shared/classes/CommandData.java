@@ -12,6 +12,7 @@ public class CommandData {
         JOINGAME,
         CREATEGAME,
         STARTGAME,
+        STARTGAMEINFO,
         LEAVEGAME,
         GAMEJOINED,
         GAMELEFT,
