@@ -132,7 +132,7 @@ public class ClientPresenterFacade {
         ClientModelRoot._instance.deleteObserver(observer);
     }
 
-    public List<TrainCard> getFaceUpDeck() {
+    public TrainCard[] getFaceUpDeck() {
         return null;
     }
 
