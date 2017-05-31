@@ -4,29 +4,32 @@
     android:background="@color/white"
     android:gravity="right"
     android:layout_gravity="right"
-    android:padding="10dp"
+    android:padding="15dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/chat_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
-
     <Button
         android:id="@+id/chat_dismiss_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:padding="5dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:text="X"/>
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@id/chat_dismiss_button"
+        android:id="@+id/chat_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="60dp"
+        android:scrollbars="vertical"/>
 
     <RelativeLayout
         android:id="@+id/InnerRelativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/send_chat_button"
@@ -37,7 +40,7 @@
         </Button>
 
         <EditText
-            android:id="@+id/new_comment_box"
+            android:id="@+id/new_chat_box"
             android:layout_width="fill_parent"
             android:layout_toLeftOf="@id/send_chat_button"
             android:imeOptions="flagNoExtractUi"

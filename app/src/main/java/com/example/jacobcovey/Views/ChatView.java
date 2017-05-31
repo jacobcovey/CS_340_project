@@ -3,6 +3,8 @@ package com.example.jacobcovey.Views;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +21,14 @@ import shared.classes.ChatMessage;
 
 public class ChatView extends Fragment implements IChatView {
 
-    private EditText newChatMessage; // TODO
-    private Button sendChatMessageButton; // TODO
+    private EditText chatEditText; // TODO
+    private Button sendButton; // TODO
     private Button dissmissButton;
     private RecyclerView chatMessages;
     private ChatPresenter chatPresenter;
     private RecyclerView recyclerView;
     private ChatAdapter adapter;
+    private LinearLayoutManager manager;
 
     private ChatDrawerContainer chatDrawerContainer;
 
@@ -56,6 +59,8 @@ public class ChatView extends Fragment implements IChatView {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.chat_fragment, container, false);
         dissmissButton = (Button) v.findViewById(R.id.chat_dismiss_button);
+        sendButton = (Button) v.findViewById(R.id.send_chat_button);
+        chatEditText = (EditText) v.findViewById(R.id.new_chat_box);
 
         dissmissButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +69,25 @@ public class ChatView extends Fragment implements IChatView {
             }
         });
 
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chatPresenter.sendChatMessage(chatEditText.getText().toString());
+            }
+        });
+
+        manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+
         List<ChatMessage> messages = chatPresenter.getChatMessages();
         adapter = new ChatAdapter(messages);
         recyclerView = (RecyclerView) v.findViewById(R.id.chat_recycler_view);
+
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL));
+        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
         return v;
     }
 
@@ -89,10 +109,5 @@ public class ChatView extends Fragment implements IChatView {
                 adapter.addMessage(chatMessage);
             }
         });
-    }
-
-    @Override
-    public String getNewChatMessage() {
-        return newChatMessage.getText().toString();
     }
 }
