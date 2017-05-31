@@ -35,7 +35,7 @@ public class DrawFaceDownCard implements iCommand {
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (cardDrawn != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.DRAWFACEDOWNCARD, cardDrawn);
+            CommandData successCmd = new CommandData(CommandData.Type.FACEDOWNTRAINCARDPICKED, cardDrawn);
             dList.add(successCmd);
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO DRAW FACE DOWN CARDS");

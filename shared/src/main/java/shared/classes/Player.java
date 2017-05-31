@@ -13,8 +13,8 @@ public class Player {
 
     private PlayerColors color;
     private int trainCars;
-    private Set<TrainCard> trainCards;
-    private Set<DestinationCard> destinationCards;
+    private Set<TrainCard> trainCards = new HashSet<TrainCard>();
+    private Set<DestinationCard> destinationCards = new HashSet<DestinationCard>();
     private Set<DestinationCard> drawnDestinationCards;
     private int points;
     private String userName;

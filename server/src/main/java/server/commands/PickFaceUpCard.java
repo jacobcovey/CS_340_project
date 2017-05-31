@@ -20,7 +20,8 @@ public class PickFaceUpCard implements iCommand {
 
     public List<CommandData> execute() {
         List<TrainCard> faceUpCards = ServerFacade._instance.getGameInfo(gameId).getFaceUpTrainCardDeck();
-        TrainCard cardDrawn = null;
+        List<TrainCard> faceDownCards = ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck();
+        TrainCard cardDrawn;
         int index = -1;
         for (int i = 0; i < faceUpCards.size(); i++) {
             if (faceUpCards.get(i).getId() == data.getId()) {
@@ -29,7 +30,9 @@ public class PickFaceUpCard implements iCommand {
             }
         }
         cardDrawn = faceUpCards.get(index);
-        faceUpCards.remove(index);
+        TrainCard newCard = faceDownCards.get(0);
+        ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().remove(0);
+        ServerFacade._instance.getGameInfo(gameId).getFaceUpTrainCardDeck().set(index, newCard);
 
         List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
         for (Player player : players) {
@@ -45,7 +48,9 @@ public class PickFaceUpCard implements iCommand {
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (cardDrawn != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.PICKFACEUPCARD, cardDrawn);
+            CommandData successCmd = new CommandData(CommandData.Type.FACEUPTRAINCARDPICKED, cardDrawn);
+            dList.add(successCmd);
+            successCmd = new CommandData(CommandData.Type.UPDATEFACEUPTRAINCARDDECK, faceUpCards);
             dList.add(successCmd);
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO PICK FACE UP CARDS");
