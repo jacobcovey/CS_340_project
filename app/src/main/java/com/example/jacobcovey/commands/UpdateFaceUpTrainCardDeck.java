@@ -13,9 +13,9 @@ import shared.interfaces.iCommand;
  */
 
 public class UpdateFaceUpTrainCardDeck implements iCommand {
-    List<TrainCard> data;
+    TrainCard[] data;
 
-    public UpdateFaceUpTrainCardDeck(CommandData data) { this.data = (List<TrainCard>) data.getData(); }
+    public UpdateFaceUpTrainCardDeck(CommandData data) { this.data = (TrainCard[]) data.getData(); }
 
     @Override
     public List<CommandData> execute() {

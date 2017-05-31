@@ -4,7 +4,6 @@ import java.util.List;
 
 import shared.classes.Chat;
 import shared.classes.ChatMessage;
-import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.History;
 import shared.classes.HistoryAction;
@@ -92,10 +91,10 @@ public class ClientFacade implements iClient {
     public void addHistoryAction(HistoryAction action) {
         ClientModelRoot._instance.getGameInfo().getHistory().addAction(action);
     }
-    public List<TrainCard> getFaceUpDeck() {
+    public TrainCard[] getFaceUpDeck() {
         return ClientModelRoot._instance.getFaceUpDeck();
     }
-    public void setFaceUpDeck(List<TrainCard> faceUpDeck) {
+    public void setFaceUpDeck(TrainCard[] faceUpDeck) {
         ClientModelRoot._instance.setFaceUpDeck(faceUpDeck);
     }
 }
