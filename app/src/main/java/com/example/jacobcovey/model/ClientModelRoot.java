@@ -6,8 +6,10 @@ package com.example.jacobcovey.model;
 import java.util.List;
 import java.util.Observable;
 
+import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.Player;
+import shared.classes.TrainCard;
 import shared.classes.User;
 import shared.interfaces.iGameInfo;
 
@@ -31,6 +33,8 @@ public class ClientModelRoot extends Observable {
     private Game currentGame;
     private iGameInfo gameInfo;
     private Player player;
+    private List<TrainCard> faceUpDeck;
+    private List<DestinationCard> drawnDestinationCards;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
@@ -87,4 +91,11 @@ public class ClientModelRoot extends Observable {
     public void setColor(String color) {
 
     }
+    public List<TrainCard> getFaceUpDeck() {
+        return faceUpDeck;
+    }
+    public List<DestinationCard> getDrawnDestinationCards() {
+        return drawnDestinationCards;
+    }
+
 }

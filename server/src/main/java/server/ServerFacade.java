@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import server.model.GameInfo;
 import server.model.ServerModelRoot;
+import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.classes.TrainCard;
+import shared.classes.TrainCardColors;
 import shared.classes.User;
 
 public class ServerFacade {
@@ -102,5 +106,21 @@ public class ServerFacade {
             }
         }
         return filteredGames;
+    }
+
+    public void addGameInfo(Game game) {
+        serverModelRoot.addGameInfo(game);
+    }
+
+    public GameInfo getGameInfo(Game game) {
+        return serverModelRoot.getGameInfo(game);
+    }
+
+    public void addCommandToUser(CommandData command, User user) {
+        serverModelRoot.addCommandToUser(command, user);
+    }
+
+    public List<CommandData> getCommandsForUser(User user) {
+        return serverModelRoot.getCommandsForUser(user);
     }
 }

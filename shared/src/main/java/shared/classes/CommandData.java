@@ -23,6 +23,8 @@ public class CommandData {
         DRAWFACEDOWNCARD,
         DRAWDESTINATIONCARDS,
         DESTINATIONCARDSPICKED,
+        CLAIMROUTE,
+        SENDCHAT,
         ERROR
     }
 

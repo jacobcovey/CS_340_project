@@ -32,6 +32,8 @@ public abstract class iGameInfo {
         return chat;
     }
 
+
+
     public History getHistory() {
         return history;
     }
