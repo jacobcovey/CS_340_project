@@ -1,5 +1,6 @@
 package com.example.jacobcovey.game_board;
 
+import android.graphics.Color;
 import android.graphics.PointF;
 
 import java.util.List;
@@ -10,16 +11,16 @@ import java.util.UUID;
  */
 
 public class Route {
-    private UUID mId;
+    private int mId;
     private int mSize;
     private List<PointF> mPoints;
     private int mColor;
 
-    public Route(int size, int color, List<PointF> points) {
-        mId = UUID.randomUUID();
+    public Route(int size, int id, List<PointF> points) {
+        mId = id;
         mSize = size;
         mPoints = points;
-        mColor = color;
+        mColor = Color.TRANSPARENT;
     }
 
     public int getSize() {
@@ -39,7 +40,7 @@ public class Route {
         mColor = color;
     }
 
-    public UUID getId() {
+    public int getId() {
         return mId;
     }
 
