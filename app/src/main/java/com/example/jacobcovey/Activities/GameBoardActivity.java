@@ -11,6 +11,8 @@ import com.example.jacobcovey.Views.GameInfoView;
 import com.example.jacobcovey.Views.TrainCardDrawerView;
 import com.example.jacobcovey.constants.Icons;
 import com.example.jacobcovey.ticket_to_ride.R;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 /**
  * Created by jacobcovey on 5/19/17.
@@ -25,6 +27,8 @@ public class GameBoardActivity extends SingleFragmentActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Iconify.with(new FontAwesomeModule());
+        new Icons(this);
         getMenuInflater().inflate(R.menu.gameboardmenu, menu);
         menu.findItem(R.id.action_chat).setIcon(Icons.chatIcon);
         menu.findItem(R.id.action_history).setIcon(Icons.historyIcon);
