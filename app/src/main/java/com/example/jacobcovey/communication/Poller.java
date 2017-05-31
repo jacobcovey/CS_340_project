@@ -47,7 +47,7 @@ public class Poller extends TimerTask {
                 return;
             case GAMEINPLAY:
                 asyncPoller.execute(new CommandData(CommandData.Type.GETOUTSTANDINGCOMMANDS, ClientModelRoot._instance.getUser().getUsername()));
-            case GAMEINFO:
+//            case GAMEINFO:
                 return;
 
         }

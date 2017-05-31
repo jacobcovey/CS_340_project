@@ -13,11 +13,11 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.example.jacobcovey.Activities.LoginActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name="com.example.jacobcovey.Activities.GameListActivity"
             android:screenOrientation="landscape"
@@ -38,6 +38,16 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+        <activity android:name="com.example.jacobcovey.game_board.ActivityGameBoard"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>
