@@ -13,6 +13,11 @@ public class TrainCard {
     public TrainCard(TrainCardColors color) {
         this.color = color;
     }
+    public TrainCard(String id, TrainCardColors color) {
+        this.id = id;
+        this.color = color;
+    }
+
 
     public TrainCardColors getColor() {
         return color;
