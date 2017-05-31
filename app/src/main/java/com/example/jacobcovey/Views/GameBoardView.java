@@ -21,7 +21,7 @@ import com.example.jacobcovey.ticket_to_ride.R;
 public class GameBoardView extends android.support.v4.app.Fragment implements IGameBoardView {
 
     private DrawerLayout drawerLayout;
-    private Button leftDrawerButton, rightDrawerButton;
+    private Button leftDrawerButton;
     private FrameLayout leftDrawer, rightDrawer;
     private FragmentManager fragmentManager;
 
@@ -40,19 +40,11 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
         leftDrawer = (FrameLayout) v.findViewById(R.id.left_drawer);
         rightDrawer = (FrameLayout) v.findViewById(R.id.right_drawer);
         leftDrawerButton = (Button) v.findViewById(R.id.leftDrawerButton);
-        rightDrawerButton = (Button) v.findViewById(R.id.rightDrawerButton);
 
         leftDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLeftDrawer(new TrainCardDrawerView());
-            }
-        });
-
-        rightDrawerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showRightDrawer(new GameInfoView());
+                presentTrainCardDrawer();
             }
         });
 
@@ -74,6 +66,22 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
     public void closeChatDrawer() {
         dismissRightDrawer();
+    }
+
+    public void presentTrainCardDrawer() {
+        showLeftDrawer(new TrainCardDrawerView());
+    }
+
+    public void presentGameInfoDrawer() {
+        showRightDrawer(new GameInfoView());
+    }
+
+    public void presentChatDrawer() {
+        showRightDrawer(null);
+    }
+
+    public void presentHistoryDrawer() {
+        showRightDrawer(null);
     }
 
 
