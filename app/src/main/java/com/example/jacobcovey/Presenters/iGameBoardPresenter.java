@@ -15,4 +15,6 @@ public interface iGameBoardPresenter {
     void updateBoard();
 
     void updateClientRoot(List<Route> routes);
+
+    void changeClientRoot();
 }
