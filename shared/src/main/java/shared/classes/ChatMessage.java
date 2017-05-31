@@ -6,16 +6,16 @@ package shared.classes;
 
 public class ChatMessage {
 
-    private String player;
+    private String userName;
     private String message;
 
-    public ChatMessage(String player, String message) {
-        this.player = player;
+    public ChatMessage(String userName, String message) {
+        this.userName = userName;
         this.message = message;
     }
 
-    public String getPlayer() {
-        return player;
+    public String getUserName() {
+        return userName;
     }
 
     public String getMessage() {
