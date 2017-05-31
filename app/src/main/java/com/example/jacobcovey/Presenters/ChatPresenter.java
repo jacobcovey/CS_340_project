@@ -5,6 +5,7 @@ import com.example.jacobcovey.Views.IChatView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -43,6 +44,10 @@ public class ChatPresenter implements IChatPresenter, Observer {
 
     public void setChatView(IChatView chatView) {
         this.chatView = chatView;
+    }
+
+    public List<ChatMessage> getChatMessages() {
+        return cpf.getChat().getMessages();
     }
 
 }

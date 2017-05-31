@@ -24,11 +24,13 @@ public class ChatView extends Fragment implements IChatView {
     private Button dissmissButton;
     private RecyclerView chatMessages;
     private ChatPresenter chatPresenter;
+    private RecyclerView recyclerView;
+    private ChatAdapter adapter;
 
     private ChatDrawerContainer chatDrawerContainer;
 
     public interface ChatDrawerContainer {
-        public void closeChatDrawer();
+        void closeChatDrawer();
     }
 
     @Override
@@ -61,25 +63,30 @@ public class ChatView extends Fragment implements IChatView {
                 chatDrawerContainer.closeChatDrawer();
             }
         });
+
+        List<ChatMessage> messages = chatPresenter.getChatMessages();
+        adapter = new ChatAdapter(messages);
+        recyclerView = (RecyclerView) v.findViewById(R.id.chat_recycler_view);
+        recyclerView.setAdapter(adapter);
         return v;
     }
 
     @Override
-    public void setChatMessages(List<ChatMessage> chatMessages) {
+    public void setChatMessages(final List<ChatMessage> chatMessages) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // TODO update the adapter
+                adapter.setMessages(chatMessages);
             }
         });
     }
 
     @Override
-    public void addChatMessage(ChatMessage chatMessages) {
+    public void addChatMessage(final ChatMessage chatMessage) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // TODO update the adapter
+                adapter.addMessage(chatMessage);
             }
         });
     }
