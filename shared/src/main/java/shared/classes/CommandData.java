@@ -65,6 +65,7 @@ public class CommandData {
     public String getGameId() {
         return gameId;
     }
+
     public String getUserName() {
         return userName;
     }

@@ -11,9 +11,12 @@ public class Route {
 
     private TrainCardColors color;
     private int length;
+    private String id;
     private City city1;
     private City city2;
     private int points;
+    private double xCoordinate;
+    private double yCoordinate;
     private Player player;
     private boolean isClaimed;
 
@@ -24,6 +27,18 @@ public class Route {
         this.city1 = city1;
         this.city2 = city2;
         this.points = points;
+        this.player = null;
+        this.isClaimed = false;
+    }
+
+    public Route(TrainCardColors color, int length, City city1, City city2, double x, double y) {
+        this.color = color;
+        this.length = length;
+        this.city1 = city1;
+        this.city2 = city2;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.points = calcPoint();
         this.player = null;
         this.isClaimed = false;
     }
@@ -75,5 +90,17 @@ public class Route {
         }
         this.player = player;
         this.isClaimed = true;
+    }
+
+    public int calcPoint() {
+        switch (length) {
+            case 1: return 1;
+            case 2: return 2;
+            case 3: return 4;
+            case 4: return 7;
+            case 5: return 10;
+            default: return 15;
+        }
+
     }
 }

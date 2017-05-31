@@ -57,9 +57,9 @@ public class ClientPresenterFacade {
 
     }
 
-    public void startGameInfo(GameInfo game) throws IOException {
+    public void startGameInfo(Game game) throws IOException {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.STARTGAME, game));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.STARTGAMEINFO, game, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
 
     }
 

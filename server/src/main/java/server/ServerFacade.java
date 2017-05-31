@@ -109,11 +109,11 @@ public class ServerFacade {
     }
 
     public void addGameInfo(Game game) {
-        serverModelRoot.addGameInfo(game);
+        serverModelRoot.instance.addGameInfo(game);
     }
 
     public GameInfo getGameInfo(String gameId) {
-        return serverModelRoot.getGameInfo(gameId);
+        return serverModelRoot.instance.getGameInfo(gameId);
     }
 
     public void addCommandToUser(CommandData command, String userName) {
@@ -125,6 +125,6 @@ public class ServerFacade {
     }
 
     public void initializeCities() {
-        serverModelRoot.initializeCities();
+        serverModelRoot.instance.initializeCities();
     }
 }

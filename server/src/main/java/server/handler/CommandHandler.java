@@ -17,11 +17,14 @@ import server.commands.CommandManager;
 import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 
+import static shared.classes.CommandData.Type.UPDATECURRENTGAME;
+import static shared.classes.CommandData.Type.UPDATEGAMELIST;
+
 public class CommandHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        System.out.println("Request received");
+        //System.out.println("Request received");
         try {
             if (!exchange.getRequestMethod().toLowerCase().equals("post")) {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
@@ -32,6 +35,7 @@ public class CommandHandler implements HttpHandler {
             InputStream reqBody = exchange.getRequestBody();
             String serialized = readString(reqBody);
             CommandData commandData = gson.fromJson(serialized, CommandData.class);
+            if (!commandData.getType().equals(UPDATEGAMELIST) && !commandData.getType().equals(UPDATECURRENTGAME)) {System.out.println(commandData.getType());}
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
             List<CommandData> result = command.execute();
