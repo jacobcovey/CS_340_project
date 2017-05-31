@@ -17,6 +17,7 @@ public class Route {
     private Player player;
     private boolean isClaimed;
 
+
     public Route(TrainCardColors color, int length, City city1, City city2, int points) {
         this.color = color;
         this.length = length;

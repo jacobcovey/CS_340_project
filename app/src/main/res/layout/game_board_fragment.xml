@@ -15,6 +15,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Left Drawer"/>
+
+        <Button
+            android:id="@+id/addToModelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="10dp"
+            android:text="Add to model"/>
         <com.example.jacobcovey.game_board.ViewGameBoard
             android:id="@+id/board_view"
             android:layout_width="match_parent"

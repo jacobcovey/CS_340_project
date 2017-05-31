@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.example.jacobcovey.game_board.ViewGameBoard;
+import com.example.jacobcovey.Presenters.iGameBoardPresenter;
+import com.example.jacobcovey.Presenters.GameBoardPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 /**
@@ -22,15 +24,18 @@ import com.example.jacobcovey.ticket_to_ride.R;
 public class GameBoardView extends android.support.v4.app.Fragment implements IGameBoardView {
 
     private DrawerLayout drawerLayout;
-    private Button leftDrawerButton;
+    private Button leftDrawerButton, changeModelButton;
     private FrameLayout leftDrawer, rightDrawer;
     private FragmentManager fragmentManager;
     private ViewGameBoard boardView;
+    private iGameBoardPresenter gameBoardPresenter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        gameBoardPresenter = new GameBoardPresenter();
+        gameBoardPresenter.setGameBoardView(this);
     }
 
     @Override
@@ -47,6 +52,15 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
             @Override
             public void onClick(View view) {
                 presentTrainCardDrawer();
+            }
+        });
+
+        changeModelButton = (Button) v.findViewById(R.id.addToModelButton);
+
+        changeModelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameBoardPresenter.changeClientRoot();
             }
         });
 

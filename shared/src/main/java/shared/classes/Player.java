@@ -2,7 +2,6 @@ package shared.classes;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 
 import static shared.constants.Constants.NUMBEROFTRAINCARS;
 
@@ -26,6 +25,15 @@ public class Player {
         this.trainCards = trainCards;
         this.destinationCards = new HashSet<DestinationCard>();
         this.points = 0;
+        this.userName = userName;
+    }
+
+    public Player(PlayerColors color, int trainCars, Set<TrainCard> trainCards, Set<DestinationCard> destinationCards, int points, String userName) {
+        this.color = color;
+        this.trainCars = trainCars;
+        this.trainCards = trainCards;
+        this.destinationCards = destinationCards;
+        this.points = points;
         this.userName = userName;
     }
 
