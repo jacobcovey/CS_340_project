@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.Set;
 
 import shared.classes.Chat;
+import shared.classes.ChatMessage;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
@@ -84,7 +85,7 @@ public class ClientPresenterFacade {
 
     }
 
-    public void sendChatMessage() throws  IOException {
+    public void sendChatMessage(ChatMessage message) throws  IOException {
 
     }
     public void claimRoute() throws IOException {
