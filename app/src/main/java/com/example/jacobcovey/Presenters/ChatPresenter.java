@@ -1,5 +1,7 @@
 package com.example.jacobcovey.Presenters;
 
+import com.example.jacobcovey.Views.ChatView;
+import com.example.jacobcovey.Views.IChatView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
@@ -14,7 +16,9 @@ import shared.classes.ChatMessage;
 
 public class ChatPresenter implements IChatPresenter, Observer {
 
-    ClientPresenterFacade cpf;
+    private ClientPresenterFacade cpf;
+
+    private IChatView chatView;
 
     public ChatPresenter() {
         cpf = new ClientPresenterFacade();
@@ -36,4 +40,9 @@ public class ChatPresenter implements IChatPresenter, Observer {
     @Override
     public void update(Observable o, Object arg) {
     }
+
+    public void setChatView(IChatView chatView) {
+        this.chatView = chatView;
+    }
+
 }

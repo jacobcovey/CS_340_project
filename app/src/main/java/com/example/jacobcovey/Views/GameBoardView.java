@@ -77,7 +77,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
     }
 
     public void presentChatDrawer() {
-        showRightDrawer(null);
+        showRightDrawer(new ChatView());
     }
 
     public void presentHistoryDrawer() {

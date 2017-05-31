@@ -8,7 +8,7 @@ import shared.classes.ChatMessage;
  * Created by spencer on 5/29/17.
  */
 
-interface IChatView {
+public interface IChatView {
 
     void setChatMessages(List<ChatMessage> chatMessages);
     void addChatMessage(ChatMessage chatMessages);
