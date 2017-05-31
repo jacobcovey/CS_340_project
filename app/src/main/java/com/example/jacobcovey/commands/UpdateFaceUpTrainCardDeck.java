@@ -7,18 +7,19 @@ import java.util.List;
 import shared.classes.CommandData;
 import shared.classes.TrainCard;
 import shared.interfaces.iCommand;
+
 /**
- * Created by Dylan on 5/25/2017.
+ * Created by Dylan on 5/30/2017.
  */
 
-public class FaceDownTrainCardPicked implements iCommand {
-    TrainCard data;
+public class UpdateFaceUpTrainCardDeck implements iCommand {
+    List<TrainCard> data;
 
-    public FaceDownTrainCardPicked(CommandData data) { this.data = (TrainCard) data.getData(); }
+    public UpdateFaceUpTrainCardDeck(CommandData data) { this.data = (List<TrainCard>) data.getData(); }
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.getPlayer().addTrainCard(data);
+        ClientFacade._instance.setFaceUpDeck(data);
         return null;
     }
 }

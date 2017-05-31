@@ -13,11 +13,11 @@ import shared.interfaces.iCommand;
  * Created by Dylan on 5/25/2017.
  */
 
-public class ChatMessageSent implements iCommand {
+public class UpdateChat implements iCommand {
 
     ChatMessage data;
 
-    public ChatMessageSent(CommandData data) {
+    public UpdateChat(CommandData data) {
         this.data = (ChatMessage) data.getData();
     }
 

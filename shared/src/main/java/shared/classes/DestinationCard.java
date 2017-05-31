@@ -6,6 +6,7 @@ package shared.classes;
 
 public class DestinationCard {
 
+    private String id;
     private City city1;
     private City city2;
     private int points;
@@ -27,6 +28,8 @@ public class DestinationCard {
     public int getPoints() {
         return points;
     }
+
+    public String getId() { return id; }
 
     @Override
     public String toString() {

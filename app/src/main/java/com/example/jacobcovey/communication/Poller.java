@@ -3,6 +3,7 @@ package com.example.jacobcovey.communication;
 import android.os.AsyncTask;
 
 import com.example.jacobcovey.model.ClientFacade;
+import com.example.jacobcovey.model.ClientModelRoot;
 
 import java.io.IOException;
 import java.util.TimerTask;
@@ -44,6 +45,8 @@ public class Poller extends TimerTask {
                 return;
             case GAMESTARTED:
                 return;
+            case GAMEINPLAY:
+                asyncPoller.execute(new CommandData(CommandData.Type.GETOUTSTANDINGCOMMANDS, ClientModelRoot._instance.getUser().getUsername()));
             case GAMEINFO:
                 return;
 

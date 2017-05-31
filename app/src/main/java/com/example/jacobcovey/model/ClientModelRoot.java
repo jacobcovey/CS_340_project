@@ -33,7 +33,6 @@ public class ClientModelRoot extends Observable {
     private iGameInfo gameInfo;
     private Player player;
     private List<TrainCard> faceUpDeck;
-    private List<DestinationCard> drawnDestinationCards;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
@@ -93,8 +92,8 @@ public class ClientModelRoot extends Observable {
     public List<TrainCard> getFaceUpDeck() {
         return faceUpDeck;
     }
-    public List<DestinationCard> getDrawnDestinationCards() {
-        return drawnDestinationCards;
+    public void setFaceUpDeck(List<TrainCard> faceUpDeck) {
+        this.faceUpDeck = faceUpDeck;
     }
 
 }

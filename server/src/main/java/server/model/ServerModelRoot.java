@@ -29,7 +29,7 @@ public class ServerModelRoot {
     private List<Game> gameList = new ArrayList<>();
     private Set<String> authTokens = new HashSet<>();
     private Map<String, GameInfo> gameInfo;
-    private Map<User,List<CommandData>> commandsForUser;
+    private Map<String,List<CommandData>> commandsForUser;
 
     public Set<User> getUsers() {
         return users;
@@ -61,16 +61,16 @@ public class ServerModelRoot {
         }
     }
 
-    public GameInfo getGameInfo(Game game) {
-        return gameInfo.get(game.getId());
+    public GameInfo getGameInfo(String gameId) {
+        return gameInfo.get(gameId);
     }
 
-    public void addCommandToUser(CommandData command, User user) {
-        (commandsForUser.get(user)).add(command);
+    public void addCommandToUser(CommandData command, String userName) {
+        (commandsForUser.get(userName)).add(command);
     }
 
-    public List<CommandData> getCommandsForUser(User user) {
-        return commandsForUser.get(user);
+    public List<CommandData> getCommandsForUser(String userName) {
+        return commandsForUser.get(userName);
     }
 
 }

@@ -95,7 +95,7 @@ public class ClientFacade implements iClient {
     public List<TrainCard> getFaceUpDeck() {
         return ClientModelRoot._instance.getFaceUpDeck();
     }
-    public List<DestinationCard> getDrawnDestinationCards() {
-        return ClientModelRoot._instance.getDrawnDestinationCards();
+    public void setFaceUpDeck(List<TrainCard> faceUpDeck) {
+        ClientModelRoot._instance.setFaceUpDeck(faceUpDeck);
     }
 }

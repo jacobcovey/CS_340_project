@@ -1,9 +1,12 @@
 package com.example.jacobcovey.commands;
 
 import com.example.jacobcovey.model.ClientFacade;
+import com.example.jacobcovey.model.ClientModelRoot;
 
 import java.sql.ClientInfoStatus;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
@@ -15,16 +18,15 @@ import shared.interfaces.iCommand;
  */
 
 public class DestinationCardPicked implements iCommand {
-    List<DestinationCard> data;
+    Set<DestinationCard> data;
 
-    public DestinationCardPicked(CommandData data) { this.data = (List<DestinationCard>) data.getData(); }
+    public DestinationCardPicked(CommandData data) { this.data = (Set<DestinationCard>) data.getData(); }
 
     @Override
     public List<CommandData> execute() {
-        for (DestinationCard card : data) {
-            ClientFacade._instance.getDrawnDestinationCards().remove(card);
-        }
-        ClientFacade._instance.getPlayer().addDestinationCards(data);
+        ClientFacade._instance.getPlayer().getDestinationCards().addAll(data);
+        Set<DestinationCard> emptyDrawnCards = new HashSet<>();
+        ClientFacade._instance.getPlayer().setDestinationCards(emptyDrawnCards);
         return null;
     }
 }

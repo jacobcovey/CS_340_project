@@ -64,31 +64,30 @@ public class ClientPresenterFacade {
 
     public void pickFaceUpCard(TrainCard card) throws IOException {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.PICKFACEUPCARD, card));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.PICKFACEUPCARD, card, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
 
     }
 
     public void drawFaceDownCard() throws IOException {
-
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DRAWFACEDOWNCARD, "Give me a card please!"));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DRAWFACEDOWNCARD, "Draw Face Down Card", ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
 
     }
 
     public void drawDestinationCards() throws IOException {
 
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DRAWDESTINATIONCARDS, "Give me some destinations to choose from!"));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DRAWDESTINATIONCARDS, "Draw Destination Card", ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
 
     }
 
     public void destinationCardsPicked(List<DestinationCard> cardsPicked) throws IOException {
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, cardsPicked));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.PICKDESTINATIONCARDS, cardsPicked, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
 
     public void sendChatMessage(ChatMessage chat) throws  IOException {
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDCHAT, chat));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDCHAT, chat, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
     public void claimRoute(Route route) throws IOException {
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, route));
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, route, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
 
     public Chat getChat() { return ClientModelRoot._instance.getGameInfo().getChat(); }

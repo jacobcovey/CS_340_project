@@ -8,6 +8,8 @@ public class TrainCard {
 
     private TrainCardColors color;
 
+    private String id;
+
     public TrainCard(TrainCardColors color) {
         this.color = color;
     }
@@ -15,5 +17,7 @@ public class TrainCard {
     public TrainCardColors getColor() {
         return color;
     }
+
+    public String getId() { return id; }
 
 }

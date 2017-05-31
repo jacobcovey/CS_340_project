@@ -3,6 +3,7 @@ package com.example.jacobcovey.commands;
 import com.example.jacobcovey.model.ClientFacade;
 
 import java.util.List;
+import java.util.Set;
 
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
@@ -13,13 +14,13 @@ import shared.interfaces.iCommand;
  */
 
 public class DestinationCardDrawn implements iCommand {
-    String data;
+    Set<DestinationCard> data;
 
-    public DestinationCardDrawn(CommandData data) { this.data = (String) data.getData(); }
+    public DestinationCardDrawn(CommandData data) { this.data = (Set<DestinationCard>) data.getData(); }
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.getPlayer().drawCard(data);
+        ClientFacade._instance.getPlayer().setDrawnDestinationCards(data);
         return null;
     }
 }

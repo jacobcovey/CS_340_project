@@ -112,15 +112,15 @@ public class ServerFacade {
         serverModelRoot.addGameInfo(game);
     }
 
-    public GameInfo getGameInfo(Game game) {
-        return serverModelRoot.getGameInfo(game);
+    public GameInfo getGameInfo(String gameId) {
+        return serverModelRoot.getGameInfo(gameId);
     }
 
-    public void addCommandToUser(CommandData command, User user) {
-        serverModelRoot.addCommandToUser(command, user);
+    public void addCommandToUser(CommandData command, String userName) {
+        serverModelRoot.addCommandToUser(command, userName);
     }
 
-    public List<CommandData> getCommandsForUser(User user) {
-        return serverModelRoot.getCommandsForUser(user);
+    public List<CommandData> getCommandsForUser(String userName) {
+        return serverModelRoot.getCommandsForUser(userName);
     }
 }

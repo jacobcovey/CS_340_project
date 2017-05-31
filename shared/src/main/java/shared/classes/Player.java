@@ -16,6 +16,7 @@ public class Player {
     private int trainCars;
     private Set<TrainCard> trainCards;
     private Set<DestinationCard> destinationCards;
+    private Set<DestinationCard> drawnDestinationCards;
     private int points;
     private String userName;
 
@@ -59,6 +60,8 @@ public class Player {
     public void setDestinationCards(Set<DestinationCard> destinationCards) {
         this.destinationCards = destinationCards;
     }
+    public Set<DestinationCard> getDrawnDestinationCards() {return drawnDestinationCards;}
+    public void setDrawnDestinationCards(Set<DestinationCard> drawnDestinationCards) {this.drawnDestinationCards = drawnDestinationCards;}
 
     public int getPoints() {
         return points;
@@ -85,7 +88,7 @@ public class Player {
         trainCards.add(card);
     }
 
-    public void addDestinationCards(List<DestinationCard> cards) {
+    public void addDestinationCards(Set<DestinationCard> cards) {
         for (DestinationCard card : cards) {
             destinationCards.add(card);
         }

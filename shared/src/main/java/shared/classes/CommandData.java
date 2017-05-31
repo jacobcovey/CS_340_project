@@ -20,20 +20,37 @@ public class CommandData {
         UPDATECURRENTGAME,
         UPDATEGAMELIST,
         PICKFACEUPCARD,
+        FACEUPTRAINCARDPICKED,
+        UPDATEFACEUPTRAINCARDDECK,
         DRAWFACEDOWNCARD,
+        FACEDOWNTRAINCARDPICKED,
         DRAWDESTINATIONCARDS,
+        DESTINATIONCARDDRAWN,
+        PICKDESTINATIONCARDS,
         DESTINATIONCARDSPICKED,
         CLAIMROUTE,
+        ROUTECLAIMED,
         SENDCHAT,
+        UPDATECHAT,
+        GETOUTSTANDINGCOMMANDS,
         ERROR
     }
 
     private Type type;
     private Object data;
+    private String gameId;
+    private String userName;
 
     public CommandData(Type type, Object data) {
         this.type = type;
         this.data = data;
+    }
+
+    public CommandData(Type type, Object data, String gameId, String userName) {
+        this.type = type;
+        this.data = data;
+        this.gameId = gameId;
+        this.userName = userName;
     }
 
     public Type getType() {
@@ -44,5 +61,10 @@ public class CommandData {
         return data;
     }
 
-
+    public String getGameId() {
+        return gameId;
+    }
+    public String getUserName() {
+        return userName;
+    }
 }

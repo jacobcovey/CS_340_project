@@ -16,6 +16,16 @@ public class CommandManager implements iCommandManager {
         switch(type) {
             case CREATEGAME:
                 return gson.fromJson(s, CreateGameCommand.class);
+            case DRAWFACEDOWNCARD:
+                return gson.fromJson(s, DrawFaceDownCard.class);
+            case PICKFACEUPCARD:
+                return gson.fromJson(s, PickFaceUpCard.class);
+            case DRAWDESTINATIONCARDS:
+                return gson.fromJson(s, DrawDestinationCards.class);
+            case PICKDESTINATIONCARDS:
+                return gson.fromJson(s,PickDestinationCards.class);
+            case CLAIMROUTE:
+                return gson.fromJson(s, ClaimRoute.class);
             case JOINGAME:
                 return gson.fromJson(s, JoinGameCommand.class);
             case LEAVEGAME:
@@ -24,12 +34,16 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, LoginCommand.class);
             case REGISTER:
                 return gson.fromJson(s, RegisterCommand.class);
+            case SENDCHAT:
+                return gson.fromJson(s, SendChat.class);
             case STARTGAME:
                 return gson.fromJson(s, StartGameCommand.class);
             case UPDATECURRENTGAME:
                 return gson.fromJson(s, UpdateCurrentGameCommand.class);
             case UPDATEGAMELIST:
                 return gson.fromJson(s, UpdateGameListCommand.class);
+            case GETOUTSTANDINGCOMMANDS:
+                return gson.fromJson(s, GetOutstandingCommands.class);
             default:
                 return null;
         }
