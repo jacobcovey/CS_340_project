@@ -91,7 +91,7 @@ public class ClientPresenterFacade {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, route, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
 
-    public Chat getChat() { return ClientModelRoot._instance.getGameInfo().getChat(); }
+    public Chat getChat() { return ClientFacade._instance.getChat(); }
     public History getHistory() {
         return ClientModelRoot._instance.getGameInfo().getHistory();
     }
