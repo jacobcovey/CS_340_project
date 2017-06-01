@@ -152,4 +152,8 @@ public class ClientPresenterFacade {
     public DestinationCard[] getDestCardsToSelectFrom() {
         return ClientModelRoot._instance.getDestCardsToSelectFrom();
     }
+
+    public void clearDestCardsToSelectFrom() {
+        ClientModelRoot._instance.setDestCardsToSelectFrom(null);
+    }
 }

@@ -35,8 +35,10 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         viewCreated = false;
         cpf = new ClientPresenterFacade();
         setStateVars();
-        if (cpf.isMyTurn()) {
+        if (cpf.isMyTurn() && cpf.getDestCardsToSelectFrom() == null) {
             drawDestinations();
+        } else if (cpf.isMyTurn()) {
+            setDestinationCards();
         }
     }
 
@@ -44,10 +46,11 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         if (cpf.isMyTurn() && cpf.getTurn().getState() == Turn.TurnState.FIRSTTURN) {
             message = "Select at least 2 Destinations";
             numRequired = 2;
-
+            setDestinationCards();
         } else if(cpf.isMyTurn()) {
             message = "Select at least 1 Destinations";
             numRequired = 1;
+            setDestinationCards();
         } else {
             numRequired = NOTYOURTURN;
             message = "It is NOT your turn";
@@ -147,10 +150,11 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         }
         int check = numRequired;
         setStateVars();
-        if (check == NOTYOURTURN && numRequired != NOTYOURTURN) {
+        if (check == NOTYOURTURN && numRequired != NOTYOURTURN && cpf.getDestCardsToSelectFrom() == null) {
             drawDestinations();
+        } else if (cpf.isMyTurn()) {
+            setDestinationCards();
         }
-        setDestinationCards();
     }
 
     private class drawDestinationCardsRequest extends AsyncTask<Void, Integer, Boolean> {
@@ -170,6 +174,9 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            if (success) {
+                setDestinationCards();
+            }
         }
     }
 
@@ -191,6 +198,7 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
+                cpf.clearDestCardsToSelectFrom();
                 destinationPickerView.closeDestinationDrawer();
             }
         }
