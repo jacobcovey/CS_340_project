@@ -1,11 +1,14 @@
 package com.example.jacobcovey.commands;
 
 import com.example.jacobcovey.model.ClientFacade;
+import com.example.jacobcovey.model.ClientModelRoot;
+import com.example.jacobcovey.model.GameInfo;
 
 import java.util.List;
 
 import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.classes.Player;
 import shared.interfaces.iCommand;
 
 /**
@@ -13,15 +16,21 @@ import shared.interfaces.iCommand;
  */
 
 public class GameStartedCommand implements iCommand {
-    Game data;
+    GameInfo data;
 
     public GameStartedCommand(CommandData data) {
-        this.data = (Game) data.getData();
+        this.data = (GameInfo) data.getData();
     }
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.setCurrentGame(data);
+        ClientFacade._instance.setGameInfo(data);
+        for (Player player : ClientFacade._instance.getGameInfo().getPlayers()) {
+            if (player.getUserName().equals(ClientFacade._instance.getUser().getUsername())) {
+                ClientFacade._instance.setPlayer(player);
+                return null;
+            }
+        }
         return null;
 
     }

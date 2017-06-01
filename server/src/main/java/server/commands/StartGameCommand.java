@@ -14,14 +14,19 @@ import shared.interfaces.iCommand;
 
 public class StartGameCommand implements iCommand {
     private Game data;
+    private String gameId;
+    private String userName;
+
 
     public StartGameCommand(CommandData data) {
     }
 
     @Override
     public List<CommandData> execute() {
+        ServerFacade._instance.initializeCities();
+        ServerFacade._instance.addGameInfo(data);
         List<CommandData> result = new ArrayList<>();
-        result.add(new CommandData(CommandData.Type.GAMESTARTED, data));
+        result.add(new CommandData(CommandData.Type.GAMESTARTED, ServerFacade._instance.getGameInfo(gameId)));
         return result;
     }
 }

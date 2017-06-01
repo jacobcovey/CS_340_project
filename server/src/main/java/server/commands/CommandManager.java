@@ -44,8 +44,6 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, UpdateGameListCommand.class);
             case GETOUTSTANDINGCOMMANDS:
                 return gson.fromJson(s, GetOutstandingCommands.class);
-            case STARTGAMEINFO:
-                return gson.fromJson(s, StartGameInfo.class);
             default:
                 return null;
         }

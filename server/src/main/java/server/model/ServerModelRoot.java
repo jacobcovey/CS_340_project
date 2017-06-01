@@ -63,7 +63,7 @@ public class ServerModelRoot {
     }
 
     public void addGameInfo(Game game) {
-            GameInfo gameInfo = GameInfo.getInstance();
+            GameInfo gameInfo = new GameInfo();
             List<PlayerColors> colors = new ArrayList<>();
             colors.add(PlayerColors.BLUE);
             colors.add(PlayerColors.RED);
@@ -74,7 +74,7 @@ public class ServerModelRoot {
             for (int i = 0; i < users.size(); i++) {
                 gameInfo.addPlayer(users.get(i).getUsername(), colors.get(i));
             }
-            gameInfos.put(game.getId(), GameInfo.getInstance());
+            gameInfos.put(game.getId(), gameInfo);
     }
 
     public GameInfo getGameInfo(String gameId) {

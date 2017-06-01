@@ -5,7 +5,6 @@ import com.example.jacobcovey.commands.FaceDownTrainCardPicked;
 import com.example.jacobcovey.commands.FaceUpTrainCardPicked;
 import com.example.jacobcovey.commands.GameJoinedCommand;
 import com.example.jacobcovey.commands.GameLeftCommand;
-import com.example.jacobcovey.commands.GameStarted;
 import com.example.jacobcovey.commands.GameStartedCommand;
 import com.example.jacobcovey.commands.LoginSuccessfulCommand;
 import com.example.jacobcovey.commands.RouteClaimed;
@@ -15,11 +14,7 @@ import com.example.jacobcovey.commands.UpdateFaceUpTrainCardDeck;
 import com.example.jacobcovey.commands.UpdateGameListCommand;
 import com.google.gson.Gson;
 
-import java.util.List;
-
 import shared.classes.CommandData;
-import shared.classes.Game;
-import shared.classes.User;
 import shared.interfaces.iCommand;
 import shared.interfaces.iCommandManager;
 
@@ -47,8 +42,6 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, GameLeftCommand.class);
             case GAMESTARTED:
                 return gson.fromJson(s, GameStartedCommand.class);
-            case STARTGAMEINFO:
-                return gson.fromJson(s, GameStarted.class);
             case UPDATEGAMELIST:
                 return gson.fromJson(s, UpdateGameListCommand.class);
             case UPDATECURRENTGAME:

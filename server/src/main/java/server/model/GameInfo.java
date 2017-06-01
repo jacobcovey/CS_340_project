@@ -41,16 +41,8 @@ public class GameInfo extends iGameInfo {
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private List<DestinationCard> destinationCardDeck = new ArrayList<>();
 
-    private static GameInfo _instance;
 
-    public static GameInfo getInstance() {
-        if (_instance == null) {
-            _instance = new GameInfo();
-        }
-        return _instance;
-    }
-
-    private GameInfo() {
+    public GameInfo() {
         Set<TrainCardColors> colors = new HashSet<TrainCardColors>();
         colors.add(WHITE);
         colors.add(BLACK);

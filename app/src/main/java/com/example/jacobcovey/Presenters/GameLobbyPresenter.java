@@ -161,7 +161,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         protected Boolean doInBackground(Game... params) {
             try {
                 cpf.startGame(params[0]);
-                cpf.startGameInfo(params[0]);
             } catch (IOException e) {
                 System.out.printf(e.getMessage());
                 return false;
