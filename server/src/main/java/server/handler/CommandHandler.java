@@ -17,6 +17,7 @@ import server.commands.CommandManager;
 import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 
+import static shared.classes.CommandData.Type.GETOUTSTANDINGCOMMANDS;
 import static shared.classes.CommandData.Type.UPDATECURRENTGAME;
 import static shared.classes.CommandData.Type.UPDATEGAMELIST;
 
@@ -35,7 +36,7 @@ public class CommandHandler implements HttpHandler {
             InputStream reqBody = exchange.getRequestBody();
             String serialized = readString(reqBody);
             CommandData commandData = gson.fromJson(serialized, CommandData.class);
-            if (!commandData.getType().equals(UPDATEGAMELIST) && !commandData.getType().equals(UPDATECURRENTGAME)) {System.out.println(commandData.getType());}
+            if (!commandData.getType().equals(GETOUTSTANDINGCOMMANDS) && !commandData.getType().equals(UPDATEGAMELIST) && !commandData.getType().equals(UPDATECURRENTGAME)) {System.out.println(commandData.getType());}
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
             List<CommandData> result = command.execute();

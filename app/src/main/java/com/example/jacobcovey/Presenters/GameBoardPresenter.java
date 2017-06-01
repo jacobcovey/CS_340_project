@@ -50,7 +50,7 @@ public class GameBoardPresenter implements iGameBoardPresenter {
             return;
         }
         mRoutes = cpf.getRoutes();
-        updateBoard();
+        //updateBoard();
     }
 
     @Override

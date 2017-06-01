@@ -95,9 +95,7 @@ public class ClientPresenterFacade {
     }
 
     public Chat getChat() { return ClientFacade._instance.getChat(); }
-    public History getHistory() {
-        return ClientModelRoot._instance.getGameInfo().getHistory();
-    }
+    public History getHistory() { return ClientFacade._instance.getHistory(); }
 
     public List<Player> getPlayers() { return  ClientModelRoot._instance.getGameInfo().getPlayers(); }
 
