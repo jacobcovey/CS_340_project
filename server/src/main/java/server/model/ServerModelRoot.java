@@ -85,7 +85,7 @@ public class ServerModelRoot {
 
     public void addCommandToUser(CommandData command, String userName) {
         if (!commandsForUser.containsKey(userName)) {
-            commandsForUser.put(userName, new ArrayList<CommandData>())
+            commandsForUser.put(userName, new ArrayList<CommandData>());
         }
         (commandsForUser.get(userName)).add(command);
     }
