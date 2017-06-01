@@ -14,6 +14,7 @@ import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.GameRequest;
 import shared.classes.History;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.Turn;
@@ -86,6 +87,9 @@ public class ClientPresenterFacade {
 
     public void sendChatMessage(ChatMessage chat) throws  IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDCHAT, chat, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
+    }
+    public void sendHistoryAction(HistoryAction action) throws  IOException {
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDHISTORY, action, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
     public void claimRoute(Route route) throws IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, route, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));

@@ -14,6 +14,7 @@ import com.example.jacobcovey.commands.UpdateChat;
 import com.example.jacobcovey.commands.UpdateCurrentGameCommand;
 import com.example.jacobcovey.commands.UpdateFaceUpTrainCardDeck;
 import com.example.jacobcovey.commands.UpdateGameListCommand;
+import com.example.jacobcovey.commands.UpdateHistory;
 import com.google.gson.Gson;
 
 import shared.classes.CommandData;
@@ -56,6 +57,8 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, RouteClaimed.class);
             case UPDATECHAT:
                 return gson.fromJson(s, UpdateChat.class);
+            case UPDATEHISTORY:
+                return gson.fromJson(s, UpdateHistory.class);
             case UPDATEFACEUPTRAINCARDDECK:
                 return gson.fromJson(s, UpdateFaceUpTrainCardDeck.class);
             case DESTINATIONCARDDRAWN:

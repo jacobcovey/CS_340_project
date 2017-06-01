@@ -32,7 +32,9 @@ public class CommandData {
         CLAIMROUTE,
         ROUTECLAIMED,
         SENDCHAT,
+        SENDHISTORY,
         UPDATECHAT,
+        UPDATEHISTORY,
         GETOUTSTANDINGCOMMANDS,
         ERROR
     }
