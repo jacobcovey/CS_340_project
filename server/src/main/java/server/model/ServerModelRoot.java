@@ -1,7 +1,9 @@
 package server.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
@@ -9,6 +11,8 @@ import java.util.Map;
 import shared.classes.City;
 import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.classes.Player;
+import shared.classes.PlayerColors;
 import shared.classes.User;
 import server.model.GameInfo;
 import shared.interfaces.iGameInfo;
@@ -30,9 +34,9 @@ public class ServerModelRoot {
     private Set<User> users = new HashSet<>();
     private List<Game> gameList = new ArrayList<>();
     private Set<String> authTokens = new HashSet<>();
-    private Map<String, GameInfo> gameInfo;
-    private Map<String,List<CommandData>> commandsForUser;
-    private List<City> cities;
+    private Map<String, GameInfo> gameInfos = new HashMap<>();
+    private Map<String,List<CommandData>> commandsForUser = new HashMap<>();
+    private List<City> cities = new ArrayList<>();
 
     public Set<User> getUsers() {
         return users;
@@ -59,13 +63,22 @@ public class ServerModelRoot {
     }
 
     public void addGameInfo(Game game) {
-        if (gameInfo == null) {
-            gameInfo.put(game.getId(), GameInfo._instance);
-        }
+            GameInfo gameInfo = GameInfo.getInstance();
+            List<PlayerColors> colors = new ArrayList<>();
+            colors.add(PlayerColors.BLUE);
+            colors.add(PlayerColors.RED);
+            colors.add(PlayerColors.GREEN);
+            colors.add(PlayerColors.YELLOW);
+            colors.add(PlayerColors.BLACK);
+            List<User> users = game.getPlayers();
+            for (int i = 0; i < users.size(); i++) {
+                gameInfo.addPlayer(users.get(i).getUsername(), colors.get(i));
+            }
+            gameInfos.put(game.getId(), GameInfo.getInstance());
     }
 
     public GameInfo getGameInfo(String gameId) {
-        return gameInfo.get(gameId);
+        return gameInfos.get(gameId);
     }
 
     public void addCommandToUser(CommandData command, String userName) {
@@ -122,5 +135,6 @@ public class ServerModelRoot {
         cities.add(new City("Salt Lake City"));
         cities.add(new City("Portland"));
         cities.add(new City("San Francisco"));
+        return;
     }
 }

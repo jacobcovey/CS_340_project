@@ -1,5 +1,6 @@
 package shared.classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class Chat {
 
-    private List<ChatMessage> messages;
+    private List<ChatMessage> messages = new ArrayList<>();
 
     public Chat(List<ChatMessage> messages) {
         this.messages = messages;

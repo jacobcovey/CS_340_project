@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.jacobcovey.Activities.GameListActivity;
 import com.example.jacobcovey.Presenters.ILoginPresenter;
@@ -62,9 +63,16 @@ public class LoginView extends android.support.v4.app.Fragment implements ILogin
     }
 
     @Override
-    public void displayToast(String message) {
-//        Toast.makeText(getActivity(), message,
-//                Toast.LENGTH_LONG).show();
+    public void displayToast(final String message) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getActivity(), message,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+
     }
 
     @Override

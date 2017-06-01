@@ -13,7 +13,6 @@ import shared.interfaces.iCommand;
  */
 
 public class GameStartedCommand implements iCommand {
-
     Game data;
 
     public GameStartedCommand(CommandData data) {
@@ -22,7 +21,6 @@ public class GameStartedCommand implements iCommand {
 
     @Override
     public List<CommandData> execute() {
-
         ClientFacade._instance.setCurrentGame(data);
         return null;
 

@@ -33,6 +33,6 @@ public class ServerCommunicator {
     }
 
     public static void main(String[] args) {
-        new ServerCommunicator().run(3000);
+        new ServerCommunicator().run(4000);
     }
 }
