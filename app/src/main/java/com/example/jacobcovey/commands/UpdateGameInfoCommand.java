@@ -26,6 +26,7 @@ public class UpdateGameInfoCommand implements iCommand {
                 return null;
             }
         }
+        ClientFacade._instance.setFaceUpDeck(data.getFaceUpTrainCardDeck());
         return null;
     }
 }
