@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.example.jacobcovey.Views.ChatView;
 import com.example.jacobcovey.Views.IChatView;
-import com.example.jacobcovey.model.ClientFacade;
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
@@ -68,7 +67,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
     }
 
     public List<ChatMessage> getChatMessages() {
-        return cpf.getChat().getMessages();
+         return cpf.getChat().getMessages();
     }
 
 }

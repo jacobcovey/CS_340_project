@@ -30,7 +30,9 @@ public class ServerProxy implements iServer {
             for (CommandData data : commands) {
                 String s = gson.toJson(data);
                 command = manager.createCommand(data, s);
-                command.execute();
+                if (command != null) {
+                    command.execute();
+                }
             }
         }
 
