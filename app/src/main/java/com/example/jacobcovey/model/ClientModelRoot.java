@@ -3,6 +3,9 @@ package com.example.jacobcovey.model;
 /**
  * Created by Dylan on 5/15/2017.
  */
+import com.example.jacobcovey.game_board.Route;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +25,14 @@ public class ClientModelRoot extends Observable {
 
     public static ClientModelRoot _instance = new ClientModelRoot();
 
+    public Set<DestinationCard> getDestinationCards() {
+        if (player != null) {
+            return player.getDestinationCards();
+        }
+        return null;
+    }
+
+
     public enum State {
         LOGIN,
         GAMELIST,
@@ -39,9 +50,11 @@ public class ClientModelRoot extends Observable {
     private Player player;
     private TrainCard[] faceUpDeck;
     private DestinationCard[] destCardsToSelectFrom;
+    private List<Route> mRoutes;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
+        mRoutes = new ArrayList<>();
     }
 
     public State getCurrentState() {
@@ -132,4 +145,17 @@ public class ClientModelRoot extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public List<Route> getRoutes() {
+        return mRoutes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        mRoutes = routes;
+        setChanged();
+        notifyObservers();
+
+    }
+
+
 }

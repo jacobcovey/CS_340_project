@@ -236,7 +236,6 @@ public class GameInfoView extends Fragment implements IGameInfoView {
         ((LinearLayoutManager)routesLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
         routesRecyclerView.setLayoutManager(routesLayoutManager);
 
-//        Set<DestinationCard> routes = gameInfoPresenter.getRoutes();
         Set<DestinationCard> routes = new HashSet<DestinationCard>();
 //        DestinationCard card1 = new DestinationCard(new City("Atlanta"),new City("Miami"), 4);
 //        DestinationCard card2 = new DestinationCard(new City("Pittsburgh"),new City("New York"), 3);

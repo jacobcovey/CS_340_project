@@ -1,17 +1,21 @@
 package com.example.jacobcovey.Presenters;
 
+import android.graphics.Color;
+
 import com.example.jacobcovey.Views.IGameBoardView;
 import com.example.jacobcovey.game_board.Route;
-import com.example.jacobcovey.game_board.ViewGameMap;
 
+import com.example.jacobcovey.game_board.RouteLoader;
 import com.example.jacobcovey.model.ClientModelRoot;
+import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.model.GameInfo;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Set;
 
 
@@ -29,25 +33,35 @@ import shared.classes.TrainCardColors;
  * Created by Riley on 5/31/2017.
  */
 
-public class GameBoardPresenter implements iGameBoardPresenter, Observer {
+public class GameBoardPresenter implements iGameBoardPresenter {
 
-    private ViewGameMap boardView;
+    private IGameBoardView boardView;
 
     private List<Route> mRoutes;
+    private ClientPresenterFacade cpf;
 
+    public GameBoardPresenter() {
+        cpf = new ClientPresenterFacade();
+        cpf.addObserver(this);
+    }
     @Override
     public void update(Observable o, Object arg) {
-
+        if (boardView == null) {
+            return;
+        }
+        mRoutes = cpf.getRoutes();
+        updateBoard();
     }
 
     @Override
     public void setGameBoardView(IGameBoardView gameBoardView) {
 //        this.boardView = gameBoardView;
+        this.boardView = gameBoardView;
     }
 
     @Override
     public void updateBoard() {
-
+        boardView.updateRoutes(mRoutes);
     }
 
     @Override
@@ -57,6 +71,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, Observer {
     @Override
     public void changeClientRoot() {
         try {
+            addRandomRoute();
             Game game = ClientModelRoot._instance.getCurrentGame();
 
             GameInfo gameInfo = ClientModelRoot._instance.getGameInfo();
@@ -92,6 +107,40 @@ public class GameBoardPresenter implements iGameBoardPresenter, Observer {
         }
 
 
+    }
+
+    private void addRandomRoute() {
+        List<Route> tempList = RouteLoader.loadRoutes();
+        Collections.shuffle(tempList);
+        List<Route> tempList2 = new ArrayList<>();
+        tempList2.add(tempList.get(0));
+        tempList2.add(tempList.get(1));
+        tempList2.add(tempList.get(2));
+        tempList2.add(tempList.get(3));
+        tempList2.add(tempList.get(4));
+
+        tempList2.add(tempList.get(10));
+        tempList2.add(tempList.get(11));
+        tempList2.add(tempList.get(12));
+        tempList2.add(tempList.get(13));
+        tempList2.add(tempList.get(14));
+
+        tempList2.get(0).setColor(Color.RED);
+        tempList2.get(1).setColor(Color.RED);
+
+        tempList2.get(2).setColor(Color.BLUE);
+        tempList2.get(3).setColor(Color.BLUE);
+
+        tempList2.get(4).setColor(Color.BLACK);
+        tempList2.get(5).setColor(Color.BLACK);
+
+        tempList2.get(6).setColor(Color.GREEN);
+        tempList2.get(7).setColor(Color.GREEN);
+
+        tempList2.get(8).setColor(Color.YELLOW);
+        tempList2.get(9).setColor(Color.YELLOW);
+
+        cpf.setRoutes(tempList);
     }
 }
 

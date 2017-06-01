@@ -14,7 +14,7 @@ public interface IGameInfoPresenter {
 
     void setGameListView(IGameInfoView gameInfoView);
 
-    Set<DestinationCard> getRoutes();
+    Set<DestinationCard> getDestinationCards();
 
     public void removeObserver();
 

@@ -105,8 +105,13 @@ public class ClientPresenterFacade {
         return  ClientModelRoot._instance.getPlayer();
     }
 
-    public Set<DestinationCard> getRouts() {
-        return null;
+    public List<com.example.jacobcovey.game_board.Route> getRoutes() {
+        return ClientModelRoot._instance.getRoutes();
+
+    }
+
+    public Set<DestinationCard> getDestinationCards() {
+        return ClientModelRoot._instance.getDestinationCards();
     }
 
     public List<Game> getGameList() {
@@ -161,5 +166,9 @@ public class ClientPresenterFacade {
 
     public void clearDestCardsToSelectFrom() {
         ClientModelRoot._instance.setDestCardsToSelectFrom(null);
+    }
+
+    public void setRoutes(List<com.example.jacobcovey.game_board.Route> routes) {
+        ClientModelRoot._instance.setRoutes(routes);
     }
 }
