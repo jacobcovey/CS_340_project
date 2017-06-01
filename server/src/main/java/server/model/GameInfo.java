@@ -15,12 +15,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
+import shared.classes.Chat;
+import shared.classes.ChatMessage;
 import shared.classes.City;
 import shared.classes.Game;
+import shared.classes.History;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
 import shared.classes.Route;
 import shared.classes.TrainCardColors;
+import shared.classes.Turn;
 import shared.interfaces.iGameInfo;
 import shared.classes.TrainCard;
 import shared.classes.DestinationCard;
@@ -37,9 +42,22 @@ import static shared.classes.TrainCardColors.YELLOW;
 
 
 public class GameInfo extends iGameInfo {
+
+    private List<Route> routes = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
+    private Chat chat = new Chat(new ArrayList<ChatMessage>());
+    private History history = new History(new ArrayList<HistoryAction>());
+    private Turn turn;
     private List<TrainCard> faceUpTrainCardDeck = new ArrayList<>();
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private List<DestinationCard> destinationCardDeck = new ArrayList<>();
+
+    public enum State {
+        FIRST_TURN,
+        NOT_FIRST_TURN,
+        GAME_OVER
+    }
+    private State state;
 
 
     public GameInfo() {
@@ -107,6 +125,7 @@ public class GameInfo extends iGameInfo {
         destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Seattle"), ServerModelRoot.getInstance().getCity("Los Angeles"), 9));
 
         Collections.shuffle(destinationCardDeck);
+        turn = new Turn(players.get(0).getUserName(), Turn.TurnState.FIRSTTURN);
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -167,6 +186,52 @@ public class GameInfo extends iGameInfo {
         dealtCards.add(faceDownTrainCardDeck.get(0));
         faceDownTrainCardDeck.remove(0);
         getPlayers().add(new Player(color, dealtCards, userName));
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public Chat getChat() { return chat; }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public Turn getTurn() {
+        return turn;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
+
+    public void setTurn(Turn turn) {
+        this.turn = turn;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }
 
