@@ -67,14 +67,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
     }
 
     public List<ChatMessage> getChatMessages() {
-        List<ChatMessage> messages = new ArrayList<>();
-        messages.add(new ChatMessage("Spencer", "This is a test"));
-        messages.add(new ChatMessage("Riley", "Also a test"));
-        messages.add(new ChatMessage("Spencer", "The bottom"));
-        return messages;
-        // FIXME
-        // Use real message from model
-        // return cpf.getChat().getMessages();
+         return cpf.getChat().getMessages();
     }
 
 }
