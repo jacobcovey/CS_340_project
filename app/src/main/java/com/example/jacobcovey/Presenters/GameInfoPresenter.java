@@ -2,6 +2,7 @@ package com.example.jacobcovey.Presenters;
 
 import com.example.jacobcovey.Views.IGameInfoView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
+import com.example.jacobcovey.model.GameInfo;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -35,12 +36,20 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
     }
 
     @Override
+    public void removeObserver() {
+        cpf.removeObserver(this);
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
-        gameInfoView.setRoutesInfo(cpf.getRouts());
-        gameInfoView.setPlayerInfo(cpf.getPlayers());
+        if (gameInfoView != null) {
+            GameInfo gameInfo = cpf.getGameInfo();
 
-        Player currentPlayer = cpf.getCurrentPlayer();
-        gameInfoView.setTrainCardsInfo(currentPlayer.getTrainCards());
+            gameInfoView.setPlayerInfo(gameInfo.getPlayers());
 
+            Player currentPlayer = cpf.getCurrentPlayer();
+            gameInfoView.setRoutesInfo(currentPlayer.getDestinationCards());
+            gameInfoView.setTrainCardsInfo(currentPlayer.getTrainCards());
+        }
     }
 }

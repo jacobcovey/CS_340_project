@@ -71,6 +71,7 @@ public class GameHistoryView extends Fragment implements IGameHistoryView {
             @Override
             public void onClick(View v) {
                 gameHistoryDrawerContainer.closeGameHistoryDrawer();
+                gameHistoryPresenter.removeObserver();
             }
         });
 

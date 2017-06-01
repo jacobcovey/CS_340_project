@@ -66,6 +66,7 @@ public class ChatView extends Fragment implements IChatView {
             @Override
             public void onClick(View v) {
                 chatDrawerContainer.closeChatDrawer();
+                chatPresenter.removeObserver();
             }
         });
 

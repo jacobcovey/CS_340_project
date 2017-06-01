@@ -16,11 +16,10 @@ import shared.classes.GameRequest;
 import shared.classes.History;
 import shared.classes.HistoryAction;
 import shared.classes.Player;
+import shared.classes.Route;
 import shared.classes.TrainCard;
 import shared.classes.Turn;
 import shared.classes.User;
-import shared.interfaces.iGameInfo;
-import shared.classes.Route;
 
 /**
  * Created by billrichards on 5/15/17.
@@ -127,6 +126,9 @@ public class ClientPresenterFacade {
     public void setState(ClientModelRoot.State state) {
         ClientModelRoot._instance.setCurrentState(state);
     }
+
+    public GameInfo getGameInfo() { return ClientModelRoot._instance.getGameInfo(); }
+
 
     public void addObserver(Observer observer) {
         ClientModelRoot._instance.addObserver(observer);

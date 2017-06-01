@@ -14,4 +14,6 @@ public interface IGameHistoryPresenter {
 
     History getGameHistory();
 
+    public void removeObserver();
+
 }

@@ -44,8 +44,15 @@ public class GameHistoryPresenter implements IGameHistoryPresenter, Observer {
     }
 
     @Override
+    public void removeObserver() {
+        cpf.removeObserver(this);
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
-        History history = cpf.getHistory();
-        gameHistoryView.updateHistory(history);
+        if (gameHistoryView != null) {
+            History history = cpf.getHistory();
+            gameHistoryView.updateHistory(history);
+        }
     }
 }

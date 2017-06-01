@@ -16,4 +16,6 @@ public interface IGameInfoPresenter {
 
     Set<DestinationCard> getRoutes();
 
+    public void removeObserver();
+
 }

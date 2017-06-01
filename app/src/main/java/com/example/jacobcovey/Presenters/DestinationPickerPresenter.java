@@ -79,6 +79,11 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
     }
 
     @Override
+    public void removeObserver() {
+        cpf.removeObserver(this);
+    }
+
+    @Override
     public void selectDestinations() {
         ArrayList<DestinationCard> cards = new ArrayList<>();
         if (card0Checked) {

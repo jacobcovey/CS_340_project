@@ -112,6 +112,7 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
             @Override
             public void onClick(View view) {
                 trainCardDrawerContainer.closeTrainCardDrawer();
+                trainCardDrawerPresenter.removeObserver();
             }
         });
         faceUpCard0 = null;

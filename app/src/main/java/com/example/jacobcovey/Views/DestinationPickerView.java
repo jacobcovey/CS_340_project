@@ -104,6 +104,7 @@ public class DestinationPickerView extends Fragment implements iDestinationPicke
             @Override
             public void onClick(View view) {
                 destinationCardDrawerContainer.closeDestinationCardDrawer();
+                destinationPickerPresenter.removeObserver();
             }
         });
         destinationPickerPresenter.setViewCreated(true);

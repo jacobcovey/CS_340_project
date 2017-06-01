@@ -6,4 +6,6 @@ package com.example.jacobcovey.Presenters;
 
 public interface IChatPresenter {
     public void sendChatMessage(String message);
+
+    public void removeObserver();
 }
