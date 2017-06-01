@@ -137,7 +137,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
     private void showLeftDrawer(Fragment fragment) {
 
-        if (!drawerLayout.isDrawerOpen(leftDrawer)) {
+        if (!drawerLayout.isDrawerOpen(leftDrawer) && !drawerLayout.isDrawerOpen(rightDrawer)) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.left_drawer, fragment);
             fragmentTransaction.commit();
@@ -149,25 +149,31 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
     private void showRightDrawer(Fragment fragment) {
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.right_drawer, fragment);
-        fragmentTransaction.commit();
-        drawerLayout.requestLayout();
-        drawerLayout.openDrawer(rightDrawer);
+        if (!drawerLayout.isDrawerOpen(rightDrawer) && !drawerLayout.isDrawerOpen(leftDrawer)) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.right_drawer, fragment);
+            fragmentTransaction.commit();
+            drawerLayout.requestLayout();
+            drawerLayout.openDrawer(rightDrawer);
+        }
 
     }
 
     private void dismissLeftDrawer() {
 
-        removeFragmentFromDrawer(R.id.left_drawer);
-        drawerLayout.closeDrawer(leftDrawer);
+        if (drawerLayout.isDrawerOpen(leftDrawer)) {
+            removeFragmentFromDrawer(R.id.left_drawer);
+            drawerLayout.closeDrawer(leftDrawer);
+        }
 
     }
 
     private void dismissRightDrawer() {
 
-        removeFragmentFromDrawer(R.id.right_drawer);
-        drawerLayout.closeDrawer(rightDrawer);
+        if (drawerLayout.isDrawerOpen(rightDrawer)) {
+            removeFragmentFromDrawer(R.id.right_drawer);
+            drawerLayout.closeDrawer(rightDrawer);
+        }
 
     }
 
