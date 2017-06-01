@@ -33,17 +33,9 @@ public class GameHistoryPresenter implements IGameHistoryPresenter, Observer {
 
     @Override
     public History getGameHistory() {
-        HistoryAction action1 = new HistoryAction("player1","Drew a card");
-        HistoryAction action2 = new HistoryAction("player2","claimed a route");
-        List<HistoryAction> historyActions = new ArrayList<HistoryAction>();
-        historyActions.add(action1);
-        historyActions.add(action2);
-        History history = new History(historyActions);
-//        return history;
-         return cpf.getHistory();
+        return cpf.getHistory();
     }
 
-    @Override
     public void removeObserver() {
         cpf.removeObserver(this);
     }

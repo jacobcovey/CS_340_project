@@ -198,7 +198,6 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         protected Boolean doInBackground(DestinationCard[]... params) {
             try {
                 cpf.destinationCardsPicked(params[0]);
-                cpf.sendHistoryAction(new HistoryAction(ClientFacade._instance.getPlayer().getUserName(), "Drew a Destination Card"));
             } catch (IOException e) {
                 System.err.printf(e.getMessage());
                 destinationPickerView.displayToast(e.getMessage());
