@@ -13,6 +13,7 @@ import com.example.jacobcovey.commands.RouteClaimed;
 import com.example.jacobcovey.commands.UpdateChat;
 import com.example.jacobcovey.commands.UpdateCurrentGameCommand;
 import com.example.jacobcovey.commands.UpdateFaceUpTrainCardDeck;
+import com.example.jacobcovey.commands.UpdateGameInfoCommand;
 import com.example.jacobcovey.commands.UpdateGameListCommand;
 import com.example.jacobcovey.commands.UpdateHistory;
 import com.google.gson.Gson;
@@ -65,6 +66,8 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, DestinationCardDrawn.class);
             case DESTINATIONCARDSPICKED:
                 return gson.fromJson(s, DestinationCardPicked.class);
+            case UPDATEGAMEINFO:
+                return gson.fromJson(s, UpdateGameInfoCommand.class);
             case ERROR:
                 return gson.fromJson(s, ErrorCommand.class);
             default:

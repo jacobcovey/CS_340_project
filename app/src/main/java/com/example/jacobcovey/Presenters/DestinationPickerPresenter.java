@@ -96,7 +96,11 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
             cards.add(destinationPickerView.getDestination2());
         }
         destinationCardsSelectedRequest selectedRequest = new destinationCardsSelectedRequest();
-        selectedRequest.execute((DestinationCard[]) cards.toArray());
+        DestinationCard[] params = new DestinationCard[cards.size()];
+        for (int i = 0; i < cards.size() ; i++) {
+            params[i] = cards.get(i);
+        }
+        selectedRequest.execute(params);
     }
 
     @Override

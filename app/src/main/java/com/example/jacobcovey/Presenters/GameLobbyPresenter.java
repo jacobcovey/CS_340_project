@@ -148,9 +148,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-//                cpf.notifyObservers();
                 cpf.setState(ClientModelRoot.State.GAMELOBBY);
-
             }
         }
     }
@@ -172,11 +170,15 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-//                cpf.notifyObservers();
                 cpf.setState(ClientModelRoot.State.GAMESTARTED);
+                prepareStartGame();
                 gameLobbyView.navToGameBoardScreenActivity();
             }
         }
+    }
+
+    private void prepareStartGame() {
+        cpf.removeObserver(this);
     }
 
     private class leaveGameRequest extends AsyncTask<GameRequest, Integer, Boolean> {
@@ -196,7 +198,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-//                cpf.notifyObservers();
                 cpf.setState(ClientModelRoot.State.GAMELIST);
                 gameLobbyView.navToGameListScreenActivity();
             }

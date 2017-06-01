@@ -28,9 +28,7 @@ public class SendChat implements iCommand {
         ChatMessage message = data;
         ServerFacade._instance.getGameInfo(gameId).getChat().addMessage(data);
 
-        for (User user : ServerFacade._instance.getUsers()) {
-            ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.UPDATECHAT, message), user.getUsername());
-        }
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATECHAT, message), gameId);
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (message != null) {
