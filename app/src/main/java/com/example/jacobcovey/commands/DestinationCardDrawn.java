@@ -14,13 +14,13 @@ import shared.interfaces.iCommand;
  */
 
 public class DestinationCardDrawn implements iCommand {
-    Set<DestinationCard> data;
+    DestinationCard[] data;
 
-    public DestinationCardDrawn(CommandData data) { this.data = (Set<DestinationCard>) data.getData(); }
+    public DestinationCardDrawn(CommandData data) { this.data = (DestinationCard[]) data.getData(); }
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.getPlayer().setDrawnDestinationCards(data);
+        ClientFacade._instance.setDrawnDestinationCards(data);
         return null;
     }
 }

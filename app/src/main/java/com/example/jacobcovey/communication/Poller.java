@@ -16,12 +16,8 @@ import shared.classes.CommandData;
 
 public class Poller extends TimerTask {
 
-//    public static Poller _instance = new Poller();
 
-    public Poller() {
-//        Timer timer = new Timer();
-//        timer.schedule(new Poller(), 0, 1000);
-    }
+    public Poller() {}
 
     @Override
     public void run() {
@@ -47,7 +43,6 @@ public class Poller extends TimerTask {
                 return;
             case GAMEINPLAY:
                 asyncPoller.execute(new CommandData(CommandData.Type.GETOUTSTANDINGCOMMANDS, ClientModelRoot._instance.getUser().getUsername()));
-//            case GAMEINFO:
                 return;
 
         }

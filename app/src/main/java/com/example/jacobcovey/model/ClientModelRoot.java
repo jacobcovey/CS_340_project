@@ -3,8 +3,11 @@ package com.example.jacobcovey.model;
 /**
  * Created by Dylan on 5/15/2017.
  */
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
+import java.util.Set;
 
 import shared.classes.DestinationCard;
 import shared.classes.Game;
@@ -87,14 +90,13 @@ public class ClientModelRoot extends Observable {
         notifyObservers();
     }
 
-    public void setColor(String color) {
-
-    }
     public TrainCard[] getFaceUpDeck() {
         return faceUpDeck;
     }
     public void setFaceUpDeck(TrainCard[] faceUpDeck) {
         this.faceUpDeck = faceUpDeck;
+        setChanged();
+        notifyObservers();
     }
 
     public Turn getTurn() {
@@ -109,6 +111,9 @@ public class ClientModelRoot extends Observable {
     }
 
     public void setDestCardsToSelectFrom(DestinationCard[] destCardsToSelectFrom) {
+        player.setDrawnDestinationCards(new HashSet<DestinationCard>(Arrays.asList(destCardsToSelectFrom)));
         this.destCardsToSelectFrom = destCardsToSelectFrom;
+        setChanged();
+        notifyObservers();
     }
 }

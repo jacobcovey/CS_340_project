@@ -1,9 +1,11 @@
 package com.example.jacobcovey.model;
 
 import java.util.List;
+import java.util.Set;
 
 import shared.classes.Chat;
 import shared.classes.ChatMessage;
+import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.History;
 import shared.classes.HistoryAction;
@@ -44,13 +46,6 @@ public class ClientFacade implements iClient {
     public void setGameList(List<Game> gameList) {
 
         ClientModelRoot._instance.setGameList(gameList);
-
-    }
-
-    @Override
-    public void setColor(String color) {
-
-        ClientModelRoot._instance.setColor(color);
 
     }
 
@@ -99,5 +94,9 @@ public class ClientFacade implements iClient {
     }
     public void setFaceUpDeck(TrainCard[] faceUpDeck) {
         ClientModelRoot._instance.setFaceUpDeck(faceUpDeck);
+    }
+
+    public void setDrawnDestinationCards(DestinationCard[] drawnDestinationCards) {
+        ClientModelRoot._instance.setDestCardsToSelectFrom(drawnDestinationCards);
     }
 }

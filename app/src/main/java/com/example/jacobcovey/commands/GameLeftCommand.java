@@ -23,7 +23,6 @@ public class GameLeftCommand implements iCommand {
     public List<CommandData> execute() {
 
         ClientFacade._instance.setCurrentGame(null);
-        ClientFacade._instance.setColor(null);
         return null;
 
     }

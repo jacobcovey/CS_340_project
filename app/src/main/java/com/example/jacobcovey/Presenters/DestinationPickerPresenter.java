@@ -48,7 +48,6 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         } else if(cpf.isMyTurn()) {
             message = "Select at least 1 Destinations";
             numRequired = 1;
-            drawDestinations();
         } else {
             numRequired = NOTYOURTURN;
             message = "It is NOT your turn";

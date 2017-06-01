@@ -13,7 +13,6 @@ public interface iClient {
 
     public void setUser(User user);
     public void setGameList(List<Game> gameList);
-    public void setColor(String color);
     public void setCurrentGame(Game game);
 
 }
