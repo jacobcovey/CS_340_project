@@ -28,7 +28,7 @@ public class ClientCommunicator {
     public static List<CommandData> sendToServer(CommandData commandData) {
         List<CommandData> data = null;
         try {
-            String serverHost = "10.24.196.254";
+            String serverHost = "10.24.202.229";
             String serverPort = "4000";
 
             URL url = new URL("http://" + serverHost + ":" + serverPort + "/executecommand");

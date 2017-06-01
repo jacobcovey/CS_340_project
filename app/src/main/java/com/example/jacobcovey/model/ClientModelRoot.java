@@ -54,7 +54,6 @@ public class ClientModelRoot extends Observable {
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
-        mRoutes = new ArrayList<>();
     }
 
     public State getCurrentState() {

@@ -4,32 +4,49 @@ package server.model;
  * Created by Dylan on 5/25/2017.
  */
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 
-import shared.classes.Chat;
-import shared.classes.ChatMessage;
-import shared.classes.City;
-import shared.classes.Game;
-import shared.classes.History;
-import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
-import shared.classes.Route;
 import shared.classes.TrainCardColors;
-import shared.classes.Turn;
 import shared.interfaces.iGameInfo;
 import shared.classes.TrainCard;
 import shared.classes.DestinationCard;
 
+import static shared.classes.City.ATLANTA;
+import static shared.classes.City.BOSTON;
+import static shared.classes.City.CALGARY;
+import static shared.classes.City.CHICAGO;
+import static shared.classes.City.DALLAS;
+import static shared.classes.City.DENVER;
+import static shared.classes.City.DULUTH;
+import static shared.classes.City.EL_PASO;
+import static shared.classes.City.HELENA;
+import static shared.classes.City.HOUSTON;
+import static shared.classes.City.KANSAS_CITY;
+import static shared.classes.City.LITTLE_ROCK;
+import static shared.classes.City.LOS_ANGELES;
+import static shared.classes.City.MIAMI;
+import static shared.classes.City.MONTREAL;
+import static shared.classes.City.NASHVILLE;
+import static shared.classes.City.NEW_ORLEANS;
+import static shared.classes.City.NEW_YORK;
+import static shared.classes.City.OKLAHOMA_CITY;
+import static shared.classes.City.PHOENIX;
+import static shared.classes.City.PITTSBURG;
+import static shared.classes.City.PORTLAND;
+import static shared.classes.City.SALT_LAKE_CITY;
+import static shared.classes.City.SANTA_FE;
+import static shared.classes.City.SAN_FRANCISCO;
+import static shared.classes.City.SAULT_ST_MARIE;
+import static shared.classes.City.SEATTLE;
+import static shared.classes.City.TORONTO;
+import static shared.classes.City.VANCOUVER;
+import static shared.classes.City.WINNIPEG;
 import static shared.classes.TrainCardColors.BLACK;
 import static shared.classes.TrainCardColors.BLUE;
 import static shared.classes.TrainCardColors.GREEN;
@@ -84,41 +101,41 @@ public class GameInfo extends iGameInfo {
         }
 
         int destinationId = 0;
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Los Angeles"), ServerModelRoot.getInstance().getCity("New York"), 21));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Duluth"), ServerModelRoot.getInstance().getCity("Houston"), 8));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Sault St. Marie"), ServerModelRoot.getInstance().getCity("Nashville"), 8));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("New York"), ServerModelRoot.getInstance().getCity("Atlanta"), 6));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Portland"), ServerModelRoot.getInstance().getCity("Nashville"), 17));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(LOS_ANGELES), ServerModelRoot.getInstance().getCity(NEW_YORK), 21));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DULUTH), ServerModelRoot.getInstance().getCity(HOUSTON), 8));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SAULT_ST_MARIE), ServerModelRoot.getInstance().getCity(NASHVILLE), 8));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(NEW_YORK), ServerModelRoot.getInstance().getCity(ATLANTA), 6));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(PORTLAND), ServerModelRoot.getInstance().getCity(NASHVILLE), 17));
 
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Vancouver"), ServerModelRoot.getInstance().getCity("Montreal"), 20));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Duluth"), ServerModelRoot.getInstance().getCity("El Paso"), 10));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Toronto"), ServerModelRoot.getInstance().getCity("Miami"), 10));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Portland"), ServerModelRoot.getInstance().getCity("Phoenix"), 11));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Dallas"), ServerModelRoot.getInstance().getCity("New York"), 11));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(VANCOUVER), ServerModelRoot.getInstance().getCity(MONTREAL), 20));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DULUTH), ServerModelRoot.getInstance().getCity(EL_PASO), 10));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(TORONTO), ServerModelRoot.getInstance().getCity(MIAMI), 10));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(PORTLAND), ServerModelRoot.getInstance().getCity(PHOENIX), 11));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DALLAS), ServerModelRoot.getInstance().getCity(NEW_YORK), 11));
 
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Calgary"), ServerModelRoot.getInstance().getCity("Salt Lake City"), 7));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Calgary"), ServerModelRoot.getInstance().getCity("Phoenix"), 13));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Los Angeles"), ServerModelRoot.getInstance().getCity("Miami"), 20));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Winnipeg"), ServerModelRoot.getInstance().getCity("Little Rock"), 11));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("San Francisco"), ServerModelRoot.getInstance().getCity("Atlanta"), 17));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CALGARY), ServerModelRoot.getInstance().getCity(SALT_LAKE_CITY), 7));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CALGARY), ServerModelRoot.getInstance().getCity(PHOENIX), 13));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(LOS_ANGELES), ServerModelRoot.getInstance().getCity(MIAMI), 20));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(WINNIPEG), ServerModelRoot.getInstance().getCity(LITTLE_ROCK), 11));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SAN_FRANCISCO), ServerModelRoot.getInstance().getCity(ATLANTA), 17));
 
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Kansas City"), ServerModelRoot.getInstance().getCity("Houston"), 5));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Los Angeles"), ServerModelRoot.getInstance().getCity("Chicago"), 16));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Denver"), ServerModelRoot.getInstance().getCity("Pittsburgh"), 11));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Chicago"), ServerModelRoot.getInstance().getCity("Santa Fe"), 9));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Vancouver"), ServerModelRoot.getInstance().getCity("Santa Fe"), 13));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(KANSAS_CITY), ServerModelRoot.getInstance().getCity(HOUSTON), 5));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(LOS_ANGELES), ServerModelRoot.getInstance().getCity(CHICAGO), 16));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DENVER), ServerModelRoot.getInstance().getCity(PITTSBURG), 11));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CHICAGO), ServerModelRoot.getInstance().getCity(SANTA_FE), 9));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(VANCOUVER), ServerModelRoot.getInstance().getCity(SANTA_FE), 13));
 
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Boston"), ServerModelRoot.getInstance().getCity("Miami"), 12));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Chicago"), ServerModelRoot.getInstance().getCity("New Orleans"), 7));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Montreal"), ServerModelRoot.getInstance().getCity("Atlanta"), 9));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Seattle"), ServerModelRoot.getInstance().getCity("New York"), 22));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Denver"), ServerModelRoot.getInstance().getCity("El Paso"), 4));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(BOSTON), ServerModelRoot.getInstance().getCity(MIAMI), 12));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CHICAGO), ServerModelRoot.getInstance().getCity(NEW_ORLEANS), 7));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(MONTREAL), ServerModelRoot.getInstance().getCity(ATLANTA), 9));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SEATTLE), ServerModelRoot.getInstance().getCity(NEW_YORK), 22));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DENVER), ServerModelRoot.getInstance().getCity(EL_PASO), 4));
 
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Helena"), ServerModelRoot.getInstance().getCity("Los Angeles"), 8));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Winnipeg"), ServerModelRoot.getInstance().getCity("Houston"), 12));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Montreal"), ServerModelRoot.getInstance().getCity("New Orleans"), 13));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Sault St. Marie"), ServerModelRoot.getInstance().getCity("Oklahoma City"), 9));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity("Seattle"), ServerModelRoot.getInstance().getCity("Los Angeles"), 9));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(HELENA), ServerModelRoot.getInstance().getCity(LOS_ANGELES), 8));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(WINNIPEG), ServerModelRoot.getInstance().getCity(HOUSTON), 12));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(MONTREAL), ServerModelRoot.getInstance().getCity(NEW_ORLEANS), 13));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SAULT_ST_MARIE), ServerModelRoot.getInstance().getCity(OKLAHOMA_CITY), 9));
+        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SEATTLE), ServerModelRoot.getInstance().getCity(LOS_ANGELES), 9));
 
         Collections.shuffle(destinationCardDeck);
     }
