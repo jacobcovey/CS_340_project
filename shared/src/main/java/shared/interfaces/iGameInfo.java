@@ -6,6 +6,7 @@ import java.util.List;
 import shared.classes.Chat;
 import shared.classes.ChatMessage;
 import shared.classes.History;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.Route;
 import shared.classes.Turn;
@@ -16,10 +17,10 @@ import shared.classes.Turn;
 
 public abstract class iGameInfo {
 
-    private List<Route> routes;
+    private List<Route> routes = new ArrayList<>();
     private List<Player> players = new ArrayList<>();
     private Chat chat = new Chat(new ArrayList<ChatMessage>());
-    private History history;
+    private History history = new History(new ArrayList<HistoryAction>());
     private Turn turn;
 
     public List<Route> getRoutes() {

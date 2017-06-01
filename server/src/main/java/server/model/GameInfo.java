@@ -15,12 +15,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
+import shared.classes.Chat;
+import shared.classes.ChatMessage;
 import shared.classes.City;
 import shared.classes.Game;
+import shared.classes.History;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
 import shared.classes.Route;
 import shared.classes.TrainCardColors;
+import shared.classes.Turn;
 import shared.interfaces.iGameInfo;
 import shared.classes.TrainCard;
 import shared.classes.DestinationCard;
@@ -37,9 +42,17 @@ import static shared.classes.TrainCardColors.YELLOW;
 
 
 public class GameInfo extends iGameInfo {
+
     private List<TrainCard> faceUpTrainCardDeck = new ArrayList<>();
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private List<DestinationCard> destinationCardDeck = new ArrayList<>();
+
+    public enum State {
+        FIRST_TURN,
+        NOT_FIRST_TURN,
+        GAME_OVER
+    }
+    private State state;
 
 
     public GameInfo() {
@@ -168,5 +181,7 @@ public class GameInfo extends iGameInfo {
         faceDownTrainCardDeck.remove(0);
         getPlayers().add(new Player(color, dealtCards, userName));
     }
+
+
 }
 
