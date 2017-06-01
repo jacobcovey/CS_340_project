@@ -430,7 +430,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Routs"
+                android:text="Your Routes"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:textSize="16dp"/>
