@@ -17,18 +17,10 @@ public class GetOutstandingCommands implements iCommand {
     String data;
 
     public List<CommandData> execute() {
-        List<CommandData> commands = ServerModelRoot.getInstance().getCommandsForUser(data);
-        ArrayList<CommandData> dList = new ArrayList<>();
-
-        if (commands != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.GETOUTSTANDINGCOMMANDS, commands);
-            dList.add(successCmd);
-        } else {
-            CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO GET OUTSTANDINGCOMMANDS");
-            dList.add(unSuccessCmd);
-        }
+        List<CommandData> commands = ServerFacade._instance.getCommandsForUser(data);
+        List<CommandData> dList = new ArrayList<>(commands);
+        commands.clear();
         return dList;
-
     }
 
 }
