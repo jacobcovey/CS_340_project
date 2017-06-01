@@ -2,13 +2,10 @@ package com.example.jacobcovey.Presenters;
 
 import android.os.AsyncTask;
 
-import com.example.jacobcovey.Views.ChatView;
 import com.example.jacobcovey.Views.IChatView;
-import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -59,7 +56,14 @@ public class ChatPresenter implements IChatPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        chatView.setChatMessages(cpf.getChat().getMessages());
+        if (chatView != null) {
+            chatView.setChatMessages(cpf.getChat().getMessages());
+        }
+    }
+
+    @Override
+    public void removeObserver() {
+        cpf.removeObserver(this);
     }
 
     public void setChatView(IChatView chatView) {

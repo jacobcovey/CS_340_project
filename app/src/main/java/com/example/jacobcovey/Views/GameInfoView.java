@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.jacobcovey.Presenters.GameInfoPresenter;
 import com.example.jacobcovey.Presenters.IGameInfoPresenter;
+import com.example.jacobcovey.model.GameInfo;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;
@@ -142,6 +143,7 @@ public class GameInfoView extends Fragment implements IGameInfoView {
             @Override
             public void onClick(View view) {
                 gameInfoDrawerContainer.closeGameInfoDrawer();
+                gameInfoPresenter.removeObserver();
             }
         });
 
@@ -277,6 +279,14 @@ public class GameInfoView extends Fragment implements IGameInfoView {
 
         routesRecyclerView.setAdapter(adapter);
 
+        GameInfo gameInfo = gameInfoPresenter.getGameInfo();
+
+        setPlayerInfo(gameInfo.getPlayers());
+
+        Player currentPlayer = gameInfoPresenter.getCurrentPlayer();
+        setRoutesInfo(currentPlayer.getDestinationCards());
+        setTrainCardsInfo(currentPlayer.getTrainCards());
+
         return v;
     }
 
@@ -286,25 +296,27 @@ public class GameInfoView extends Fragment implements IGameInfoView {
 
         hideUnusedPlayers(players.size());
 
-        getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                for (int x = 0; x < players.size(); x++ ) {
+        if (isAdded()) {
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    for (int x = 0; x < players.size(); x++) {
 
-                    playerNames.get(x).setText(players.get(x).getUserName());
-                    playerPoints.get(x).setText((Integer.toString(players.get(x).getPoints())));
-                    playerTrains.get(x).setText(Integer.toString(players.get(x).getTrainCars()));
-                    playerCards.get(x).setText(Integer.toString(players.get(x).getTrainCards().size()));
-                    playerRoutes.get(x).setText(Integer.toString(players.get(x).getDestinationCards().size()));
+                        playerNames.get(x).setText(players.get(x).getUserName());
+                        playerPoints.get(x).setText((Integer.toString(players.get(x).getPoints())));
+                        playerTrains.get(x).setText(Integer.toString(players.get(x).getTrainCars()));
+                        playerCards.get(x).setText(Integer.toString(players.get(x).getTrainCards().size()));
+                        playerRoutes.get(x).setText(Integer.toString(players.get(x).getDestinationCards().size()));
 
+                    }
                 }
-            }
-        });
-
+            });
+        }
     }
 
     public void hideUnusedPlayers(final int numGamePlayers) {
         if (unusedhidden == false) {
             unusedhidden = true;
+
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     int numToHide = MAXNUMBEROFPLAYERS - numGamePlayers;
@@ -326,12 +338,12 @@ public class GameInfoView extends Fragment implements IGameInfoView {
             public void run() {
                 HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
-                for (final TrainCard card: cards) {
+                for (final TrainCard card : cards) {
 
-                    if ( map.containsKey(card.getColor().ordinal())) {
+                    if (map.containsKey(card.getColor().ordinal())) {
                         Integer value = map.get(card.getColor().ordinal());
                         value += 1;
-                        map.put(card.getColor().ordinal(),value);
+                        map.put(card.getColor().ordinal(), value);
                     } else {
                         map.put(card.getColor().ordinal(), 1);
                     }
@@ -339,7 +351,7 @@ public class GameInfoView extends Fragment implements IGameInfoView {
                     Iterator it = map.entrySet().iterator();
                     while (it.hasNext()) {
                         Map.Entry pair = (Map.Entry) it.next();
-                        TrainCardColors color = TrainCardColors.values()[ (Integer) pair.getKey()];
+                        TrainCardColors color = TrainCardColors.values()[(Integer) pair.getKey()];
 
                         switch (color) {
                             case WHITE:
@@ -375,8 +387,8 @@ public class GameInfoView extends Fragment implements IGameInfoView {
                     }
 
                 }
-            }
-        });
+                }
+            });
     }
 
     @Override
@@ -389,6 +401,5 @@ public class GameInfoView extends Fragment implements IGameInfoView {
                 gameInfoAdapter.notifyDataSetChanged();
             }
         });
-
     }
 }

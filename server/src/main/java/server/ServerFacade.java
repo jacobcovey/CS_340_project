@@ -8,6 +8,7 @@ import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.User;
@@ -118,6 +119,13 @@ public class ServerFacade {
 
     public void addCommandToUser(CommandData command, String userName) {
         serverModelRoot.addCommandToUser(command, userName);
+    }
+
+    public void addCommandToGame(CommandData command, String gameId) {
+        GameInfo gameInfo = getGameInfo(gameId);
+        for (Player player: gameInfo.getPlayers()) {
+            addCommandToUser(command, player.getUserName());
+        }
     }
 
     public List<CommandData> getCommandsForUser(String userName) {

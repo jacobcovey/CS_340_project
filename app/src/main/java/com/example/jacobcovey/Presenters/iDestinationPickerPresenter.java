@@ -18,4 +18,5 @@ public interface iDestinationPickerPresenter extends Observer {
 
     public void setViewCreated(boolean created);
 
+    public void removeObserver();
 }

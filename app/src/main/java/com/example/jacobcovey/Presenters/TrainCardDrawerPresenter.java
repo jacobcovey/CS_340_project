@@ -93,6 +93,11 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
     }
 
     @Override
+    public void removeObserver() {
+        cpf.removeObserver(this);
+    }
+
+    @Override
     public void update(Observable observable, Object o) {
         if (!viewCreated) {
             return;

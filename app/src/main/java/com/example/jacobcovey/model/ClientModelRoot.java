@@ -113,7 +113,11 @@ public class ClientModelRoot extends Observable {
     }
 
     public void setDestCardsToSelectFrom(DestinationCard[] destCardsToSelectFrom) {
-        player.setDrawnDestinationCards(new HashSet<DestinationCard>(Arrays.asList(destCardsToSelectFrom)));
+        if (destCardsToSelectFrom == null) {
+            player.setDrawnDestinationCards(new HashSet<DestinationCard>());
+        } else {
+            player.setDrawnDestinationCards(new HashSet<DestinationCard>(Arrays.asList(destCardsToSelectFrom)));
+        }
         this.destCardsToSelectFrom = destCardsToSelectFrom;
         setChanged();
         notifyObservers();

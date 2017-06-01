@@ -18,4 +18,6 @@ public interface iTrainCardDrawerPresenter extends Observer {
 
     public void drawFaceDownCard();
 
+    public void removeObserver();
+
 }

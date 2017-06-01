@@ -27,8 +27,9 @@ public class PickDestinationCards implements iCommand {
         List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
         Player currentPlayer = null;
         for (Player player : players) {
-            if (player.getUserName() == userName) {
+            if (player.getUserName().equals(userName)) {
                currentPlayer = player;
+                break;
             }
         }
         Set<DestinationCard> drawnCards = currentPlayer.getDrawnDestinationCards();
@@ -38,7 +39,7 @@ public class PickDestinationCards implements iCommand {
         for (DestinationCard drawnCard : drawnCards) {
             found = false;
             for (DestinationCard pickedCard : pickedCards) {
-                if (drawnCard.getId() == pickedCard.getId()) {
+                if (drawnCard.getId().equals(pickedCard.getId())) {
                     found = true;
                 }
             }
@@ -48,6 +49,7 @@ public class PickDestinationCards implements iCommand {
         }
         ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().addAll(unPickedCards);
         currentPlayer.addDestinationCards(pickedCards);
+        currentPlayer.getDrawnDestinationCards().clear();
 
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
         boolean isNextPlayer = false;
@@ -73,6 +75,8 @@ public class PickDestinationCards implements iCommand {
                 gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
             }
         }
+
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
 
         ArrayList<CommandData> dList = new ArrayList<>();
 

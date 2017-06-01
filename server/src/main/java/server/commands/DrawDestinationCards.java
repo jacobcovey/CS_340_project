@@ -39,7 +39,7 @@ public class DrawDestinationCards implements iCommand {
 
         List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
         for (Player player : players) {
-            if (player.getUserName() == userName) {
+            if (player.getUserName().equals(userName)) {
                 player.setDrawnDestinationCards(cardsDrawn);
             }
         }
