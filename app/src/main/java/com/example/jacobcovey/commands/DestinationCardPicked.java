@@ -25,8 +25,7 @@ public class DestinationCardPicked implements iCommand {
     @Override
     public List<CommandData> execute() {
         ClientFacade._instance.getPlayer().getDestinationCards().addAll(data);
-        Set<DestinationCard> emptyDrawnCards = new HashSet<>();
-        ClientFacade._instance.getPlayer().setDestinationCards(emptyDrawnCards);
+        ClientFacade._instance.setDrawnDestinationCards(null);
         return null;
     }
 }
