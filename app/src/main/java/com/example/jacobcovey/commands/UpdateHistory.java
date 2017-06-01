@@ -22,7 +22,8 @@ public class UpdateHistory implements iCommand {
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.addHistoryAction(data);
+        // FIXME this actually doesn't ever need to be executed, because we send the game info over
+        // ClientFacade._instance.addHistoryAction(data);
         return null;
     }
 }
