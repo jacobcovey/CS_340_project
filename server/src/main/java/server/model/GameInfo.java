@@ -173,7 +173,6 @@ public class GameInfo extends iGameInfo {
         }
         cardDrawn = faceUpTrainCardDeck.get(index);
         faceUpTrainCardDeck.remove(index);
-        setTrainCardDeckSize(getTrainCardDeckSize() - 1);
         return cardDrawn;
     }
 
