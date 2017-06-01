@@ -13,6 +13,7 @@ import shared.classes.CommandData;
 import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
+import shared.classes.Turn;
 import shared.classes.User;
 import server.model.GameInfo;
 import shared.interfaces.iGameInfo;
@@ -74,6 +75,7 @@ public class ServerModelRoot {
             for (int i = 0; i < users.size(); i++) {
                 gameInfo.addPlayer(users.get(i).getUsername(), colors.get(i));
             }
+            gameInfo.setTurn(new Turn(users.get(0).getUsername(), Turn.TurnState.FIRSTTURN));
             gameInfos.put(game.getId(), gameInfo);
     }
 

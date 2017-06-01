@@ -8,9 +8,9 @@ import com.example.jacobcovey.Activities.SingleFragmentActivity;
  * Created by Riley on 5/31/2017.
  */
 
-public class ActivityGameBoard extends SingleFragmentActivity {
+public class ActivityGameMap extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
-        return FragmentGameBoard.newInstance();
+        return FragmentGameMap.newInstance();
     }
 }

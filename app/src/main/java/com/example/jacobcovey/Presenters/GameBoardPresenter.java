@@ -2,7 +2,7 @@ package com.example.jacobcovey.Presenters;
 
 import com.example.jacobcovey.Views.IGameBoardView;
 import com.example.jacobcovey.game_board.Route;
-import com.example.jacobcovey.game_board.ViewGameBoard;
+import com.example.jacobcovey.game_board.ViewGameMap;
 
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.GameInfo;
@@ -31,7 +31,7 @@ import shared.classes.TrainCardColors;
 
 public class GameBoardPresenter implements iGameBoardPresenter, Observer {
 
-    private ViewGameBoard boardView;
+    private ViewGameMap boardView;
 
     private List<Route> mRoutes;
 

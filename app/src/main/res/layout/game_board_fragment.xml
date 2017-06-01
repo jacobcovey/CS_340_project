@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
-        <com.example.jacobcovey.game_board.ViewGameBoard
+        <com.example.jacobcovey.game_board.ViewGameMap
             android:id="@+id/board_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

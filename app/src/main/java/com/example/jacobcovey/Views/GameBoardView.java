@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.example.jacobcovey.game_board.ViewGameBoard;
+import com.example.jacobcovey.game_board.ViewGameMap;
 import com.example.jacobcovey.Presenters.iGameBoardPresenter;
 import com.example.jacobcovey.Presenters.GameBoardPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
@@ -27,7 +27,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
     private Button trainCardDrawerButton, destinationCardDrawerButton, changeModelButton;
     private FrameLayout leftDrawer, rightDrawer;
     private FragmentManager fragmentManager;
-    private ViewGameBoard boardView;
+    private ViewGameMap mMap;
     private iGameBoardPresenter gameBoardPresenter;
 
 
@@ -73,7 +73,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
             }
         });
 
-        boardView = (ViewGameBoard) v.findViewById(R.id.board_view);
+        mMap = (ViewGameMap) v.findViewById(R.id.board_view);
 
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
 
