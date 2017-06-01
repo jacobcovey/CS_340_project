@@ -34,6 +34,7 @@ public class CommandData {
         SENDCHAT,
         UPDATECHAT,
         GETOUTSTANDINGCOMMANDS,
+        UPDATEGAMEINFO,
         ERROR
     }
 
