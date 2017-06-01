@@ -42,7 +42,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, Observer {
 
     @Override
     public void setGameBoardView(IGameBoardView gameBoardView) {
-        this.boardView = gameBoardView;
+//        this.boardView = gameBoardView;
     }
 
     @Override

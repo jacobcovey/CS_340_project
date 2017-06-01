@@ -72,6 +72,7 @@ public class ChatView extends Fragment implements IChatView {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 chatPresenter.sendChatMessage(chatEditText.getText().toString());
             }
         });
