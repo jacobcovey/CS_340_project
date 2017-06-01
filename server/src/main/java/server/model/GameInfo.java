@@ -56,6 +56,7 @@ public class GameInfo extends iGameInfo {
 
 
     public GameInfo() {
+        state = State.FIRST_TURN;
         Set<TrainCardColors> colors = new HashSet<TrainCardColors>();
         colors.add(WHITE);
         colors.add(BLACK);
