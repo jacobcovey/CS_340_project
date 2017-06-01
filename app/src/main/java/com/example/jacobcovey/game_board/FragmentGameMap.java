@@ -12,15 +12,15 @@ import com.example.jacobcovey.ticket_to_ride.R;
  * Created by Riley on 5/31/2017.
  */
 
-public class FragmentGameBoard extends Fragment{
+public class FragmentGameMap extends Fragment{
 
-    public static FragmentGameBoard newInstance() {
-        return new FragmentGameBoard();
+    public static FragmentGameMap newInstance() {
+        return new FragmentGameMap();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_game_board, container, false);
+        View v = inflater.inflate(R.layout.fragment_game_map, container, false);
         return v;
     }
 

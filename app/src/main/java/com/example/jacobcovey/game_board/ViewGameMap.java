@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -15,8 +14,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.jacobcovey.ticket_to_ride.R;
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +22,18 @@ import java.util.List;
  * Created by Riley on 5/31/2017.
  */
 
-public class ViewGameBoard extends View {
+public class ViewGameMap extends View {
 
     public static final String TAG = "BoardView";
 
     private List<Route> mRoutes = new ArrayList<>();
     private Paint mRoutePaint;
 
-    public ViewGameBoard(Context context) {
+    public ViewGameMap(Context context) {
         this(context, null);
     }
 
-    public ViewGameBoard(Context context, @Nullable AttributeSet attrs) {
+    public ViewGameMap(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         mRoutePaint = new Paint();
