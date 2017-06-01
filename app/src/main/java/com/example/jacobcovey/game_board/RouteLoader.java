@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Riley on 5/31/2017.
  */
 
-class RouteLoader {
+public class RouteLoader {
 
     public static final String TAG = "RouteLoader";
 

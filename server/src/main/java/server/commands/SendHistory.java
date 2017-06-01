@@ -23,9 +23,7 @@ public class SendHistory implements iCommand {
         HistoryAction action = data;
         ServerFacade._instance.getGameInfo(gameId).getHistory().addAction(data);
 
-        for (User user : ServerFacade._instance.getUsers()) {
-            ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.UPDATEHISTORY, action), user.getUsername());
-        }
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, action), gameId);
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (action != null) {

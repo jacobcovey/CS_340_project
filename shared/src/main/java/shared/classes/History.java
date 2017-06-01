@@ -1,5 +1,6 @@
 package shared.classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class History {
 
-    List<HistoryAction> actions;
+    List<HistoryAction> actions = new ArrayList<>();
 
     public History(List<HistoryAction> actions) {
         this.actions = actions;

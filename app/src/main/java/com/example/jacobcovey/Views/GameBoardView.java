@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.example.jacobcovey.game_board.Route;
 import com.example.jacobcovey.game_board.ViewGameMap;
 import com.example.jacobcovey.Presenters.iGameBoardPresenter;
 import com.example.jacobcovey.Presenters.GameBoardPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
+
+import java.util.List;
 
 /**
  * Created by jacobcovey on 5/19/17.
@@ -181,4 +184,9 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
     }
 
+    @Override
+    public void updateRoutes(List<Route> routes) {
+        mMap.setRoutes(routes);
+//        mMap.invalidate();
+    }
 }

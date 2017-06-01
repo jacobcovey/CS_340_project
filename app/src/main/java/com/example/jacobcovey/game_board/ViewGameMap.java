@@ -79,4 +79,9 @@ public class ViewGameMap extends View {
 
         }
     }
+
+    public void setRoutes(List<Route> routes) {
+        mRoutes = routes;
+        invalidate();
+    }
 }
