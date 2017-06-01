@@ -43,6 +43,16 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
     }
 
     @Override
+    public GameInfo getGameInfo() {
+        return cpf.getGameInfo();
+    }
+
+    @Override
+    public Player getCurrentPlayer() {
+        return cpf.getCurrentPlayer();
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
         if (gameInfoView != null) {
             GameInfo gameInfo = cpf.getGameInfo();

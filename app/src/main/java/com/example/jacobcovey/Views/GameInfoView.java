@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.jacobcovey.Presenters.GameInfoPresenter;
 import com.example.jacobcovey.Presenters.IGameInfoPresenter;
+import com.example.jacobcovey.model.GameInfo;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;
@@ -276,6 +277,14 @@ public class GameInfoView extends Fragment implements IGameInfoView {
         GameInfoAdapter adapter = new GameInfoAdapter(routes);
 
         routesRecyclerView.setAdapter(adapter);
+
+        GameInfo gameInfo = gameInfoPresenter.getGameInfo();
+
+        setPlayerInfo(gameInfo.getPlayers());
+
+        Player currentPlayer = gameInfoPresenter.getCurrentPlayer();
+        setRoutesInfo(currentPlayer.getDestinationCards());
+        setTrainCardsInfo(currentPlayer.getTrainCards());
 
         return v;
     }
