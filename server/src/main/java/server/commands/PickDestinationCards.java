@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Player;
 import shared.classes.TrainCard;
+import shared.classes.Turn;
 import shared.interfaces.iCommand;
 
 /**
@@ -48,6 +50,32 @@ public class PickDestinationCards implements iCommand {
         currentPlayer.addDestinationCards(pickedCards);
 
         ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, data), userName);
+
+        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
+        boolean isNextPlayer = false;
+        Player nextPlayer = null;
+        for (Player player: players) {
+            if (isNextPlayer) {
+                nextPlayer = player;
+
+            }
+            if (player.getUserName().equals(currentPlayer.getUserName())) {
+                isNextPlayer = true;
+            }
+        }
+        if (nextPlayer == null) {
+            nextPlayer = players.get(0);
+            if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
+                gameInfo.setState(GameInfo.State.NOT_FIRST_TURN);
+            }
+            gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
+        } else {
+            if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
+                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.FIRSTTURN));
+            } else {
+                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
+            }
+        }
 
         ArrayList<CommandData> dList = new ArrayList<>();
 
