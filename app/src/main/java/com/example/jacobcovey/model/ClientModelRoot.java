@@ -99,7 +99,10 @@ public class ClientModelRoot extends Observable {
     }
 
     public Turn getTurn() {
-        return gameInfo.getTurn();
+        if (gameInfo != null) {
+            return gameInfo.getTurn();
+        }
+        return null;
     }
 
     public DestinationCard[] getDestCardsToSelectFrom() {

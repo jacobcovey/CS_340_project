@@ -2,37 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical">
+    android:background="@color/white">
+    <Button
+        android:id="@+id/destinationcard_drawer_close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="X"
+        android:layout_gravity="top|right"/>
 
     <TextView
         android:id="@+id/destinationMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select at least 2 Destinations" />
+        android:layout_margin="15dp"
+        android:text="Select at least 2 Destinations"
+        android:layout_gravity="center_vertical"/>
 
     <CheckBox
         android:id="@+id/destination0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_gravity="left"
-        android:text="No Destination Card Set" />
+        android:layout_gravity="left|center_vertical"
+        android:text="No Destination Card Set"
+        android:enabled="false"
+        />
 
     <CheckBox
         android:id="@+id/destination1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_gravity="left"
-        android:text="No Destination Card Set" />
+        android:layout_gravity="left|center_vertical"
+        android:text="No Destination Card Set"
+        android:enabled="false"/>
 
     <CheckBox
         android:id="@+id/destination2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_gravity="left"
-        android:text="No Destination Card Set" />
+        android:layout_gravity="left|center_vertical"
+        android:text="No Destination Card Set"
+        android:enabled="false"/>
 
     <Button
         android:id="@+id/destinationsSelectedButton"
@@ -41,6 +54,7 @@
         android:padding="10dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="Confirm Selection" />
+        android:text="Confirm Selection"
+        android:enabled="false"/>
 
 </LinearLayout>

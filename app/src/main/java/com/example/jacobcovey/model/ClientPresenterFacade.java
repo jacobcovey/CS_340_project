@@ -144,8 +144,11 @@ public class ClientPresenterFacade {
 
     public boolean isMyTurn() {
         Player player = ClientModelRoot._instance.getPlayer();
-        iGameInfo info = ClientModelRoot._instance.getGameInfo();
-        return info.getTurn().getPlayer().equals(player.getUserName());
+        Turn turn = ClientModelRoot._instance.getTurn();
+        if (player != null  && turn != null) {
+            return turn.getPlayer().equals(player.getUserName());
+        }
+        return false;
     }
 
     public Turn getTurn() {

@@ -1,8 +1,8 @@
 package com.example.jacobcovey.Views;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +30,7 @@ public class DestinationPickerView extends Fragment implements iDestinationPicke
     private CheckBox cardCheckBox0, cardCheckBox1, cardCheckBox2;
     private TextView destinationMessage;
     private Button destinationsSelectedButton;
+    private Button closeButton;
     private final String DEFAULT_MESSAGE = "No Destination Card Set";
 
     public interface DestinationCardDrawerContainer {
@@ -59,14 +60,13 @@ public class DestinationPickerView extends Fragment implements iDestinationPicke
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         destinationPickerPresenter = new DestinationPickerPresenter();
-        destinationPickerPresenter.setTrainCardDrawerView(this);
-        destinationPickerPresenter.onChecked(0, false);
+        destinationPickerPresenter.setDestinationView(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.train_card_drawer, container, false);
+        View v = inflater.inflate(R.layout.destination_picker_fragment, container, false);
         cardCheckBox0 = (CheckBox) v.findViewById(R.id.destination0);
         cardCheckBox1 = (CheckBox) v.findViewById(R.id.destination1);
         cardCheckBox2 = (CheckBox) v.findViewById(R.id.destination2);
@@ -99,6 +99,15 @@ public class DestinationPickerView extends Fragment implements iDestinationPicke
             }
         });
 
+        closeButton = (Button) v.findViewById(R.id.destinationcard_drawer_close_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                destinationCardDrawerContainer.closeDestinationCardDrawer();
+            }
+        });
+        destinationPickerPresenter.setViewCreated(true);
+        destinationPickerPresenter.onChecked(0, false);
         return v;
     }
 
@@ -108,8 +117,10 @@ public class DestinationPickerView extends Fragment implements iDestinationPicke
     }
 
     @Override
-    public int getNumberChecker() {
-        return 0;
+    public void enableCheckBoxes(boolean enable) {
+        cardCheckBox0.setChecked(enable);
+        cardCheckBox1.setChecked(enable);
+        cardCheckBox2.setChecked(enable);
     }
 
     @Override

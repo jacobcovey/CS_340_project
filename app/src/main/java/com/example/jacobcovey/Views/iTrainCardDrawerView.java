@@ -30,4 +30,18 @@ public interface iTrainCardDrawerView {
 
     public void displayToast(String message);
 
+    public void enableAllCards(boolean enable);
+
+    public void enableCard0(boolean enable);
+
+    public void enableCard1(boolean enable);
+
+    public void enableCard2(boolean enable);
+
+    public void enableCard3(boolean enable);
+
+    public void enableCard4(boolean enable);
+
+    public void enableDeck(boolean enable);
+
 }

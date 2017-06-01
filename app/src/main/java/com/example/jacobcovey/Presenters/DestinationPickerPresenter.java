@@ -22,26 +22,37 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
     private int numRequired, numChecked;
     private boolean card0Checked, card1Checked, card2Checked;
     private ClientPresenterFacade cpf;
+    private String message;
+    private final int NOTYOURTURN = 100;
+
+    private boolean viewCreated;
 
     public DestinationPickerPresenter() {
         numChecked = 0;
         card0Checked = false;
         card1Checked = false;
         card2Checked = false;
+        viewCreated = false;
         cpf = new ClientPresenterFacade();
-        String message;
+        setStateVars();
+        if (cpf.isMyTurn()) {
+            drawDestinations();
+        }
+    }
+
+    private void setStateVars() {
         if (cpf.isMyTurn() && cpf.getTurn().getState() == Turn.TurnState.FIRSTTURN) {
             message = "Select at least 2 Destinations";
             numRequired = 2;
-            drawDestinations();
+
         } else if(cpf.isMyTurn()) {
             message = "Select at least 1 Destinations";
             numRequired = 1;
             drawDestinations();
         } else {
+            numRequired = NOTYOURTURN;
             message = "It is NOT your turn";
         }
-
     }
 
     private void drawDestinations() {
@@ -52,6 +63,9 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
 
 
     private void setDestinationCards() {
+        if (!viewCreated) {
+            return;
+        }
         DestinationCard[] cards = cpf.getDestCardsToSelectFrom();
         if (cards != null && cards.length == 3) {
             destinationPickerView.setDestination0(cards[0]);
@@ -81,12 +95,21 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
     }
 
     @Override
-    public void setTrainCardDrawerView(iDestinationPickerView destinationPickerView) {
+    public void setViewCreated(boolean created) {
+        this.viewCreated = created;
+        destinationPickerView.setMessage(message);
+    }
+
+    @Override
+    public void setDestinationView(iDestinationPickerView destinationPickerView) {
         this.destinationPickerView = destinationPickerView;
     }
 
     @Override
     public void onChecked(int index, boolean checked) {
+        if (!viewCreated) {
+            return;
+        }
         switch (index) {
             case 0:
                 card0Checked = checked;
@@ -102,6 +125,11 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         if (numChecked >= numRequired) {
             destinationPickerView.enableSelectButton(true);
         } else {
+            if (numRequired == NOTYOURTURN) {
+                destinationPickerView.enableCheckBoxes(false);
+            } else {
+                destinationPickerView.enableCheckBoxes(true);
+            }
             destinationPickerView.enableSelectButton(false);
         }
     }
@@ -115,6 +143,14 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
 
     @Override
     public void update(Observable observable, Object o) {
+        if (!viewCreated) {
+            return;
+        }
+        int check = numRequired;
+        setStateVars();
+        if (check == NOTYOURTURN && numRequired != NOTYOURTURN) {
+            drawDestinations();
+        }
         setDestinationCards();
     }
 

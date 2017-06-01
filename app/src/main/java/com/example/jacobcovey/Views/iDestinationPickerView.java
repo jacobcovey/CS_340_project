@@ -10,7 +10,7 @@ public interface iDestinationPickerView {
 
     public void enableSelectButton(boolean enable);
 
-    public int getNumberChecker();
+    public void enableCheckBoxes(boolean enable);
 
     public void setMessage(String message);
 

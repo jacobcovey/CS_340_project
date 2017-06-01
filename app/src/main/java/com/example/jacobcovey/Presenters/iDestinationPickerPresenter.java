@@ -10,10 +10,12 @@ import java.util.Observer;
 
 public interface iDestinationPickerPresenter extends Observer {
 
-    public void setTrainCardDrawerView(iDestinationPickerView trainCardDrawerView);
+    public void setDestinationView(iDestinationPickerView trainCardDrawerView);
 
     public void onChecked(int index, boolean checked);
 
     public void selectDestinations();
+
+    public void setViewCreated(boolean created);
 
 }

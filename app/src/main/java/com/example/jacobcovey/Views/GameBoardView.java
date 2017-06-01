@@ -24,7 +24,7 @@ import com.example.jacobcovey.ticket_to_ride.R;
 public class GameBoardView extends android.support.v4.app.Fragment implements IGameBoardView {
 
     private DrawerLayout drawerLayout;
-    private Button leftDrawerButton, changeModelButton;
+    private Button trainCardDrawerButton, destinationCardDrawerButton, changeModelButton;
     private FrameLayout leftDrawer, rightDrawer;
     private FragmentManager fragmentManager;
     private ViewGameBoard boardView;
@@ -46,12 +46,21 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
         drawerLayout = (DrawerLayout) v.findViewById(R.id.drawer_layout);
         leftDrawer = (FrameLayout) v.findViewById(R.id.left_drawer);
         rightDrawer = (FrameLayout) v.findViewById(R.id.right_drawer);
-        leftDrawerButton = (Button) v.findViewById(R.id.leftDrawerButton);
+        trainCardDrawerButton = (Button) v.findViewById(R.id.trainCardDrawerButton);
 
-        leftDrawerButton.setOnClickListener(new View.OnClickListener() {
+        trainCardDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presentTrainCardDrawer();
+            }
+        });
+
+        destinationCardDrawerButton = (Button) v.findViewById(R.id.destinationCardDrawerButton);
+
+        destinationCardDrawerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presentDestinationCardDrawer();
             }
         });
 
@@ -67,6 +76,19 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
         boardView = (ViewGameBoard) v.findViewById(R.id.board_view);
 
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            }
+
         });
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -75,6 +97,10 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
 
     public void closeTrainCardDrawer() {
+        dismissLeftDrawer();
+    }
+
+    public void closeDestinationCardDrawer() {
         dismissLeftDrawer();
     }
 
@@ -93,6 +119,8 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
     public void presentTrainCardDrawer() {
         showLeftDrawer(new TrainCardDrawerView());
     }
+
+    public void presentDestinationCardDrawer() {showLeftDrawer(new DestinationPickerView());}
 
     public void presentGameInfoDrawer() {
         showRightDrawer(new GameInfoView());
@@ -131,19 +159,24 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
     private void dismissLeftDrawer() {
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.left_drawer));
-        fragmentTransaction.commit();
+        removeFragmentFromDrawer(R.id.left_drawer);
         drawerLayout.closeDrawer(leftDrawer);
 
     }
 
     private void dismissRightDrawer() {
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.right_drawer));
-        fragmentTransaction.commit();
+        removeFragmentFromDrawer(R.id.right_drawer);
         drawerLayout.closeDrawer(rightDrawer);
 
     }
+
+    private void removeFragmentFromDrawer(int drawerId) {
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(fragmentManager.findFragmentById(drawerId));
+        fragmentTransaction.commit();
+
+    }
+
 }

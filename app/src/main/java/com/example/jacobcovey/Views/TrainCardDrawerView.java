@@ -210,4 +210,44 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void enableAllCards(boolean enable) {
+        faceUpCardButton0.setEnabled(enable);
+        faceUpCardButton1.setEnabled(enable);
+        faceUpCardButton2.setEnabled(enable);
+        faceUpCardButton3.setEnabled(enable);
+        faceUpCardButton4.setEnabled(enable);
+        faceDownDeckButton.setEnabled(enable);
+    }
+
+    @Override
+    public void enableCard0(boolean enable) {
+        faceUpCardButton0.setEnabled(enable);
+    }
+
+    @Override
+    public void enableCard1(boolean enable) {
+        faceUpCardButton1.setEnabled(enable);
+    }
+
+    @Override
+    public void enableCard2(boolean enable) {
+        faceUpCardButton2.setEnabled(enable);
+    }
+
+    @Override
+    public void enableCard3(boolean enable) {
+        faceUpCardButton3.setEnabled(enable);
+    }
+
+    @Override
+    public void enableCard4(boolean enable) {
+        faceUpCardButton4.setEnabled(enable);
+    }
+
+    @Override
+    public void enableDeck(boolean enable) {
+        faceDownDeckButton.setEnabled(enable);
+    }
+
 }
