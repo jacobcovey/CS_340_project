@@ -1,5 +1,6 @@
 package com.example.jacobcovey.model;
 
+import shared.classes.TrainCard;
 import shared.interfaces.iGameInfo;
 
 /**
@@ -7,5 +8,14 @@ import shared.interfaces.iGameInfo;
  */
 
 public class GameInfo extends iGameInfo {
+    private TrainCard[] faceUpTrainCardDeck;
     public GameInfo() {}
+
+    public TrainCard[] getFaceUpTrainCardDeck() {
+        return faceUpTrainCardDeck;
+    }
+
+    public void setFaceUpTrainCardDeck(TrainCard[] faceUpTrainCardDeck) {
+        this.faceUpTrainCardDeck = faceUpTrainCardDeck;
+    }
 }

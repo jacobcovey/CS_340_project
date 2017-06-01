@@ -142,7 +142,7 @@ public class ClientPresenterFacade {
     }
 
     public TrainCard[] getFaceUpDeck() {
-        return null;
+        return ClientModelRoot._instance.getFaceUpDeck();
     }
 
     public boolean isMyTurn() {

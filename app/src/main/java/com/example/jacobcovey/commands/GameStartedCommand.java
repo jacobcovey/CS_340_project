@@ -28,9 +28,10 @@ public class GameStartedCommand implements iCommand {
         for (Player player : ClientFacade._instance.getGameInfo().getPlayers()) {
             if (player.getUserName().equals(ClientFacade._instance.getUser().getUsername())) {
                 ClientFacade._instance.setPlayer(player);
-                return null;
+                break;
             }
         }
+        ClientFacade._instance.setFaceUpDeck(data.getFaceUpTrainCardDeck());
         return null;
 
     }

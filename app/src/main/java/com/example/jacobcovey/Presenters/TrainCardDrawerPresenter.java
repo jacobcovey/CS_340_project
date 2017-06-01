@@ -102,6 +102,11 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         if (!viewCreated) {
             return;
         }
+        setFaceUpDeck();
+    }
+
+    @Override
+    public void setFaceUpDeck() {
         TrainCard[] faceUpDeck = cpf.getFaceUpDeck();
         if (faceUpDeck != null) {
             trainCardDrawerView.setCard0(faceUpDeck[0]);

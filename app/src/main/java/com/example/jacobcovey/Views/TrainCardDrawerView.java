@@ -120,6 +120,7 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
         faceUpCard2 = null;
         faceUpCard3 = null;
         faceUpCard4 = null;
+        trainCardDrawerPresenter.setFaceUpDeck();
         return v;
     }
 
