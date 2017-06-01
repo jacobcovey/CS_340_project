@@ -31,11 +31,11 @@ public class DrawDestinationCards implements iCommand {
 
 
         cardsDrawn.add(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().get(0));
-        ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().remove(0);
+        ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().remove(0);
         cardsDrawn.add(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().get(0));
-        ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().remove(0);
+        ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().remove(0);
         cardsDrawn.add(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().get(0));
-        ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().remove(0);
+        ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().remove(0);
 
         List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
         for (Player player : players) {
@@ -43,11 +43,10 @@ public class DrawDestinationCards implements iCommand {
                 player.setDrawnDestinationCards(cardsDrawn);
             }
         }
-        ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.DESTINATIONCARDDRAWN, cardsDrawn), userName);
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (cardsDrawn != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.DRAWDESTINATIONCARDS, cardsDrawn);
+            CommandData successCmd = new CommandData(CommandData.Type.DESTINATIONCARDDRAWN, cardsDrawn);
             dList.add(successCmd);
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO DRAW DESTINATION CARDS");

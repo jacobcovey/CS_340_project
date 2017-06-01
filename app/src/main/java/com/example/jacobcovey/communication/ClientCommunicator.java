@@ -28,7 +28,7 @@ public class ClientCommunicator {
     public static List<CommandData> sendToServer(CommandData commandData) {
         List<CommandData> data = null;
         try {
-            String serverHost = "10.24.213.194";
+            String serverHost = "10.24.196.254";
             String serverPort = "4000";
 
             URL url = new URL("http://" + serverHost + ":" + serverPort + "/executecommand");
@@ -48,7 +48,7 @@ public class ClientCommunicator {
             os.close();
 
             http.connect();
-           InputStreamReader is = new InputStreamReader(http.getInputStream());
+            InputStreamReader is = new InputStreamReader(http.getInputStream());
             Type listType = new TypeToken<ArrayList<CommandData>>(){}.getType();
             data = (List<CommandData>) gson.fromJson(is, listType);
 //            System.out.println(data.to);

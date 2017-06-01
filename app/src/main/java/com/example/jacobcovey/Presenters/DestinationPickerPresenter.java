@@ -37,8 +37,6 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         setStateVars();
         if (cpf.isMyTurn() && cpf.getDestCardsToSelectFrom() == null) {
             drawDestinations();
-        } else if (cpf.isMyTurn()) {
-            setDestinationCards();
         }
     }
 
@@ -46,11 +44,9 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
         if (cpf.isMyTurn() && cpf.getTurn().getState() == Turn.TurnState.FIRSTTURN) {
             message = "Select at least 2 Destinations";
             numRequired = 2;
-            setDestinationCards();
         } else if(cpf.isMyTurn()) {
             message = "Select at least 1 Destinations";
             numRequired = 1;
-            setDestinationCards();
         } else {
             numRequired = NOTYOURTURN;
             message = "It is NOT your turn";
@@ -73,10 +69,12 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
             destinationPickerView.setDestination0(cards[0]);
             destinationPickerView.setDestination1(cards[1]);
             destinationPickerView.setDestination2(cards[2]);
+            destinationPickerView.enableCheckBoxes(true);
         } else {
             destinationPickerView.setDestination0(null);
             destinationPickerView.setDestination1(null);
             destinationPickerView.setDestination2(null);
+            destinationPickerView.enableCheckBoxes(false);
         }
     }
 
@@ -100,6 +98,9 @@ public class DestinationPickerPresenter implements iDestinationPickerPresenter {
     public void setViewCreated(boolean created) {
         this.viewCreated = created;
         destinationPickerView.setMessage(message);
+        if (cpf.isMyTurn() && cpf.getDestCardsToSelectFrom() != null) {
+            setDestinationCards();
+        }
     }
 
     @Override

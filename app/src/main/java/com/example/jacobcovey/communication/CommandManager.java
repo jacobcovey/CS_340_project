@@ -1,5 +1,7 @@
 package com.example.jacobcovey.communication;
 
+import com.example.jacobcovey.commands.DestinationCardDrawn;
+import com.example.jacobcovey.commands.DestinationCardPicked;
 import com.example.jacobcovey.commands.ErrorCommand;
 import com.example.jacobcovey.commands.FaceDownTrainCardPicked;
 import com.example.jacobcovey.commands.FaceUpTrainCardPicked;
@@ -56,6 +58,10 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, UpdateChat.class);
             case UPDATEFACEUPTRAINCARDDECK:
                 return gson.fromJson(s, UpdateFaceUpTrainCardDeck.class);
+            case DESTINATIONCARDDRAWN:
+                return gson.fromJson(s, DestinationCardDrawn.class);
+            case DESTINATIONCARDSPICKED:
+                return gson.fromJson(s, DestinationCardPicked.class);
             case ERROR:
                 return gson.fromJson(s, ErrorCommand.class);
             default:
