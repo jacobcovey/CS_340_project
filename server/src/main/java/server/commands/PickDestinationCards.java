@@ -49,15 +49,12 @@ public class PickDestinationCards implements iCommand {
         ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().addAll(unPickedCards);
         currentPlayer.addDestinationCards(pickedCards);
 
-        ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, data), userName);
-
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
         boolean isNextPlayer = false;
         Player nextPlayer = null;
         for (Player player: players) {
             if (isNextPlayer) {
                 nextPlayer = player;
-
             }
             if (player.getUserName().equals(currentPlayer.getUserName())) {
                 isNextPlayer = true;

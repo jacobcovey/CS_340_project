@@ -6,24 +6,23 @@ import java.util.List;
 
 import shared.classes.ChatMessage;
 import shared.classes.CommandData;
-import shared.classes.Game;
+import shared.classes.HistoryAction;
 import shared.interfaces.iCommand;
 
 /**
- * Created by Dylan on 5/25/2017.
+ * Created by Dylan on 5/31/2017.
  */
 
-public class UpdateChat implements iCommand {
+public class UpdateHistory implements iCommand {
+    HistoryAction data;
 
-    ChatMessage data;
-
-    public UpdateChat(CommandData data) {
-        this.data = (ChatMessage) data.getData();
+    public UpdateHistory(CommandData data) {
+        this.data = (HistoryAction) data.getData();
     }
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.addChatMessage(data);
+        ClientFacade._instance.addHistoryAction(data);
         return null;
     }
 }
