@@ -79,8 +79,7 @@ public class PickDestinationCards implements iCommand {
 
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
         String currentUserName = currentPlayer.getUserName();
-        HistoryAction historyAction = new HistoryAction(currentUserName,
-                currentUserName + " picked " + pickedCards.size() + " destination cards");
+        HistoryAction historyAction = new HistoryAction(currentUserName, "picked " + pickedCards.size() + " destination card(s)");
         gameInfo.getHistory().addAction(historyAction);
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
 
