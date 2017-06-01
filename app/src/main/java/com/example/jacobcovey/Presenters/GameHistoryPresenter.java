@@ -18,7 +18,7 @@ import shared.classes.HistoryAction;
 
 public class GameHistoryPresenter implements IGameHistoryPresenter, Observer {
 
-    private GameHistoryView gameHistoryView;
+    private IGameHistoryView gameHistoryView;
     private ClientPresenterFacade cpf;
 
     public GameHistoryPresenter() {
@@ -28,7 +28,7 @@ public class GameHistoryPresenter implements IGameHistoryPresenter, Observer {
 
     @Override
     public void setGameHistoryView(IGameHistoryView gameHistoryView) {
-
+        this.gameHistoryView = gameHistoryView;
     }
 
     @Override

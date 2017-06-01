@@ -149,11 +149,13 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
     private void showRightDrawer(Fragment fragment) {
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.right_drawer, fragment);
-        fragmentTransaction.commit();
-        drawerLayout.requestLayout();
-        drawerLayout.openDrawer(rightDrawer);
+        if (!drawerLayout.isDrawerOpen(rightDrawer)) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.right_drawer, fragment);
+            fragmentTransaction.commit();
+            drawerLayout.requestLayout();
+            drawerLayout.openDrawer(rightDrawer);
+        }
 
     }
 
