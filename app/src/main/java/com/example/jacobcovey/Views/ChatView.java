@@ -98,6 +98,7 @@ public class ChatView extends Fragment implements IChatView {
             @Override
             public void run() {
                 adapter.setMessages(chatMessages);
+                adapter.notifyDataSetChanged();
             }
         });
     }

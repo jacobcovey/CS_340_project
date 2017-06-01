@@ -23,7 +23,11 @@ public class UpdateChat implements iCommand {
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.getGameInfo().getChat().addMessage(data);
+        ClientFacade._instance.addChatMessage(data);
+        for (ChatMessage m : ClientFacade._instance.getChat().getMessages()) {
+            System.out.print(m.getUserName());
+            System.out.println(m.getMessage());
+        }
         return null;
     }
 }

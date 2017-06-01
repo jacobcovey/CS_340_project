@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Set;
 
+import shared.classes.ChatMessage;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.Player;
@@ -113,6 +114,11 @@ public class ClientModelRoot extends Observable {
     public void setDestCardsToSelectFrom(DestinationCard[] destCardsToSelectFrom) {
         player.setDrawnDestinationCards(new HashSet<DestinationCard>(Arrays.asList(destCardsToSelectFrom)));
         this.destCardsToSelectFrom = destCardsToSelectFrom;
+        setChanged();
+        notifyObservers();
+    }
+    public void addChatMessage(ChatMessage message) {
+        gameInfo.getChat().addMessage(message);
         setChanged();
         notifyObservers();
     }
