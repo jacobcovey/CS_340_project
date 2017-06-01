@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/history_text_textview"
-            android:layout_width="180dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sample history message"
             android:textSize="10dp"

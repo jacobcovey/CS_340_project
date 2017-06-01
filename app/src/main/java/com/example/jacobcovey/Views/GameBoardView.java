@@ -164,19 +164,15 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
     private void dismissLeftDrawer() {
 
-        if (drawerLayout.isDrawerOpen(leftDrawer)) {
-            removeFragmentFromDrawer(R.id.left_drawer);
-            drawerLayout.closeDrawer(leftDrawer);
-        }
+        removeFragmentFromDrawer(R.id.left_drawer);
+        drawerLayout.closeDrawer(leftDrawer);
 
     }
 
     private void dismissRightDrawer() {
 
-        if (drawerLayout.isDrawerOpen(rightDrawer)) {
-            removeFragmentFromDrawer(R.id.right_drawer);
-            drawerLayout.closeDrawer(rightDrawer);
-        }
+        removeFragmentFromDrawer(R.id.right_drawer);
+        drawerLayout.closeDrawer(rightDrawer);
 
     }
 

@@ -3,6 +3,7 @@ package com.example.jacobcovey.Presenters;
 import android.os.AsyncTask;
 
 import com.example.jacobcovey.Views.iDestinationPickerView;
+import com.example.jacobcovey.model.ClientFacade;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import shared.classes.DestinationCard;
+import shared.classes.HistoryAction;
 import shared.classes.Turn;
 
 /**

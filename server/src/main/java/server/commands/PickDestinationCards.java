@@ -9,6 +9,7 @@ import server.ServerFacade;
 import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.Turn;
@@ -77,6 +78,10 @@ public class PickDestinationCards implements iCommand {
         }
 
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
+        String currentUserName = currentPlayer.getUserName();
+        HistoryAction historyAction = new HistoryAction(currentUserName, "picked " + pickedCards.size() + " destination card(s)");
+        gameInfo.getHistory().addAction(historyAction);
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
 
         ArrayList<CommandData> dList = new ArrayList<>();
 

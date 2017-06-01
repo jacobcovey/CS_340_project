@@ -139,8 +139,8 @@ public class ClientModelRoot extends Observable {
         setChanged();
         notifyObservers();
     }
-    public void addHistoryAction(HistoryAction message) {
-        gameInfo.getHistory().addAction(message);
+    public void addHistoryAction(HistoryAction action) {
+        gameInfo.getHistory().addAction(action);
         setChanged();
         notifyObservers();
     }

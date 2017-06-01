@@ -2,6 +2,7 @@ package com.example.jacobcovey.commands;
 
 import com.example.jacobcovey.model.ClientFacade;
 import com.example.jacobcovey.model.ClientModelRoot;
+import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.sql.ClientInfoStatus;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ public class DestinationCardPicked implements iCommand {
     public List<CommandData> execute() {
         ClientFacade._instance.getPlayer().getDestinationCards().addAll(data);
         ClientFacade._instance.setDrawnDestinationCards(null);
+        // TODO add history item
         return null;
     }
 }
