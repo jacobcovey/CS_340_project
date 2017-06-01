@@ -80,7 +80,7 @@ public class PickDestinationCards implements iCommand {
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (pickedCards != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.PICKDESTINATIONCARDS, pickedCards);
+            CommandData successCmd = new CommandData(CommandData.Type.DESTINATIONCARDSPICKED, pickedCards);
             dList.add(successCmd);
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO PICK DESTINATION CARDS");
