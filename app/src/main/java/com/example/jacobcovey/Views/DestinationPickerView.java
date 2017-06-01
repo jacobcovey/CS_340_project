@@ -118,9 +118,9 @@ public class DestinationPickerView extends Fragment implements iDestinationPicke
 
     @Override
     public void enableCheckBoxes(boolean enable) {
-        cardCheckBox0.setChecked(enable);
-        cardCheckBox1.setChecked(enable);
-        cardCheckBox2.setChecked(enable);
+        cardCheckBox0.setEnabled(enable);
+        cardCheckBox1.setEnabled(enable);
+        cardCheckBox2.setEnabled(enable);
     }
 
     @Override
