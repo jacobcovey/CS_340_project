@@ -11,7 +11,6 @@ import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.HistoryAction;
 import shared.classes.Player;
-import shared.classes.TrainCard;
 import shared.classes.Turn;
 import shared.interfaces.iCommand;
 
@@ -48,7 +47,9 @@ public class PickDestinationCards implements iCommand {
                 unPickedCards.add(drawnCard);
             }
         }
-        ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().addAll(unPickedCards);
+        GameInfo info = ServerFacade._instance.getGameInfo(gameId);
+        info.getDestinationCardDeck().addAll(unPickedCards);
+        info.setDestinationCarDeckSize(info.getDestinationCarDeckSize() + unPickedCards.size());
         currentPlayer.addDestinationCards(pickedCards);
         currentPlayer.getDrawnDestinationCards().clear();
 
@@ -76,13 +77,12 @@ public class PickDestinationCards implements iCommand {
                 gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
             }
         }
-
+        gameInfo.setDestinationCarDeckSize(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().size());
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
         String currentUserName = currentPlayer.getUserName();
         HistoryAction historyAction = new HistoryAction(currentUserName, "picked " + pickedCards.size() + " destination card(s)");
         gameInfo.getHistory().addAction(historyAction);
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
-
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (pickedCards != null) {

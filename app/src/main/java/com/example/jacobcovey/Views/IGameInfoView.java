@@ -1,5 +1,7 @@
 package com.example.jacobcovey.Views;
 
+import com.example.jacobcovey.model.GameInfo;
+
 import java.util.List;
 import java.util.Set;
 
@@ -18,5 +20,7 @@ public interface IGameInfoView {
     void setTrainCardsInfo(Set<TrainCard> cards);
 
     void setRoutesInfo(Set<DestinationCard> routes);
+
+    void setDeckNums(GameInfo gameInfo);
 
 }

@@ -138,6 +138,9 @@ public class GameInfo extends iGameInfo {
         destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SEATTLE), ServerModelRoot.getInstance().getCity(LOS_ANGELES), 9));
 
         Collections.shuffle(destinationCardDeck);
+
+        setTrainCardDeckSize(110);
+        setDestinationCarDeckSize(30);
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -155,6 +158,7 @@ public class GameInfo extends iGameInfo {
     public TrainCard drawFaceDownCard() {
         TrainCard drawnCard = faceDownTrainCardDeck.get(0);
         faceDownTrainCardDeck.remove(0);
+        setTrainCardDeckSize(getTrainCardDeckSize() - 1);
         return drawnCard;
     }
     public TrainCard pickFaceUpCard(TrainCardColors color) {
@@ -169,6 +173,7 @@ public class GameInfo extends iGameInfo {
         }
         cardDrawn = faceUpTrainCardDeck.get(index);
         faceUpTrainCardDeck.remove(index);
+        setTrainCardDeckSize(getTrainCardDeckSize() - 1);
         return cardDrawn;
     }
 
@@ -180,6 +185,7 @@ public class GameInfo extends iGameInfo {
         destinationCardDeck.remove(0);
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
+        setDestinationCarDeckSize(getDestinationCarDeckSize() - 3);
         return drawnCards;
     }
 

@@ -1,11 +1,9 @@
 package com.example.jacobcovey.Presenters;
 
 import com.example.jacobcovey.Views.IGameInfoView;
-import com.example.jacobcovey.game_board.Route;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.model.GameInfo;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -62,6 +60,7 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
             Player currentPlayer = cpf.getCurrentPlayer();
             gameInfoView.setRoutesInfo(currentPlayer.getDestinationCards());
             gameInfoView.setTrainCardsInfo(currentPlayer.getTrainCards());
+            gameInfoView.setDeckNums(gameInfo);
         }
     }
 }

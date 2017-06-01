@@ -40,6 +40,7 @@ public class PickFaceUpCard implements iCommand {
                 player.getTrainCards().add(cardDrawn);
             }
         }
+        ServerFacade._instance.getGameInfo(gameId).setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
         ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.FACEUPTRAINCARDPICKED, cardDrawn), userName);
 
         for (Player player : players) {

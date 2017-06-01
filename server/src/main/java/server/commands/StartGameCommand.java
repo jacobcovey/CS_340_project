@@ -27,6 +27,9 @@ public class StartGameCommand implements iCommand {
         if (ServerFacade._instance.getGameInfo(gameId) == null) {
             ServerFacade._instance.addGameInfo(data);
         }
+        ServerFacade._instance.getGameInfo(gameId).setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
+        ServerFacade._instance.getGameInfo(gameId).setDestinationCarDeckSize(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().size());
+
         List<CommandData> result = new ArrayList<>();
         result.add(new CommandData(CommandData.Type.GAMESTARTED, ServerFacade._instance.getGameInfo(gameId)));
         return result;

@@ -22,6 +22,8 @@ public abstract class iGameInfo {
     private Chat chat = new Chat(new ArrayList<ChatMessage>());
     private History history = new History(new ArrayList<HistoryAction>());
     private Turn turn;
+    private int TrainCardDeckSize;
+    private int DestinationCarDeckSize;
 
     public List<Route> getRoutes() {
         return routes;
@@ -59,5 +61,21 @@ public abstract class iGameInfo {
 
     public void setTurn(Turn turn) {
         this.turn = turn;
+    }
+
+    public int getTrainCardDeckSize() {
+        return TrainCardDeckSize;
+    }
+
+    public int getDestinationCarDeckSize() {
+        return DestinationCarDeckSize;
+    }
+
+    public void setTrainCardDeckSize(int trainCardDeckSize) {
+        TrainCardDeckSize = trainCardDeckSize;
+    }
+
+    public void setDestinationCarDeckSize(int destinationCarDeckSize) {
+        DestinationCarDeckSize = destinationCarDeckSize;
     }
 }

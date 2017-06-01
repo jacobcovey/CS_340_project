@@ -5,11 +5,8 @@ import java.util.List;
 
 import server.ServerFacade;
 import shared.classes.CommandData;
-import shared.classes.Game;
-import shared.classes.GameRequest;
 import shared.classes.Player;
 import shared.classes.TrainCard;
-import shared.classes.User;
 import shared.interfaces.iCommand;
 
 /**
@@ -31,9 +28,9 @@ public class DrawFaceDownCard implements iCommand {
                 player.getTrainCards().add(cardDrawn);
             }
         }
+        ServerFacade._instance.getGameInfo(gameId).setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
         ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.FACEDOWNTRAINCARDPICKED, cardDrawn), userName);
         ArrayList<CommandData> dList = new ArrayList<>();
-
         if (cardDrawn != null) {
             CommandData successCmd = new CommandData(CommandData.Type.FACEDOWNTRAINCARDPICKED, cardDrawn);
             dList.add(successCmd);

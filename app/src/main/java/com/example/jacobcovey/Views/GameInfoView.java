@@ -89,6 +89,9 @@ public class GameInfoView extends Fragment implements IGameInfoView {
     private TextView numYellowCardTextView;
     private TextView numWildCardTextView;
 
+    private TextView numTrainDeck;
+    private TextView numDestinationDeck;
+
     private Stack<LinearLayout> playerBoxStack = new Stack<LinearLayout>();
 
     private List<TextView> playerNames = new ArrayList<TextView>();
@@ -232,47 +235,15 @@ public class GameInfoView extends Fragment implements IGameInfoView {
         routesRecyclerView = (RecyclerView) v.findViewById(R.id.game_info_routes_recyclerView);
         routesRecyclerView.setHasFixedSize(true);
 
+        numTrainDeck = (TextView) v.findViewById(R.id.game_info_train_deck_size);
+        numDestinationDeck = (TextView) v.findViewById(R.id.game_info_destination_deck_size);
+
         routesLayoutManager = new LinearLayoutManager(getActivity());
 
         ((LinearLayoutManager)routesLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
         routesRecyclerView.setLayoutManager(routesLayoutManager);
 
         Set<DestinationCard> routes = new HashSet<DestinationCard>();
-//        DestinationCard card1 = new DestinationCard(new City("Atlanta"),new City("Miami"), 4);
-//        DestinationCard card2 = new DestinationCard(new City("Pittsburgh"),new City("New York"), 3);
-//
-//        routes.add(card1);
-//        routes.add(card2);
-//
-//        hideUnusedPlayers(3);
-//
-//        Set<TrainCard> cards = new HashSet<TrainCard>();
-//
-//        TrainCard trainCard1 = new TrainCard(TrainCardColors.BLACK);
-//        TrainCard trainCard2 = new TrainCard(TrainCardColors.BLACK);
-//        TrainCard trainCard3 = new TrainCard(TrainCardColors.YELLOW);
-//        TrainCard trainCard4 = new TrainCard(TrainCardColors.WILD);
-//        TrainCard trainCard5 = new TrainCard(TrainCardColors.WILD);
-//
-//        cards.add(trainCard1);
-//        cards.add(trainCard2);
-//        cards.add(trainCard3);
-//        cards.add(trainCard4);
-//        cards.add(trainCard5);
-//
-//        setTrainCardsInfo(cards);
-//
-//        List<Player> players = new ArrayList<Player>();
-//
-//        Player player1 = new Player(PlayerColors.BLUE,35,cards,routes,34,"Ringo");
-//        Player player2 = new Player(PlayerColors.GREEN,24,cards,routes,9,"Paul");
-//        Player player3 = new Player(PlayerColors.RED,18,cards,routes,15,"George");
-//
-//        players.add(player1);
-//        players.add(player2);
-//        players.add(player3);
-//
-//        setPlayerInfo(players);
 
         GameInfoAdapter adapter = new GameInfoAdapter(routes);
 
@@ -285,6 +256,7 @@ public class GameInfoView extends Fragment implements IGameInfoView {
         Player currentPlayer = gameInfoPresenter.getCurrentPlayer();
         setRoutesInfo(currentPlayer.getDestinationCards());
         setTrainCardsInfo(currentPlayer.getTrainCards());
+        setDeckNums(gameInfo);
 
         return v;
     }
@@ -329,6 +301,18 @@ public class GameInfoView extends Fragment implements IGameInfoView {
                 }
             });
         }
+    }
+
+    @Override
+    public void setDeckNums(final GameInfo gameInfo) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+
+                numDestinationDeck.setText(gameInfo.getDestinationCarDeckSize());
+                numTrainDeck.setText(gameInfo.getTrainCardDeckSize());
+            }
+        });
     }
 
     @Override
