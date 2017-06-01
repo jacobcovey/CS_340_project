@@ -12,6 +12,7 @@ import java.util.Set;
 import shared.classes.ChatMessage;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.Turn;
@@ -123,6 +124,11 @@ public class ClientModelRoot extends Observable {
     }
     public void addChatMessage(ChatMessage message) {
         gameInfo.getChat().addMessage(message);
+        setChanged();
+        notifyObservers();
+    }
+    public void addHistoryAction(HistoryAction message) {
+        gameInfo.getHistory().addAction(message);
         setChanged();
         notifyObservers();
     }

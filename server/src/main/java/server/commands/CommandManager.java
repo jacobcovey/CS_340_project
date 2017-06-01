@@ -36,6 +36,8 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, RegisterCommand.class);
             case SENDCHAT:
                 return gson.fromJson(s, SendChat.class);
+            case SENDHISTORY:
+                return gson.fromJson(s, SendHistory.class);
             case STARTGAME:
                 return gson.fromJson(s, StartGameCommand.class);
             case UPDATECURRENTGAME:

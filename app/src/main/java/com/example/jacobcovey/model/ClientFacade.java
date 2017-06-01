@@ -87,7 +87,7 @@ public class ClientFacade implements iClient {
         ClientModelRoot._instance.addChatMessage(message);
     }
     public void addHistoryAction(HistoryAction action) {
-        ClientModelRoot._instance.getGameInfo().getHistory().addAction(action);
+        ClientModelRoot._instance.addHistoryAction(action);
     }
     public TrainCard[] getFaceUpDeck() {
         return ClientModelRoot._instance.getFaceUpDeck();

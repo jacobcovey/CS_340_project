@@ -74,6 +74,7 @@ public class ChatView extends Fragment implements IChatView {
             public void onClick(View v) {
 
                 chatPresenter.sendChatMessage(chatEditText.getText().toString());
+                chatEditText.setText("");
             }
         });
 
@@ -85,11 +86,14 @@ public class ChatView extends Fragment implements IChatView {
         recyclerView = (RecyclerView) v.findViewById(R.id.chat_recycler_view);
 
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+        recyclerView.setLayoutManager(manager); recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL));
-        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+        goToBottomOfChat();
         return v;
+    }
+
+    private void goToBottomOfChat() {
+        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     @Override
@@ -99,16 +103,7 @@ public class ChatView extends Fragment implements IChatView {
             public void run() {
                 adapter.setMessages(chatMessages);
                 adapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    @Override
-    public void addChatMessage(final ChatMessage chatMessage) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.addMessage(chatMessage);
+                goToBottomOfChat();
             }
         });
     }
