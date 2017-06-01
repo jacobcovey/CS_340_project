@@ -34,8 +34,7 @@ public class SendChat implements iCommand {
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (message != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.SENDCHAT, message);
-            dList.add(successCmd);
+            return dList;
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO SEND CHAT");
             dList.add(unSuccessCmd);
