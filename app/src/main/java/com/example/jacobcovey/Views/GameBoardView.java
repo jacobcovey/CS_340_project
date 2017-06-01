@@ -185,8 +185,15 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
     }
 
     @Override
-    public void updateRoutes(List<Route> routes) {
-        mMap.setRoutes(routes);
-//        mMap.invalidate();
+    public void updateRoutes(final List<Route> routes) {
+        if (routes != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                mMap.setRoutes(routes);
+                mMap.invalidate();
+                }
+            });
+
+        }
     }
 }

@@ -65,23 +65,26 @@ public class ViewGameMap extends View {
         canvas.drawBitmap(scaled, 0, 0, null);
 
         //draw the routes
-        for (Route r : mRoutes) {
+        if (mRoutes != null) {
 
-            mRoutePaint.setColor(r.getColor());
-            for (PointF point : r.getPoints()) {
-                canvas.drawCircle(point.x, point.y, 15, mRoutePaint);
+            for (Route r : mRoutes) {
+
+                mRoutePaint.setColor(r.getColor());
+                for (PointF point : r.getPoints()) {
+                    canvas.drawCircle(point.x, point.y, 15, mRoutePaint);
 //                Bitmap mybitmap = BitmapFactory.decodeResource(res, R.drawable.ic_train);
 //                canvas.drawBitmap(mybitmap, point.x, point.y, mRoutePaint);
 
 //                Drawable trainIcon = new IconDrawable(getContext(), Iconify.IconValue.fa_train).colorRes(R.color.blue).sizeDp(40);
 //                canvas.drawPaint(trainIcon);
-            }
+                }
 
+            }
         }
     }
 
     public void setRoutes(List<Route> routes) {
         mRoutes = routes;
-        invalidate();
+//        invalidate();
     }
 }
