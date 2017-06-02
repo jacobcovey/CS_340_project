@@ -19,11 +19,36 @@ import static shared.classes.Turn.TurnState.ONETRAINCARDSELECTED;
 
 public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
 
+    /**
+     * This is the member used to call things on the view
+     */
     private iTrainCardDrawerView trainCardDrawerView;
+
+    /**
+     * Copy of ClientPresenterFacade to call methods to send commands to server, and get data from model
+     */
     private ClientPresenterFacade cpf;
+
+    /**
+     * boolean to determine if the view has been inflated (set by the view)
+     * This helps to prevent any methods that update the view from being called prematurely
+     */
     private boolean viewCreated;
+
+    /**
+     * boolean to prevent user from drawing another card while the server is processing the first draw
+     */
     private boolean requestExecuting;
 
+    /**
+     * Initializes viewCreated to false, requestExecuting to false, and cpf to a new ClientPresenterFacade
+     * Adds self as observer of ClientModelRoot
+     * @pre ClientModelRoot._instance =! null
+     * @post cpf != null
+     * @post this is added to the observers of ClientModelRoot
+     * @post viewCreated == false
+     * @post requestExecuting == false
+     */
     public TrainCardDrawerPresenter() {
         cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
@@ -31,16 +56,41 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         requestExecuting = false;
     }
 
+    /**
+     * Sets the trainCardDrawerView (can be null)
+     * @param trainCardDrawerView
+     * @pre none
+     * @post this.trainCardDrawerView == trainCardDrawerView
+     */
     @Override
     public void setTrainCardDrawerView(iTrainCardDrawerView trainCardDrawerView) {
         this.trainCardDrawerView = trainCardDrawerView;
     }
 
+    /**
+     * Sets viewCreated
+     * @param viewCreated
+     * @pre viewCreated != null
+     * @post this.viewCreated == viewCreated
+     */
     @Override
     public void setViewCreated(Boolean viewCreated) {
         this.viewCreated = viewCreated;
     }
 
+    /**
+     * From the given index, gets the corresponding card from the view,
+     * and then sends a pickFaceUpCard request to the server via pickFaceUpCardRequest AsyncTask
+     * Method only executes if it is user's turn, and there is not another request executing
+     * @param index
+     * @pre this.trainCardDrawerView != null
+     * @pre viewCreated == true
+     * @post if isMyTurn && !requestExecuting card[index] == null
+     * @post if isMyTurn && !requestExecuting requestExecuting == true
+     * @post if isMyTurn && !requestExecuting pickFaceUpCardRequest execution has begun
+     * @post if requestExecuting toast displayed to user "Waiting for server..."
+     * @post if !isMyTurn && !requestExecuting toast displayed to user "It's not your turn"
+     */
     @Override
     public void pickFaceUpCard(int index) {
         if (cpf.isMyTurn() && !requestExecuting) {
@@ -81,6 +131,15 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         }
     }
 
+    /**
+     * Sends a drawFaceDownCard request to the server via drawFaceDownCardRequest AsyncTask
+     * Method only executes if it is user's turn, and there is not another request executing
+     * @pre None
+     * @post if isMyTurn && !requestExecuting requestExecuting == true
+     * @post if isMyTurn && !requestExecuting drawFaceDownCardRequest execution has begun
+     * @post if requestExecuting toast displayed to user "Waiting for server..."
+     * @post if !isMyTurn && !requestExecuting toast displayed to user "It's not your turn"
+     */
     @Override
     public void drawFaceDownCard() {
         if (cpf.isMyTurn() && !requestExecuting) {
@@ -89,14 +148,31 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
             drawFaceDownCardRequest.execute();
             return;
         }
-        trainCardDrawerView.displayToast("It's not your turn");
+        if (requestExecuting) {
+            trainCardDrawerView.displayToast("Waiting for server...");
+        } else {
+            trainCardDrawerView.displayToast("It's not your turn");
+        }
     }
 
+    /**
+     * Removes this from ClientModelRoot Observers - this is called when the fragment is being dismissed
+     * @pre cpf != null
+     * @pre this is an observer of the ClientModelRoot
+     * @post this is not an observer of ClientModelRoot
+     */
     @Override
     public void removeObserver() {
         cpf.removeObserver(this);
     }
 
+    /**
+     * Called then ClientModelRoot is changed. Calls setFaceUpDeck
+     * @param observable
+     * @param o
+     * @pre viewCreated == true
+     * @post setFaceUpDeck method has run
+     */
     @Override
     public void update(Observable observable, Object o) {
         if (!viewCreated) {
@@ -105,6 +181,15 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         setFaceUpDeck();
     }
 
+    /**
+     * Sets the faceUpDeck on the trainCardDrawerView, then calls setEnableForCards()
+     * This method either sets the face up deck to what is in the Model or to null if the Model has no value
+     * @pre cpf != null
+     * @pre trainCardDrawerView != null
+     * @pre viewCreated == true
+     * @post trainCardDrawerView cards are set
+     * @post setEnableForCards method has run
+     */
     @Override
     public void setFaceUpDeck() {
         TrainCard[] faceUpDeck = cpf.getFaceUpDeck();
@@ -124,6 +209,26 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         setEnableForCards();
     }
 
+    /**
+     * Determines which cards to prevent user from selecting cards they shouldn't
+     * @pre trainCardDrawerView != null
+     * @pre viewCreated == true
+     * @post only appropriate face up cards are selectable
+     */
+    private void setEnableForCards() {
+        trainCardDrawerView.enableAllCards(true);
+        disableNullCards();
+        if (cpf.getTurn().getState() == ONETRAINCARDSELECTED) {
+            disableRainbowCards();
+        }
+    }
+
+    /**
+     * Disables any cards that are wild so that users cannot select them
+     * @pre trainCardDrawerView != null
+     * @pre viewCreated == true
+     * @post all rainbow cards are disabled
+     */
     private void disableRainbowCards() {
         TrainCard card = null;
         card = trainCardDrawerView.getCard0();
@@ -138,6 +243,12 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         trainCardDrawerView.enableCard4(card == null ? false : card.getColor() != TrainCardColors.WILD);
     }
 
+    /**
+     * Disables any cards that are so that users cannot select them
+     * @pre trainCardDrawerView != null
+     * @pre viewCreated == true
+     * @post all null cards are disabled
+     */
     private void disableNullCards() {
         TrainCard card = null;
         card = trainCardDrawerView.getCard0();
@@ -152,16 +263,19 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         trainCardDrawerView.enableCard4(card != null);
     }
 
-    private void setEnableForCards() {
-        trainCardDrawerView.enableAllCards(true);
-        disableNullCards();
-        if (cpf.getTurn().getState() == ONETRAINCARDSELECTED) {
-            disableRainbowCards();
-        }
-    }
-
+    /**
+     * Async task for sending a pickFaceUpCard request to the server
+     */
     private class pickFaceUpCardRequest extends AsyncTask<TrainCard, Integer, Boolean> {
 
+        /**
+         * Sends pickFaceUpCard to server, returns true is successful, false if error
+         * @param params
+         * @return success
+         * @pre params.length == 1
+         * @pre trainCardDrawerView != null
+         * @post request will have been sent to server
+         */
         @Override
         protected Boolean doInBackground(TrainCard... params) {
             try {
@@ -174,6 +288,12 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
             return true;
         }
 
+        /**
+         * Sets requestExecuting to false and the request was successful calls disableRainbowCards
+         * @param success
+         * @pre None
+         * @post disableRainbowCards method has run
+         */
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
@@ -184,8 +304,18 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         }
     }
 
+    /**
+     * Async task for sending a drawFaceDownCard request to the server
+     */
     private class drawFaceDownCardRequest extends AsyncTask<Void, Integer, Boolean> {
 
+        /**
+         * Sends drawFaceDownCard to server, returns true is successful, false if error
+         * @param params
+         * @return success
+         * @pre trainCardDrawerView != null
+         * @post request will have been sent to server
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
@@ -198,6 +328,12 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
             return true;
         }
 
+        /**
+         * Sets requestExecuting to false and the request was successful calls disableRainbowCards
+         * @param success
+         * @pre trainCardDrawerView != null
+         * @post disableRainbowCards method has run
+         */
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
