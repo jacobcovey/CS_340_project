@@ -11,6 +11,7 @@ import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
+import shared.classes.Turn;
 import shared.classes.User;
 
 public class ServerFacade {
@@ -132,7 +133,30 @@ public class ServerFacade {
         return serverModelRoot.getCommandsForUser(userName);
     }
 
-    public void initializeCities() {
-        serverModelRoot.instance.initializeCities();
+    public void setNextTurn(GameInfo gameInfo, Player currentPlayer) {
+        boolean isNextPlayer = false;
+        Player nextPlayer = null;
+        for (Player player: gameInfo.getPlayers()) {
+            if (isNextPlayer) {
+                nextPlayer = player;
+            }
+            if (player.getUserName().equals(currentPlayer.getUserName())) {
+                isNextPlayer = true;
+            }
+        }
+        if (nextPlayer == null) {
+            nextPlayer = gameInfo.getPlayers().get(0);
+            if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
+                gameInfo.setState(GameInfo.State.NOT_FIRST_TURN);
+            }
+            gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
+        } else {
+            if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
+                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.FIRSTTURN));
+            } else {
+                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
+            }
+        }
     }
+
 }

@@ -25,4 +25,28 @@ public class TrainCard {
 
     public String getId() { return id; }
 
+    public String getColorName() {
+        switch (color) {
+            case WHITE:
+                return "White";
+            case BLACK:
+                return "Black";
+            case RED:
+                return "Red";
+            case ORANGE:
+                return "Orange";
+            case YELLOW:
+                return "Yellow";
+            case GREEN:
+                return "Green";
+            case BLUE:
+                return "Blue";
+            case PURPLE:
+                return "Purple";
+            case WILD:
+                return "Wild";
+        }
+        return "";
+    }
+
 }

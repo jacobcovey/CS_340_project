@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.TrainCard;
+import shared.classes.Turn;
 import shared.interfaces.iCommand;
 
 /**
@@ -20,16 +23,29 @@ public class DrawFaceDownCard implements iCommand {
 
     public List<CommandData> execute() {
 
-        TrainCard cardDrawn = ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().get(0);
-        ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().remove(0);
-        List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
+        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
+        TrainCard cardDrawn = gameInfo.drawFaceDownCard();
+        List<Player> players = gameInfo.getPlayers();
+        Player currentPlayer = null;
         for (Player player : players) {
             if (player.getUserName() == userName) {
-                player.getTrainCards().add(cardDrawn);
+                player.addTrainCard(cardDrawn);
+                currentPlayer = player;
             }
         }
-        ServerFacade._instance.getGameInfo(gameId).setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
-        ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.FACEDOWNTRAINCARDPICKED, cardDrawn), userName);
+        if (gameInfo.getTurn().getState() == Turn.TurnState.ONETRAINCARDSELECTED) {
+            ServerFacade._instance.setNextTurn(gameInfo, currentPlayer);
+        } else {
+            gameInfo.getTurn().setState(Turn.TurnState.ONETRAINCARDSELECTED);
+        }
+
+        gameInfo.setTrainCardDeckSize(gameInfo.getFaceDownTrainCardDeck().size());
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
+
+        HistoryAction historyAction = new HistoryAction(userName, "drew a card from the face down deck");
+        gameInfo.getHistory().addAction(historyAction);
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
+
         ArrayList<CommandData> dList = new ArrayList<>();
         if (cardDrawn != null) {
             CommandData successCmd = new CommandData(CommandData.Type.FACEDOWNTRAINCARDPICKED, cardDrawn);

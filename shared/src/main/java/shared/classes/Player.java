@@ -88,10 +88,6 @@ public class Player {
         this.userName = userName;
     }
 
-    public void drawCard(String message) {
-
-    }
-
     public void addTrainCard(TrainCard card) {
         trainCards.add(card);
     }

@@ -10,9 +10,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import server.constants.Constants;
+import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
 import shared.classes.TrainCardColors;
+import shared.classes.Turn;
+import shared.classes.User;
 import shared.interfaces.iGameInfo;
 import shared.classes.TrainCard;
 import shared.classes.DestinationCard;
@@ -62,6 +66,7 @@ public class GameInfo extends iGameInfo {
 
     private List<TrainCard> faceUpTrainCardDeck = new ArrayList<>();
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
+    private Set<TrainCard> discardPile = new HashSet<>();
     private List<DestinationCard> destinationCardDeck = new ArrayList<>();
 
     public enum State {
@@ -72,75 +77,32 @@ public class GameInfo extends iGameInfo {
     private State state;
 
 
-    public GameInfo() {
+    public GameInfo(Game game) {
         state = State.FIRST_TURN;
-        Set<TrainCardColors> colors = new HashSet<TrainCardColors>();
-        colors.add(WHITE);
-        colors.add(BLACK);
-        colors.add(RED);
-        colors.add(ORANGE);
-        colors.add(YELLOW);
-        colors.add(GREEN);
-        colors.add(BLUE);
-        colors.add(PURPLE);
-        int colorId = 0;
-        for (TrainCardColors color : colors) {
-            for (int i = 0; i < 12; i++) {
-                faceDownTrainCardDeck.add(new TrainCard(String.valueOf(colorId), color));
-                colorId++;
-            }
-        }
-        for (int i = 0; i < 14; i++) {
-            faceDownTrainCardDeck.add(new TrainCard(String.valueOf(colorId), WILD));
-            colorId++;
-        }
+        faceDownTrainCardDeck.addAll(Constants.UNSHUFFLED_TRAINCARD_DECK);
         Collections.shuffle(faceDownTrainCardDeck);
         for (int i = 0; i < 5; i++) {
             faceUpTrainCardDeck.add(faceDownTrainCardDeck.get(0));
             faceDownTrainCardDeck.remove(0);
         }
 
-        int destinationId = 0;
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(LOS_ANGELES), ServerModelRoot.getInstance().getCity(NEW_YORK), 21));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DULUTH), ServerModelRoot.getInstance().getCity(HOUSTON), 8));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SAULT_ST_MARIE), ServerModelRoot.getInstance().getCity(NASHVILLE), 8));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(NEW_YORK), ServerModelRoot.getInstance().getCity(ATLANTA), 6));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(PORTLAND), ServerModelRoot.getInstance().getCity(NASHVILLE), 17));
-
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(VANCOUVER), ServerModelRoot.getInstance().getCity(MONTREAL), 20));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DULUTH), ServerModelRoot.getInstance().getCity(EL_PASO), 10));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(TORONTO), ServerModelRoot.getInstance().getCity(MIAMI), 10));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(PORTLAND), ServerModelRoot.getInstance().getCity(PHOENIX), 11));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DALLAS), ServerModelRoot.getInstance().getCity(NEW_YORK), 11));
-
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CALGARY), ServerModelRoot.getInstance().getCity(SALT_LAKE_CITY), 7));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CALGARY), ServerModelRoot.getInstance().getCity(PHOENIX), 13));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(LOS_ANGELES), ServerModelRoot.getInstance().getCity(MIAMI), 20));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(WINNIPEG), ServerModelRoot.getInstance().getCity(LITTLE_ROCK), 11));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SAN_FRANCISCO), ServerModelRoot.getInstance().getCity(ATLANTA), 17));
-
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(KANSAS_CITY), ServerModelRoot.getInstance().getCity(HOUSTON), 5));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(LOS_ANGELES), ServerModelRoot.getInstance().getCity(CHICAGO), 16));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DENVER), ServerModelRoot.getInstance().getCity(PITTSBURG), 11));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CHICAGO), ServerModelRoot.getInstance().getCity(SANTA_FE), 9));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(VANCOUVER), ServerModelRoot.getInstance().getCity(SANTA_FE), 13));
-
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(BOSTON), ServerModelRoot.getInstance().getCity(MIAMI), 12));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(CHICAGO), ServerModelRoot.getInstance().getCity(NEW_ORLEANS), 7));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(MONTREAL), ServerModelRoot.getInstance().getCity(ATLANTA), 9));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SEATTLE), ServerModelRoot.getInstance().getCity(NEW_YORK), 22));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(DENVER), ServerModelRoot.getInstance().getCity(EL_PASO), 4));
-
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(HELENA), ServerModelRoot.getInstance().getCity(LOS_ANGELES), 8));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(WINNIPEG), ServerModelRoot.getInstance().getCity(HOUSTON), 12));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(MONTREAL), ServerModelRoot.getInstance().getCity(NEW_ORLEANS), 13));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SAULT_ST_MARIE), ServerModelRoot.getInstance().getCity(OKLAHOMA_CITY), 9));
-        destinationCardDeck.add(new DestinationCard(String.valueOf(destinationId++),ServerModelRoot.getInstance().getCity(SEATTLE), ServerModelRoot.getInstance().getCity(LOS_ANGELES), 9));
-
+        destinationCardDeck.addAll(Constants.UNSUFFLED_DESTINATION_DECK);
         Collections.shuffle(destinationCardDeck);
 
-        setTrainCardDeckSize(110);
-        setDestinationCarDeckSize(30);
+        setTrainCardDeckSize(faceDownTrainCardDeck.size());
+        setDestinationCarDeckSize(destinationCardDeck.size());
+
+        List<PlayerColors> colors = new ArrayList<>();
+        colors.add(PlayerColors.BLUE);
+        colors.add(PlayerColors.RED);
+        colors.add(PlayerColors.GREEN);
+        colors.add(PlayerColors.YELLOW);
+        colors.add(PlayerColors.BLACK);
+        List<User> users = game.getPlayers();
+        for (int i = 0; i < users.size(); i++) {
+            addPlayer(users.get(i).getUsername(), colors.get(i));
+        }
+        setTurn(new Turn(users.get(0).getUsername(), Turn.TurnState.FIRSTTURN));
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -161,14 +123,15 @@ public class GameInfo extends iGameInfo {
         setTrainCardDeckSize(getTrainCardDeckSize() - 1);
         return drawnCard;
     }
-    public TrainCard pickFaceUpCard(TrainCardColors color) {
+    public TrainCard pickFaceUpCard(TrainCard card) {
         TrainCard cardDrawn = null;
         int index = -1;
         for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
             cardDrawn = faceUpTrainCardDeck.get(i);
-            if (cardDrawn.getColor() == color) {
-                index = i;
-                i = faceUpTrainCardDeck.size();
+            if (cardDrawn.getId().equals(card.getId())) {
+                faceUpTrainCardDeck.set(i, faceDownTrainCardDeck.get(i));
+                faceDownTrainCardDeck.remove(i);
+                return cardDrawn;
             }
         }
         cardDrawn = faceUpTrainCardDeck.get(index);
@@ -211,6 +174,10 @@ public class GameInfo extends iGameInfo {
 
     public State getState() {
         return state;
+    }
+
+    public void addCardsToDiscardPile(Set<TrainCard> cards) {
+        discardPile.addAll(cards);
     }
 
 

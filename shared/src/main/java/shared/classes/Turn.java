@@ -28,4 +28,11 @@ public class Turn {
         return state;
     }
 
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
+    public void setState(TurnState state) {
+        this.state = state;
+    }
 }

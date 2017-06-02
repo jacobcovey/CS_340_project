@@ -47,42 +47,21 @@ public class PickDestinationCards implements iCommand {
                 unPickedCards.add(drawnCard);
             }
         }
-        GameInfo info = ServerFacade._instance.getGameInfo(gameId);
-        info.getDestinationCardDeck().addAll(unPickedCards);
-        info.setDestinationCarDeckSize(info.getDestinationCarDeckSize() + unPickedCards.size());
+        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
+        gameInfo.getDestinationCardDeck().addAll(unPickedCards);
+        gameInfo.setDestinationCarDeckSize(gameInfo.getDestinationCardDeck().size());
         currentPlayer.addDestinationCards(pickedCards);
         currentPlayer.getDrawnDestinationCards().clear();
 
-        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
-        boolean isNextPlayer = false;
-        Player nextPlayer = null;
-        for (Player player: players) {
-            if (isNextPlayer) {
-                nextPlayer = player;
-            }
-            if (player.getUserName().equals(currentPlayer.getUserName())) {
-                isNextPlayer = true;
-            }
-        }
-        if (nextPlayer == null) {
-            nextPlayer = players.get(0);
-            if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
-                gameInfo.setState(GameInfo.State.NOT_FIRST_TURN);
-            }
-            gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
-        } else {
-            if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
-                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.FIRSTTURN));
-            } else {
-                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
-            }
-        }
-        gameInfo.setDestinationCarDeckSize(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().size());
+        ServerFacade._instance.setNextTurn(gameInfo, currentPlayer);
+
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
+
         String currentUserName = currentPlayer.getUserName();
         HistoryAction historyAction = new HistoryAction(currentUserName, "picked " + pickedCards.size() + " destination card(s)");
         gameInfo.getHistory().addAction(historyAction);
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
+
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (pickedCards != null) {

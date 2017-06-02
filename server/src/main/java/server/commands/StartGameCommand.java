@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.Game;
 import shared.interfaces.iCommand;
@@ -23,15 +24,13 @@ public class StartGameCommand implements iCommand {
 
     @Override
     public List<CommandData> execute() {
-        ServerFacade._instance.initializeCities();
         if (ServerFacade._instance.getGameInfo(gameId) == null) {
             ServerFacade._instance.addGameInfo(data);
         }
-        ServerFacade._instance.getGameInfo(gameId).setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
-        ServerFacade._instance.getGameInfo(gameId).setDestinationCarDeckSize(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().size());
+        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
 
         List<CommandData> result = new ArrayList<>();
-        result.add(new CommandData(CommandData.Type.GAMESTARTED, ServerFacade._instance.getGameInfo(gameId)));
+        result.add(new CommandData(CommandData.Type.GAMESTARTED, gameInfo));
         return result;
     }
 }

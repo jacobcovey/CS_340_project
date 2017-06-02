@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.TrainCard;
+import shared.classes.TrainCardColors;
+import shared.classes.Turn;
 import shared.interfaces.iCommand;
 
 /**
@@ -19,39 +23,36 @@ public class PickFaceUpCard implements iCommand {
     String userName;
 
     public List<CommandData> execute() {
-        List<TrainCard> faceUpCards = ServerFacade._instance.getGameInfo(gameId).getFaceUpTrainCardDeck();
-        List<TrainCard> faceDownCards = ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck();
-        TrainCard cardDrawn;
-        int index = -1;
-        for (int i = 0; i < faceUpCards.size(); i++) {
-            if (faceUpCards.get(i).getId() == data.getId()) {
-                index = i;
-                i = faceUpCards.size();
-            }
-        }
-        cardDrawn = faceUpCards.get(index);
-        TrainCard newCard = faceDownCards.get(0);
-        ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().remove(0);
-        ServerFacade._instance.getGameInfo(gameId).getFaceUpTrainCardDeck().set(index, newCard);
+        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
+        Turn.TurnState turnState = gameInfo.getTurn().getState();
+        TrainCard cardDrawn = null;
+        if (turnState == Turn.TurnState.ONETRAINCARDSELECTED && data.getColor() == TrainCardColors.WILD) {
+            cardDrawn = gameInfo.pickFaceUpCard(data);
 
-        List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
-        for (Player player : players) {
-            if (player.getUserName() == userName) {
-                player.getTrainCards().add(cardDrawn);
+            List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
+            Player currentPlayer = null;
+            for (Player player : players) {
+                if (player.getUserName().equals(userName)) {
+                    player.addTrainCard(cardDrawn);
+                    currentPlayer = player;
+                }
             }
-        }
-        ServerFacade._instance.getGameInfo(gameId).setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
-        ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.FACEUPTRAINCARDPICKED, cardDrawn), userName);
+            if (cardDrawn.getColor() == TrainCardColors.WILD || turnState == Turn.TurnState.ONETRAINCARDSELECTED) {
+                ServerFacade._instance.setNextTurn(gameInfo, currentPlayer);
+            } else {
+                gameInfo.getTurn().setState(Turn.TurnState.ONETRAINCARDSELECTED);
+            }
+            gameInfo.setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
 
-        for (Player player : players) {
-            ServerFacade._instance.addCommandToUser((new CommandData(CommandData.Type.UPDATEFACEUPTRAINCARDDECK, faceUpCards)), player.getUserName());
+            ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEFACEUPTRAINCARDDECK, gameInfo.getFaceUpTrainCardDeck()), gameId);
+            HistoryAction historyAction = new HistoryAction(userName, "picked a " + cardDrawn.getColorName() + " card from the face up deck");
+            gameInfo.getHistory().addAction(historyAction);
+            ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
+
         }
         ArrayList<CommandData> dList = new ArrayList<>();
-
         if (cardDrawn != null) {
             CommandData successCmd = new CommandData(CommandData.Type.FACEUPTRAINCARDPICKED, cardDrawn);
-            dList.add(successCmd);
-            successCmd = new CommandData(CommandData.Type.UPDATEFACEUPTRAINCARDDECK, faceUpCards);
             dList.add(successCmd);
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO PICK FACE UP CARDS");
