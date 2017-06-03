@@ -98,23 +98,23 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
             TrainCard card = null;
             switch (index) {
                 case 0:
-                    trainCardDrawerView.getCard0();
+                    card = trainCardDrawerView.getCard0();
                     trainCardDrawerView.setCard0(null);
                     break;
                 case 1:
-                    trainCardDrawerView.getCard1();
+                    card = trainCardDrawerView.getCard1();
                     trainCardDrawerView.setCard1(null);
                     break;
                 case 2:
-                    trainCardDrawerView.getCard2();
+                    card = trainCardDrawerView.getCard2();
                     trainCardDrawerView.setCard2(null);
                     break;
                 case 3:
-                    trainCardDrawerView.getCard3();
+                    card = trainCardDrawerView.getCard3();
                     trainCardDrawerView.setCard3(null);
                     break;
                 case 4:
-                    trainCardDrawerView.getCard4();
+                    card = trainCardDrawerView.getCard4();
                     trainCardDrawerView.setCard4(null);
                     break;
             }
@@ -193,6 +193,7 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
     @Override
     public void setFaceUpDeck() {
         TrainCard[] faceUpDeck = cpf.getFaceUpDeck();
+        trainCardDrawerView.enableAllCards(true);
         if (faceUpDeck != null) {
             trainCardDrawerView.setCard0(faceUpDeck[0]);
             trainCardDrawerView.setCard1(faceUpDeck[1]);
@@ -216,7 +217,10 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
      * @post only appropriate face up cards are selectable
      */
     private void setEnableForCards() {
-        trainCardDrawerView.enableAllCards(true);
+//        if (!cpf.isMyTurn()) {
+//            disableAllCards();
+//            return;
+//        }
         disableNullCards();
         if (cpf.getTurn().getState() == ONETRAINCARDSELECTED) {
             disableRainbowCards();
@@ -263,6 +267,10 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         trainCardDrawerView.enableCard4(card != null);
     }
 
+    private void disableAllCards() {
+        trainCardDrawerView.enableAllCards(false);
+    }
+
     /**
      * Async task for sending a pickFaceUpCard request to the server
      */
@@ -299,7 +307,7 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
             super.onPostExecute(success);
             requestExecuting = false;
             if (success) {
-                disableRainbowCards();
+                disableAllCards();
             }
         }
     }
@@ -340,7 +348,7 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
             requestExecuting = false;
             if (success) {
                 trainCardDrawerView.displayToast("Card Drawn");
-                disableRainbowCards();
+                disableAllCards();
             }
         }
     }

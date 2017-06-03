@@ -25,21 +25,12 @@ public class ClientModelRoot extends Observable {
 
     public static ClientModelRoot _instance = new ClientModelRoot();
 
-    public Set<DestinationCard> getDestinationCards() {
-        if (player != null) {
-            return player.getDestinationCards();
-        }
-        return null;
-    }
-
-
     public enum State {
         LOGIN,
         GAMELIST,
         GAMECREATION,
         GAMELOBBY,
         GAMESTARTED,
-        GAMEINPLAY
     }
 
     private State currentState;
@@ -156,5 +147,22 @@ public class ClientModelRoot extends Observable {
 
     }
 
+    public Set<DestinationCard> getDestinationCards() {
+        if (player != null) {
+            return player.getDestinationCards();
+        }
+        return null;
+    }
+
+    public void addTrainCardToPLayer(TrainCard trainCard) {
+        this.player.addTrainCard(trainCard);
+        for (Player player : gameInfo.getPlayers()) {
+            if (player.getUserName().equals(this.player.getUserName())) {
+                player.addTrainCard(trainCard);
+            }
+        }
+        setChanged();
+        notifyObservers();
+    }
 
 }

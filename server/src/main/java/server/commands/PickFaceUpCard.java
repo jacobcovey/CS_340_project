@@ -26,35 +26,34 @@ public class PickFaceUpCard implements iCommand {
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
         Turn.TurnState turnState = gameInfo.getTurn().getState();
         TrainCard cardDrawn = null;
-        if (turnState == Turn.TurnState.ONETRAINCARDSELECTED && data.getColor() == TrainCardColors.WILD) {
+        if (turnState != Turn.TurnState.ONETRAINCARDSELECTED && data.getColor() != TrainCardColors.WILD) {
             cardDrawn = gameInfo.pickFaceUpCard(data);
-
-            List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
-            Player currentPlayer = null;
-            for (Player player : players) {
-                if (player.getUserName().equals(userName)) {
-                    player.addTrainCard(cardDrawn);
-                    currentPlayer = player;
+            if (cardDrawn != null) {
+                List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
+                Player currentPlayer = null;
+                for (Player player : players) {
+                    if (player.getUserName().equals(userName)) {
+                        player.addTrainCard(cardDrawn);
+                        currentPlayer = player;
+                    }
                 }
-            }
-            if (cardDrawn.getColor() == TrainCardColors.WILD || turnState == Turn.TurnState.ONETRAINCARDSELECTED) {
-                ServerFacade._instance.setNextTurn(gameInfo, currentPlayer);
-            } else {
-                gameInfo.getTurn().setState(Turn.TurnState.ONETRAINCARDSELECTED);
-            }
-            gameInfo.setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
+                if (cardDrawn.getColor() == TrainCardColors.WILD || turnState == Turn.TurnState.ONETRAINCARDSELECTED) {
+                    ServerFacade._instance.setNextTurn(gameInfo, currentPlayer);
+                } else {
+                    gameInfo.getTurn().setState(Turn.TurnState.ONETRAINCARDSELECTED);
+                }
+                gameInfo.setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
 
-            ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEFACEUPTRAINCARDDECK, gameInfo.getFaceUpTrainCardDeck()), gameId);
-            HistoryAction historyAction = new HistoryAction(userName, "picked a " + cardDrawn.getColorName() + " card from the face up deck");
-            gameInfo.getHistory().addAction(historyAction);
-            ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
+                ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEFACEUPTRAINCARDDECK, gameInfo.getFaceUpTrainCardDeck()), gameId);
+                ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.FACEUPTRAINCARDPICKED, cardDrawn), userName);
+                HistoryAction historyAction = new HistoryAction(userName, "picked a " + cardDrawn.getColorName() + " card from the face up deck");
+                gameInfo.getHistory().addAction(historyAction);
+                ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
+            }
 
         }
         ArrayList<CommandData> dList = new ArrayList<>();
-        if (cardDrawn != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.FACEUPTRAINCARDPICKED, cardDrawn);
-            dList.add(successCmd);
-        } else {
+        if (cardDrawn == null) {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO PICK FACE UP CARDS");
             dList.add(unSuccessCmd);
         }

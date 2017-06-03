@@ -18,7 +18,7 @@ public class FaceUpTrainCardPicked implements iCommand {
 
     @Override
     public List<CommandData> execute() {
-        ClientFacade._instance.getPlayer().addTrainCard(data);
+        ClientFacade._instance.addTrainCardToPlayer(data);
         return null;
     }
 }

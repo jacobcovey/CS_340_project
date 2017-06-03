@@ -24,8 +24,9 @@ public class ServerCommunicator {
         server.setExecutor(null);
         server.createContext("/executecommand", new CommandHandler());
         server.start();
-        System.out.format("Server running at: http://localhost:%d\n", port);
+
         try {
+            System.out.println("Server running at: http://" + InetAddress.getLocalHost().getHostAddress() + ":" + port);
             System.out.printf("Address: " + InetAddress.getLocalHost().getHostAddress() + "\n");
         } catch (UnknownHostException e) {
             e.printStackTrace();

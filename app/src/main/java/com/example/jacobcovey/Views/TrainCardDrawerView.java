@@ -111,8 +111,7 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                trainCardDrawerContainer.closeTrainCardDrawer();
-                trainCardDrawerPresenter.removeObserver();
+                dismissTrainCardDrawer();
             }
         });
         faceUpCard0 = null;
@@ -150,33 +149,58 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
     }
 
     @Override
-    public void setCard0(TrainCard card) {
-        faceUpCard0 = card;
-        faceUpCardButton0.setImageDrawable(getImageForCard(card));
+    public void setCard0(final TrainCard card) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCard0 = card;
+                faceUpCardButton0.setImageDrawable(getImageForCard(card));
+            }
+        });
     }
 
     @Override
-    public void setCard1(TrainCard card) {
-        faceUpCard1 = card;
-        faceUpCardButton1.setImageDrawable(getImageForCard(card));
+    public void setCard1(final TrainCard card) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCard1 = card;
+                faceUpCardButton1.setImageDrawable(getImageForCard(card));
+            }
+        });
     }
 
     @Override
-    public void setCard2(TrainCard card) {
-        faceUpCard2 = card;
-        faceUpCardButton2.setImageDrawable(getImageForCard(card));
+    public void setCard2(final TrainCard card) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCard2 = card;
+                faceUpCardButton2.setImageDrawable(getImageForCard(card));
+            }
+        });
     }
 
     @Override
-    public void setCard3(TrainCard card) {
-        faceUpCard3 = card;
-        faceUpCardButton3.setImageDrawable(getImageForCard(card));
+    public void setCard3(final TrainCard card) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCard3 = card;
+                faceUpCardButton3.setImageDrawable(getImageForCard(card));
+            }
+        });
     }
 
     @Override
-    public void setCard4(TrainCard card) {
-        faceUpCard4 = card;
-        faceUpCardButton4.setImageDrawable(getImageForCard(card));
+    public void setCard4(final TrainCard card) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCard4 = card;
+                faceUpCardButton4.setImageDrawable(getImageForCard(card));
+            }
+        });
     }
 
     private Drawable getImageForCard(TrainCard card) {
@@ -213,43 +237,85 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
     }
 
     @Override
-    public void enableAllCards(boolean enable) {
-        faceUpCardButton0.setEnabled(enable);
-        faceUpCardButton1.setEnabled(enable);
-        faceUpCardButton2.setEnabled(enable);
-        faceUpCardButton3.setEnabled(enable);
-        faceUpCardButton4.setEnabled(enable);
-        faceDownDeckButton.setEnabled(enable);
+    public void enableAllCards(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCardButton0.setEnabled(enable);
+                faceUpCardButton1.setEnabled(enable);
+                faceUpCardButton2.setEnabled(enable);
+                faceUpCardButton3.setEnabled(enable);
+                faceUpCardButton4.setEnabled(enable);
+                faceDownDeckButton.setEnabled(enable);
+            }
+        });
     }
 
     @Override
-    public void enableCard0(boolean enable) {
-        faceUpCardButton0.setEnabled(enable);
+    public void enableCard0(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCardButton0.setEnabled(enable);
+            }
+        });
     }
 
     @Override
-    public void enableCard1(boolean enable) {
-        faceUpCardButton1.setEnabled(enable);
+    public void enableCard1(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCardButton1.setEnabled(enable);
+            }
+        });
     }
 
     @Override
-    public void enableCard2(boolean enable) {
-        faceUpCardButton2.setEnabled(enable);
+    public void enableCard2(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCardButton2.setEnabled(enable);
+            }
+        });
     }
 
     @Override
-    public void enableCard3(boolean enable) {
-        faceUpCardButton3.setEnabled(enable);
+    public void enableCard3(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCardButton3.setEnabled(enable);
+            }
+        });
     }
 
     @Override
-    public void enableCard4(boolean enable) {
-        faceUpCardButton4.setEnabled(enable);
+    public void enableCard4(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceUpCardButton4.setEnabled(enable);
+            }
+        });
     }
 
     @Override
-    public void enableDeck(boolean enable) {
-        faceDownDeckButton.setEnabled(enable);
+    public void enableDeck(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                faceDownDeckButton.setEnabled(enable);
+            }
+        });
+    }
+
+    @Override
+    public void dismissTrainCardDrawer() {
+        trainCardDrawerContainer.closeTrainCardDrawer();
+        trainCardDrawerPresenter.removeObserver();
+        trainCardDrawerPresenter.setViewCreated(false);
     }
 
 }

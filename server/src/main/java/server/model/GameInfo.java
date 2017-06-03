@@ -134,9 +134,12 @@ public class GameInfo extends iGameInfo {
                 return cardDrawn;
             }
         }
-        cardDrawn = faceUpTrainCardDeck.get(index);
-        faceUpTrainCardDeck.remove(index);
-        return cardDrawn;
+        if (index != -1) {
+            cardDrawn = faceUpTrainCardDeck.get(index);
+            faceUpTrainCardDeck.remove(index);
+            return cardDrawn;
+        }
+        return null;
     }
 
     public List<DestinationCard> drawDestinationCards() {

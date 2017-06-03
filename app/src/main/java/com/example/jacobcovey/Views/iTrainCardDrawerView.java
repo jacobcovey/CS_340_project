@@ -44,4 +44,6 @@ public interface iTrainCardDrawerView {
 
     public void enableDeck(boolean enable);
 
+    public void dismissTrainCardDrawer();
+
 }
