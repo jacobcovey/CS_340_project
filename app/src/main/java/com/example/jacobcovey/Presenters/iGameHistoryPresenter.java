@@ -8,7 +8,7 @@ import shared.classes.History;
  * Created by jacobcovey on 5/31/17.
  */
 
-public interface IGameHistoryPresenter {
+public interface iGameHistoryPresenter {
 
     void setGameHistoryView(iGameHistoryView gameHistoryView);
 

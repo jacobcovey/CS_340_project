@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.jacobcovey.Activities.GameBoardActivity;
 import com.example.jacobcovey.Activities.GameListActivity;
 import com.example.jacobcovey.Presenters.GameLobbyPresenter;
-import com.example.jacobcovey.Presenters.IGameLobbyPresenter;
+import com.example.jacobcovey.Presenters.iGameLobbyPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.Stack;
  * Created by jacobcovey on 5/17/17.
  */
 
-public class GameLobbyView extends Fragment implements IGameLobbyView {
+public class GameLobbyView extends Fragment implements iGameLobbyView {
 
     public static final int MAXNUMBEROFPLAYERS = 5;
 
@@ -50,7 +50,7 @@ public class GameLobbyView extends Fragment implements IGameLobbyView {
     private List<TextView> playerNameTextViewList;
     private List<String> playerNameList;
 
-    private IGameLobbyPresenter gameLobbyPresenter;
+    private iGameLobbyPresenter gameLobbyPresenter;
 
     private Boolean unusedhidden = false;
 

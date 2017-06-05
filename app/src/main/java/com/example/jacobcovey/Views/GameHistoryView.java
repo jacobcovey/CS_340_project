@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.jacobcovey.Presenters.GameHistoryPresenter;
-import com.example.jacobcovey.Presenters.IGameHistoryPresenter;
+import com.example.jacobcovey.Presenters.iGameHistoryPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import shared.classes.History;
@@ -27,7 +27,7 @@ public class GameHistoryView extends Fragment implements iGameHistoryView {
 
     private Button dissmissButton;
     private RecyclerView historyRecyclerView;
-    private IGameHistoryPresenter gameHistoryPresenter;
+    private iGameHistoryPresenter gameHistoryPresenter;
     private GameHistoryAdapter adapter;
     private LinearLayoutManager manager;
 

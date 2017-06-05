@@ -16,7 +16,7 @@ import shared.classes.ChatMessage;
  * Created by spencer on 5/30/17.
  */
 
-public class ChatPresenter implements IChatPresenter, Observer {
+public class ChatPresenter implements iChatPresenter, Observer {
 
     private ClientPresenterFacade cpf;
     private iChatView chatView;

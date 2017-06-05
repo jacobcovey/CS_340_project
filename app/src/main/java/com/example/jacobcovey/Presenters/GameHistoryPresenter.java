@@ -12,7 +12,7 @@ import shared.classes.History;
  * Created by jacobcovey on 5/31/17.
  */
 
-public class GameHistoryPresenter implements IGameHistoryPresenter, Observer {
+public class GameHistoryPresenter implements iGameHistoryPresenter, Observer {
 
     private iGameHistoryView gameHistoryView;
     private ClientPresenterFacade cpf;

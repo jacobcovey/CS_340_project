@@ -12,21 +12,21 @@ import android.widget.Spinner;
 
 import com.example.jacobcovey.Activities.GameLobbyActivity;
 import com.example.jacobcovey.Presenters.GameOptionsPresenter;
-import com.example.jacobcovey.Presenters.IGameOptionsPresenter;
+import com.example.jacobcovey.Presenters.iGameOptionsPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 /**
  * Created by jacobcovey on 5/16/17.
  */
 
-public class GameOptionsView extends Fragment implements IGameOptionsView {
+public class GameOptionsView extends Fragment implements iGameOptionsView {
 
     private EditText mNameOfGameEditText;
 //    private EditText mNumberOfPlayersEditText;
     private Spinner mNumberOfPlayersSpinner;
     private Button mCreateButton;
 
-    private IGameOptionsPresenter gameOptionsPresenter;
+    private iGameOptionsPresenter gameOptionsPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

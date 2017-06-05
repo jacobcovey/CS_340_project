@@ -6,7 +6,7 @@ import java.util.List;
  * Created by jacobcovey on 5/17/17.
  */
 
-public interface IGameLobbyView {
+public interface iGameLobbyView {
 
     void setPlayerList(List<String> names);
 

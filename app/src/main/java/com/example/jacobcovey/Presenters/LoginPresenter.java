@@ -2,7 +2,7 @@ package com.example.jacobcovey.Presenters;
 
 import android.os.AsyncTask;
 
-import com.example.jacobcovey.Views.ILoginView;
+import com.example.jacobcovey.Views.iLoginView;
 import com.example.jacobcovey.communication.Poller;
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
@@ -16,9 +16,9 @@ import shared.classes.User;
  * Created by jacobcovey on 5/15/17.
  */
 
-public class LoginPresenter implements ILoginPresenter {
+public class LoginPresenter implements iLoginPresenter {
 
-    private ILoginView loginView;
+    private iLoginView loginView;
 
     private ClientPresenterFacade cpf;
 
@@ -29,7 +29,7 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void setLoginView(ILoginView loginView) {
+    public void setLoginView(iLoginView loginView) {
         this.loginView = loginView;
     }
 
