@@ -45,7 +45,7 @@ public class DrawFaceDownCard implements iCommand {
         HistoryAction historyAction = new HistoryAction(userName, "drew a card from the face down deck");
         gameInfo.getHistory().addAction(historyAction);
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
-
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
         ArrayList<CommandData> dList = new ArrayList<>();
         if (cardDrawn != null) {
             CommandData successCmd = new CommandData(CommandData.Type.FACEDOWNTRAINCARDPICKED, cardDrawn);

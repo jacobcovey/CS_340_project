@@ -2,12 +2,15 @@ package com.example.jacobcovey.gamestates;
 
 import com.example.jacobcovey.Presenters.iGameBoardPresenter;
 
+import static com.example.jacobcovey.constants.Constants.FIRST_TURN;
+
 /**
  * Created by billrichards on 6/3/17.
  */
 
 public class YourFirstTurn implements iGameBoardState {
     private iGameBoardPresenter gameBoardPresenter;
+    private final String name = FIRST_TURN;
     
     public YourFirstTurn(iGameBoardPresenter gameBoardPresenter) {
         this.gameBoardPresenter = gameBoardPresenter;
@@ -34,5 +37,10 @@ public class YourFirstTurn implements iGameBoardState {
     @Override
     public void claimRouteButtonPressed() {
         return;
+    }
+
+    @Override
+    public String getStateName() {
+        return name;
     }
 }

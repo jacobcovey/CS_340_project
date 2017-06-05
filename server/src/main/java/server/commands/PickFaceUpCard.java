@@ -49,6 +49,7 @@ public class PickFaceUpCard implements iCommand {
                 HistoryAction historyAction = new HistoryAction(userName, "picked a " + cardDrawn.getColorName() + " card from the face up deck");
                 gameInfo.getHistory().addAction(historyAction);
                 ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
+                ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
             }
 
         }

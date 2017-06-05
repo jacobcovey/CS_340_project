@@ -10,4 +10,6 @@ public interface iGameBoardState {
     public void drawDestinationCardsButtonPressed();
     public void drawTrainCardsButtonPressed();
     public void claimRouteButtonPressed();
+
+    public String getStateName();
 }
