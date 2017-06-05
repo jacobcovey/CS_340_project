@@ -1,6 +1,6 @@
 package com.example.jacobcovey.Presenters;
 
-import com.example.jacobcovey.Views.IGameListView;
+import com.example.jacobcovey.Views.iGameListView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
@@ -16,9 +16,9 @@ import shared.classes.User;
  * Created by jacobcovey on 5/15/17.
  */
 
-public class GameListPresenter implements IGameListPresenter, Observer {
+public class GameListPresenter implements iGameListPresenter, Observer {
 
-    private IGameListView gameListView;
+    private iGameListView gameListView;
 
     private ClientPresenterFacade cpf;
 
@@ -30,7 +30,7 @@ public class GameListPresenter implements IGameListPresenter, Observer {
     }
 
     @Override
-    public void setGameListView(IGameListView gameListView) {
+    public void setGameListView(iGameListView gameListView) {
         this.gameListView = gameListView;
     }
 

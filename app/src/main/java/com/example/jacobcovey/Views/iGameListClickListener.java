@@ -6,7 +6,7 @@ import shared.classes.Game;
  * Created by jacobcovey on 5/18/17.
  */
 
-public interface IGameListClickListener {
+public interface iGameListClickListener {
 
     void onGameClickedListener(Game game);
 }

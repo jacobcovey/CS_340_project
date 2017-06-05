@@ -2,7 +2,7 @@ package com.example.jacobcovey.Presenters;
 
 import android.os.AsyncTask;
 
-import com.example.jacobcovey.Views.IGameOptionsView;
+import com.example.jacobcovey.Views.iGameOptionsView;
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
@@ -16,9 +16,9 @@ import shared.classes.User;
  * Created by jacobcovey on 5/16/17.
  */
 
-public class GameOptionsPresenter implements IGameOptionsPresenter {
+public class GameOptionsPresenter implements iGameOptionsPresenter {
 
-    private IGameOptionsView gameOptionsView;
+    private iGameOptionsView gameOptionsView;
 
     private ClientPresenterFacade cpf;
 
@@ -27,7 +27,7 @@ public class GameOptionsPresenter implements IGameOptionsPresenter {
     }
 
     @Override
-    public void setGameOptionsView(IGameOptionsView gameOptionsView) {
+    public void setGameOptionsView(iGameOptionsView gameOptionsView) {
         this.gameOptionsView = gameOptionsView;
     }
 

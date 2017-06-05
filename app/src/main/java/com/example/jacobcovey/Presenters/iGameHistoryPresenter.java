@@ -1,6 +1,6 @@
 package com.example.jacobcovey.Presenters;
 
-import com.example.jacobcovey.Views.IGameHistoryView;
+import com.example.jacobcovey.Views.iGameHistoryView;
 
 import shared.classes.History;
 
@@ -8,9 +8,9 @@ import shared.classes.History;
  * Created by jacobcovey on 5/31/17.
  */
 
-public interface IGameHistoryPresenter {
+public interface iGameHistoryPresenter {
 
-    void setGameHistoryView(IGameHistoryView gameHistoryView);
+    void setGameHistoryView(iGameHistoryView gameHistoryView);
 
     History getGameHistory();
 

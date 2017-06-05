@@ -1,7 +1,8 @@
 package com.example.jacobcovey.Presenters;
 
-import com.example.jacobcovey.Views.IGameBoardView;
+import com.example.jacobcovey.Views.iGameBoardView;
 import com.example.jacobcovey.game_board.Route;
+import com.example.jacobcovey.gamestates.iGameBoardState;
 
 import java.util.List;
 import java.util.Observer;
@@ -11,12 +12,48 @@ import java.util.Observer;
  */
 
 public interface iGameBoardPresenter extends Observer{
-    void setGameBoardView(IGameBoardView gameBoardView);
+    public void setGameBoardView(iGameBoardView gameBoardView);
 
-    void updateBoard();
+    public void setViewCreated(boolean viewCreated);
 
-    void updateClientRoot(List<Route> routes);
+    public void updateBoard();
 
-    void changeClientRoot();
+    public void updateClientRoot(List<Route> routes);
+
+    public void changeClientRoot();
+
+    public boolean setDrawTrainButton(String text, boolean enable);
+
+    public boolean setDrawDestinationButton(String text, boolean enable);
+
+    public boolean setClaimRouteButton(String text, boolean enable);
+
+    public void setState(iGameBoardState state);
+
+    public void drawDestinationCardsButtonPressed();
+
+    public void drawTrainCardsButtonPressed();
+
+    public void claimRouteButtonPressed();
+
+    public void closeTrainCardDrawer();
+
+    public void closeDestinationCardDrawer();
+
+    public void closeGameInfoDrawer();
+
+    public void closeChatDrawer();
+
+    public void closeHistoryDrawer();
+
+    public void presentTrainCardDrawer();
+
+    public void presentDestinationCardDrawer();
+
+    public void presentGameInfoDrawer();
+
+    public void presentChatDrawer();
+
+    public void presentHistoryDrawer();
 
 }

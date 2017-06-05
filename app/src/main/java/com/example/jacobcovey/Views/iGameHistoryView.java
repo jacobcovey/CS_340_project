@@ -7,7 +7,7 @@ import shared.classes.HistoryAction;
  * Created by spencer on 5/25/17.
  */
 
-public interface IGameHistoryView {
+public interface iGameHistoryView {
 
     void addHistoryEvent(HistoryAction action);
 

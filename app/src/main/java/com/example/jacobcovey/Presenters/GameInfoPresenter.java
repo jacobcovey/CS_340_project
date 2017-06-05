@@ -1,6 +1,6 @@
 package com.example.jacobcovey.Presenters;
 
-import com.example.jacobcovey.Views.IGameInfoView;
+import com.example.jacobcovey.Views.iGameInfoView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.model.GameInfo;
 
@@ -15,9 +15,9 @@ import shared.classes.Player;
  * Created by jacobcovey on 5/24/17.
  */
 
-public class GameInfoPresenter implements IGameInfoPresenter, Observer {
+public class GameInfoPresenter implements iGameInfoPresenter, Observer {
 
-    private IGameInfoView gameInfoView;
+    private iGameInfoView gameInfoView;
     private ClientPresenterFacade cpf;
 
     public GameInfoPresenter() {
@@ -26,7 +26,7 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
     }
 
     @Override
-    public void setGameListView(IGameInfoView gameInfoView) {
+    public void setGameListView(iGameInfoView gameInfoView) {
         this.gameInfoView = gameInfoView;
     }
 

@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.example.jacobcovey.Activities.GameLobbyActivity;
 import com.example.jacobcovey.Activities.GameOptionsActivity;
 import com.example.jacobcovey.Presenters.GameListPresenter;
-import com.example.jacobcovey.Presenters.IGameListPresenter;
+import com.example.jacobcovey.Presenters.iGameListPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import shared.classes.Game;
  * Created by jacobcovey on 5/15/17.
  */
 
-public class GameListView extends Fragment implements IGameListView {
+public class GameListView extends Fragment implements iGameListView {
 
     private Button mCreateGameButton;
 
@@ -32,7 +32,7 @@ public class GameListView extends Fragment implements IGameListView {
     private RecyclerView.Adapter mGamesAdapter;
     private RecyclerView.LayoutManager mGamesLayoutManager;
 
-    private IGameListPresenter gameListPresenter;
+    private iGameListPresenter gameListPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

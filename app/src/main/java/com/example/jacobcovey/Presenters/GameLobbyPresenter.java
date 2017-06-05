@@ -2,10 +2,9 @@ package com.example.jacobcovey.Presenters;
 
 import android.os.AsyncTask;
 
-import com.example.jacobcovey.Views.IGameLobbyView;
+import com.example.jacobcovey.Views.iGameLobbyView;
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
-import com.example.jacobcovey.model.GameInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,9 +20,9 @@ import shared.classes.User;
  * Created by jacobcovey on 5/17/17.
  */
 
-public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
+public class GameLobbyPresenter implements iGameLobbyPresenter, Observer {
 
-    private IGameLobbyView gameLobbyView;
+    private iGameLobbyView gameLobbyView;
 
     private ClientPresenterFacade cpf;
 
@@ -36,7 +35,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void setGameLobbyView(IGameLobbyView gameLobbyView) {
+    public void setGameLobbyView(iGameLobbyView gameLobbyView) {
         this.gameLobbyView = gameLobbyView;
     }
 

@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jacobcovey.Activities.GameListActivity;
-import com.example.jacobcovey.Presenters.ILoginPresenter;
+import com.example.jacobcovey.Presenters.iLoginPresenter;
 import com.example.jacobcovey.Presenters.LoginPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
 
@@ -18,14 +18,14 @@ import com.example.jacobcovey.ticket_to_ride.R;
  * Created by jacobcovey on 5/15/17.
  */
 
-public class LoginView extends android.support.v4.app.Fragment implements ILoginView {
+public class LoginView extends android.support.v4.app.Fragment implements iLoginView {
 
     private EditText mUserNameTextEdit;
     private EditText mPasswordTextEdit;
     private Button mLoginButton;
     private Button mRegisterButton;
 
-    private ILoginPresenter loginPresenter = new LoginPresenter();
+    private iLoginPresenter loginPresenter = new LoginPresenter();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

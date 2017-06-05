@@ -1,24 +1,20 @@
 package com.example.jacobcovey.Presenters;
 
-import com.example.jacobcovey.Views.GameHistoryView;
-import com.example.jacobcovey.Views.IGameHistoryView;
+import com.example.jacobcovey.Views.iGameHistoryView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import shared.classes.History;
-import shared.classes.HistoryAction;
 
 /**
  * Created by jacobcovey on 5/31/17.
  */
 
-public class GameHistoryPresenter implements IGameHistoryPresenter, Observer {
+public class GameHistoryPresenter implements iGameHistoryPresenter, Observer {
 
-    private IGameHistoryView gameHistoryView;
+    private iGameHistoryView gameHistoryView;
     private ClientPresenterFacade cpf;
 
     public GameHistoryPresenter() {
@@ -27,7 +23,7 @@ public class GameHistoryPresenter implements IGameHistoryPresenter, Observer {
     }
 
     @Override
-    public void setGameHistoryView(IGameHistoryView gameHistoryView) {
+    public void setGameHistoryView(iGameHistoryView gameHistoryView) {
         this.gameHistoryView = gameHistoryView;
     }
 

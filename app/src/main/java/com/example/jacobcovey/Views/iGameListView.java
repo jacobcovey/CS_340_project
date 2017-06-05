@@ -8,7 +8,7 @@ import shared.classes.Game;
  * Created by jacobcovey on 5/15/17.
  */
 
-public interface IGameListView {
+public interface iGameListView {
 
     void setList(List<Object> list);
 

@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jacobcovey.Presenters.GameInfoPresenter;
-import com.example.jacobcovey.Presenters.IGameInfoPresenter;
+import com.example.jacobcovey.Presenters.iGameInfoPresenter;
 import com.example.jacobcovey.model.GameInfo;
 import com.example.jacobcovey.ticket_to_ride.R;
 
@@ -35,11 +35,11 @@ import shared.classes.TrainCardColors;
  * Created by jacobcovey on 5/24/17.
  */
 
-public class GameInfoView extends Fragment implements IGameInfoView {
+public class GameInfoView extends Fragment implements iGameInfoView {
 
     public static final int MAXNUMBEROFPLAYERS = 5;
 
-    IGameInfoPresenter gameInfoPresenter;
+    iGameInfoPresenter gameInfoPresenter;
 
     private Button exitButton;
 

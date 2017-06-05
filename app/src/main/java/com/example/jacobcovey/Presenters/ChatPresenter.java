@@ -2,7 +2,7 @@ package com.example.jacobcovey.Presenters;
 
 import android.os.AsyncTask;
 
-import com.example.jacobcovey.Views.IChatView;
+import com.example.jacobcovey.Views.iChatView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
@@ -16,10 +16,10 @@ import shared.classes.ChatMessage;
  * Created by spencer on 5/30/17.
  */
 
-public class ChatPresenter implements IChatPresenter, Observer {
+public class ChatPresenter implements iChatPresenter, Observer {
 
     private ClientPresenterFacade cpf;
-    private IChatView chatView;
+    private iChatView chatView;
 
     public ChatPresenter() {
         cpf = new ClientPresenterFacade();
@@ -66,7 +66,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
         cpf.removeObserver(this);
     }
 
-    public void setChatView(IChatView chatView) {
+    public void setChatView(iChatView chatView) {
         this.chatView = chatView;
     }
 
