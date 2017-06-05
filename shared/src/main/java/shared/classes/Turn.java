@@ -9,7 +9,8 @@ public class Turn {
     public enum TurnState {
         FIRSTTURN,
         BEGINNING,
-        ONETRAINCARDSELECTED
+        ONETRAINCARDSELECTED,
+        DESTINATIONCARDSDRAWN
     }
 
     private String player;

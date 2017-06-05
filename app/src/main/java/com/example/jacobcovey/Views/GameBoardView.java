@@ -24,10 +24,10 @@ import java.util.List;
  * Created by jacobcovey on 5/19/17.
  */
 
-public class GameBoardView extends android.support.v4.app.Fragment implements IGameBoardView {
+public class GameBoardView extends android.support.v4.app.Fragment implements iGameBoardView {
 
     private DrawerLayout drawerLayout;
-    private Button trainCardDrawerButton, destinationCardDrawerButton, changeModelButton;
+    private Button trainCardDrawerButton, destinationCardDrawerButton, claimRouteButton;
     private FrameLayout leftDrawer, rightDrawer;
     private FragmentManager fragmentManager;
     private ViewGameMap mMap;
@@ -54,7 +54,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
         trainCardDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presentTrainCardDrawer();
+                gameBoardPresenter.drawTrainCardsButtonPressed();
             }
         });
 
@@ -63,16 +63,16 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
         destinationCardDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presentDestinationCardDrawer();
+                gameBoardPresenter.drawDestinationCardsButtonPressed();
             }
         });
 
-        changeModelButton = (Button) v.findViewById(R.id.addToModelButton);
+        claimRouteButton = (Button) v.findViewById(R.id.claimRouteButton);
 
-        changeModelButton.setOnClickListener(new View.OnClickListener() {
+        claimRouteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameBoardPresenter.changeClientRoot();
+                gameBoardPresenter.claimRouteButtonPressed();
             }
         });
 
@@ -94,85 +94,184 @@ public class GameBoardView extends android.support.v4.app.Fragment implements IG
 
         });
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
+        gameBoardPresenter.setViewCreated(true);
         return v;
     }
 
-
+    @Override
     public void closeTrainCardDrawer() {
         dismissLeftDrawer();
     }
 
+    @Override
     public void closeDestinationCardDrawer() {
         dismissLeftDrawer();
     }
 
+    @Override
     public void closeGameInfoDrawer() {
         dismissRightDrawer();
     }
 
+    @Override
     public void closeChatDrawer() {
         dismissRightDrawer();
     }
 
+    @Override
     public void closeHistoryDrawer() {
         dismissRightDrawer();
     }
 
+    @Override
     public void presentTrainCardDrawer() {
         showLeftDrawer(new TrainCardDrawerView());
     }
 
+    @Override
     public void presentDestinationCardDrawer() {showLeftDrawer(new DestinationPickerView());}
 
+    @Override
     public void presentGameInfoDrawer() {
         showRightDrawer(new GameInfoView());
     }
 
+    @Override
     public void presentChatDrawer() {
         showRightDrawer(new ChatView());
     }
 
+    @Override
     public void presentHistoryDrawer() {
         showRightDrawer(new GameHistoryView());
     }
 
+    @Override
+    public void setDrawTrainButtonText(final String text) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                trainCardDrawerButton.setText(text);
+            }
+        });
+    }
 
-    private void showLeftDrawer(Fragment fragment) {
+    @Override
+    public void setDrawDestinationButtonText(final String text) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                destinationCardDrawerButton.setText(text);
+            }
+        });
+    }
+
+    @Override
+    public void setClaimRouteButtonText(final String text) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                claimRouteButton.setText(text);
+            }
+        });
+    }
+
+    @Override
+    public void setDrawTrainButtonEnable(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                trainCardDrawerButton.setEnabled(enable);
+            }
+        });
+    }
+
+    @Override
+    public void setDrawDestinationButtonEnable(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                destinationCardDrawerButton.setEnabled(enable);
+            }
+        });
+    }
+
+    @Override
+    public void setClaimRouteButtonEnable(final boolean enable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                claimRouteButton.setEnabled(enable);
+            }
+        });
+    }
+
+    @Override
+    public void closeDrawers() {
+        dismissLeftDrawer();
+        dismissRightDrawer();
+    }
+
+
+    private void showLeftDrawer(final Fragment fragment) {
 
         if (!drawerLayout.isDrawerOpen(leftDrawer) && !drawerLayout.isDrawerOpen(rightDrawer)) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.left_drawer, fragment);
-            fragmentTransaction.commit();
-            drawerLayout.requestLayout();
-            drawerLayout.openDrawer(leftDrawer);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.left_drawer, fragment);
+                    fragmentTransaction.commit();
+                    drawerLayout.requestLayout();
+                    drawerLayout.openDrawer(leftDrawer);
+                }
+            });
         }
 
     }
 
-    private void showRightDrawer(Fragment fragment) {
+    private void showRightDrawer(final Fragment fragment) {
 
         if (!drawerLayout.isDrawerOpen(rightDrawer) && !drawerLayout.isDrawerOpen(leftDrawer)) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.right_drawer, fragment);
-            fragmentTransaction.commit();
-            drawerLayout.requestLayout();
-            drawerLayout.openDrawer(rightDrawer);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.right_drawer, fragment);
+                    fragmentTransaction.commit();
+                    drawerLayout.requestLayout();
+                    drawerLayout.openDrawer(rightDrawer);
+                }
+            });
         }
 
     }
 
     private void dismissLeftDrawer() {
 
-        removeFragmentFromDrawer(R.id.left_drawer);
-        drawerLayout.closeDrawer(leftDrawer);
+        if (drawerLayout.isDrawerOpen(leftDrawer)) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    removeFragmentFromDrawer(R.id.left_drawer);
+                    drawerLayout.closeDrawer(leftDrawer);
+                }
+            });
+        }
 
     }
 
     private void dismissRightDrawer() {
 
-        removeFragmentFromDrawer(R.id.right_drawer);
-        drawerLayout.closeDrawer(rightDrawer);
+        if (drawerLayout.isDrawerOpen(rightDrawer)) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    removeFragmentFromDrawer(R.id.right_drawer);
+                    drawerLayout.closeDrawer(rightDrawer);
+                }
+            });
+        }
 
     }
 

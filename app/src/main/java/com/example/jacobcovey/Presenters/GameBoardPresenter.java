@@ -2,10 +2,16 @@ package com.example.jacobcovey.Presenters;
 
 import android.graphics.Color;
 
-import com.example.jacobcovey.Views.IGameBoardView;
+import com.example.jacobcovey.Views.iGameBoardView;
 import com.example.jacobcovey.game_board.Route;
 
 import com.example.jacobcovey.game_board.RouteLoader;
+import com.example.jacobcovey.gamestates.DestinationCardsDrawnTurn;
+import com.example.jacobcovey.gamestates.NotYourTurn;
+import com.example.jacobcovey.gamestates.OneTrainCardSelectedTurn;
+import com.example.jacobcovey.gamestates.YourFirstTurn;
+import com.example.jacobcovey.gamestates.YourTurn;
+import com.example.jacobcovey.gamestates.iGameBoardState;
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.model.GameInfo;
@@ -27,18 +33,26 @@ import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
+import shared.classes.Turn;
+
+import static shared.classes.Turn.TurnState.DESTINATIONCARDSDRAWN;
+import static shared.classes.Turn.TurnState.FIRSTTURN;
+import static shared.classes.Turn.TurnState.ONETRAINCARDSELECTED;
 
 
 /**
  * Created by Riley on 5/31/2017.
  */
 
-public class GameBoardPresenter implements iGameBoardPresenter {
+public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState {
 
-    private IGameBoardView boardView;
+    private iGameBoardView boardView;
+    private iGameBoardState state;
 
     private List<Route> mRoutes;
     private ClientPresenterFacade cpf;
+
+    private boolean viewCreated;
 
     public GameBoardPresenter() {
         cpf = new ClientPresenterFacade();
@@ -54,9 +68,14 @@ public class GameBoardPresenter implements iGameBoardPresenter {
     }
 
     @Override
-    public void setGameBoardView(IGameBoardView gameBoardView) {
-//        this.boardView = gameBoardView;
+    public void setGameBoardView(iGameBoardView gameBoardView) {
         this.boardView = gameBoardView;
+    }
+
+    @Override
+    public void setViewCreated(boolean viewCreated) {
+        this.viewCreated = viewCreated;
+        initializeState();
     }
 
     @Override
@@ -109,6 +128,30 @@ public class GameBoardPresenter implements iGameBoardPresenter {
 
     }
 
+    @Override
+    public boolean setDrawTrainButton(String text, boolean enable) {
+        if (!viewCreated) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setDrawDestinationButton(String text, boolean enable) {
+        if (!viewCreated) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setClaimRouteButton(String text, boolean enable) {
+        if (!viewCreated) {
+            return false;
+        }
+        return true;
+    }
+
     private void addRandomRoute() {
         List<Route> tempList = RouteLoader.loadRoutes();
         Collections.shuffle(tempList);
@@ -141,6 +184,130 @@ public class GameBoardPresenter implements iGameBoardPresenter {
         tempList2.get(9).setColor(Color.YELLOW);
 
         cpf.setRoutes(tempList);
+    }
+
+    @Override
+    public void drawDestinationCardsButtonPressed() {
+        state.drawDestinationCardsButtonPressed();
+    }
+
+    @Override
+    public void drawTrainCardsButtonPressed() {
+        state.drawTrainCardsButtonPressed();
+    }
+
+    @Override
+    public void claimRouteButtonPressed() {
+        state.claimRouteButtonPressed();
+    }
+
+    @Override
+    public void closeTrainCardDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeTrainCardDrawer();
+    }
+
+    @Override
+    public void closeDestinationCardDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDestinationCardDrawer();
+    }
+
+    @Override
+    public void closeGameInfoDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeGameInfoDrawer();
+    }
+
+    @Override
+    public void closeChatDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeChatDrawer();
+    }
+
+    @Override
+    public void closeHistoryDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeHistoryDrawer();
+    }
+
+    @Override
+    public void presentTrainCardDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDrawers();
+        boardView.presentTrainCardDrawer();
+    }
+
+    @Override
+    public void presentDestinationCardDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDrawers();
+        boardView.presentDestinationCardDrawer();
+    }
+
+    @Override
+    public void presentGameInfoDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDrawers();
+        boardView.presentGameInfoDrawer();
+    }
+
+    @Override
+    public void presentChatDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDrawers();
+        boardView.presentChatDrawer();
+    }
+
+    @Override
+    public void presentHistoryDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDrawers();
+        boardView.presentHistoryDrawer();
+    }
+
+    @Override
+    public void setState(iGameBoardState state) {
+        this.state = state;
+    }
+
+    private void initializeState() {
+        if (cpf.isMyTurn()) {
+            Turn.TurnState turnState = cpf.getTurn().getState();
+            if (turnState == FIRSTTURN) {
+                setState(new YourFirstTurn(this));
+                return;
+            } else if (turnState == DESTINATIONCARDSDRAWN) {
+                setState(new DestinationCardsDrawnTurn(this));
+                return;
+            } else if (turnState == ONETRAINCARDSELECTED) {
+                setState(new OneTrainCardSelectedTurn(this));
+                return;
+            }
+            setState(new YourTurn(this));
+            return;
+        }
+        setState(new NotYourTurn(this));
     }
 }
 

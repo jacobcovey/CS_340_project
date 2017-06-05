@@ -22,7 +22,7 @@ import shared.classes.HistoryAction;
  * Created by spencer on 5/25/17.
  */
 
-public class GameHistoryView extends Fragment implements IGameHistoryView {
+public class GameHistoryView extends Fragment implements iGameHistoryView {
 
 
     private Button dissmissButton;

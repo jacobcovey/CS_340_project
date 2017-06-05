@@ -19,7 +19,7 @@ import java.util.List;
 
 import shared.classes.ChatMessage;
 
-public class ChatView extends Fragment implements IChatView {
+public class ChatView extends Fragment implements iChatView {
 
     private EditText chatEditText; // TODO
     private Button sendButton; // TODO
