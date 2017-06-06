@@ -35,6 +35,11 @@ import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 
+import static com.example.jacobcovey.constants.Constants.DESTINATION_CARDS_DRAWN;
+import static com.example.jacobcovey.constants.Constants.FIRST_TURN;
+import static com.example.jacobcovey.constants.Constants.NOT_YOUR_TURN;
+import static com.example.jacobcovey.constants.Constants.ONE_TRAIN_CARD_SELECTED;
+import static com.example.jacobcovey.constants.Constants.YOUR_TURN;
 import static shared.classes.Turn.TurnState.DESTINATIONCARDSDRAWN;
 import static shared.classes.Turn.TurnState.FIRSTTURN;
 import static shared.classes.Turn.TurnState.ONETRAINCARDSELECTED;
@@ -65,6 +70,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         }
         mRoutes = cpf.getRoutes();
         updateBoard();
+        determineState();
     }
 
     @Override
@@ -75,7 +81,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     @Override
     public void setViewCreated(boolean viewCreated) {
         this.viewCreated = viewCreated;
-        initializeState();
+        determineState();
     }
 
     @Override
@@ -133,6 +139,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return false;
         }
+        boardView.setDrawTrainButtonText(text);
+        boardView.setDrawTrainButtonEnable(enable);
         return true;
     }
 
@@ -141,6 +149,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return false;
         }
+        boardView.setDrawDestinationButtonText(text);
+        boardView.setDrawDestinationButtonEnable(enable);
         return true;
     }
 
@@ -149,6 +159,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return false;
         }
+        boardView.setClaimRouteButtonText(text);
+        boardView.setClaimRouteButtonEnable(enable);
         return true;
     }
 
@@ -199,6 +211,14 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     @Override
     public void claimRouteButtonPressed() {
         state.claimRouteButtonPressed();
+    }
+
+    @Override
+    public String getStateName() {
+        if (state == null) {
+            return "";
+        }
+        return state.getStateName();
     }
 
     @Override
@@ -291,20 +311,35 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         this.state = state;
     }
 
-    private void initializeState() {
+    private void determineState() {
         if (cpf.isMyTurn()) {
             Turn.TurnState turnState = cpf.getTurn().getState();
             if (turnState == FIRSTTURN) {
+                if (getStateName().equals(FIRST_TURN)) {
+                    return;
+                }
                 setState(new YourFirstTurn(this));
                 return;
             } else if (turnState == DESTINATIONCARDSDRAWN) {
+                if (getStateName().equals(DESTINATION_CARDS_DRAWN)) {
+                    return;
+                }
                 setState(new DestinationCardsDrawnTurn(this));
                 return;
             } else if (turnState == ONETRAINCARDSELECTED) {
+                if (getStateName().equals(ONE_TRAIN_CARD_SELECTED)) {
+                    return;
+                }
                 setState(new OneTrainCardSelectedTurn(this));
                 return;
             }
+            if (getStateName().equals(YOUR_TURN)) {
+                return;
+            }
             setState(new YourTurn(this));
+            return;
+        }
+        if (getStateName().equals(NOT_YOUR_TURN)) {
             return;
         }
         setState(new NotYourTurn(this));

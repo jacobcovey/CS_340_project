@@ -10,6 +10,7 @@ import com.example.jacobcovey.Views.DestinationPickerView;
 import com.example.jacobcovey.Views.GameBoardView;
 import com.example.jacobcovey.Views.GameHistoryView;
 import com.example.jacobcovey.Views.GameInfoView;
+import com.example.jacobcovey.Views.GameOverView;
 import com.example.jacobcovey.Views.TrainCardDrawerView;
 import com.example.jacobcovey.constants.Icons;
 import com.example.jacobcovey.ticket_to_ride.R;
@@ -25,7 +26,8 @@ public class GameBoardActivity extends SingleFragmentActivity implements
         DestinationPickerView.DestinationCardDrawerContainer,
         GameInfoView.GameInfoDrawerContainer,
         ChatView.ChatDrawerContainer,
-        GameHistoryView.GameHistoryDrawerContainer {
+        GameHistoryView.GameHistoryDrawerContainer,
+        GameOverView.GameOverDrawerContainer {
 
     private GameBoardView gameBoard;
 
@@ -87,5 +89,10 @@ public class GameBoardActivity extends SingleFragmentActivity implements
     @Override
     public void closeDestinationCardDrawer() {
         gameBoard.closeDestinationCardDrawer();
+    }
+
+    @Override
+    public void closeGameOverDrawer() {
+        gameBoard.closeGameInfoDrawer();
     }
 }

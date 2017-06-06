@@ -8,6 +8,7 @@ import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
 import shared.classes.Game;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
@@ -157,6 +158,11 @@ public class ServerFacade {
                 gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
             }
         }
+    }
+
+    public void addHistoryItemToGame(HistoryAction historyAction, GameInfo gameInfo, String gameId) {
+        gameInfo.getHistory().addAction(historyAction);
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
     }
 
 }

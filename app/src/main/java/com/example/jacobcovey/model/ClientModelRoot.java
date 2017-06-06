@@ -156,11 +156,6 @@ public class ClientModelRoot extends Observable {
 
     public void addTrainCardToPLayer(TrainCard trainCard) {
         this.player.addTrainCard(trainCard);
-        for (Player player : gameInfo.getPlayers()) {
-            if (player.getUserName().equals(this.player.getUserName())) {
-                player.addTrainCard(trainCard);
-            }
-        }
         setChanged();
         notifyObservers();
     }
