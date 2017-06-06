@@ -137,6 +137,11 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
     }
 
     @Override
+    public void presentGameOverDrawer() {
+        showRightDrawer(new GameOverView());
+    }
+
+    @Override
     public void presentChatDrawer() {
         showRightDrawer(new ChatView());
     }

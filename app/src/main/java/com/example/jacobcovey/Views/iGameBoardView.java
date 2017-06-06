@@ -27,6 +27,8 @@ public interface iGameBoardView {
 
     public void presentGameInfoDrawer();
 
+    public void presentGameOverDrawer();
+
     public void presentChatDrawer();
 
     public void presentHistoryDrawer();
