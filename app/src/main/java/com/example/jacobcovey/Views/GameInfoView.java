@@ -274,7 +274,7 @@ public class GameInfoView extends Fragment implements iGameInfoView {
 
                         playerNames.get(x).setText(players.get(x).getUserName());
                         playerPoints.get(x).setText((Integer.toString(players.get(x).getPoints())));
-                        playerTrains.get(x).setText(Integer.toString(players.get(x).getTrainCars()));
+                        playerTrains.get(x).setText(Integer.toString(players.get(x).getNumberOfTrains()));
                         playerCards.get(x).setText(Integer.toString(players.get(x).getTrainCards().size()));
                         playerRoutes.get(x).setText(Integer.toString(players.get(x).getDestinationCards().size()));
 

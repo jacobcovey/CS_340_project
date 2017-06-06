@@ -8,12 +8,14 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.GameRequest;
 import shared.classes.Player;
 import shared.classes.TrainCard;
+import shared.classes.Turn;
 import shared.classes.User;
 import shared.interfaces.iCommand;
 
@@ -29,15 +31,15 @@ public class DrawDestinationCards implements iCommand {
     public List<CommandData> execute() {
         Set<DestinationCard> cardsDrawn = new HashSet<>();
 
+        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
+        cardsDrawn.add(gameInfo.getDestinationCardDeck().get(0));
+        gameInfo.getDestinationCardDeck().remove(0);
+        cardsDrawn.add(gameInfo.getDestinationCardDeck().get(0));
+        gameInfo.getDestinationCardDeck().remove(0);
+        cardsDrawn.add(gameInfo.getDestinationCardDeck().get(0));
+        gameInfo.getDestinationCardDeck().remove(0);
 
-        cardsDrawn.add(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().get(0));
-        ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().remove(0);
-        cardsDrawn.add(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().get(0));
-        ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().remove(0);
-        cardsDrawn.add(ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().get(0));
-        ServerFacade._instance.getGameInfo(gameId).getDestinationCardDeck().remove(0);
-
-        List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
+        List<Player> players = gameInfo.getPlayers();
         for (Player player : players) {
             if (player.getUserName().equals(userName)) {
                 player.setDrawnDestinationCards(cardsDrawn);
@@ -46,8 +48,11 @@ public class DrawDestinationCards implements iCommand {
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (cardsDrawn != null) {
+            gameInfo.setTurn(new Turn(userName, Turn.TurnState.DESTINATIONCARDSDRAWN));
             CommandData successCmd = new CommandData(CommandData.Type.DESTINATIONCARDDRAWN, cardsDrawn);
             dList.add(successCmd);
+            ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
+
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO DRAW DESTINATION CARDS");
             dList.add(unSuccessCmd);

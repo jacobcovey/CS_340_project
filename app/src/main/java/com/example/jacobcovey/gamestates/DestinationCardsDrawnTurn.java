@@ -3,12 +3,15 @@ package com.example.jacobcovey.gamestates;
 import com.example.jacobcovey.Presenters.iGameBoardPresenter;
 import com.example.jacobcovey.gamestates.iGameBoardState;
 
+import static com.example.jacobcovey.constants.Constants.DESTINATION_CARDS_DRAWN;
+
 /**
  * Created by billrichards on 6/3/17.
  */
 
 public class DestinationCardsDrawnTurn implements iGameBoardState {
     private iGameBoardPresenter gameBoardPresenter;
+    private final String name = DESTINATION_CARDS_DRAWN;
 
     public DestinationCardsDrawnTurn(iGameBoardPresenter gameBoardPresenter) {
         this.gameBoardPresenter = gameBoardPresenter;
@@ -33,5 +36,10 @@ public class DestinationCardsDrawnTurn implements iGameBoardState {
     @Override
     public void claimRouteButtonPressed() {
         return;
+    }
+
+    @Override
+    public String getStateName() {
+        return name;
     }
 }

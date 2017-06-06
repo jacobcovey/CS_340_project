@@ -67,6 +67,12 @@ public class Route {
         return this.equals(route);
     }
     public boolean canClaim(Player player) {
+        if (isClaimed) {
+            return false;
+        }
+        if (player.getNumberOfTrains() < getLength()) {
+            return false;
+        }
         Set<TrainCard> allCards = player.getTrainCards();
         int correctCardCount = 0;
         for (TrainCard card : allCards) {
@@ -74,10 +80,10 @@ public class Route {
                 correctCardCount++;
             }
         }
-        if (correctCardCount >= this.getLength() && !isClaimed) {
-            return true;
+        if (correctCardCount < getLength()) {
+            return false;
         }
-        return false;
+        return true;
     }
     public void claim(Player player) {
         Set<TrainCard> allCards = player.getTrainCards();
@@ -88,6 +94,7 @@ public class Route {
                 cardsToRemove--;
             }
         }
+        player.setNumberOfTrains(player.getNumberOfTrains() - getLength());
         this.player = player;
         this.isClaimed = true;
     }

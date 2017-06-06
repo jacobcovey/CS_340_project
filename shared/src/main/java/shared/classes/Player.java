@@ -12,7 +12,7 @@ import static shared.constants.Constants.NUMBEROFTRAINCARS;
 public class Player {
 
     private PlayerColors color;
-    private int trainCars;
+    private int numberOfTrains;
     private Set<TrainCard> trainCards = new HashSet<TrainCard>();
     private Set<DestinationCard> destinationCards = new HashSet<DestinationCard>();
     private Set<DestinationCard> drawnDestinationCards;
@@ -21,16 +21,16 @@ public class Player {
 
     public Player(PlayerColors color, Set<TrainCard> trainCards, String userName) {
         this.color = color;
-        this.trainCars = NUMBEROFTRAINCARS;
+        this.numberOfTrains = NUMBEROFTRAINCARS;
         this.trainCards = trainCards;
         this.destinationCards = new HashSet<DestinationCard>();
         this.points = 0;
         this.userName = userName;
     }
 
-    public Player(PlayerColors color, int trainCars, Set<TrainCard> trainCards, Set<DestinationCard> destinationCards, int points, String userName) {
+    public Player(PlayerColors color, int numberOfTrains, Set<TrainCard> trainCards, Set<DestinationCard> destinationCards, int points, String userName) {
         this.color = color;
-        this.trainCars = trainCars;
+        this.numberOfTrains = numberOfTrains;
         this.trainCards = trainCards;
         this.destinationCards = destinationCards;
         this.points = points;
@@ -45,12 +45,12 @@ public class Player {
         this.color = color;
     }
 
-    public int getTrainCars() {
-        return trainCars;
+    public int getNumberOfTrains() {
+        return numberOfTrains;
     }
 
-    public void setTrainCars(int trainCars) {
-        this.trainCars = trainCars;
+    public void setNumberOfTrains(int numberOfTrains) {
+        this.numberOfTrains = numberOfTrains;
     }
 
     public Set<TrainCard> getTrainCards() {
