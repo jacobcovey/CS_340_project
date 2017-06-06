@@ -49,7 +49,10 @@ public class ViewGameMap extends View {
             case MotionEvent.ACTION_CANCEL:
                 break;
             case MotionEvent.ACTION_UP:
-                Log.i(TAG, current.x + " " + current.y);
+//                Log.i(TAG, current.x + " " + current.y);
+                TouchHandler th = new TouchHandler(current);
+                Route closest = th.getClosestRoute(mRoutes);
+                Log.i(TAG, "onTouchEvent: " + closest.getId());
                 break;
 
         }
