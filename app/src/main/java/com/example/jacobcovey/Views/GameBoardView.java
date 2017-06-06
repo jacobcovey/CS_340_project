@@ -73,6 +73,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
             @Override
             public void onClick(View v) {
                 gameBoardPresenter.claimRouteButtonPressed();
+                mMap.setClickable(true);
             }
         });
 

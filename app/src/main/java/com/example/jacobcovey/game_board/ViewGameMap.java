@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.jacobcovey.ticket_to_ride.R;
 
@@ -52,6 +53,8 @@ public class ViewGameMap extends View {
 //                Log.i(TAG, current.x + " " + current.y);
                 TouchHandler th = new TouchHandler(current);
                 Route closest = th.getClosestRoute(mRoutes);
+                Toast toast = Toast.makeText(getContext(), "Route #" + closest.getId() + " claimed. (need to create popup window)", Toast.LENGTH_SHORT);
+                toast.show();
                 Log.i(TAG, "onTouchEvent: " + closest.getId());
                 break;
 
