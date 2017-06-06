@@ -309,8 +309,8 @@ public class GameInfoView extends Fragment implements iGameInfoView {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
 
-                numDestinationDeck.setText(gameInfo.getDestinationCarDeckSize());
-                numTrainDeck.setText(gameInfo.getTrainCardDeckSize());
+                numDestinationDeck.setText(gameInfo.getDestinationCarDeckSize()+"");
+                numTrainDeck.setText(gameInfo.getTrainCardDeckSize()+"");
             }
         });
     }
