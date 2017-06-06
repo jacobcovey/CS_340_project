@@ -232,8 +232,13 @@ public class TrainCardDrawerView extends Fragment implements iTrainCardDrawerVie
     }
 
     @Override
-    public void displayToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    public void displayToast(final String message) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

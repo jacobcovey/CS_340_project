@@ -19,9 +19,9 @@ public class YourTurn implements iGameBoardState {
     }
 
     private void setButtons() {
-        gameBoardPresenter.setDrawTrainButton("View Train Cards", true);
+        gameBoardPresenter.setDrawTrainButton("Draw Train Cards", true);
         gameBoardPresenter.setDrawDestinationButton("Draw Destinations", true);
-        gameBoardPresenter.setClaimRouteButton("Claim a Route", false);
+        gameBoardPresenter.setClaimRouteButton("Claim a Route", true);
     }
 
     @Override

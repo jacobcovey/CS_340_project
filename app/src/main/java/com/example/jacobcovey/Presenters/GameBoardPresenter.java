@@ -139,6 +139,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return false;
         }
+        boardView.setDrawTrainButtonText(text);
+        boardView.setDrawTrainButtonEnable(enable);
         return true;
     }
 
@@ -147,6 +149,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return false;
         }
+        boardView.setDrawDestinationButtonText(text);
+        boardView.setDrawDestinationButtonEnable(enable);
         return true;
     }
 
@@ -155,6 +159,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return false;
         }
+        boardView.setClaimRouteButtonText(text);
+        boardView.setClaimRouteButtonEnable(enable);
         return true;
     }
 

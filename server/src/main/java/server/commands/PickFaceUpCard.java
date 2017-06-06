@@ -26,10 +26,10 @@ public class PickFaceUpCard implements iCommand {
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
         Turn.TurnState turnState = gameInfo.getTurn().getState();
         TrainCard cardDrawn = null;
-        if (turnState != Turn.TurnState.ONETRAINCARDSELECTED && data.getColor() != TrainCardColors.WILD) {
+        if (turnState != Turn.TurnState.ONETRAINCARDSELECTED || data.getColor() != TrainCardColors.WILD) {
             cardDrawn = gameInfo.pickFaceUpCard(data);
             if (cardDrawn != null) {
-                List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
+                List<Player> players = gameInfo.getPlayers();
                 Player currentPlayer = null;
                 for (Player player : players) {
                     if (player.getUserName().equals(userName)) {
@@ -42,13 +42,12 @@ public class PickFaceUpCard implements iCommand {
                 } else {
                     gameInfo.getTurn().setState(Turn.TurnState.ONETRAINCARDSELECTED);
                 }
-                gameInfo.setTrainCardDeckSize(ServerFacade._instance.getGameInfo(gameId).getFaceDownTrainCardDeck().size());
+                gameInfo.setTrainCardDeckSize(gameInfo.getFaceDownTrainCardDeck().size());
 
                 ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEFACEUPTRAINCARDDECK, gameInfo.getFaceUpTrainCardDeck()), gameId);
                 ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.FACEUPTRAINCARDPICKED, cardDrawn), userName);
                 HistoryAction historyAction = new HistoryAction(userName, "picked a " + cardDrawn.getColorName() + " card from the face up deck");
-                gameInfo.getHistory().addAction(historyAction);
-                ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
+                ServerFacade._instance.addHistoryItemToGame(historyAction, gameInfo, gameId);
                 ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
             }
 

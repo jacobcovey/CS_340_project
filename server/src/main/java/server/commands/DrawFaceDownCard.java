@@ -28,7 +28,7 @@ public class DrawFaceDownCard implements iCommand {
         List<Player> players = gameInfo.getPlayers();
         Player currentPlayer = null;
         for (Player player : players) {
-            if (player.getUserName() == userName) {
+            if (player.getUserName().equals(userName)) {
                 player.addTrainCard(cardDrawn);
                 currentPlayer = player;
             }
@@ -43,8 +43,7 @@ public class DrawFaceDownCard implements iCommand {
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
 
         HistoryAction historyAction = new HistoryAction(userName, "drew a card from the face down deck");
-        gameInfo.getHistory().addAction(historyAction);
-        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), userName);
+        ServerFacade._instance.addHistoryItemToGame(historyAction, gameInfo, gameId);
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
         ArrayList<CommandData> dList = new ArrayList<>();
         if (cardDrawn != null) {

@@ -11,6 +11,7 @@ import java.util.Observable;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 
+import static shared.classes.Turn.TurnState.FIRSTTURN;
 import static shared.classes.Turn.TurnState.ONETRAINCARDSELECTED;
 
 /**
@@ -93,6 +94,7 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
      */
     @Override
     public void pickFaceUpCard(int index) {
+        System.out.println("pick face up card called on cards " + index);
         if (cpf.isMyTurn() && !requestExecuting) {
             requestExecuting = true;
             TrainCard card = null;
@@ -142,6 +144,7 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
      */
     @Override
     public void drawFaceDownCard() {
+        System.out.println("Draw face down card called");
         if (cpf.isMyTurn() && !requestExecuting) {
             requestExecuting = true;
             drawFaceDownCardRequest drawFaceDownCardRequest = new drawFaceDownCardRequest();
@@ -217,10 +220,10 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
      * @post only appropriate face up cards are selectable
      */
     private void setEnableForCards() {
-//        if (!cpf.isMyTurn()) {
-//            disableAllCards();
-//            return;
-//        }
+       if (!cpf.isMyTurn() || cpf.getTurn().getState() == FIRSTTURN) {
+           disableAllCards();
+           return;
+       }
         disableNullCards();
         if (cpf.getTurn().getState() == ONETRAINCARDSELECTED) {
             disableRainbowCards();

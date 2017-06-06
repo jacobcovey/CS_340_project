@@ -20,7 +20,7 @@ public class NotYourTurn implements iGameBoardState {
 
     private void setButtons() {
         gameBoardPresenter.setDrawTrainButton("View Train Cards", true);
-        gameBoardPresenter.setDrawDestinationButton("Draw Destinations", true);
+        gameBoardPresenter.setDrawDestinationButton("Draw Destinations", false);
         gameBoardPresenter.setClaimRouteButton("Claim a Route", false);
     }
 
