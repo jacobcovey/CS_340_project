@@ -23,7 +23,6 @@ import shared.classes.User;
 import shared.interfaces.iGameInfo;
 
 import static shared.classes.TrainCardColors.WILD;
-import static sun.audio.AudioPlayer.player;
 
 
 public class GameInfo extends iGameInfo {
@@ -187,7 +186,7 @@ public class GameInfo extends iGameInfo {
         List<Route> playerRoutes = new ArrayList<Route>();
 
         for(Route route: getRoutes() ) {
-            if (route.getPlayer().getUserName() == userName) {
+            if (route.getPlayer().getUserName().equalsIgnoreCase(userName)) {
                 playerRoutes.add(route);
             }
         }
@@ -195,9 +194,9 @@ public class GameInfo extends iGameInfo {
         boolean connectedToCityTwo = false;
 
         for (Route route: playerRoutes) {
-            if (destinationCard.getCity1() == route.getCity1() || destinationCard.getCity1() == route.getCity2()) {
+            if (destinationCard.getCity1().isEqual(route.getCity1()) || destinationCard.getCity1().isEqual(route.getCity2())) {
                 connectedToCityOne = true;
-            } else if (destinationCard.getCity2() == route.getCity1() || destinationCard.getCity2() == route.getCity2()){
+            } else if (destinationCard.getCity2().isEqual(route.getCity1()) || destinationCard.getCity2().isEqual(route.getCity2())){
                 connectedToCityTwo = true;
             }
         }
@@ -215,7 +214,7 @@ public class GameInfo extends iGameInfo {
     }
 
     public void dcCompletedHelper(City city, List<Route> pr, Route route, DestinationCard dc) {
-        if (dc.isComplete() == true)
+        if (dc.isComplete())
             return;
         if (route.getCity1().isEqual(dc.getCity2()) || route.getCity2().isEqual(dc.getCity2())) {
             dc.setComplete(true);
@@ -224,9 +223,11 @@ public class GameInfo extends iGameInfo {
         for (Route thisRoute : pr) {
             if (thisRoute.isEqual(route)) {
                 break;
-            } else if (thisRoute.getCity1().isEqual(city)) {
+            }
+            else if (thisRoute.getCity1().isEqual(city)) {
                 dcCompletedHelper(thisRoute.getCity2(), pr, thisRoute, dc);
-            } else if (thisRoute.getCity2().isEqual(city)) {
+            }
+            else if (thisRoute.getCity2().isEqual(city)) {
                 dcCompletedHelper(thisRoute.getCity1(), pr, thisRoute, dc);
             }
         }
