@@ -3,6 +3,7 @@ package com.example.jacobcovey.Presenters;
 import android.os.AsyncTask;
 
 import com.example.jacobcovey.Views.iTrainCardDrawerView;
+import com.example.jacobcovey.gamestates.YourTurn;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
@@ -95,7 +96,7 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
     @Override
     public void pickFaceUpCard(int index) {
         System.out.println("pick face up card called on cards " + index);
-        if (cpf.isMyTurn() && !requestExecuting) {
+        if (cpf.isMyTurn() && !requestExecuting && cpf.isTrainCardTurn()) {
             requestExecuting = true;
             TrainCard card = null;
             switch (index) {
@@ -145,7 +146,7 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
     @Override
     public void drawFaceDownCard() {
         System.out.println("Draw face down card called");
-        if (cpf.isMyTurn() && !requestExecuting) {
+        if (cpf.isMyTurn() && !requestExecuting && cpf.isTrainCardTurn()) {
             requestExecuting = true;
             drawFaceDownCardRequest drawFaceDownCardRequest = new drawFaceDownCardRequest();
             drawFaceDownCardRequest.execute();

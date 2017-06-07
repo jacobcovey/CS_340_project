@@ -1,6 +1,7 @@
 package com.example.jacobcovey.model;
 
 import com.example.jacobcovey.communication.ServerProxy;
+import com.example.jacobcovey.gamestates.YourTurn;
 
 import java.io.IOException;
 import java.util.List;
@@ -168,5 +169,10 @@ public class ClientPresenterFacade {
 
     public void setRoutes(List<com.example.jacobcovey.game_board.Route> routes) {
         ClientModelRoot._instance.setRoutes(routes);
+    }
+
+    public boolean isTrainCardTurn() {
+        Turn.TurnState state = getTurn().getState();
+        return (state == Turn.TurnState.BEGINNING || state == Turn.TurnState.ONETRAINCARDSELECTED);
     }
 }
