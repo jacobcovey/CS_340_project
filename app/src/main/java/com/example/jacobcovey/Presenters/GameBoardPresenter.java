@@ -1,9 +1,14 @@
 package com.example.jacobcovey.Presenters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.example.jacobcovey.Views.iGameBoardView;
@@ -20,6 +25,7 @@ import com.example.jacobcovey.gamestates.iGameBoardState;
 import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.model.GameInfo;
+import com.example.jacobcovey.ticket_to_ride.R;
 
 
 import java.util.ArrayList;
@@ -325,8 +331,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
 //                      Log.i(TAG, current.x + " " + current.y);
                     TouchHandler th = new TouchHandler(current);
                     Route closest = th.getClosestRoute(mRoutes);
-
-                    boardView.displayToast("Route #" + closest.getId() + " claimed. (need to create popup window)");
+                    createClaimRouteConfirmationDialog(closest);
 //                      Log.i(TAG, "onTouchEvent: " + closest.getId());
                     break;
 
@@ -334,6 +339,53 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
             return true;
         }
         return true;
+    }
+
+    private void createClaimRouteConfirmationDialog(final Route closest) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(boardView.getActivity());
+        CharSequence text = "Do You Want To Claim Route: " + closest.getId() + "?"; //TODO: change to city names
+        builder.setTitle(text);
+        text = "No";
+        builder.setNegativeButton(text, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        text = "Yes";
+        builder.setPositiveButton(text, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                createClaimRouteOptionsDialog(closest);
+            }
+        });
+        builder.create().show();
+    }
+
+    private void createClaimRouteOptionsDialog(final Route closest) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(boardView.getActivity());
+        CharSequence text = "This Needs to be implemented, but I got to this point..."; //TODO: Implement better
+        builder.setTitle(text);
+        LayoutInflater inflater = boardView.getActivity().getLayoutInflater();
+        View v = inflater.inflate(R.layout.claim_route_options, null);
+        builder.setView(v);
+        text = "Cancel";
+        builder.setNegativeButton(text, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        text = "Confirm";
+        builder.setPositiveButton(text, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //TODO: Check to make sure everything is kosher 
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     @Override

@@ -180,10 +180,6 @@ public class ServerFacade {
         gameInfo.setLastTurn(player);
     }
 
-    public boolean isLastTurn(GameInfo gameInfo) {
-        return gameInfo.isLastTurn();
-    }
-
     public void addHistoryItemToGame(HistoryAction historyAction, GameInfo gameInfo, String gameId) {
         gameInfo.getHistory().addAction(historyAction);
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
