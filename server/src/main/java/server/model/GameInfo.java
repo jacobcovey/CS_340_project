@@ -233,6 +233,34 @@ public class GameInfo extends iGameInfo {
         }
     }
 
+    public  void addRouteOwnersForTesting() {
+        Set<TrainCard> trainCards = new HashSet<TrainCard>();
+        Player player1 = new Player(PlayerColors.RED,trainCards,"John");
+
+        List<Route> routes = getRoutes();
+
+        int count = 0;
+
+        for (Route r : routes) {
+            if (count < 2) {
+                count++;
+            } else {
+                r.claim(player1);
+                count = 0;
+            }
+        }
+        setRoutes(routes);
+
+        City city1 = new City("Denver");
+        City city2 = new City("El Paso");
+
+        DestinationCard dc = new DestinationCard(city1,city2,4);
+
+        destinationCardCompleted(dc,"John");
+
+
+    }
+
     public void setLastTurn(Player player) {
         isLastTurn = true;
         playerToTakeLasTurn = player;
