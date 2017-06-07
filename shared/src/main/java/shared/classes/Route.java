@@ -1,6 +1,5 @@
 package shared.classes;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -110,4 +109,14 @@ public class Route {
         }
 
     }
+
+    public boolean isEqual(Route route) {
+        if (this.getCity1().isEqual(route.getCity1()) && this.getCity2().isEqual(route.getCity2())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }

@@ -24,6 +24,10 @@ public class DrawFaceDownCard implements iCommand {
     public List<CommandData> execute() {
 
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
+
+        ////// The line below is a temporary test, if you see this please delete it
+//        tempTestDestinationCompletion(gameInfo);
+
         TrainCard cardDrawn = gameInfo.drawFaceDownCard();
         List<Player> players = gameInfo.getPlayers();
         Player currentPlayer = null;
@@ -56,4 +60,10 @@ public class DrawFaceDownCard implements iCommand {
         return dList;
 
     }
+
+    ////// The method below is a temporary test, if you see this please delete it
+//    public void tempTestDestinationCompletion(GameInfo gameInfo) {
+//
+//
+//    }
 }

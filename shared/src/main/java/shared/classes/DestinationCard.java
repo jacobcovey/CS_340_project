@@ -10,11 +10,13 @@ public class DestinationCard {
     private City city1;
     private City city2;
     private int points;
+    private boolean isComplete;
 
     public DestinationCard(City city1, City city2, int points) {
         this.city1 = city1;
         this.city2 = city2;
         this.points = points;
+        this.isComplete = false;
     }
 
     public DestinationCard(String id, City city1, City city2, int points) {
@@ -22,6 +24,7 @@ public class DestinationCard {
         this.city1 = city1;
         this.city2 = city2;
         this.points = points;
+        this.isComplete = false;
     }
 
     public City getCity1() {
@@ -37,6 +40,14 @@ public class DestinationCard {
     }
 
     public String getId() { return id; }
+
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    public void setComplete(boolean complete) {
+        isComplete = complete;
+    }
 
     @Override
     public String toString() {
