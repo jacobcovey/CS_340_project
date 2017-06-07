@@ -42,4 +42,6 @@ public interface iGameBoardView {
     public void setClaimRouteButtonEnable(boolean enable);
 
     void closeDrawers();
+
+    public void displayToast(String message);
 }

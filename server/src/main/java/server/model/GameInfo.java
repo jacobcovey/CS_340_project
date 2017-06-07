@@ -68,14 +68,25 @@ public class GameInfo extends iGameInfo {
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private Set<TrainCard> discardPile = new HashSet<>();
     private List<DestinationCard> destinationCardDeck = new ArrayList<>();
+    private boolean isLastTurn;
+    private Player playerToTakeLasTurn;
+
+    public boolean isLastTurn() {
+        return isLastTurn;
+    }
 
     public enum State {
         FIRST_TURN,
         NOT_FIRST_TURN,
+        LAST_TURN,
         GAME_OVER
     }
     private State state;
 
+
+    public Player getPlayerToTakeLasTurn() {
+        return playerToTakeLasTurn;
+    }
 
     public GameInfo(Game game) {
         state = State.FIRST_TURN;
@@ -103,6 +114,8 @@ public class GameInfo extends iGameInfo {
             addPlayer(users.get(i).getUsername(), colors.get(i));
         }
         setTurn(new Turn(users.get(0).getUsername(), Turn.TurnState.FIRSTTURN));
+        isLastTurn = false;
+
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -198,6 +211,10 @@ public class GameInfo extends iGameInfo {
         discardPile.addAll(cards);
     }
 
-
+    public void setLastTurn(Player player) {
+        isLastTurn = true;
+        playerToTakeLasTurn = player;
+        setState(State.LAST_TURN);
+    }
 }
 

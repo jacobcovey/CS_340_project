@@ -37,7 +37,7 @@ public class YourTurn implements iGameBoardState {
 
     @Override
     public void claimRouteButtonPressed() {
-
+        gameBoardPresenter.setState(new ClaimingRoute(gameBoardPresenter));
     }
 
     @Override

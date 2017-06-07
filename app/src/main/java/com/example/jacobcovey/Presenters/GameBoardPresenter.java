@@ -1,11 +1,16 @@
 package com.example.jacobcovey.Presenters;
 
 import android.graphics.Color;
+import android.graphics.PointF;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.jacobcovey.Views.iGameBoardView;
 import com.example.jacobcovey.game_board.Route;
 
 import com.example.jacobcovey.game_board.RouteLoader;
+import com.example.jacobcovey.game_board.TouchHandler;
 import com.example.jacobcovey.gamestates.DestinationCardsDrawnTurn;
 import com.example.jacobcovey.gamestates.NotYourTurn;
 import com.example.jacobcovey.gamestates.OneTrainCardSelectedTurn;
@@ -35,6 +40,7 @@ import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 
+import static com.example.jacobcovey.constants.Constants.CLAIMING_ROUTE;
 import static com.example.jacobcovey.constants.Constants.DESTINATION_CARDS_DRAWN;
 import static com.example.jacobcovey.constants.Constants.FIRST_TURN;
 import static com.example.jacobcovey.constants.Constants.NOT_YOUR_TURN;
@@ -62,14 +68,15 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     public GameBoardPresenter() {
         cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
+        mRoutes = RouteLoader.loadRoutes();
     }
     @Override
     public void update(Observable o, Object arg) {
         if (boardView == null) {
             return;
         }
-        mRoutes = cpf.getRoutes();
-        updateBoard();
+//        mRoutes = cpf.getRoutes();
+//        updateBoard();
         determineState();
     }
 
@@ -304,6 +311,29 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         }
         boardView.closeDrawers();
         boardView.presentHistoryDrawer();
+    }
+
+    @Override
+    public boolean onMapTouch(View view, MotionEvent event) {
+        if (state != null && state.getStateName().equals(CLAIMING_ROUTE)) {
+            PointF current = new PointF(event.getX(), event.getY());
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_CANCEL:
+                    break;
+                case MotionEvent.ACTION_UP:
+//                      Log.i(TAG, current.x + " " + current.y);
+                    TouchHandler th = new TouchHandler(current);
+                    Route closest = th.getClosestRoute(mRoutes);
+
+                    boardView.displayToast("Route #" + closest.getId() + " claimed. (need to create popup window)");
+//                      Log.i(TAG, "onTouchEvent: " + closest.getId());
+                    break;
+
+            }
+            return true;
+        }
+        return true;
     }
 
     @Override
