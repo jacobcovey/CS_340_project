@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Player;
@@ -23,15 +24,16 @@ public class ClaimRoute implements iCommand {
 
     public List<CommandData> execute() {
         ServerFacade serverFacade = ServerFacade._instance;
+        GameInfo gameInfo = serverFacade.getGameInfo(gameId);
 
-        List<Player> players = serverFacade.getGameInfo(gameId).getPlayers();
+        List<Player> players = gameInfo.getPlayers();
         Player currentPlayer = null;
         for (Player player : players) {
             if (player.getUserName() == userName) {
                 currentPlayer = player;
             }
         }
-        List<Route> routeList = serverFacade.getGameInfo(gameId).getRoutes();
+        List<Route> routeList = gameInfo.getRoutes();
         for (Route route : routeList) {
             if (route.isRoute(data)) {
                 if (route.canClaim(currentPlayer)) {
@@ -40,9 +42,11 @@ public class ClaimRoute implements iCommand {
             }
         }
 
-        if (currentPlayer.getNumberOfTrains() > 3) {
-            serverFacade.addCommandToGame(
-                    new CommandData(CommandData.Type.NOTIFYLASTTURN, null), gameId);
+        serverFacade.setNextTurn(gameInfo, currentPlayer);
+
+        // Check if it should be the last round of turns
+        if (currentPlayer.getNumberOfTrains() < 3 && !gameInfo.isLastTurn()) {
+            serverFacade.setLastTurn(gameInfo, currentPlayer);
         }
 
         serverFacade.addCommandToGame(
