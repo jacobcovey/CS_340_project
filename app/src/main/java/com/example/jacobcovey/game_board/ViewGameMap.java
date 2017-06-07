@@ -9,10 +9,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.jacobcovey.constants.Constants;
 import com.example.jacobcovey.ticket_to_ride.R;
@@ -56,8 +53,8 @@ public class ViewGameMap extends View {
 
             for (Route r : mRoutes) {
 
-                mRoutePaint.setColor(r.getColor());
-                for (PointF point : r.getPoints()) {
+                mRoutePaint.setColor(r.getPlayerColor());
+                for (PointF point : r.getSegments()) {
                     canvas.drawCircle(point.x, point.y, 15, mRoutePaint);
 //                Bitmap mybitmap = BitmapFactory.decodeResource(res, R.drawable.ic_train);
 //                canvas.drawBitmap(mybitmap, point.x, point.y, mRoutePaint);

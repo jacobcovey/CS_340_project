@@ -1,7 +1,5 @@
 package server.commands;
 
-import com.sun.corba.se.spi.activation.Server;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,10 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import server.ServerFacade;
-import server.model.GameInfo;
-import shared.classes.City;
 import shared.classes.CommandData;
-import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.Route;
 import shared.interfaces.iCommand;
@@ -44,7 +39,7 @@ public class GameOverCommand implements iCommand {
 
     //attaches all routes to the associated Player
     public Map<Player, List<Route>> getPlayerRoutes(List<Player> players) {
-        List<Route> allRoutes = ServerFacade._instance.getGameInfo(gameId).getRoutes();
+        List<Route> allRoutes = ServerFacade._instance.getGameInfo(gameId).getServerRoutes();
         Map<Player, List<Route>> playerRoutes = new HashMap<>();
         for (Player player : players) {
             if (!playerRoutes.containsKey(player)) {

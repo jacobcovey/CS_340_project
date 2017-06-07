@@ -30,7 +30,7 @@ public class ClaimRoute implements iCommand {
                 currentPlayer = player;
             }
         }
-        List<Route> routeList = gameInfo.getRoutes();
+        List<Route> routeList = gameInfo.getServerRoutes();
         for (Route route : routeList) {
             if (route.isRoute(data)) {
                 if (route.canClaim(currentPlayer)) {

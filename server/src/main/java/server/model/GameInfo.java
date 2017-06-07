@@ -27,6 +27,7 @@ import static shared.classes.TrainCardColors.WILD;
 
 public class GameInfo extends iGameInfo {
 
+    private List<Route> serverRoutes = new ArrayList<>();
     private List<TrainCard> faceUpTrainCardDeck = new ArrayList<>();
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private Set<TrainCard> discardPile = new HashSet<>();
@@ -66,6 +67,8 @@ public class GameInfo extends iGameInfo {
         setTrainCardDeckSize(faceDownTrainCardDeck.size());
         setDestinationCarDeckSize(destinationCardDeck.size());
 
+        serverRoutes.addAll(Constants.ROUTES);
+
         List<PlayerColors> colors = new ArrayList<>();
         colors.add(PlayerColors.BLUE);
         colors.add(PlayerColors.RED);
@@ -78,7 +81,14 @@ public class GameInfo extends iGameInfo {
         }
         setTurn(new Turn(users.get(0).getUsername(), Turn.TurnState.FIRSTTURN));
         isLastTurn = false;
+    }
 
+    public List<Route> getServerRoutes() {
+        return serverRoutes;
+    }
+
+    public void setServerRoutes(List<Route> serverRoutes) {
+        this.serverRoutes = serverRoutes;
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -185,7 +195,7 @@ public class GameInfo extends iGameInfo {
 
         List<Route> playerRoutes = new ArrayList<Route>();
 
-        for(Route route: getRoutes() ) {
+        for(Route route: getServerRoutes() ) {
             if (route.getPlayer().getUserName().equalsIgnoreCase(userName)) {
                 playerRoutes.add(route);
             }
@@ -237,7 +247,7 @@ public class GameInfo extends iGameInfo {
         Set<TrainCard> trainCards = new HashSet<TrainCard>();
         Player player1 = new Player(PlayerColors.RED,trainCards,"John");
 
-        List<Route> routes = getRoutes();
+        List<Route> routes = getServerRoutes();
 
         int count = 0;
 
@@ -249,7 +259,7 @@ public class GameInfo extends iGameInfo {
                 count = 0;
             }
         }
-        setRoutes(routes);
+        setServerRoutes(routes);
 
         City city1 = new City("Denver");
         City city2 = new City("El Paso");
@@ -265,6 +275,27 @@ public class GameInfo extends iGameInfo {
         isLastTurn = true;
         playerToTakeLasTurn = player;
         setState(State.LAST_TURN);
+    }
+
+    public Route getRouteById(int id) {
+        if (serverRoutes == null) {
+            serverRoutes = new ArrayList<>(Constants.ROUTES);
+        }
+        for (Route route: serverRoutes) {
+            if (route.getId() == id) {
+                return route;
+            }
+        }
+        return null;
+    }
+
+    public void setRouteById(int id, Route route) {
+        for (int i = 0; i < serverRoutes.size(); i++) {
+            if (serverRoutes.get(i).getId() == id) {
+                serverRoutes.set(i, route);
+                return;
+            }
+        }
     }
 }
 
