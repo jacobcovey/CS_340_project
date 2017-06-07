@@ -28,8 +28,7 @@ public class ClientCommunicator {
     public static List<CommandData> sendToServer(CommandData commandData) {
         List<CommandData> data = null;
         try {
-            String serverHost = "192.168.1.212";
-
+            String serverHost = "10.24.64.52";
 
             String serverPort = "4000";
 

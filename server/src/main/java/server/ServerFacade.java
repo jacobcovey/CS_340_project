@@ -135,6 +135,10 @@ public class ServerFacade {
     }
 
     public void setNextTurn(GameInfo gameInfo, Player currentPlayer) {
+        boolean isLastTurn = gameInfo.isLastTurn();
+        if (isLastTurn && currentPlayer.getUserName().equals(gameInfo.getPlayerToTakeLasTurn().getUserName())) {
+            gameOver(gameInfo);
+        }
         boolean isNextPlayer = false;
         Player nextPlayer = null;
         for (Player player: gameInfo.getPlayers()) {
@@ -150,14 +154,30 @@ public class ServerFacade {
             if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
                 gameInfo.setState(GameInfo.State.NOT_FIRST_TURN);
             }
+            if (gameInfo.getState() == GameInfo.State.LAST_TURN) {
+                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.LASTTURN));
+                return;
+            }
             gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
         } else {
             if (gameInfo.getState() == GameInfo.State.FIRST_TURN) {
                 gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.FIRSTTURN));
-            } else {
-                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
+                return;
             }
+            if (gameInfo.getState() == GameInfo.State.LAST_TURN) {
+                gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.LASTTURN));
+                return;
+            }
+            gameInfo.setTurn(new Turn(nextPlayer.getUserName(), Turn.TurnState.BEGINNING));
         }
+    }
+
+    private void gameOver(GameInfo gameInfo) {
+        gameInfo.setState(GameInfo.State.GAME_OVER);
+    }
+
+    public void setLastTurn(GameInfo gameInfo, Player player) {
+        gameInfo.setLastTurn(player);
     }
 
     public void addHistoryItemToGame(HistoryAction historyAction, GameInfo gameInfo, String gameId) {

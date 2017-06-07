@@ -58,6 +58,8 @@ public class City {
     public static final String PORTLAND = "Portland";
     public static final String SAN_FRANCISCO = "San Francisco";
     
-
+    public boolean isEqual(City city) {
+        return this.toString().equalsIgnoreCase(city.toString());
+    }
 
 }

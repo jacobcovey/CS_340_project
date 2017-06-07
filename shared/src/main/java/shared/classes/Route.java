@@ -1,5 +1,6 @@
 package shared.classes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Route {
     private double yCoordinate;
     private Player player;
     private boolean isClaimed;
-
+    List<Route> adjacentRoutes = new ArrayList<>();
 
     public Route(TrainCardColors color, int length, City city1, City city2, int points) {
         this.color = color;
@@ -110,4 +111,21 @@ public class Route {
         }
 
     }
+
+    public boolean isEqual(Route route) {
+        if (this.getCity1().isEqual(route.getCity1()) && this.getCity2().isEqual(route.getCity2())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public List<Route> getAdjacentRoutes() {
+        return adjacentRoutes;
+    }
+    public void addAdjacentRoutes(Route route) {
+        adjacentRoutes.add(route);
+    }
+
 }

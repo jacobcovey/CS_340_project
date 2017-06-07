@@ -11,55 +11,18 @@ import java.util.List;
 import java.util.Set;
 
 import server.constants.Constants;
+import shared.classes.City;
+import shared.classes.DestinationCard;
 import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
-import shared.classes.TrainCardColors;
+import shared.classes.Route;
+import shared.classes.TrainCard;
 import shared.classes.Turn;
 import shared.classes.User;
 import shared.interfaces.iGameInfo;
-import shared.classes.TrainCard;
-import shared.classes.DestinationCard;
 
-import static shared.classes.City.ATLANTA;
-import static shared.classes.City.BOSTON;
-import static shared.classes.City.CALGARY;
-import static shared.classes.City.CHICAGO;
-import static shared.classes.City.DALLAS;
-import static shared.classes.City.DENVER;
-import static shared.classes.City.DULUTH;
-import static shared.classes.City.EL_PASO;
-import static shared.classes.City.HELENA;
-import static shared.classes.City.HOUSTON;
-import static shared.classes.City.KANSAS_CITY;
-import static shared.classes.City.LITTLE_ROCK;
-import static shared.classes.City.LOS_ANGELES;
-import static shared.classes.City.MIAMI;
-import static shared.classes.City.MONTREAL;
-import static shared.classes.City.NASHVILLE;
-import static shared.classes.City.NEW_ORLEANS;
-import static shared.classes.City.NEW_YORK;
-import static shared.classes.City.OKLAHOMA_CITY;
-import static shared.classes.City.PHOENIX;
-import static shared.classes.City.PITTSBURG;
-import static shared.classes.City.PORTLAND;
-import static shared.classes.City.SALT_LAKE_CITY;
-import static shared.classes.City.SANTA_FE;
-import static shared.classes.City.SAN_FRANCISCO;
-import static shared.classes.City.SAULT_ST_MARIE;
-import static shared.classes.City.SEATTLE;
-import static shared.classes.City.TORONTO;
-import static shared.classes.City.VANCOUVER;
-import static shared.classes.City.WINNIPEG;
-import static shared.classes.TrainCardColors.BLACK;
-import static shared.classes.TrainCardColors.BLUE;
-import static shared.classes.TrainCardColors.GREEN;
-import static shared.classes.TrainCardColors.ORANGE;
-import static shared.classes.TrainCardColors.PURPLE;
-import static shared.classes.TrainCardColors.RED;
-import static shared.classes.TrainCardColors.WHITE;
 import static shared.classes.TrainCardColors.WILD;
-import static shared.classes.TrainCardColors.YELLOW;
 
 
 public class GameInfo extends iGameInfo {
@@ -68,23 +31,34 @@ public class GameInfo extends iGameInfo {
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private Set<TrainCard> discardPile = new HashSet<>();
     private List<DestinationCard> destinationCardDeck = new ArrayList<>();
+    private boolean isLastTurn;
+    private Player playerToTakeLasTurn;
+
+    public boolean isLastTurn() {
+        return isLastTurn;
+    }
 
     public enum State {
         FIRST_TURN,
         NOT_FIRST_TURN,
+        LAST_TURN,
         GAME_OVER
     }
     private State state;
 
+
+    public Player getPlayerToTakeLasTurn() {
+        return playerToTakeLasTurn;
+    }
 
     public GameInfo(Game game) {
         state = State.FIRST_TURN;
         faceDownTrainCardDeck.addAll(Constants.UNSHUFFLED_TRAINCARD_DECK);
         Collections.shuffle(faceDownTrainCardDeck);
         for (int i = 0; i < 5; i++) {
-            faceUpTrainCardDeck.add(faceDownTrainCardDeck.get(0));
-            faceDownTrainCardDeck.remove(0);
+            faceUpTrainCardDeck.add(drawFaceDownCard());
         }
+        checkWildCardsInFaceUpDeck();
 
         destinationCardDeck.addAll(Constants.UNSUFFLED_DESTINATION_DECK);
         Collections.shuffle(destinationCardDeck);
@@ -103,6 +77,8 @@ public class GameInfo extends iGameInfo {
             addPlayer(users.get(i).getUsername(), colors.get(i));
         }
         setTurn(new Turn(users.get(0).getUsername(), Turn.TurnState.FIRSTTURN));
+        isLastTurn = false;
+
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -118,39 +94,61 @@ public class GameInfo extends iGameInfo {
     }
 
     public TrainCard drawFaceDownCard() {
+        if (faceDownTrainCardDeck.size() == 0) {
+            faceDownTrainCardDeck.addAll(discardPile);
+            discardPile.clear();
+            Collections.shuffle(faceDownTrainCardDeck);
+            if (faceDownTrainCardDeck.size() == 0) {
+                return null;
+            }
+        }
         TrainCard drawnCard = faceDownTrainCardDeck.get(0);
         faceDownTrainCardDeck.remove(0);
-        setTrainCardDeckSize(getTrainCardDeckSize() - 1);
+        setTrainCardDeckSize(faceDownTrainCardDeck.size());
         return drawnCard;
     }
     public TrainCard pickFaceUpCard(TrainCard card) {
         TrainCard cardDrawn = null;
-        int index = -1;
         for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
             cardDrawn = faceUpTrainCardDeck.get(i);
             if (cardDrawn.getId().equals(card.getId())) {
-                faceUpTrainCardDeck.set(i, faceDownTrainCardDeck.get(i));
-                faceDownTrainCardDeck.remove(i);
-                return cardDrawn;
+                faceUpTrainCardDeck.set(i, drawFaceDownCard());
+                break;
             }
         }
-        if (index != -1) {
-            cardDrawn = faceUpTrainCardDeck.get(index);
-            faceUpTrainCardDeck.remove(index);
-            return cardDrawn;
+        checkWildCardsInFaceUpDeck();
+        return cardDrawn;
+    }
+
+    private void checkWildCardsInFaceUpDeck() {
+        int wildCount = 0;
+        for (TrainCard card : faceUpTrainCardDeck) {
+            if (card.getColor() == WILD) {
+                wildCount++;
+            }
         }
-        return null;
+        if (wildCount >= 3) {
+            resetFaceUpDeck();
+            checkWildCardsInFaceUpDeck();
+        }
+    }
+
+    private void resetFaceUpDeck() {
+        discardPile.addAll(faceUpTrainCardDeck);
+        for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
+            faceUpTrainCardDeck.set(i, drawFaceDownCard());
+        }
     }
 
     public List<DestinationCard> drawDestinationCards() {
-        List<DestinationCard> drawnCards = null;
+        List<DestinationCard> drawnCards = new ArrayList<>();
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
-        setDestinationCarDeckSize(getDestinationCarDeckSize() - 3);
+        setDestinationCarDeckSize(destinationCardDeck.size());
         return drawnCards;
     }
 
@@ -183,6 +181,62 @@ public class GameInfo extends iGameInfo {
         discardPile.addAll(cards);
     }
 
+    public void destinationCardCompleted(DestinationCard destinationCard, String userName) {
 
+        List<Route> playerRoutes = new ArrayList<Route>();
+
+        for(Route route: getRoutes() ) {
+            if (route.getPlayer().getUserName().equalsIgnoreCase(userName)) {
+                playerRoutes.add(route);
+            }
+        }
+        boolean connectedToCityOne = false;
+        boolean connectedToCityTwo = false;
+
+        for (Route route: playerRoutes) {
+            if (destinationCard.getCity1().isEqual(route.getCity1()) || destinationCard.getCity1().isEqual(route.getCity2())) {
+                connectedToCityOne = true;
+            } else if (destinationCard.getCity2().isEqual(route.getCity1()) || destinationCard.getCity2().isEqual(route.getCity2())){
+                connectedToCityTwo = true;
+            }
+        }
+
+        if (connectedToCityOne && connectedToCityTwo) {
+            for (Route route: playerRoutes) {
+                if (route.getCity1().isEqual(destinationCard.getCity1())) {
+                    dcCompletedHelper(route.getCity2(),playerRoutes, route, destinationCard);
+                }
+                else if (route.getCity2().isEqual(destinationCard.getCity1())) {
+                    dcCompletedHelper(route.getCity1(),playerRoutes, route, destinationCard);
+                }
+            }
+        }
+    }
+
+    public void dcCompletedHelper(City city, List<Route> pr, Route route, DestinationCard dc) {
+        if (dc.isComplete())
+            return;
+        if (route.getCity1().isEqual(dc.getCity2()) || route.getCity2().isEqual(dc.getCity2())) {
+            dc.setComplete(true);
+            return;
+        }
+        for (Route thisRoute : pr) {
+            if (thisRoute.isEqual(route)) {
+                break;
+            }
+            else if (thisRoute.getCity1().isEqual(city)) {
+                dcCompletedHelper(thisRoute.getCity2(), pr, thisRoute, dc);
+            }
+            else if (thisRoute.getCity2().isEqual(city)) {
+                dcCompletedHelper(thisRoute.getCity1(), pr, thisRoute, dc);
+            }
+        }
+    }
+
+    public void setLastTurn(Player player) {
+        isLastTurn = true;
+        playerToTakeLasTurn = player;
+        setState(State.LAST_TURN);
+    }
 }
 
