@@ -43,26 +43,6 @@ public class ViewGameMap extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        PointF current = new PointF(event.getX(), event.getY());
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_CANCEL:
-                break;
-            case MotionEvent.ACTION_UP:
-//                Log.i(TAG, current.x + " " + current.y);
-                TouchHandler th = new TouchHandler(current);
-                Route closest = th.getClosestRoute(mRoutes);
-                Toast toast = Toast.makeText(getContext(), "Route #" + closest.getId() + " claimed. (need to create popup window)", Toast.LENGTH_SHORT);
-                toast.show();
-                Log.i(TAG, "onTouchEvent: " + closest.getId());
-                break;
-
-        }
-        return true;
-    }
-
-    @Override
     public void onDraw(Canvas canvas) {
         //draw the map
         Resources res = getResources();
@@ -92,5 +72,9 @@ public class ViewGameMap extends View {
     public void setRoutes(List<Route> routes) {
         mRoutes = routes;
 //        invalidate();
+    }
+
+    public List<Route> getmRoutes() {
+        return mRoutes;
     }
 }

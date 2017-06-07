@@ -10,7 +10,8 @@ public class Turn {
         FIRSTTURN,
         BEGINNING,
         ONETRAINCARDSELECTED,
-        DESTINATIONCARDSDRAWN
+        DESTINATIONCARDSDRAWN,
+        LASTTURN
     }
 
     private String player;

@@ -1,5 +1,8 @@
 package com.example.jacobcovey.Views;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.example.jacobcovey.game_board.Route;
 
 import java.util.List;
@@ -42,4 +45,8 @@ public interface iGameBoardView {
     public void setClaimRouteButtonEnable(boolean enable);
 
     void closeDrawers();
+
+    public void displayToast(String message);
+
+    Activity getActivity();
 }

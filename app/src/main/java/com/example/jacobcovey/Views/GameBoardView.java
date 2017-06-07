@@ -3,16 +3,21 @@ package com.example.jacobcovey.Views;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.jacobcovey.game_board.Route;
+import com.example.jacobcovey.game_board.TouchHandler;
 import com.example.jacobcovey.game_board.ViewGameMap;
 import com.example.jacobcovey.Presenters.iGameBoardPresenter;
 import com.example.jacobcovey.Presenters.GameBoardPresenter;
@@ -78,6 +83,13 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
         });
 
         mMap = (ViewGameMap) v.findViewById(R.id.board_view);
+
+        mMap.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                return gameBoardPresenter.onMapTouch(view, event);
+            }
+        });
 
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
 
@@ -300,5 +312,15 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
             });
 
         }
+    }
+
+    @Override
+    public void displayToast(final String message) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

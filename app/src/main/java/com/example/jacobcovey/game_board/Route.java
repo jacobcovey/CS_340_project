@@ -7,6 +7,8 @@ import android.util.Log;
 import java.util.List;
 import java.util.UUID;
 
+import shared.classes.Player;
+
 /**
  * Created by Riley on 5/31/2017.
  */
@@ -18,6 +20,8 @@ public class Route {
     private List<PointF> mPoints;
     private int mColor;
     private PointF mCenterPoint;
+    private Player player;
+    private boolean isClaimed;
 
     public Route(int size, int id, List<PointF> points) {
         mId = id;

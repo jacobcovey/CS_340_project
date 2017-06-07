@@ -37,7 +37,8 @@ public class CommandData {
         UPDATEHISTORY,
         GETOUTSTANDINGCOMMANDS,
         UPDATEGAMEINFO,
-        ERROR
+        ERROR,
+        NOTIFYLASTTURN
     }
 
     private Type type;

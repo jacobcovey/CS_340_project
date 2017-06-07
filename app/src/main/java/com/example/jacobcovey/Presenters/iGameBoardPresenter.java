@@ -1,5 +1,8 @@
 package com.example.jacobcovey.Presenters;
 
+import android.view.MotionEvent;
+import android.view.View;
+
 import com.example.jacobcovey.Views.iGameBoardView;
 import com.example.jacobcovey.game_board.Route;
 import com.example.jacobcovey.gamestates.iGameBoardState;
@@ -56,4 +59,5 @@ public interface iGameBoardPresenter extends Observer{
 
     public void presentHistoryDrawer();
 
+    public boolean onMapTouch(View view, MotionEvent event);
 }

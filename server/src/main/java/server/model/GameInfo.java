@@ -22,6 +22,9 @@ import shared.classes.Turn;
 import shared.classes.User;
 import shared.interfaces.iGameInfo;
 
+import static shared.classes.TrainCardColors.WILD;
+import static sun.audio.AudioPlayer.player;
+
 
 public class GameInfo extends iGameInfo {
 
@@ -29,23 +32,34 @@ public class GameInfo extends iGameInfo {
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private Set<TrainCard> discardPile = new HashSet<>();
     private List<DestinationCard> destinationCardDeck = new ArrayList<>();
+    private boolean isLastTurn;
+    private Player playerToTakeLasTurn;
+
+    public boolean isLastTurn() {
+        return isLastTurn;
+    }
 
     public enum State {
         FIRST_TURN,
         NOT_FIRST_TURN,
+        LAST_TURN,
         GAME_OVER
     }
     private State state;
 
+
+    public Player getPlayerToTakeLasTurn() {
+        return playerToTakeLasTurn;
+    }
 
     public GameInfo(Game game) {
         state = State.FIRST_TURN;
         faceDownTrainCardDeck.addAll(Constants.UNSHUFFLED_TRAINCARD_DECK);
         Collections.shuffle(faceDownTrainCardDeck);
         for (int i = 0; i < 5; i++) {
-            faceUpTrainCardDeck.add(faceDownTrainCardDeck.get(0));
-            faceDownTrainCardDeck.remove(0);
+            faceUpTrainCardDeck.add(drawFaceDownCard());
         }
+        checkWildCardsInFaceUpDeck();
 
         destinationCardDeck.addAll(Constants.UNSUFFLED_DESTINATION_DECK);
         Collections.shuffle(destinationCardDeck);
@@ -64,6 +78,8 @@ public class GameInfo extends iGameInfo {
             addPlayer(users.get(i).getUsername(), colors.get(i));
         }
         setTurn(new Turn(users.get(0).getUsername(), Turn.TurnState.FIRSTTURN));
+        isLastTurn = false;
+
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -79,39 +95,61 @@ public class GameInfo extends iGameInfo {
     }
 
     public TrainCard drawFaceDownCard() {
+        if (faceDownTrainCardDeck.size() == 0) {
+            faceDownTrainCardDeck.addAll(discardPile);
+            discardPile.clear();
+            Collections.shuffle(faceDownTrainCardDeck);
+            if (faceDownTrainCardDeck.size() == 0) {
+                return null;
+            }
+        }
         TrainCard drawnCard = faceDownTrainCardDeck.get(0);
         faceDownTrainCardDeck.remove(0);
-        setTrainCardDeckSize(getTrainCardDeckSize() - 1);
+        setTrainCardDeckSize(faceDownTrainCardDeck.size());
         return drawnCard;
     }
     public TrainCard pickFaceUpCard(TrainCard card) {
         TrainCard cardDrawn = null;
-        int index = -1;
         for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
             cardDrawn = faceUpTrainCardDeck.get(i);
             if (cardDrawn.getId().equals(card.getId())) {
-                faceUpTrainCardDeck.set(i, faceDownTrainCardDeck.get(i));
-                faceDownTrainCardDeck.remove(i);
-                return cardDrawn;
+                faceUpTrainCardDeck.set(i, drawFaceDownCard());
+                break;
             }
         }
-        if (index != -1) {
-            cardDrawn = faceUpTrainCardDeck.get(index);
-            faceUpTrainCardDeck.remove(index);
-            return cardDrawn;
+        checkWildCardsInFaceUpDeck();
+        return cardDrawn;
+    }
+
+    private void checkWildCardsInFaceUpDeck() {
+        int wildCount = 0;
+        for (TrainCard card : faceUpTrainCardDeck) {
+            if (card.getColor() == WILD) {
+                wildCount++;
+            }
         }
-        return null;
+        if (wildCount >= 3) {
+            resetFaceUpDeck();
+            checkWildCardsInFaceUpDeck();
+        }
+    }
+
+    private void resetFaceUpDeck() {
+        discardPile.addAll(faceUpTrainCardDeck);
+        for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
+            faceUpTrainCardDeck.set(i, drawFaceDownCard());
+        }
     }
 
     public List<DestinationCard> drawDestinationCards() {
-        List<DestinationCard> drawnCards = null;
+        List<DestinationCard> drawnCards = new ArrayList<>();
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
-        setDestinationCarDeckSize(getDestinationCarDeckSize() - 3);
+        setDestinationCarDeckSize(destinationCardDeck.size());
         return drawnCards;
     }
 
@@ -186,14 +224,18 @@ public class GameInfo extends iGameInfo {
         for (Route thisRoute : pr) {
             if (thisRoute.isEqual(route)) {
                 break;
-            }
-            else if (thisRoute.getCity1().isEqual(city)) {
-                dcCompletedHelper(thisRoute.getCity2(),pr,thisRoute, dc);
-            }
-            else if (thisRoute.getCity2().isEqual(city)) {
-                dcCompletedHelper(thisRoute.getCity1(),pr,thisRoute, dc);
+            } else if (thisRoute.getCity1().isEqual(city)) {
+                dcCompletedHelper(thisRoute.getCity2(), pr, thisRoute, dc);
+            } else if (thisRoute.getCity2().isEqual(city)) {
+                dcCompletedHelper(thisRoute.getCity1(), pr, thisRoute, dc);
             }
         }
+    }
+
+    public void setLastTurn(Player player) {
+        isLastTurn = true;
+        playerToTakeLasTurn = player;
+        setState(State.LAST_TURN);
     }
 }
 

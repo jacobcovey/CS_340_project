@@ -29,16 +29,8 @@ public class DrawDestinationCards implements iCommand {
     String userName;
 
     public List<CommandData> execute() {
-        Set<DestinationCard> cardsDrawn = new HashSet<>();
-
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
-        cardsDrawn.add(gameInfo.getDestinationCardDeck().get(0));
-        gameInfo.getDestinationCardDeck().remove(0);
-        cardsDrawn.add(gameInfo.getDestinationCardDeck().get(0));
-        gameInfo.getDestinationCardDeck().remove(0);
-        cardsDrawn.add(gameInfo.getDestinationCardDeck().get(0));
-        gameInfo.getDestinationCardDeck().remove(0);
-
+        Set<DestinationCard> cardsDrawn = new HashSet<>(gameInfo.drawDestinationCards());
         List<Player> players = gameInfo.getPlayers();
         for (Player player : players) {
             if (player.getUserName().equals(userName)) {
@@ -52,7 +44,6 @@ public class DrawDestinationCards implements iCommand {
             CommandData successCmd = new CommandData(CommandData.Type.DESTINATIONCARDDRAWN, cardsDrawn);
             dList.add(successCmd);
             ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
-
         } else {
             CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO DRAW DESTINATION CARDS");
             dList.add(unSuccessCmd);
