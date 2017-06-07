@@ -22,14 +22,16 @@ public class ClaimRoute implements iCommand {
     String userName;
 
     public List<CommandData> execute() {
-        List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
+        ServerFacade serverFacade = ServerFacade._instance;
+
+        List<Player> players = serverFacade.getGameInfo(gameId).getPlayers();
         Player currentPlayer = null;
         for (Player player : players) {
             if (player.getUserName() == userName) {
                 currentPlayer = player;
             }
         }
-        List<Route> routeList = ServerFacade._instance.getGameInfo(gameId).getRoutes();
+        List<Route> routeList = serverFacade.getGameInfo(gameId).getRoutes();
         for (Route route : routeList) {
             if (route.isRoute(data)) {
                 if (route.canClaim(currentPlayer)) {
@@ -38,17 +40,14 @@ public class ClaimRoute implements iCommand {
             }
         }
 
-        ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.ROUTECLAIMED, data), userName);
-
-        ArrayList<CommandData> dList = new ArrayList<>();
-
-        if (routeList != null) {
-            CommandData successCmd = new CommandData(CommandData.Type.CLAIMROUTE, routeList);
-            dList.add(successCmd);
-        } else {
-            CommandData unSuccessCmd = new CommandData(CommandData.Type.ERROR, "FAILED TO CLAIM ROUTE CARDS");
-            dList.add(unSuccessCmd);
+        if (currentPlayer.getNumberOfTrains() > 3) {
+            serverFacade.addCommandToGame(
+                    new CommandData(CommandData.Type.NOTIFYLASTTURN, null), gameId);
         }
-        return dList;
+
+        serverFacade.addCommandToGame(
+                new CommandData(CommandData.Type.ROUTECLAIMED, data), gameId);
+
+        return new ArrayList<>();
     }
 }
