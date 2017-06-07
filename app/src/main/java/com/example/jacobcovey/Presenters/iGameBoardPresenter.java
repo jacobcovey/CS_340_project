@@ -23,8 +23,6 @@ public interface iGameBoardPresenter extends Observer{
 
     public void updateClientRoot(List<Route> routes);
 
-    public void changeClientRoot();
-
     public boolean setDrawTrainButton(String text, boolean enable);
 
     public boolean setDrawDestinationButton(String text, boolean enable);

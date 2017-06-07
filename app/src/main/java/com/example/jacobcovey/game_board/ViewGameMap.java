@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.jacobcovey.constants.Constants;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ViewGameMap extends View {
         super(context, attrs);
 
         mRoutePaint = new Paint();
-        mRoutes = RouteLoader.loadRoutes();
+        mRoutes.addAll(Constants.ROUTES);
 
     }
 
