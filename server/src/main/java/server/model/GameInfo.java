@@ -82,9 +82,9 @@ public class GameInfo extends iGameInfo {
         faceDownTrainCardDeck.addAll(Constants.UNSHUFFLED_TRAINCARD_DECK);
         Collections.shuffle(faceDownTrainCardDeck);
         for (int i = 0; i < 5; i++) {
-            faceUpTrainCardDeck.add(faceDownTrainCardDeck.get(0));
-            faceDownTrainCardDeck.remove(0);
+            faceUpTrainCardDeck.add(drawFaceDownCard());
         }
+        checkWildCardsInFaceUpDeck();
 
         destinationCardDeck.addAll(Constants.UNSUFFLED_DESTINATION_DECK);
         Collections.shuffle(destinationCardDeck);
@@ -120,37 +120,52 @@ public class GameInfo extends iGameInfo {
     public TrainCard drawFaceDownCard() {
         TrainCard drawnCard = faceDownTrainCardDeck.get(0);
         faceDownTrainCardDeck.remove(0);
-        setTrainCardDeckSize(getTrainCardDeckSize() - 1);
+        setTrainCardDeckSize(faceDownTrainCardDeck.size());
         return drawnCard;
     }
     public TrainCard pickFaceUpCard(TrainCard card) {
         TrainCard cardDrawn = null;
-        int index = -1;
         for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
             cardDrawn = faceUpTrainCardDeck.get(i);
             if (cardDrawn.getId().equals(card.getId())) {
-                faceUpTrainCardDeck.set(i, faceDownTrainCardDeck.get(i));
-                faceDownTrainCardDeck.remove(i);
-                return cardDrawn;
+                faceUpTrainCardDeck.set(i, faceDownTrainCardDeck.get(0));
+                faceDownTrainCardDeck.remove(0);
+                break;
             }
         }
-        if (index != -1) {
-            cardDrawn = faceUpTrainCardDeck.get(index);
-            faceUpTrainCardDeck.remove(index);
-            return cardDrawn;
+        checkWildCardsInFaceUpDeck();
+        return cardDrawn;
+    }
+
+    private void checkWildCardsInFaceUpDeck() {
+        int wildCount = 0;
+        for (TrainCard card : faceUpTrainCardDeck) {
+            if (card.getColor() == WILD) {
+                wildCount++;
+            }
         }
-        return null;
+        if (wildCount >= 3) {
+            resetFaceUpDeck();
+            checkWildCardsInFaceUpDeck();
+        }
+    }
+
+    private void resetFaceUpDeck() {
+        discardPile.addAll(faceUpTrainCardDeck);
+        for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
+            faceUpTrainCardDeck.set(i, drawFaceDownCard());
+        }
     }
 
     public List<DestinationCard> drawDestinationCards() {
-        List<DestinationCard> drawnCards = null;
+        List<DestinationCard> drawnCards = new ArrayList<>();
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
         drawnCards.add(destinationCardDeck.get(0));
         destinationCardDeck.remove(0);
-        setDestinationCarDeckSize(getDestinationCarDeckSize() - 3);
+        setDestinationCarDeckSize(destinationCardDeck.size());
         return drawnCards;
     }
 
