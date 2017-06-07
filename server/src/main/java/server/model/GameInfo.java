@@ -131,6 +131,14 @@ public class GameInfo extends iGameInfo {
     }
 
     public TrainCard drawFaceDownCard() {
+        if (faceDownTrainCardDeck.size() == 0) {
+            faceDownTrainCardDeck.addAll(discardPile);
+            discardPile.clear();
+            Collections.shuffle(faceDownTrainCardDeck);
+            if (faceDownTrainCardDeck.size() == 0) {
+                return null;
+            }
+        }
         TrainCard drawnCard = faceDownTrainCardDeck.get(0);
         faceDownTrainCardDeck.remove(0);
         setTrainCardDeckSize(faceDownTrainCardDeck.size());
@@ -141,8 +149,7 @@ public class GameInfo extends iGameInfo {
         for (int i = 0; i < faceUpTrainCardDeck.size(); i++) {
             cardDrawn = faceUpTrainCardDeck.get(i);
             if (cardDrawn.getId().equals(card.getId())) {
-                faceUpTrainCardDeck.set(i, faceDownTrainCardDeck.get(0));
-                faceDownTrainCardDeck.remove(0);
+                faceUpTrainCardDeck.set(i, drawFaceDownCard());
                 break;
             }
         }
