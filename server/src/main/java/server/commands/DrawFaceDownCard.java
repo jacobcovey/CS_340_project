@@ -25,6 +25,8 @@ public class DrawFaceDownCard implements iCommand {
 
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
 
+        gameInfo.addRouteOwnersForTesting();
+
         TrainCard cardDrawn = gameInfo.drawFaceDownCard();
         List<Player> players = gameInfo.getPlayers();
         Player currentPlayer = null;
