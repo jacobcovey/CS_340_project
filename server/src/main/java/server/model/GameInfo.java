@@ -195,9 +195,16 @@ public class GameInfo extends iGameInfo {
 
         List<Route> playerRoutes = new ArrayList<Route>();
 
-        for(Route route: getServerRoutes() ) {
-            if (route.getPlayer().getUserName().equalsIgnoreCase(userName)) {
-                playerRoutes.add(route);
+        List<Route> routes = getServerRoutes();
+
+        for(Route route: routes ) {
+            Player player = route.getPlayer();
+            if ( player != null) {
+                Player compPlayer = route.getPlayer();
+                String compName = compPlayer.getUserName();
+                if (compName.equalsIgnoreCase(userName)) {
+                    playerRoutes.add(route);
+                }
             }
         }
         boolean connectedToCityOne = false;
@@ -232,7 +239,7 @@ public class GameInfo extends iGameInfo {
         }
         for (Route thisRoute : pr) {
             if (thisRoute.isEqual(route)) {
-                break;
+                ;
             }
             else if (thisRoute.getCity1().isEqual(city)) {
                 dcCompletedHelper(thisRoute.getCity2(), pr, thisRoute, dc);
@@ -243,33 +250,50 @@ public class GameInfo extends iGameInfo {
         }
     }
 
-    public  void addRouteOwnersForTesting() {
-        Set<TrainCard> trainCards = new HashSet<TrainCard>();
-        Player player1 = new Player(PlayerColors.RED,trainCards,"John");
-
-        List<Route> routes = getServerRoutes();
-
-        int count = 0;
-
-        for (Route r : routes) {
-            if (count < 2) {
-                count++;
-            } else {
-                r.claim(player1);
-                count = 0;
-            }
-        }
-        setServerRoutes(routes);
-
-        City city1 = new City("Denver");
-        City city2 = new City("El Paso");
-
-        DestinationCard dc = new DestinationCard(city1,city2,4);
-
-        destinationCardCompleted(dc,"John");
-
-
-    }
+//    public  void addRouteOwnersForTesting() {
+//        Set<TrainCard> trainCards = new HashSet<TrainCard>();
+//        Player player1 = new Player(PlayerColors.RED,trainCards,"John");
+//
+//        List<Route> routes = getServerRoutes();
+//
+//        int count = 0;
+//
+//        Route r1 = routes.get(28);
+//        Route r2 = routes.get(29);
+//
+//        r1.claim(player1);
+//        r2.claim(player1);
+//
+//        setServerRoutes(routes);
+////        for (Route r : routes) {
+////            r.claim(player1);
+////            if (count < 1) {
+////                count++;
+////            } else {
+////                r.claim(player1);
+////                count = 0;
+////            }
+////        }
+////        setServerRoutes(routes);
+//
+//
+////        City city1 = new City("Denver");
+////        City city2 = new City("El Paso");
+////
+////        DestinationCard dc = new DestinationCard(city1,city2,4);
+//
+//        List<DestinationCard> destinationCards = getDestinationCardDeck();
+//
+//        for (DestinationCard card: destinationCards) {
+//            destinationCardCompleted(card,"John");
+//        }
+//
+////        DestinationCard dc = getDestinationCardDeck().get(1);
+//
+////        destinationCardCompleted(dc,"John");
+//
+//
+//    }
 
     public void setLastTurn(Player player) {
         isLastTurn = true;

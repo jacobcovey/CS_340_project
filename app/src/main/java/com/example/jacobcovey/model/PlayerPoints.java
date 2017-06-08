@@ -3,7 +3,9 @@ package com.example.jacobcovey.model;
 import android.support.annotation.NonNull;
 
 import java.util.Comparator;
+import java.util.Set;
 
+import shared.classes.DestinationCard;
 import shared.classes.Player;
 
 /**
@@ -62,9 +64,16 @@ public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<Player
 
     public void calculateDestinationPoints(GameInfo gameInfo) {
 
-        destinationsReachedPoints = 10;
-        unreachedDestinationPoints = -5;
+        Set<DestinationCard> cards = player.getDestinationCards();
 
+        for (DestinationCard card : cards ) {
+            if (card.isComplete()) {
+                destinationsReachedPoints += card.getPoints();
+            }
+            else {
+                unreachedDestinationPoints -= card.getPoints();
+            }
+        }
     }
 
     @Override

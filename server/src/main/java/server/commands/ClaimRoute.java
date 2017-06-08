@@ -2,10 +2,12 @@ package server.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import server.ServerFacade;
 import server.model.GameInfo;
 import shared.classes.CommandData;
+import shared.classes.DestinationCard;
 import shared.classes.Player;
 import shared.classes.Route;
 import shared.interfaces.iCommand;
@@ -48,6 +50,11 @@ public class ClaimRoute implements iCommand {
 
         serverFacade.addCommandToGame(
                 new CommandData(CommandData.Type.ROUTECLAIMED, data), gameId);
+
+        Set<DestinationCard> playerDestinationCards = currentPlayer.getDestinationCards();
+        for (DestinationCard card: playerDestinationCards) {
+            gameInfo.destinationCardCompleted(card, currentPlayer.getUserName());
+        }
 
         return new ArrayList<>();
     }
