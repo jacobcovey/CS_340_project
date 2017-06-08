@@ -109,21 +109,46 @@ public class GameOverCommand implements iCommand {
         Stack<Route> currentPath = new Stack<>();
         visitedRoutes.add(route);
         currentPath.push(route);
-        traverseUnvisitedChildRoute(route.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+        traverseUnvisitedChildRoute(new Stack<String>(), route, route.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
         return calculateLargestLength(routeLengths);
     }
 
 
-    public void traverseUnvisitedChildRoute(List<Route> routeChildren, Stack<Route> currentPath, List<Integer> routeLengths, Set<Route> visitedRoutes){
+    public void traverseUnvisitedChildRoute(Stack<String> cityPath, Route currentRoute, List<Route> routeChildren, Stack<Route> currentPath, List<Integer> routeLengths, Set<Route> visitedRoutes){
         for (Route routeChild : routeChildren) {
             if (!visitedRoutes.contains(routeChild)) {
-                currentPath.push(routeChild);
-                visitedRoutes.add(routeChild);
-                traverseUnvisitedChildRoute(routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                if (cityPath.size() > 0) {
+                    if (!cityPath.peek().equals(routeChild.getCity1().getName()) && !cityPath.peek().equals(routeChild.getCity2().getName())) {
+                        if (currentRoute.getCity1().getName().equals(routeChild.getCity1().getName()) || currentRoute.getCity1().getName().equals(routeChild.getCity2().getName())) {
+                            cityPath.push(currentRoute.getCity1().getName());
+                        }
+                        else {
+                            cityPath.push(currentRoute.getCity2().getName());
+                        }
+                        currentPath.push(routeChild);
+                        visitedRoutes.add(routeChild);
+                        traverseUnvisitedChildRoute(cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                    }
+                }
+                else {
+                    if (currentRoute.getCity1().getName().equals(routeChild.getCity1().getName()) || currentRoute.getCity1().getName().equals(routeChild.getCity2().getName())) {
+                        cityPath.push(currentRoute.getCity1().getName());
+                    }
+                    else {
+                        cityPath.push(currentRoute.getCity2().getName());
+                    }
+                    currentPath.push(routeChild);
+                    visitedRoutes.add(routeChild);
+                    traverseUnvisitedChildRoute(cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                }
             }
         }
         routeLengths.add(calculateCurrentLength(currentPath));
         currentPath.pop();
+        currentPath.pop();
+        if (cityPath.size() > 0) {
+            cityPath.pop();
+        }
     }
 
     public Integer calculateCurrentLength(Stack<Route> currentPath) {
