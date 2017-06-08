@@ -1,6 +1,8 @@
 package shared.classes;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import static shared.constants.Constants.NUMBEROFTRAINCARS;
@@ -16,6 +18,7 @@ public class Player {
     private Set<TrainCard> trainCards = new HashSet<TrainCard>();
     private Set<DestinationCard> destinationCards = new HashSet<DestinationCard>();
     private Set<DestinationCard> drawnDestinationCards;
+    private Map<String, Integer> pointsInfo = new HashMap<>();
     private int points;
     private String userName;
 
@@ -26,6 +29,11 @@ public class Player {
         this.destinationCards = new HashSet<DestinationCard>();
         this.points = 0;
         this.userName = userName;
+        pointsInfo.put("Claimed_Route_Points", 0);
+        pointsInfo.put("Longest_Route_Points", 0);
+        pointsInfo.put("Destinations_Reached_Points", 0);
+        pointsInfo.put("Unreached_Destinations_Points", 0);
+        pointsInfo.put("Total_Points", 0);
     }
 
     public Player(PlayerColors color, int numberOfTrains, Set<TrainCard> trainCards, Set<DestinationCard> destinationCards, int points, String userName) {
@@ -35,6 +43,11 @@ public class Player {
         this.destinationCards = destinationCards;
         this.points = points;
         this.userName = userName;
+        pointsInfo.put("Claimed_Route_Points", 0);
+        pointsInfo.put("Longest_Route_Points", 0);
+        pointsInfo.put("Destinations_Reached_Points", 0);
+        pointsInfo.put("Unreached_Destinations_Points", 0);
+        pointsInfo.put("Total_Points", 0);
     }
 
     public PlayerColors getColor() {
@@ -96,5 +109,11 @@ public class Player {
         for (DestinationCard card : cards) {
             destinationCards.add(card);
         }
+    }
+    public Map<String, Integer> getPointsInfo() {
+        return pointsInfo;
+    }
+    public void addPointsInfo(String pointsCategory, Integer points) {
+        pointsInfo.put(pointsCategory, points);
     }
 }
