@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import sun.text.normalizer.Trie;
+
 
 /**
  * Created by billrichards on 5/24/17.
@@ -59,17 +61,18 @@ public class Route {
     public boolean isRoute(Route route) {
         return this.equals(route);
     }
-    public boolean canClaim(Player player) {
+
+    public boolean canClaim(Player player, List<TrainCard> trainCards) {
         if (isClaimed) {
             return false;
         }
         if (player.getNumberOfTrains() < getLength()) {
             return false;
         }
-        Set<TrainCard> allCards = player.getTrainCards();
         int correctCardCount = 0;
-        for (TrainCard card : allCards) {
-            if (card.getColor() == this.getRouteColor()) {
+        for (TrainCard card : trainCards) {
+            if (card.getColor() == getRouteColor() ||
+                    card.getColor() == TrainCardColors.WILD) {
                 correctCardCount++;
             }
         }
@@ -78,14 +81,11 @@ public class Route {
         }
         return true;
     }
-    public void claim(Player player) {
+
+    public void claim(Player player, List<TrainCard> cards) {
         Set<TrainCard> allCards = player.getTrainCards();
-        int cardsToRemove = this.getLength();
-        for (TrainCard card : allCards) {
-            if (card.getColor() == this.getRouteColor() && cardsToRemove != 0) {
-                allCards.remove(card);
-                cardsToRemove--;
-            }
+        for (TrainCard card : cards) {
+            allCards.remove(card);
         }
         player.setNumberOfTrains(player.getNumberOfTrains() - getLength());
         this.player = player;

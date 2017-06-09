@@ -6,10 +6,12 @@ import java.util.Set;
 
 import server.ServerFacade;
 import server.model.GameInfo;
+import shared.classes.ClaimRouteData;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Player;
 import shared.classes.Route;
+import shared.classes.TrainCard;
 import shared.interfaces.iCommand;
 
 /**
@@ -17,13 +19,15 @@ import shared.interfaces.iCommand;
  */
 
 public class ClaimRoute implements iCommand {
-    Route data;
+    ClaimRouteData data;
     String gameId;
     String userName;
 
     public List<CommandData> execute() {
         ServerFacade serverFacade = ServerFacade._instance;
         GameInfo gameInfo = serverFacade.getGameInfo(gameId);
+        Route claimedRoute = data.getRoute();
+        List<TrainCard> trainCards = data.getTrainCards();
 
         List<Player> players = gameInfo.getPlayers();
         Player currentPlayer = null;
@@ -32,11 +36,12 @@ public class ClaimRoute implements iCommand {
                 currentPlayer = player;
             }
         }
+
         List<Route> routeList = gameInfo.getServerRoutes();
         for (Route route : routeList) {
-            if (route.isRoute(data)) {
-                if (route.canClaim(currentPlayer)) {
-                    route.claim(currentPlayer);
+            if (route.isRoute(claimedRoute)) {
+                if (route.canClaim(currentPlayer, trainCards)) {
+                    route.claim(currentPlayer, trainCards);
                 }
             }
         }
