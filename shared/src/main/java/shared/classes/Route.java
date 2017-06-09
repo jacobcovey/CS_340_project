@@ -4,47 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
 /**
  * Created by billrichards on 5/24/17.
  */
 
 public class Route {
 
-    private TrainCardColors color;
+    List<Route> adjacentRoutes = new ArrayList<>();
+    private int id;
     private int length;
-    private String id;
-    private City city1;
-    private City city2;
     private int points;
-    private double xCoordinate;
-    private double yCoordinate;
     private Player player;
     private boolean isClaimed;
-    List<Route> adjacentRoutes = new ArrayList<>();
+    private City city1;
+    private City city2;
+    private TrainCardColors routeColor;
 
-    public Route(TrainCardColors color, int length, City city1, City city2, int points) {
-        this.color = color;
-        this.length = length;
-        this.city1 = city1;
-        this.city2 = city2;
-        this.points = points;
-        this.player = null;
-        this.isClaimed = false;
+    public Route(int size, int id, TrainCardColors routeColor, String city1, String city2) {
+        this.id = id;
+        length = size;
+        setPointsBasedOnLength();
+
+        this.routeColor = routeColor;
+        this.city1 = new City(city1);
+        this.city2 = new City(city2);
+        isClaimed = false;
     }
 
-    public Route(TrainCardColors color, int length, City city1, City city2, double x, double y) {
-        this.color = color;
-        this.length = length;
-        this.city1 = city1;
-        this.city2 = city2;
-        this.xCoordinate = x;
-        this.yCoordinate = y;
-        this.points = calcPoint();
-        this.player = null;
-        this.isClaimed = false;
-    }
+    public TrainCardColors getRouteColor() { return routeColor; }
 
-    public TrainCardColors getColor() { return color; }
+    public int getId() {
+        return id;
+    }
 
     public int getLength() { return length; }
 
@@ -77,7 +69,7 @@ public class Route {
         Set<TrainCard> allCards = player.getTrainCards();
         int correctCardCount = 0;
         for (TrainCard card : allCards) {
-            if (card.getColor() == this.getColor()) {
+            if (card.getColor() == this.getRouteColor()) {
                 correctCardCount++;
             }
         }
@@ -90,7 +82,7 @@ public class Route {
         Set<TrainCard> allCards = player.getTrainCards();
         int cardsToRemove = this.getLength();
         for (TrainCard card : allCards) {
-            if (card.getColor() == this.getColor() && cardsToRemove != 0) {
+            if (card.getColor() == this.getRouteColor() && cardsToRemove != 0) {
                 allCards.remove(card);
                 cardsToRemove--;
             }
@@ -126,6 +118,29 @@ public class Route {
     }
     public void addAdjacentRoutes(Route route) {
         adjacentRoutes.add(route);
+    }
+
+    public void setPointsBasedOnLength() {
+        switch (length) {
+            case 1:
+                points = 1;
+                return;
+            case 2:
+                points = 2;
+                return;
+            case 3:
+                points = 4;
+                return;
+            case 4:
+                points = 7;
+                return;
+            case 5:
+                points = 10;
+                return;
+            case 6:
+                points = 15;
+                return;
+        }
     }
 
 }

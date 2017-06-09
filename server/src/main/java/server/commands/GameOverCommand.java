@@ -1,7 +1,5 @@
 package server.commands;
 
-import com.sun.corba.se.spi.activation.Server;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,10 +9,8 @@ import java.util.Set;
 import java.util.Stack;
 
 import server.ServerFacade;
-import server.model.GameInfo;
-import shared.classes.City;
 import shared.classes.CommandData;
-import shared.classes.Game;
+import shared.classes.DestinationCard;
 import shared.classes.Player;
 import shared.classes.Route;
 import shared.interfaces.iCommand;
@@ -30,21 +26,33 @@ public class GameOverCommand implements iCommand {
 
     public List<CommandData> execute() {
         int longestRoute = 0;
+        Map<Player, Map<String, Integer>> playerPointsInfo = new HashMap<>();
 
         List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
 
+        //Claimed Route Points
         Map<Player, List<Route>> playerRoutes = getPlayerRoutes(players);
+        calculateRoutePoints(players, playerRoutes);
+
+        //Longest Route Points
         playerRoutes = attachAdjacentRoutes(playerRoutes, players);
+        List<Player> longestRoutePlayers = getLongestRouteLength(playerRoutes, players);
+        calculateLongestRoutePoints(longestRoutePlayers);
 
-        Map<Player, Integer> playersLongestRoutes = new HashMap<>();
-        List<Player> winners = getLongestRouteLength(playersLongestRoutes, playerRoutes, players);
+        //Destination Card Points
+        calculateDestinationCardPoints(players);
 
+        //Total Points
+        calculateTotalPoints(players);
+
+        Player winner = determineWinners(players);
         return null;
     }
 
-    //attaches all routes to the associated Player
+    //CLAIMED ROUTE POINTS
+    //Maps each claimed Route to the associated Player
     public Map<Player, List<Route>> getPlayerRoutes(List<Player> players) {
-        List<Route> allRoutes = ServerFacade._instance.getGameInfo(gameId).getRoutes();
+        List<Route> allRoutes = ServerFacade._instance.getGameInfo(gameId).getServerRoutes();
         Map<Player, List<Route>> playerRoutes = new HashMap<>();
         for (Player player : players) {
             if (!playerRoutes.containsKey(player)) {
@@ -58,6 +66,21 @@ public class GameOverCommand implements iCommand {
         }
         return playerRoutes;
     }
+    //Calculates and adds claimed Route points for each Player
+    public void calculateRoutePoints(List<Player> players, Map<Player, List<Route>> playerRoutes) {
+        int pointsCounter;
+        for (Player player : players) {
+            pointsCounter = 0;
+            List<Route> routes = playerRoutes.get(player);
+            for (Route route : routes) {
+                pointsCounter += route.getPoints();
+            }
+            player.addPointsInfo("Claimed_Route_Points", pointsCounter);
+        }
+    }
+
+    //LONGEST ROUTE POINTS
+    //Each Player's claimed Routes are connected when adjacent
     public Map<Player, List<Route>> attachAdjacentRoutes(Map<Player, List<Route>> playerRoutes, List<Player> players) {
         for (Player player : players) {
             for (Route parentRoute : playerRoutes.get(player)) {
@@ -73,29 +96,29 @@ public class GameOverCommand implements iCommand {
         }
         return playerRoutes;
     }
-
-
-    public List<Player> getLongestRouteLength(Map<Player, Integer> playerLongestRoutes, Map<Player,List<Route>> playerRoutes, List<Player> players) {
+    //Finds Longest Route among all Players
+    public List<Player> getLongestRouteLength(Map<Player,List<Route>> playerRoutes, List<Player> players) {
         int longestRoute = 0;
+        Map<Player, Integer> playersLongestRoutes = new HashMap<>();
         //finds each players longest route
         for (Player player : players) {
             int playersLongestRoute = calcLongestRouteEachPlayer(playerRoutes.get(player));
-            playerLongestRoutes.put(player, playersLongestRoute);
+            playersLongestRoutes.put(player, playersLongestRoute);
             if (longestRoute < playersLongestRoute) {
                 longestRoute = playersLongestRoute;
             }
         }
 
-        List<Player> winners = new ArrayList<>();
+        List<Player> longestRoutePlayers = new ArrayList<>();
         //determines which players have the longest routes
         for (Player player : players) {
-            if (longestRoute == playerLongestRoutes.get(player)) {
-                winners.add(player);
+            if (longestRoute == playersLongestRoutes.get(player)) {
+                longestRoutePlayers.add(player);
             }
         }
-        return winners;
+        return longestRoutePlayers;
     }
-
+    //Finds Longest Route for a Player
     public int calcLongestRouteEachPlayer(List<Route> playerRoutes) {
         int longestSingleRoute = 0;
         for (Route playerRoute : playerRoutes) {
@@ -106,7 +129,7 @@ public class GameOverCommand implements iCommand {
         }
         return longestSingleRoute;
     }
-
+    //Finds the Longest Route starting at a specific Route
     public int calcLongestRouteEachRoute(Route route) {
         int longestRoute = 0;
         Set<Route> visitedRoutes = new HashSet<>();
@@ -114,23 +137,47 @@ public class GameOverCommand implements iCommand {
         Stack<Route> currentPath = new Stack<>();
         visitedRoutes.add(route);
         currentPath.push(route);
-        traverseUnvisitedChildRoute(route.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+        traverseUnvisitedChildRoute(new Stack<String>(), route, route.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
         return calculateLargestLength(routeLengths);
     }
-
-
-    public void traverseUnvisitedChildRoute(List<Route> routeChildren, Stack<Route> currentPath, List<Integer> routeLengths, Set<Route> visitedRoutes){
+    //Traverses the Connected Claimed Routes
+    public void traverseUnvisitedChildRoute(Stack<String> cityPath, Route currentRoute, List<Route> routeChildren, Stack<Route> currentPath, List<Integer> routeLengths, Set<Route> visitedRoutes){
         for (Route routeChild : routeChildren) {
             if (!visitedRoutes.contains(routeChild)) {
-                currentPath.push(routeChild);
-                visitedRoutes.add(routeChild);
-                traverseUnvisitedChildRoute(routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                if (cityPath.size() > 0) {
+                    if (!cityPath.peek().equals(routeChild.getCity1().getName()) && !cityPath.peek().equals(routeChild.getCity2().getName())) {
+                        if (currentRoute.getCity1().getName().equals(routeChild.getCity1().getName()) || currentRoute.getCity1().getName().equals(routeChild.getCity2().getName())) {
+                            cityPath.push(currentRoute.getCity1().getName());
+                        }
+                        else {
+                            cityPath.push(currentRoute.getCity2().getName());
+                        }
+                        currentPath.push(routeChild);
+                        visitedRoutes.add(routeChild);
+                        traverseUnvisitedChildRoute(cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                    }
+                }
+                else {
+                    if (currentRoute.getCity1().getName().equals(routeChild.getCity1().getName()) || currentRoute.getCity1().getName().equals(routeChild.getCity2().getName())) {
+                        cityPath.push(currentRoute.getCity1().getName());
+                    }
+                    else {
+                        cityPath.push(currentRoute.getCity2().getName());
+                    }
+                    currentPath.push(routeChild);
+                    visitedRoutes.add(routeChild);
+                    traverseUnvisitedChildRoute(cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                }
             }
         }
         routeLengths.add(calculateCurrentLength(currentPath));
         currentPath.pop();
+        currentPath.pop();
+        if (cityPath.size() > 0) {
+            cityPath.pop();
+        }
     }
-
+    //Calculate the Length given a Route Path
     public Integer calculateCurrentLength(Stack<Route> currentPath) {
         int length = 0;
         for (Route route : currentPath) {
@@ -138,7 +185,7 @@ public class GameOverCommand implements iCommand {
         }
         return length;
     }
-
+    //Finds the Largest Route among all possible Route Paths
     public int calculateLargestLength(List<Integer> routeLengths) {
         int largestLength = 0;
         for (int i : routeLengths) {
@@ -147,5 +194,100 @@ public class GameOverCommand implements iCommand {
             }
         }
         return largestLength;
+    }
+    //Calculates and adds Longest Route points for each Player
+    public void calculateLongestRoutePoints(List<Player> longestRoutePlayers) {
+        for (Player player : longestRoutePlayers) {
+            player.addPointsInfo("Longest_Route_Points", 10);
+        }
+    }
+
+    //DESTINATIONS REACHED POINTS & UNREACHED DESTINATIONS POINTS
+    //Calculates and adds Destinations Reached & Unreached Destinations points for each Player
+    public void calculateDestinationCardPoints(List<Player> players) {
+        int reachedPoints;
+        int unreachedPoints;
+        for (Player player : players) {
+            reachedPoints = 0;
+            unreachedPoints = 0;
+            Set<DestinationCard> destinationCards = player.getDestinationCards();
+            for (DestinationCard destinationCard : destinationCards) {
+                if (destinationCard.isComplete()) {
+                    reachedPoints += destinationCard.getPoints();
+                }
+                else {
+                    unreachedPoints = unreachedPoints - destinationCard.getPoints();
+                }
+            }
+            player.addPointsInfo("Destinations_Reached_Points", reachedPoints);
+            player.addPointsInfo("Unreached_Destinations_Points", unreachedPoints);
+        }
+    }
+
+    //TOTAL POINTS
+    public void calculateTotalPoints(List<Player> players) {
+        int totalPoints;
+        for (Player player : players) {
+            totalPoints = 0;
+            for (int points : player.getPointsInfo().values()) {
+                totalPoints += points;
+            }
+            player.addPointsInfo("Total_Points", totalPoints);
+        }
+    }
+
+    //Find Winner
+    public Player determineWinners(List<Player> players) {
+        //Most Points
+        int mostPoints = 0;
+        List<Player> totalPointsWinners = new ArrayList<>();
+        for (Player player : players) {
+            if (mostPoints < player.getPointsInfo().get("Total_Points")) {
+                mostPoints = player.getPointsInfo().get("Total_Points");
+            }
+        }
+        for (Player player : players) {
+            if (mostPoints == player.getPointsInfo().get("Total_Points")) {
+                totalPointsWinners.add(player);
+            }
+        }
+        if (totalPointsWinners.size() == 1) {
+            return totalPointsWinners.get(0);
+        }
+
+        //Most Destination Tickets
+        int destinationCount;
+        int largestDestinationCount = 0;
+        Map<Player, Integer> playersDestinationCounts = new HashMap<>();
+        for (Player player : players) {
+            destinationCount = 0;
+            Set<DestinationCard> destinationCards = player.getDestinationCards();
+            for (DestinationCard destinationCard : destinationCards) {
+                if (destinationCard.isComplete()) {
+                    destinationCount++;
+                }
+            }
+            playersDestinationCounts.put(player, destinationCount);
+            if (largestDestinationCount < destinationCount) {
+                largestDestinationCount = destinationCount;
+            }
+        }
+        List<Player> destinationCountWinners = new ArrayList<>();
+        for (Player player : totalPointsWinners) {
+            if (largestDestinationCount == playersDestinationCounts.get(player)) {
+                destinationCountWinners.add(player);
+            }
+        }
+        if (destinationCountWinners.size() == 1) {
+            return destinationCountWinners.get(0);
+        }
+
+        //Longest Path Winner
+        for (Player player : players) {
+            if (player.getPointsInfo().get("Longest_Route_Points") == 10) {
+                return player;
+            }
+        }
+        return null;
     }
 }

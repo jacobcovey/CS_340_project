@@ -65,7 +65,7 @@ public class ClientFacade implements iClient {
     }
 
 
-    public iGameInfo getGameInfo() {
+    public GameInfo getGameInfo() {
         return ClientModelRoot._instance.getGameInfo();
     }
     public Chat getChat() {

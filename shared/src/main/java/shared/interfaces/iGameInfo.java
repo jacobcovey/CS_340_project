@@ -17,17 +17,12 @@ import shared.classes.Turn;
 
 public abstract class iGameInfo {
 
-    private List<Route> routes = new ArrayList<>();
     private List<Player> players = new ArrayList<>();
     private Chat chat = new Chat(new ArrayList<ChatMessage>());
     private History history = new History(new ArrayList<HistoryAction>());
     private Turn turn;
     private int TrainCardDeckSize;
     private int DestinationCarDeckSize;
-
-    public List<Route> getRoutes() {
-        return routes;
-    }
 
     public List<Player> getPlayers() {
         return players;
@@ -41,10 +36,6 @@ public abstract class iGameInfo {
 
     public Turn getTurn() {
         return turn;
-    }
-
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
     }
 
     public void setPlayers(List<Player> players) {
