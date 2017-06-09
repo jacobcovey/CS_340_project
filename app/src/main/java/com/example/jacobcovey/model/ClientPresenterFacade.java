@@ -96,6 +96,9 @@ public class ClientPresenterFacade {
         ClaimRouteData data = new ClaimRouteData(trainCards, route);
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, data, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
+    public void calculateLongestRoute() throws IOException {
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.GAMEOVER, "Calculating Longest Path", ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
+    }
 
     public Chat getChat() { return ClientFacade._instance.getChat(); }
     public History getHistory() { return ClientFacade._instance.getHistory(); }
@@ -177,4 +180,5 @@ public class ClientPresenterFacade {
         Turn.TurnState state = getTurn().getState();
         return (state == Turn.TurnState.BEGINNING || state == Turn.TurnState.ONETRAINCARDSELECTED);
     }
+
 }
