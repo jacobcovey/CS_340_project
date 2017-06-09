@@ -29,7 +29,6 @@ public class ClientCommunicator {
         List<CommandData> data = null;
         try {
             String serverHost = "192.168.1.212";
-
             String serverPort = "4000";
 
             URL url = new URL("http://" + serverHost + ":" + serverPort + "/executecommand");
