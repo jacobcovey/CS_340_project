@@ -9,6 +9,7 @@ import server.model.GameInfo;
 import shared.classes.ClaimRouteData;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.Route;
 import shared.classes.TrainCard;
@@ -56,6 +57,9 @@ public class ClaimRoute implements iCommand {
 
         serverFacade.addCommandToGame(
                 new CommandData(CommandData.Type.ROUTECLAIMED, data), gameId);
+        HistoryAction action = new HistoryAction(userName, "claimed a route");
+        serverFacade.addCommandToGame(
+                new CommandData(CommandData.Type.SENDHISTORY, action), gameId);
 
         Set<DestinationCard> playerDestinationCards = currentPlayer.getDestinationCards();
         for (DestinationCard card: playerDestinationCards) {
