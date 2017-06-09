@@ -27,12 +27,6 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     public GameOverPresenter() {
         cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
-        try {
-            cpf.calculateGameOverPoints();
-        }
-        catch (IOException e) {
-            System.err.printf(e.getMessage());
-        }
     }
 
     @Override

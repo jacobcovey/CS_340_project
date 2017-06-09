@@ -143,6 +143,7 @@ public class ServerFacade {
         boolean isLastTurn = gameInfo.isLastTurn();
         if (isLastTurn && currentPlayer.getUserName().equals(gameInfo.getPlayerToTakeLasTurn().getUserName())) {
             gameOver(gameInfo);
+            return;
         }
         boolean isNextPlayer = false;
         Player nextPlayer = null;
@@ -194,9 +195,6 @@ public class ServerFacade {
 
         for (Player player : players) {
             player.addPlayerPoints();
-        }
-        for (Player player: players) {
-            ServerFacade._instance.addCommandToUser(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), player.getUserName());
         }
 
     }

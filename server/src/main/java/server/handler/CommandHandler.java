@@ -1,6 +1,7 @@
 package server.handler;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -9,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,8 @@ public class CommandHandler implements HttpHandler {
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
             List<CommandData> result = command.execute();
-            String toClient = gson.toJson(result);
+            Type commandDataListType = new TypeToken<List<CommandData>>(){}.getType();
+            String toClient = gson.toJson(result.toArray());
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();
             writeString(toClient, respBody);
