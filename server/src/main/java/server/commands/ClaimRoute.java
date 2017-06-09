@@ -26,7 +26,8 @@ public class ClaimRoute implements iCommand {
     public List<CommandData> execute() {
         ServerFacade serverFacade = ServerFacade._instance;
         GameInfo gameInfo = serverFacade.getGameInfo(gameId);
-        Route claimedRoute = data.getRoute();
+        int claimedRouteId = data.getRouteId();
+        Route claimedRoute = gameInfo.getRouteById(claimedRouteId);
         List<TrainCard> trainCards = data.getTrainCards();
 
         List<Player> players = gameInfo.getPlayers();
