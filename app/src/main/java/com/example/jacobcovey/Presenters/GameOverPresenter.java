@@ -27,6 +27,11 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     public GameOverPresenter() {
         cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
+        List<PlayerPoints> playerPoints = new ArrayList<>();
+        for (Player player: cpf.getGameInfo().getPlayers()) {
+            playerPoints.add(player.getPlayerPoints());
+        }
+        playerPointsList = playerPoints;
     }
 
     @Override
@@ -93,6 +98,9 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if (gameOverView != null) {
+            return;
+        }
         gameOverView.setScores(playerPointsList);
         gameOverView.setWinner(getWinningPlayerName());
 
