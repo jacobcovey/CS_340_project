@@ -85,6 +85,7 @@ public class Route {
             allCards.remove(card);
         }
         player.setNumberOfTrains(player.getNumberOfTrains() - getLength());
+        player.setPoints(player.getPoints() + getPoints());
         this.player = player;
         this.isClaimed = true;
     }
