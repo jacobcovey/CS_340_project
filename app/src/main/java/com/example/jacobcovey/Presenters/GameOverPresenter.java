@@ -1,11 +1,8 @@
 package com.example.jacobcovey.Presenters;
 
-import com.example.jacobcovey.Views.GameBoardView;
-import com.example.jacobcovey.Views.GameOverView;
 import com.example.jacobcovey.Views.iGameOverView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.model.GameInfo;
-import com.example.jacobcovey.model.PlayerPoints;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import shared.classes.Player;
+import shared.classes.PlayerPoints;
 
 /**
  * Created by jacobcovey on 6/5/17.
@@ -30,12 +28,11 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
         cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
         try {
-            cpf.calculateLongestRoute();
+            cpf.calculateGameOverPoints();
         }
         catch (IOException e) {
             System.err.printf(e.getMessage());
         }
-        updatePlayerPointsList();
     }
 
     @Override
@@ -55,17 +52,16 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
 
     @Override
     public String getWinningPlayerName() {
-        Collections.sort(playerPointsList);
         //Total Points Winners
         int mostPoints = 0;
         for (PlayerPoints playerPoints : playerPointsList) {
-            if (mostPoints < playerPoints.getTotalPoints()) {
-                mostPoints = playerPoints.getTotalPoints();
+            if (mostPoints < playerPoints.calculateTotalPoints()) {
+                mostPoints = playerPoints.calculateTotalPoints();
             }
         }
         List<PlayerPoints> totalPointsWinners = new ArrayList<>();
         for (PlayerPoints playerPoints : playerPointsList) {
-            if (mostPoints == playerPoints.getTotalPoints()) {
+            if (mostPoints == playerPoints.calculateTotalPoints()) {
                 totalPointsWinners.add(playerPoints);
             }
         }
@@ -105,21 +101,6 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     public void update(Observable o, Object arg) {
         gameOverView.setScores(playerPointsList);
         gameOverView.setWinner(getWinningPlayerName());
-
-    }
-
-    public void updatePlayerPointsList() {
-        GameInfo gameInfo = cpf.getGameInfo();
-        List<Player> players = gameInfo.getPlayers();
-
-        playerPointsList = new ArrayList<PlayerPoints>();
-
-        for (Player player : players) {
-            PlayerPoints playerPoints = new PlayerPoints(player,gameInfo);
-            playerPointsList.add(playerPoints);
-        }
-
-        //TODO add points for longest routes to appropriate players
 
     }
 }

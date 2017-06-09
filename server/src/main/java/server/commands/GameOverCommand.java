@@ -39,6 +39,11 @@ public class GameOverCommand implements iCommand {
         for (Player player : longestRoutePlayers) {
             player.setHasLongestRoad(true);
         }
+
+        for (Player player : players) {
+            player.addPlayerPoints();
+        }
+
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
         return null;
     }

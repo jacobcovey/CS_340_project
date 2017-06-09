@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import shared.interfaces.iGameInfo;
+
 import static shared.constants.Constants.NUMBEROFTRAINCARS;
 
 /**
@@ -21,6 +23,7 @@ public class Player {
     private int points;
     private String userName;
     private boolean hasLongestRoad;
+    private PlayerPoints playerPoints;
 
     public Player(PlayerColors color, Set<TrainCard> trainCards, String userName) {
         this.color = color;
@@ -107,5 +110,11 @@ public class Player {
     }
     public void setHasLongestRoad(boolean hasLongestRoad) {
         this.hasLongestRoad = hasLongestRoad;
+    }
+    public PlayerPoints getPlayerPoints() {
+        return playerPoints;
+    }
+    public void addPlayerPoints() {
+        playerPoints = new PlayerPoints(this, points, hasLongestRoad, destinationCards);
     }
 }
