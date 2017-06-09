@@ -1,16 +1,13 @@
 package shared.classes;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * Created by billrichards on 5/24/17.
  */
 
 public class TrainCard {
 
-    @Expose
     private TrainCardColors color;
-    @Expose
+
     private String id;
 
     public TrainCard(TrainCardColors color) {

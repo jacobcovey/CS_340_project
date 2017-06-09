@@ -1,14 +1,11 @@
 package shared.classes;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * Created by billrichards on 5/24/17.
  */
 
 public class City {
 
-    @Expose
     private String name;
 
     public City(String name) {

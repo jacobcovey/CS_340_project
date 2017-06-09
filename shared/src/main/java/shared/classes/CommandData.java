@@ -1,7 +1,5 @@
 package shared.classes;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * Created by billrichards on 5/15/17.
  */
@@ -44,13 +42,9 @@ public class CommandData {
         GAMEOVER
     }
 
-    @Expose
     private Type type;
-    @Expose
     private Object data;
-    @Expose
     private String gameId;
-    @Expose
     private String userName;
 
     public CommandData(Type type, Object data) {

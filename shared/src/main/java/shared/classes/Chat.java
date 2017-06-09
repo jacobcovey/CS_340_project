@@ -1,7 +1,5 @@
 package shared.classes;
 
-import com.google.gson.annotations.Expose;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import java.util.List;
 
 public class Chat {
 
-    @Expose
     private List<ChatMessage> messages = new ArrayList<>();
 
     public Chat(List<ChatMessage> messages) {

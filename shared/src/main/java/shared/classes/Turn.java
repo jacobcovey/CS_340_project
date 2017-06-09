@@ -1,7 +1,5 @@
 package shared.classes;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * Created by billrichards on 5/24/17.
  */
@@ -16,9 +14,7 @@ public class Turn {
         LASTTURN
     }
 
-    @Expose
     private String player;
-    @Expose
     private TurnState state;
 
     public Turn(String player, TurnState state) {

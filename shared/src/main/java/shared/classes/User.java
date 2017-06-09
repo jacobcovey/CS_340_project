@@ -1,14 +1,9 @@
 package shared.classes;
 
-import com.google.gson.annotations.Expose;
-
 public class User {
 
-    @Expose
     private String username;
-    @Expose
     private String password;
-    @Expose
     private String authToken;
 
     public User(String username, String password) {

@@ -3,8 +3,6 @@ package com.example.jacobcovey.game_board;
 import android.graphics.Color;
 import android.graphics.PointF;
 
-import com.google.gson.annotations.Expose;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,27 +16,16 @@ import shared.classes.TrainCardColors;
 
 public class Route {
     public static final String TAG = "ROUTE";
-    @Expose
     private int id;
-    @Expose
     private int length;
-    @Expose
     private int points;
-    @Expose
     private List<PointF> segments;
-    @Expose
     private int playerColor;
-    @Expose
     private PointF centerPoint;
-    @Expose
     private Player player;
-    @Expose
     private boolean isClaimed;
-    @Expose
     private City city1;
-    @Expose
     private City city2;
-    @Expose
     private TrainCardColors routeColor;
 
     public Route(int size, int id, TrainCardColors routeColor, String city1, String city2, String segments) {

@@ -1,22 +1,15 @@
 package shared.classes;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * Created by billrichards on 5/24/17.
  */
 
 public class DestinationCard {
 
-    @Expose
     private String id;
-    @Expose
     private City city1;
-    @Expose
     private City city2;
-    @Expose
     private int points;
-    @Expose
     private boolean isComplete;
 
     public DestinationCard(City city1, City city2, int points) {

@@ -4,8 +4,6 @@ package shared.classes;
  * Created by Dylan on 6/8/2017.
  */
 
-import com.google.gson.annotations.Expose;
-
 import java.util.Comparator;
 import java.util.Set;
 
@@ -22,19 +20,12 @@ import shared.interfaces.iGameInfo;
 
 public class PlayerPoints {
 
-    @Expose
     private Player player;
-    @Expose
     private int claimedRoutPoints;
-    @Expose
     private int longestRoutePoints;
-    @Expose
     private int destinationsReachedPoints;
-    @Expose
     private int unreachedDestinationPoints;
-    @Expose
     private int totalPoints;
-    @Expose
     private int destinationTicketsCompleted;
 
     public PlayerPoints(Player player, int points, boolean hasLongestPath, Set<DestinationCard> destinationCards) {
