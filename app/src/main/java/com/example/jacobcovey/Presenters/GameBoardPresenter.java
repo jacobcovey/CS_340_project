@@ -6,6 +6,8 @@ import android.graphics.PointF;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.jacobcovey.Views.iGameBoardView;
 import com.example.jacobcovey.game_board.Route;
@@ -21,10 +23,13 @@ import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 
+import shared.classes.TrainCard;
+import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 
 import static com.example.jacobcovey.constants.Constants.CLAIMING_ROUTE;
@@ -33,6 +38,7 @@ import static com.example.jacobcovey.constants.Constants.FIRST_TURN;
 import static com.example.jacobcovey.constants.Constants.NOT_YOUR_TURN;
 import static com.example.jacobcovey.constants.Constants.ONE_TRAIN_CARD_SELECTED;
 import static com.example.jacobcovey.constants.Constants.YOUR_TURN;
+import static shared.classes.TrainCardColors.WILD;
 import static shared.classes.Turn.TurnState.DESTINATIONCARDSDRAWN;
 import static shared.classes.Turn.TurnState.FIRSTTURN;
 import static shared.classes.Turn.TurnState.ONETRAINCARDSELECTED;
@@ -271,10 +277,14 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
 
     private void createClaimRouteOptionsDialog(final Route closest) {
         AlertDialog.Builder builder = new AlertDialog.Builder(boardView.getActivity());
-        CharSequence text = "This Needs to be implemented, but I got to this point..."; //TODO: Implement better
+        String color = closest.getRouteColor() == WILD ? "of ANY ONE COLOR" :  closest.getRouteColor().toString();
+        CharSequence text = "This route requires " + closest.getLength() + color + " to claim"; //TODO: Implement better
         builder.setTitle(text);
         LayoutInflater inflater = boardView.getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.claim_route_options, null);
+        final Spinner colorSelector = (Spinner) v.findViewById(R.id.colorSelector);
+        final EditText numOfColor = (EditText) v.findViewById(R.id.numberOfColor);
+        final EditText numOfWild = (EditText) v.findViewById(R.id.numberOfWild);
         builder.setView(v);
         text = "Cancel";
         builder.setNegativeButton(text, new DialogInterface.OnClickListener() {
@@ -287,7 +297,32 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         builder.setPositiveButton(text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //TODO: Check to make sure everything is kosher 
+                TrainCardColors color = TrainCardColors.valueOf((String) colorSelector.getSelectedItem());
+                if (color != closest.getRouteColor() && closest.getRouteColor() != WILD) {
+                    boardView.displayToast("Invalid color selection, please select " + closest.getRouteColor());
+                    return;
+                }
+
+                int numberOfColor = Integer.parseInt(numOfColor.getText().toString());
+                int numberOfWild = Integer.parseInt(numOfWild.getText().toString());
+                if ((numberOfColor + numberOfWild) != closest.getLength()) {
+                    boardView.displayToast("Invalid number of cards selected, color cards and wild cards should add up to " + closest.getLength());
+                    return;
+                }
+
+                List<TrainCard> cardsToClaimRouteWith = new ArrayList<TrainCard>();
+                cardsToClaimRouteWith.addAll(cpf.getTrainCardsOfColor(numberOfColor, color));
+                if (cardsToClaimRouteWith.isEmpty() && numberOfColor != 0) {
+                    boardView.displayToast("Not enough " + color + " train cards to claim route as specified");
+                    return;
+                }
+                int tempSize = cardsToClaimRouteWith.size();
+
+                cardsToClaimRouteWith.addAll(cpf.getTrainCardsOfColor(numberOfWild, WILD));
+                if (cardsToClaimRouteWith.size() == tempSize && numberOfWild != 0) {
+                    boardView.displayToast("Not enough " + WILD + " train cards to claim route as specified");
+                    return;
+                }
                 dialogInterface.dismiss();
             }
         });
