@@ -95,8 +95,7 @@ public class ClientPresenterFacade {
     public void sendHistoryAction(HistoryAction action) throws  IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDHISTORY, action, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
-    public void claimRoute(Route route, List<TrainCard> trainCards) throws IOException {
-        ClaimRouteData data = new ClaimRouteData(trainCards, route);
+    public void claimRoute(ClaimRouteData data) throws IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, data, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
     public void calculateLongestRoute() throws IOException {

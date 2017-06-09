@@ -3,6 +3,7 @@ package com.example.jacobcovey.Presenters;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.jacobcovey.Views.iGameBoardView;
+import com.example.jacobcovey.commands.RouteClaimed;
 import com.example.jacobcovey.game_board.Route;
 
 import com.example.jacobcovey.game_board.TouchHandler;
@@ -23,11 +25,13 @@ import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 
+import shared.classes.ClaimRouteData;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.Turn;
@@ -279,7 +283,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     private void createClaimRouteOptionsDialog(final Route closest) {
         AlertDialog.Builder builder = new AlertDialog.Builder(boardView.getActivity());
         String color = closest.getRouteColor() == WILD ? "of ANY ONE COLOR" :  closest.getRouteColor().toString();
-        CharSequence text = "This route requires " + closest.getLength() + color + " to claim"; //TODO: Implement better
+        CharSequence text = "This route requires " + closest.getLength() + " " + color + " to claim"; //TODO: Implement better
         builder.setTitle(text);
         LayoutInflater inflater = boardView.getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.claim_route_options, null);
@@ -324,6 +328,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
                     boardView.displayToast("Not enough " + WILD + " train cards to claim route as specified");
                     return;
                 }
+                claimRouteRequest claimRouteRequest = new claimRouteRequest();
+                claimRouteRequest.execute(new ClaimRouteData(cardsToClaimRouteWith, closest.getId()));
                 dialogInterface.dismiss();
             }
         });
@@ -367,6 +373,29 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
             return;
         }
         setState(new NotYourTurn(this));
+    }
+
+    private class claimRouteRequest extends AsyncTask<ClaimRouteData, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(ClaimRouteData... params) {
+            try {
+                cpf.claimRoute(params[0]);
+            } catch (IOException e) {
+                System.err.printf(e.getMessage());
+                boardView.displayToast(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                boardView.displayToast("Route Claimed");
+            }
+        }
     }
 }
 

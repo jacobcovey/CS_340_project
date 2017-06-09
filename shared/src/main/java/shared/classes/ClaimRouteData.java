@@ -8,18 +8,18 @@ import java.util.List;
 
 public class ClaimRouteData {
     private List<TrainCard> trainCards;
-    private Route route;
+    private int routeId;
 
-    public ClaimRouteData(List<TrainCard> trainCards, Route route) {
+    public ClaimRouteData(List<TrainCard> trainCards, int routeId) {
         this.trainCards = trainCards;
-        this.route = route;
+        this.routeId = routeId;
     }
 
     public List<TrainCard> getTrainCards() {
         return trainCards;
     }
 
-    public Route getRoute() {
-        return route;
+    public int getRouteId() {
+        return routeId;
     }
 }
