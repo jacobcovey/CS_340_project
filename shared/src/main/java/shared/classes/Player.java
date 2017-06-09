@@ -115,6 +115,6 @@ public class Player {
         return playerPoints;
     }
     public void addPlayerPoints() {
-        playerPoints = new PlayerPoints(this, points, hasLongestRoad, destinationCards);
+        playerPoints = new PlayerPoints(userName, points, hasLongestRoad, destinationCards);
     }
 }

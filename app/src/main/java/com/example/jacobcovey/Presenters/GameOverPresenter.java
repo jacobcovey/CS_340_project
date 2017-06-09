@@ -60,7 +60,7 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
             }
         }
         if (totalPointsWinners.size() == 1) {
-            return totalPointsWinners.get(0).getPlayer().getUserName();
+            return totalPointsWinners.get(0).getUserName();
         }
         //Destination Tickets Winners
         int mostDestinations = 0;
@@ -76,11 +76,11 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
             }
         }
         if (destinationWinners.size() == 1) {
-            return destinationWinners.get(0).getPlayer().getUserName();
+            return destinationWinners.get(0).getUserName();
         }
         for (PlayerPoints playerPoints : playerPointsList) {
             if (playerPoints.getLongestRoutePoints() == 10) {
-                return playerPoints.getPlayer().getUserName();
+                return playerPoints.getUserName();
             }
         }
         return  null;
