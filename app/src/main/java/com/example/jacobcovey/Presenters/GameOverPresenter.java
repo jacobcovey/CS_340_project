@@ -47,8 +47,44 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     @Override
     public String getWinningPlayerName() {
         Collections.sort(playerPointsList);
-        PlayerPoints winnerPlayerPoints = playerPointsList.get(playerPointsList.size() - 1 );
-        return  winnerPlayerPoints.getPlayer().getUserName() ;
+        //Total Points Winners
+        int mostPoints = 0;
+        for (PlayerPoints playerPoints : playerPointsList) {
+            if (mostPoints < playerPoints.getTotalPoints()) {
+                mostPoints = playerPoints.getTotalPoints();
+            }
+        }
+        List<PlayerPoints> totalPointsWinners = new ArrayList<>();
+        for (PlayerPoints playerPoints : playerPointsList) {
+            if (mostPoints == playerPoints.getTotalPoints()) {
+                totalPointsWinners.add(playerPoints);
+            }
+        }
+        if (totalPointsWinners.size() == 1) {
+            return totalPointsWinners.get(0).getPlayer().getUserName();
+        }
+        //Destination Tickets Winners
+        int mostDestinations = 0;
+        for (PlayerPoints playerPoints : playerPointsList) {
+            if (mostDestinations < playerPoints.getDestinationTicketsCompleted()) {
+                mostDestinations = playerPoints.getDestinationTicketsCompleted();
+            }
+        }
+        List<PlayerPoints> destinationWinners = new ArrayList<>();
+        for (PlayerPoints playerPoints : playerPointsList) {
+            if (mostDestinations == playerPoints.getDestinationTicketsCompleted()) {
+                destinationWinners.add(playerPoints);
+            }
+        }
+        if (destinationWinners.size() == 1) {
+            return destinationWinners.get(0).getPlayer().getUserName();
+        }
+        for (PlayerPoints playerPoints : playerPointsList) {
+            if (playerPoints.getLongestRoutePoints() == 10) {
+                return playerPoints.getPlayer().getUserName();
+            }
+        }
+        return  null;
     }
 
     @Override

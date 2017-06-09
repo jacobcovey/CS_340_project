@@ -20,11 +20,18 @@ public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<Player
     private int destinationsReachedPoints;
     private int unreachedDestinationPoints;
     private int totalPoints;
+    private int destinationTicketsCompleted;
 
     public PlayerPoints(Player player, GameInfo gameInfo) {
         this.player = player;
         this.claimedRoutPoints = player.getPoints();
-        this.longestRoutePoints = 0;
+        if (player.getHasLongestRoad()) {
+            this.longestRoutePoints = 10;
+        }
+        else {
+            this.longestRoutePoints = 0;
+        }
+        this.destinationTicketsCompleted = 0;
         calculateDestinationPoints(gameInfo);
         this.totalPoints = claimedRoutPoints + longestRoutePoints + destinationsReachedPoints + unreachedDestinationPoints;
     }
@@ -58,6 +65,10 @@ public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<Player
         return totalPoints;
     }
 
+    public int getDestinationTicketsCompleted() {
+        return destinationTicketsCompleted;
+    }
+
     public int calculateTotalPoints() {
         return claimedRoutPoints + longestRoutePoints + destinationsReachedPoints + unreachedDestinationPoints;
     }
@@ -69,6 +80,7 @@ public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<Player
         for (DestinationCard card : cards ) {
             if (card.isComplete()) {
                 destinationsReachedPoints += card.getPoints();
+                destinationTicketsCompleted++;
             }
             else {
                 unreachedDestinationPoints -= card.getPoints();
