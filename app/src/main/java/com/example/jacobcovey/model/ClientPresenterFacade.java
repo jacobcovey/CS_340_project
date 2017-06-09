@@ -12,6 +12,7 @@ import java.util.Set;
 
 import shared.classes.Chat;
 import shared.classes.ChatMessage;
+import shared.classes.ClaimRouteData;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
@@ -94,8 +95,12 @@ public class ClientPresenterFacade {
     public void sendHistoryAction(HistoryAction action) throws  IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDHISTORY, action, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
-    public void claimRoute(Route route) throws IOException {
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, route, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
+    public void claimRoute(Route route, List<TrainCard> trainCards) throws IOException {
+        ClaimRouteData data = new ClaimRouteData(trainCards, route);
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, data, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
+    }
+    public void calculateLongestRoute() throws IOException {
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.GAMEOVER, "Calculating Longest Path", ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
 
     public Chat getChat() { return ClientFacade._instance.getChat(); }

@@ -1,10 +1,13 @@
 package com.example.jacobcovey.Presenters;
 
+import com.example.jacobcovey.Views.GameBoardView;
+import com.example.jacobcovey.Views.GameOverView;
 import com.example.jacobcovey.Views.iGameOverView;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.model.GameInfo;
 import com.example.jacobcovey.model.PlayerPoints;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +29,12 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     public GameOverPresenter() {
         cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
+        try {
+            cpf.calculateLongestRoute();
+        }
+        catch (IOException e) {
+            System.err.printf(e.getMessage());
+        }
         updatePlayerPointsList();
     }
 
