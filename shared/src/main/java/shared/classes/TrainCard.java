@@ -57,4 +57,9 @@ public class TrainCard {
         TrainCard card = (TrainCard) obj;
         return card.getId().equals(this.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
