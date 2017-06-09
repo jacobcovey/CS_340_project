@@ -1,6 +1,7 @@
 package com.example.jacobcovey.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,6 +59,11 @@ public class GameBoardActivity extends SingleFragmentActivity implements
             default:
         }
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
     }
 
     @Override
