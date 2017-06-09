@@ -37,10 +37,12 @@ import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.Turn;
+import shared.interfaces.iGameInfo;
 
 import static com.example.jacobcovey.constants.Constants.CLAIMING_ROUTE;
 import static com.example.jacobcovey.constants.Constants.DESTINATION_CARDS_DRAWN;
 import static com.example.jacobcovey.constants.Constants.FIRST_TURN;
+import static com.example.jacobcovey.constants.Constants.GAME_OVER;
 import static com.example.jacobcovey.constants.Constants.NOT_YOUR_TURN;
 import static com.example.jacobcovey.constants.Constants.ONE_TRAIN_CARD_SELECTED;
 import static com.example.jacobcovey.constants.Constants.YOUR_TURN;
@@ -353,6 +355,13 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     }
 
     private void determineState() {
+        if (cpf.getGameInfo().getState() == iGameInfo.State.GAME_OVER) {
+            if (getStateName().equals(GAME_OVER)) {
+                return;
+            }
+            setState(new GameOver(this));
+            return;
+        }
         if (cpf.isMyTurn()) {
             Turn.TurnState turnState = cpf.getTurn().getState();
             String lastPlayer = cpf.getTurn().getPlayer();

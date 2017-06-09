@@ -86,6 +86,7 @@ public class ClientModelRoot extends Observable {
             this.gameInfo = new GameInfo();
             return;
         }
+        this.gameInfo.setState(gameInfo.getState());
         this.gameInfo.setTurn(gameInfo.getTurn());
         this.gameInfo.setFaceUpTrainCardDeck(gameInfo.getFaceUpTrainCardDeck());
         this.gameInfo.setChat(gameInfo.getChat());

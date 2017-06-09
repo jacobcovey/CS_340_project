@@ -35,6 +35,6 @@ public class GameOver implements iGameBoardState {
 
     @Override
     public String getStateName() {
-        return null;
+        return name;
     }
 }
