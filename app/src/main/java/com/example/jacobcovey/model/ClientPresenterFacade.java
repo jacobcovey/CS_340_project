@@ -176,7 +176,7 @@ public class ClientPresenterFacade {
 
     public boolean isTrainCardTurn() {
         Turn.TurnState state = getTurn().getState();
-        return (state == Turn.TurnState.BEGINNING || state == Turn.TurnState.ONETRAINCARDSELECTED);
+        return (state == Turn.TurnState.BEGINNING || state == Turn.TurnState.ONETRAINCARDSELECTED || state == Turn.TurnState.LASTTURN);
     }
 
     public List<TrainCard> getTrainCardsOfColor(int number, TrainCardColors color) {
