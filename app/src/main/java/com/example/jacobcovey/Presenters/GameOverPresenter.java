@@ -52,7 +52,7 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     @Override
     public String getWinningPlayerName() {
         //Total Points Winners
-        int mostPoints = 0;
+        int mostPoints = playerPointsList.get(0).calculateTotalPoints();
         for (PlayerPoints playerPoints : playerPointsList) {
             if (mostPoints < playerPoints.calculateTotalPoints()) {
                 mostPoints = playerPoints.calculateTotalPoints();
