@@ -21,8 +21,24 @@ public abstract class iGameInfo {
     private Chat chat = new Chat(new ArrayList<ChatMessage>());
     private History history = new History(new ArrayList<HistoryAction>());
     private Turn turn;
+    private State state;
     private int TrainCardDeckSize;
     private int DestinationCarDeckSize;
+
+    public enum State {
+        FIRST_TURN,
+        NOT_FIRST_TURN,
+        LAST_TURN,
+        GAME_OVER
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
 
     public List<Player> getPlayers() {
         return players;

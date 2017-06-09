@@ -40,21 +40,12 @@ public class GameInfo extends iGameInfo {
         return isLastTurn;
     }
 
-    public enum State {
-        FIRST_TURN,
-        NOT_FIRST_TURN,
-        LAST_TURN,
-        GAME_OVER
-    }
-    private State state;
-
-
     public Player getPlayerToTakeLasTurn() {
         return playerToTakeLasTurn;
     }
 
     public GameInfo(Game game) {
-        state = State.FIRST_TURN;
+        setState(State.FIRST_TURN);
         faceDownTrainCardDeck.addAll(Constants.UNSHUFFLED_TRAINCARD_DECK);
         Collections.shuffle(faceDownTrainCardDeck);
         for (int i = 0; i < 5; i++) {
@@ -178,14 +169,6 @@ public class GameInfo extends iGameInfo {
         dealtCards.add(faceDownTrainCardDeck.get(0));
         faceDownTrainCardDeck.remove(0);
         getPlayers().add(new Player(color, dealtCards, userName));
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public State getState() {
-        return state;
     }
 
     public void addCardsToDiscardPile(Set<TrainCard> cards) {
