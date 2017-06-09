@@ -83,6 +83,10 @@ public class ClientModelRoot extends Observable {
     }
 
     public void setGameInfo(GameInfo gameInfo) {
+        if (this.gameInfo == null) {
+            this.gameInfo = gameInfo;
+            return;
+        }
         this.gameInfo.setTurn(gameInfo.getTurn());
         this.gameInfo.setFaceUpTrainCardDeck(gameInfo.getFaceUpTrainCardDeck());
         this.gameInfo.setChat(gameInfo.getChat());
