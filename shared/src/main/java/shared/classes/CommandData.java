@@ -38,7 +38,8 @@ public class CommandData {
         GETOUTSTANDINGCOMMANDS,
         UPDATEGAMEINFO,
         ERROR,
-        NOTIFYLASTTURN
+        NOTIFYLASTTURN,
+        GAMEOVER
     }
 
     private Type type;

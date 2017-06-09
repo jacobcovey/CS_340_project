@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.Player;
@@ -28,7 +29,8 @@ public class GameOverCommand implements iCommand {
         int longestRoute = 0;
         Map<Player, Map<String, Integer>> playerPointsInfo = new HashMap<>();
 
-        List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
+        GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
+        List<Player> players = gameInfo.getPlayers();
 
         Map<Player, List<Route>> playerRoutes = getPlayerRoutes(players);
         playerRoutes = attachAdjacentRoutes(playerRoutes, players);
@@ -37,6 +39,7 @@ public class GameOverCommand implements iCommand {
         for (Player player : longestRoutePlayers) {
             player.setHasLongestRoad(true);
         }
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
         return null;
     }
 
