@@ -146,4 +146,12 @@ public class Route {
                 return;
         }
     }
+
+    public String getCity1() {
+        return city1.getName();
+    }
+
+    public String getCity2() {
+        return city2.getName();
+    }
 }

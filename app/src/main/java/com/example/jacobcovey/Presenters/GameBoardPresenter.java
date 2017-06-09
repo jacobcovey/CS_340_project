@@ -249,7 +249,8 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
 
     private void createClaimRouteConfirmationDialog(final Route closest) {
         AlertDialog.Builder builder = new AlertDialog.Builder(boardView.getActivity());
-        CharSequence text = "Do You Want To Claim Route: " + closest.getId() + "?"; //TODO: change to city names
+        CharSequence text = "Do You Want To Claim The Route Connecting  " + closest.getCity1()
+                + " and " + closest.getCity2() + "?";
         builder.setTitle(text);
         text = "No";
         builder.setNegativeButton(text, new DialogInterface.OnClickListener() {
