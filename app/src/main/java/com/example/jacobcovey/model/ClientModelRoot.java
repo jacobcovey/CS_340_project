@@ -3,6 +3,7 @@ package com.example.jacobcovey.model;
 /**
  * Created by Dylan on 5/15/2017.
  */
+import com.example.jacobcovey.constants.Constants;
 import com.example.jacobcovey.game_board.Route;
 
 import java.util.ArrayList;
@@ -41,9 +42,9 @@ public class ClientModelRoot extends Observable {
     private Player player;
     private TrainCard[] faceUpDeck;
     private DestinationCard[] destCardsToSelectFrom;
-    private List<Route> mRoutes;
     private String IPaddress;
     private String PortNumber;
+    private List<Route> routes;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
@@ -155,11 +156,14 @@ public class ClientModelRoot extends Observable {
     }
 
     public List<Route> getRoutes() {
-        return mRoutes;
+        if (routes == null) {
+            routes = new ArrayList<>(Constants.ROUTES);
+        }
+        return routes;
     }
 
     public void setRoutes(List<Route> routes) {
-        mRoutes = routes;
+        this.routes = routes;
         setChanged();
         notifyObservers();
 

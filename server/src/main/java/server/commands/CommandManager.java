@@ -48,6 +48,8 @@ public class CommandManager implements iCommandManager {
                 return gson.fromJson(s, GetOutstandingCommands.class);
             case NOTIFYLASTTURN:
                 return gson.fromJson(s, NotifyLastTurnCommand.class);
+            case GAMEOVER:
+                return gson.fromJson(s, GameOverCommand.class);
             default:
                 return null;
         }
