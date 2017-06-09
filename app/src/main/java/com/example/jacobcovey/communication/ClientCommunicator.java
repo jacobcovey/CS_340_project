@@ -1,6 +1,7 @@
 package com.example.jacobcovey.communication;
 
 import com.example.jacobcovey.model.ClientFacade;
+import com.example.jacobcovey.model.ClientModelRoot;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,9 +29,13 @@ public class ClientCommunicator {
     public static List<CommandData> sendToServer(CommandData commandData) {
         List<CommandData> data = null;
         try {
-            String serverHost = "192.168.1.212";
+//            String serverHost = "192.168.1.150";
+//
+//            String serverPort = "4000";
 
-            String serverPort = "4000";
+            String serverHost = ClientModelRoot._instance.getIPaddress();
+
+            String serverPort = ClientModelRoot._instance.getPortNumber();
 
             URL url = new URL("http://" + serverHost + ":" + serverPort + "/executecommand");
 

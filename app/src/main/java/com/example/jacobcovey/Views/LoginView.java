@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.jacobcovey.Activities.GameListActivity;
 import com.example.jacobcovey.Presenters.iLoginPresenter;
 import com.example.jacobcovey.Presenters.LoginPresenter;
+import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 /**
@@ -22,6 +23,8 @@ public class LoginView extends android.support.v4.app.Fragment implements iLogin
 
     private EditText mUserNameTextEdit;
     private EditText mPasswordTextEdit;
+    private EditText mIpTextEdit;
+    private EditText mPortTextEdit;
     private Button mLoginButton;
     private Button mRegisterButton;
 
@@ -43,11 +46,16 @@ public class LoginView extends android.support.v4.app.Fragment implements iLogin
 
         mPasswordTextEdit = (EditText) v.findViewById(R.id.login_password_text_edit);
 
+        mIpTextEdit = (EditText) v.findViewById(R.id.login_ip_address_text_edit);
+
+        mPortTextEdit = (EditText) v.findViewById(R.id.login_port_text_edit);
+
         mLoginButton = (Button) v.findViewById(R.id.login_login_button);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginPresenter.login();
+                setIPandPort();
             }
         });
 
@@ -56,10 +64,16 @@ public class LoginView extends android.support.v4.app.Fragment implements iLogin
             @Override
             public void onClick(View v) {
                 loginPresenter.register();
+                setIPandPort();
             }
         });
 
         return v;
+    }
+
+    public void setIPandPort() {
+        ClientModelRoot._instance.setIPaddress(mIpTextEdit.getText().toString());
+        ClientModelRoot._instance.setPortNumber(mPortTextEdit.getText().toString());
     }
 
     @Override

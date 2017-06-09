@@ -42,9 +42,27 @@ public class ClientModelRoot extends Observable {
     private TrainCard[] faceUpDeck;
     private DestinationCard[] destCardsToSelectFrom;
     private List<Route> mRoutes;
+    private String IPaddress;
+    private String PortNumber;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
+    }
+
+    public String getIPaddress() {
+        return IPaddress;
+    }
+
+    public void setIPaddress(String IPaddress) {
+        this.IPaddress = IPaddress;
+    }
+
+    public String getPortNumber() {
+        return PortNumber;
+    }
+
+    public void setPortNumber(String portNumber) {
+        PortNumber = portNumber;
     }
 
     public State getCurrentState() {
