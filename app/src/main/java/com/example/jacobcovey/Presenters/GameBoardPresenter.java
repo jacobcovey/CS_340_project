@@ -235,6 +235,15 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     }
 
     @Override
+    public void presentGameOverDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDrawers();
+        boardView.presentGameOverDrawer();
+    }
+
+    @Override
     public boolean onMapTouch(View view, MotionEvent event) {
         if (state != null && state.getStateName().equals(CLAIMING_ROUTE)) {
             PointF current = new PointF(event.getX(), event.getY());
