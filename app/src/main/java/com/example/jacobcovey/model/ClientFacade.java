@@ -112,4 +112,12 @@ public class ClientFacade implements iClient {
     public void addTrainCardToPlayer(TrainCard trainCard) {
         ClientModelRoot._instance.addTrainCardToPLayer(trainCard);
     }
+
+    public void notifyObservers() {
+        ClientModelRoot._instance.sendNotification();
+    }
+
+    public void claimRoute(int id, Player player) {
+        ClientModelRoot._instance.claimRouteById(id, player);
+    }
 }

@@ -70,8 +70,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (boardView == null) {
             return;
         }
-//        mRoutes = cpf.getRoutes();
-//        updateBoard();
+        updateBoard();
         determineState();
     }
 

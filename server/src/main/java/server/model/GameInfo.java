@@ -67,7 +67,7 @@ public class GameInfo extends iGameInfo {
         setTrainCardDeckSize(faceDownTrainCardDeck.size());
         setDestinationCarDeckSize(destinationCardDeck.size());
 
-        routes.addAll(Constants.ROUTES);
+        routes = new ArrayList<>(Constants.ROUTES);
 
         List<PlayerColors> colors = new ArrayList<>();
         colors.add(PlayerColors.BLUE);

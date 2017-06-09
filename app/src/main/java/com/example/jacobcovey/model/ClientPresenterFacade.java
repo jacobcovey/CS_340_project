@@ -174,10 +174,6 @@ public class ClientPresenterFacade {
         ClientModelRoot._instance.setDestCardsToSelectFrom(null);
     }
 
-    public void setRoutes(List<com.example.jacobcovey.game_board.Route> routes) {
-        ClientModelRoot._instance.setRoutes(routes);
-    }
-
     public boolean isTrainCardTurn() {
         Turn.TurnState state = getTurn().getState();
         return (state == Turn.TurnState.BEGINNING || state == Turn.TurnState.ONETRAINCARDSELECTED);

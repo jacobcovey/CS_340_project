@@ -132,20 +132,20 @@ public class Route {
         this.player = player;
         switch (player.getColor()) {
             case BLUE:
-                playerColor = Color.BLUE;
-                return;
+                setPlayerColor(Color.BLUE);
+                break;
             case BLACK:
-                playerColor = Color.BLACK;
-                return;
+                setPlayerColor(Color.BLACK);
+                break;
             case RED:
-                playerColor = Color.RED;
-                return;
+                setPlayerColor(Color.RED);
+                break;
             case GREEN:
-                playerColor = Color.GREEN;
-                return;
+                setPlayerColor(Color.GREEN);
+                break;
             case YELLOW:
-                playerColor = Color.YELLOW;
-                return;
+                setPlayerColor(Color.YELLOW);
+                break;
         }
     }
 

@@ -42,7 +42,6 @@ public class ClientModelRoot extends Observable {
     private Player player;
     private TrainCard[] faceUpDeck;
     private DestinationCard[] destCardsToSelectFrom;
-    private List<Route> routes;
 
     private ClientModelRoot() {
         currentState = State.LOGIN;
@@ -84,7 +83,7 @@ public class ClientModelRoot extends Observable {
 
     public void setGameInfo(GameInfo gameInfo) {
         if (this.gameInfo == null) {
-            this.gameInfo = gameInfo;
+            this.gameInfo = new GameInfo();
             return;
         }
         this.gameInfo.setTurn(gameInfo.getTurn());
@@ -164,17 +163,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public List<Route> getRoutes() {
-        if (routes == null) {
-            routes = new ArrayList<>(Constants.ROUTES);
-        }
-        return routes;
-    }
-
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
-        setChanged();
-        notifyObservers();
-
+        return gameInfo.getRoutes();
     }
 
     public Set<DestinationCard> getDestinationCards() {
@@ -188,6 +177,16 @@ public class ClientModelRoot extends Observable {
         this.player.addTrainCard(trainCard);
         setChanged();
         notifyObservers();
+    }
+
+    public void sendNotification() {
+        setChanged();
+        notifyObservers();
+    }
+
+    public void claimRouteById(int id, Player player) {
+        Route route = gameInfo.getRouteById(id);
+        route.claim(player);
     }
 
 }

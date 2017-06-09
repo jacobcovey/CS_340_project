@@ -11,17 +11,13 @@ import shared.interfaces.iCommand;
  */
 
 public class RouteClaimed implements iCommand {
-    Route data;
-
-    public RouteClaimed(CommandData data) {
-        this.data = (Route) data.getData();
-    }
+    shared.classes.Route data;
 
     @Override
     public List<CommandData> execute() {
         for (Route route : ClientFacade._instance.getGameInfo().getRoutes()) {
             if (route.getId() == data.getId()) {
-                route.claim(data.getPlayer());
+                ClientFacade._instance.claimRoute(route.getId(), data.getPlayer());
             }
         }
         return null;

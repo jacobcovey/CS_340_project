@@ -67,6 +67,9 @@ public class Route {
             return false;
         }
         int correctCardCount = 0;
+        if (getRouteColor() == TrainCardColors.WILD && trainCards.size() == getLength()) {
+            return true;
+        }
         for (TrainCard card : trainCards) {
             if (card.getColor() == getRouteColor() ||
                     card.getColor() == TrainCardColors.WILD) {
@@ -103,7 +106,7 @@ public class Route {
     }
 
     public boolean isEqual(Route route) {
-        if (this.getCity1().isEqual(route.getCity1()) && this.getCity2().isEqual(route.getCity2())) {
+        if (this.getId() == route.getId()) {
             return true;
         }
         else {
