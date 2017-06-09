@@ -1,6 +1,7 @@
 package server.commands;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,6 +46,7 @@ public class ClaimRoute implements iCommand {
             if (route.isRoute(claimedRoute)) {
                 if (route.canClaim(currentPlayer, trainCards)) {
                     currentRoute = route;
+                    gameInfo.addCardsToDiscardPile(new HashSet<TrainCard>(trainCards));
                     route.claim(currentPlayer, trainCards);
                     serverFacade.setNextTurn(gameInfo, currentPlayer);
                 } else {

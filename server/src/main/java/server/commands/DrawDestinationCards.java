@@ -40,7 +40,9 @@ public class DrawDestinationCards implements iCommand {
         ArrayList<CommandData> dList = new ArrayList<>();
 
         if (cardsDrawn != null) {
-            gameInfo.setTurn(new Turn(userName, Turn.TurnState.DESTINATIONCARDSDRAWN));
+            if (gameInfo.getTurn().getState() != Turn.TurnState.FIRSTTURN) {
+                gameInfo.setTurn(new Turn(userName, Turn.TurnState.DESTINATIONCARDSDRAWN));
+            }
             CommandData successCmd = new CommandData(CommandData.Type.DESTINATIONCARDDRAWN, cardsDrawn);
             dList.add(successCmd);
             ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
