@@ -21,7 +21,9 @@ public class RouteClaimed implements iCommand {
     @Override
     public List<CommandData> execute() {
         for (Route route : ClientFacade._instance.getGameInfo().getClientRoutes()) {
-            route.claim(ClientFacade._instance.getPlayer());
+            if (route.getId() == data.getId()) {
+                route.claim(data.getPlayer());
+            }
         }
         return null;
     }

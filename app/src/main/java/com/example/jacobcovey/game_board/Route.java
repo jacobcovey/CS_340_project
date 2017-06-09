@@ -127,6 +127,7 @@ public class Route {
     }
 
     public void claim(Player player) {
+        isClaimed = true;
         this.player = player;
         switch (player.getColor()) {
             case BLUE:
@@ -146,6 +147,8 @@ public class Route {
                 return;
         }
     }
+
+    public Player getPlayer() { return player; }
 
     public String getCity1() {
         return city1.getName();

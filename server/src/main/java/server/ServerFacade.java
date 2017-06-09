@@ -144,6 +144,7 @@ public class ServerFacade {
         for (Player player: gameInfo.getPlayers()) {
             if (isNextPlayer) {
                 nextPlayer = player;
+                break;
             }
             if (player.getUserName().equals(currentPlayer.getUserName())) {
                 isNextPlayer = true;
