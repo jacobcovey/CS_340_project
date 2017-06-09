@@ -39,7 +39,7 @@ public class ClaimRoute implements iCommand {
             }
         }
 
-        List<Route> routeList = gameInfo.getServerRoutes();
+        List<Route> routeList = gameInfo.getRoutes();
         for (Route route : routeList) {
             if (route.isRoute(claimedRoute)) {
                 if (route.canClaim(currentPlayer, trainCards)) {

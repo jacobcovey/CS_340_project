@@ -49,6 +49,7 @@ public class Route {
         this.city2 = new City(city2);
         this.playerColor = Color.TRANSPARENT;
         centerPoint = calculateCenterPoint(this.segments);
+        isClaimed = false;
     }
 
     private PointF calculateCenterPoint(List<PointF> points) {
@@ -156,5 +157,9 @@ public class Route {
 
     public String getCity2() {
         return city2.getName();
+    }
+
+    public boolean isClaimed() {
+        return isClaimed;
     }
 }

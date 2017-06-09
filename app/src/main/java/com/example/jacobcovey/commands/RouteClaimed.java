@@ -1,7 +1,6 @@
 package com.example.jacobcovey.commands;
 import com.example.jacobcovey.game_board.Route;
 import com.example.jacobcovey.model.ClientFacade;
-import com.example.jacobcovey.model.GameInfo;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class RouteClaimed implements iCommand {
 
     @Override
     public List<CommandData> execute() {
-        for (Route route : ClientFacade._instance.getGameInfo().getClientRoutes()) {
+        for (Route route : ClientFacade._instance.getGameInfo().getRoutes()) {
             if (route.getId() == data.getId()) {
                 route.claim(data.getPlayer());
             }

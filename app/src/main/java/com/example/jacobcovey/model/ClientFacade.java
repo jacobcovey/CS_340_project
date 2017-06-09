@@ -68,33 +68,43 @@ public class ClientFacade implements iClient {
     public GameInfo getGameInfo() {
         return ClientModelRoot._instance.getGameInfo();
     }
+
     public Chat getChat() {
         return ClientModelRoot._instance.getGameInfo().getChat();
     }
+
     public History getHistory() {
         return ClientModelRoot._instance.getGameInfo().getHistory();
     }
+
     public Player getPlayer() {
         return ClientModelRoot._instance.getPlayer();
     }
+
     public void setPlayer(Player player) {
         ClientModelRoot._instance.setPlayer(player);
     }
+
     public void setGameInfo(GameInfo gameInfo) {
         ClientModelRoot._instance.setGameInfo(gameInfo);
     }
+
     public void addChatMessage(ChatMessage message) {
         ClientModelRoot._instance.addChatMessage(message);
     }
+
     public void addHistoryAction(HistoryAction action) {
         ClientModelRoot._instance.addHistoryAction(action);
     }
+
     public TrainCard[] getFaceUpDeck() {
         return ClientModelRoot._instance.getFaceUpDeck();
     }
+
     public void setFaceUpDeck(TrainCard[] faceUpDeck) {
         ClientModelRoot._instance.setFaceUpDeck(faceUpDeck);
     }
+
     public void setDrawnDestinationCards(DestinationCard[] drawnDestinationCards) {
         ClientModelRoot._instance.setDestCardsToSelectFrom(drawnDestinationCards);
     }

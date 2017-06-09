@@ -81,11 +81,33 @@ public class ClientModelRoot extends Observable {
     public GameInfo getGameInfo() {
         return gameInfo;
     }
+
     public void setGameInfo(GameInfo gameInfo) {
-        this.gameInfo = gameInfo;
+        this.gameInfo.setTurn(gameInfo.getTurn());
+        this.gameInfo.setFaceUpTrainCardDeck(gameInfo.getFaceUpTrainCardDeck());
+        this.gameInfo.setChat(gameInfo.getChat());
+        this.gameInfo.setPlayers(gameInfo.getPlayers());
+        this.gameInfo.setHistory(gameInfo.getHistory());
+        this.gameInfo.setDestinationCarDeckSize(gameInfo.getDestinationCarDeckSize());
+        this.gameInfo.setTrainCardDeckSize(gameInfo.getTrainCardDeckSize());
+        setClientRoutesFromServerRoutes(gameInfo.getRoutes());
         setChanged();
         notifyObservers();
     }
+
+    private void setClientRoutesFromServerRoutes(List<Route> routes) {
+        List<Route> clientRoutes = this.gameInfo.getRoutes();
+        Route clientRoute = null;
+        Route route;
+        for (int i = 0; i < routes.size(); i++) {
+            route = routes.get(i);
+            clientRoute = clientRoutes.get(i);
+            if (route.isClaimed()) {
+                clientRoute.claim(route.getPlayer());
+            }
+        }
+    }
+
     public Player getPlayer() {
         return player;
     }
