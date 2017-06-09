@@ -16,6 +16,7 @@ import com.example.jacobcovey.game_board.Route;
 
 import com.example.jacobcovey.game_board.TouchHandler;
 import com.example.jacobcovey.gamestates.DestinationCardsDrawnTurn;
+import com.example.jacobcovey.gamestates.GameOver;
 import com.example.jacobcovey.gamestates.NotYourTurn;
 import com.example.jacobcovey.gamestates.OneTrainCardSelectedTurn;
 import com.example.jacobcovey.gamestates.YourFirstTurn;
@@ -45,6 +46,7 @@ import static com.example.jacobcovey.constants.Constants.YOUR_TURN;
 import static shared.classes.TrainCardColors.WILD;
 import static shared.classes.Turn.TurnState.DESTINATIONCARDSDRAWN;
 import static shared.classes.Turn.TurnState.FIRSTTURN;
+import static shared.classes.Turn.TurnState.LASTTURN;
 import static shared.classes.Turn.TurnState.ONETRAINCARDSELECTED;
 
 
@@ -369,6 +371,12 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
                     return;
                 }
                 setState(new OneTrainCardSelectedTurn(this));
+                return;
+            } else if (turnState == LASTTURN) {
+                if (getStateName().equals(LASTTURN)) {
+                    return;
+                }
+                setState(new GameOver(this));
                 return;
             }
             if (getStateName().equals(YOUR_TURN)) {
