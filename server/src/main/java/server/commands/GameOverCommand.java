@@ -30,26 +30,17 @@ public class GameOverCommand implements iCommand {
 
         List<Player> players = ServerFacade._instance.getGameInfo(gameId).getPlayers();
 
-        //Claimed Route Points
         Map<Player, List<Route>> playerRoutes = getPlayerRoutes(players);
-        calculateRoutePoints(players, playerRoutes);
-
-        //Longest Route Points
         playerRoutes = attachAdjacentRoutes(playerRoutes, players);
         List<Player> longestRoutePlayers = getLongestRouteLength(playerRoutes, players);
-        calculateLongestRoutePoints(longestRoutePlayers);
 
-        //Destination Card Points
-        calculateDestinationCardPoints(players);
-
-        //Total Points
-        calculateTotalPoints(players);
-
-        Player winner = determineWinners(players);
+        for (Player player : longestRoutePlayers) {
+            player.setHasLongestRoad(true);
+        }
         return null;
     }
 
-    //CLAIMED ROUTE POINTS
+    //LONGEST ROUTE POINTS
     //Maps each claimed Route to the associated Player
     public Map<Player, List<Route>> getPlayerRoutes(List<Player> players) {
         List<Route> allRoutes = ServerFacade._instance.getGameInfo(gameId).getServerRoutes();
@@ -66,20 +57,6 @@ public class GameOverCommand implements iCommand {
         }
         return playerRoutes;
     }
-    //Calculates and adds claimed Route points for each Player
-    public void calculateRoutePoints(List<Player> players, Map<Player, List<Route>> playerRoutes) {
-        int pointsCounter;
-        for (Player player : players) {
-            pointsCounter = 0;
-            List<Route> routes = playerRoutes.get(player);
-            for (Route route : routes) {
-                pointsCounter += route.getPoints();
-            }
-            player.addPointsInfo("Claimed_Route_Points", pointsCounter);
-        }
-    }
-
-    //LONGEST ROUTE POINTS
     //Each Player's claimed Routes are connected when adjacent
     public Map<Player, List<Route>> attachAdjacentRoutes(Map<Player, List<Route>> playerRoutes, List<Player> players) {
         for (Player player : players) {
@@ -195,99 +172,6 @@ public class GameOverCommand implements iCommand {
         }
         return largestLength;
     }
-    //Calculates and adds Longest Route points for each Player
-    public void calculateLongestRoutePoints(List<Player> longestRoutePlayers) {
-        for (Player player : longestRoutePlayers) {
-            player.addPointsInfo("Longest_Route_Points", 10);
-        }
-    }
 
-    //DESTINATIONS REACHED POINTS & UNREACHED DESTINATIONS POINTS
-    //Calculates and adds Destinations Reached & Unreached Destinations points for each Player
-    public void calculateDestinationCardPoints(List<Player> players) {
-        int reachedPoints;
-        int unreachedPoints;
-        for (Player player : players) {
-            reachedPoints = 0;
-            unreachedPoints = 0;
-            Set<DestinationCard> destinationCards = player.getDestinationCards();
-            for (DestinationCard destinationCard : destinationCards) {
-                if (destinationCard.isComplete()) {
-                    reachedPoints += destinationCard.getPoints();
-                }
-                else {
-                    unreachedPoints = unreachedPoints - destinationCard.getPoints();
-                }
-            }
-            player.addPointsInfo("Destinations_Reached_Points", reachedPoints);
-            player.addPointsInfo("Unreached_Destinations_Points", unreachedPoints);
-        }
-    }
 
-    //TOTAL POINTS
-    public void calculateTotalPoints(List<Player> players) {
-        int totalPoints;
-        for (Player player : players) {
-            totalPoints = 0;
-            for (int points : player.getPointsInfo().values()) {
-                totalPoints += points;
-            }
-            player.addPointsInfo("Total_Points", totalPoints);
-        }
-    }
-
-    //Find Winner
-    public Player determineWinners(List<Player> players) {
-        //Most Points
-        int mostPoints = 0;
-        List<Player> totalPointsWinners = new ArrayList<>();
-        for (Player player : players) {
-            if (mostPoints < player.getPointsInfo().get("Total_Points")) {
-                mostPoints = player.getPointsInfo().get("Total_Points");
-            }
-        }
-        for (Player player : players) {
-            if (mostPoints == player.getPointsInfo().get("Total_Points")) {
-                totalPointsWinners.add(player);
-            }
-        }
-        if (totalPointsWinners.size() == 1) {
-            return totalPointsWinners.get(0);
-        }
-
-        //Most Destination Tickets
-        int destinationCount;
-        int largestDestinationCount = 0;
-        Map<Player, Integer> playersDestinationCounts = new HashMap<>();
-        for (Player player : players) {
-            destinationCount = 0;
-            Set<DestinationCard> destinationCards = player.getDestinationCards();
-            for (DestinationCard destinationCard : destinationCards) {
-                if (destinationCard.isComplete()) {
-                    destinationCount++;
-                }
-            }
-            playersDestinationCounts.put(player, destinationCount);
-            if (largestDestinationCount < destinationCount) {
-                largestDestinationCount = destinationCount;
-            }
-        }
-        List<Player> destinationCountWinners = new ArrayList<>();
-        for (Player player : totalPointsWinners) {
-            if (largestDestinationCount == playersDestinationCounts.get(player)) {
-                destinationCountWinners.add(player);
-            }
-        }
-        if (destinationCountWinners.size() == 1) {
-            return destinationCountWinners.get(0);
-        }
-
-        //Longest Path Winner
-        for (Player player : players) {
-            if (player.getPointsInfo().get("Longest_Route_Points") == 10) {
-                return player;
-            }
-        }
-        return null;
-    }
 }
