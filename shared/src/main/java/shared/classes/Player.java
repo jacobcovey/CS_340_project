@@ -1,5 +1,7 @@
 package shared.classes;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,14 +17,23 @@ import static shared.constants.Constants.NUMBEROFTRAINCARS;
 
 public class Player {
 
+    @Expose
     private PlayerColors color;
+    @Expose
     private int numberOfTrains;
+    @Expose
     private Set<TrainCard> trainCards = new HashSet<TrainCard>();
+    @Expose
     private Set<DestinationCard> destinationCards = new HashSet<DestinationCard>();
+    @Expose
     private Set<DestinationCard> drawnDestinationCards;
+    @Expose
     private int points;
+    @Expose
     private String userName;
+    @Expose
     private boolean hasLongestRoad;
+    @Expose
     private PlayerPoints playerPoints;
 
     public Player(PlayerColors color, Set<TrainCard> trainCards, String userName) {

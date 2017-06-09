@@ -2,6 +2,7 @@ package com.example.jacobcovey.model;
 
 import com.example.jacobcovey.constants.Constants;
 import com.example.jacobcovey.game_board.Route;
+import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,9 @@ import shared.interfaces.iGameInfo;
  */
 
 public class GameInfo extends iGameInfo {
+    @Expose
     private TrainCard[] faceUpTrainCardDeck;
+    @Expose
     private List<Route> routes;
 
     public GameInfo() {

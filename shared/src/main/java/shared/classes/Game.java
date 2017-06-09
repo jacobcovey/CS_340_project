@@ -1,15 +1,22 @@
 package shared.classes;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class Game {
 
+    @Expose
     private String id;
+    @Expose
     private String name;
+    @Expose
     private int playerLimit;
+    @Expose
     private User owner;
+    @Expose
     private List<User> players;
 
     public Game(String name, int playerLimit, User owner) {

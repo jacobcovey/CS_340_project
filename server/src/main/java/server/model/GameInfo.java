@@ -4,6 +4,8 @@ package server.model;
  * Created by Dylan on 5/25/2017.
  */
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -28,7 +30,9 @@ import static shared.classes.TrainCardColors.WILD;
 
 public class GameInfo extends iGameInfo {
 
+    @Expose
     private List<Route> routes = new ArrayList<>();
+    @Expose
     private List<TrainCard> faceUpTrainCardDeck = new ArrayList<>();
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private Set<TrainCard> discardPile = new HashSet<>();

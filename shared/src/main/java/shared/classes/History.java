@@ -1,5 +1,7 @@
 package shared.classes;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 
 public class History {
 
+    @Expose
     List<HistoryAction> actions = new ArrayList<>();
 
     public History(List<HistoryAction> actions) {

@@ -1,5 +1,7 @@
 package shared.classes;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -10,14 +12,23 @@ import java.util.Set;
 
 public class Route {
 
+    @Expose
     List<Route> adjacentRoutes = new ArrayList<>();
+    @Expose
     private int id;
+    @Expose
     private int length;
+    @Expose
     private int points;
+    @Expose
     private Player player;
+    @Expose
     private boolean isClaimed;
+    @Expose
     private City city1;
+    @Expose
     private City city2;
+    @Expose
     private TrainCardColors routeColor;
 
     public Route(int size, int id, TrainCardColors routeColor, String city1, String city2) {

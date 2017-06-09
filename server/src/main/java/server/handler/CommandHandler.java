@@ -1,6 +1,7 @@
 package server.handler;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -33,7 +34,7 @@ public class CommandHandler implements HttpHandler {
                 exchange.getResponseBody().close();
                 return;
             }
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
             InputStream reqBody = exchange.getRequestBody();
             String serialized = readString(reqBody);
             CommandData commandData = gson.fromJson(serialized, CommandData.class);
@@ -42,7 +43,7 @@ public class CommandHandler implements HttpHandler {
             iCommand command = manager.createCommand(commandData, serialized);
             List<CommandData> result = command.execute();
             Type commandDataListType = new TypeToken<List<CommandData>>(){}.getType();
-            String toClient = gson.toJson(result.toArray());
+            String toClient = gson.toJson(result, commandDataListType);
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();
             writeString(toClient, respBody);

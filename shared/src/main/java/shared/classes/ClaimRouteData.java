@@ -1,5 +1,7 @@
 package shared.classes;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,9 @@ import java.util.List;
  */
 
 public class ClaimRouteData {
+    @Expose
     private List<TrainCard> trainCards;
+    @Expose
     private int routeId;
 
     public ClaimRouteData(List<TrainCard> trainCards, int routeId) {
