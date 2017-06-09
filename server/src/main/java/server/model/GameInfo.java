@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import server.constants.Constants;
+import server.constants.InitializeRoutes;
 import shared.classes.City;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
@@ -67,7 +68,7 @@ public class GameInfo extends iGameInfo {
         setTrainCardDeckSize(faceDownTrainCardDeck.size());
         setDestinationCarDeckSize(destinationCardDeck.size());
 
-        routes = new ArrayList<>(Constants.ROUTES);
+        routes = new ArrayList<>(InitializeRoutes.initializeRoutes());
 
         List<PlayerColors> colors = new ArrayList<>();
         colors.add(PlayerColors.BLUE);
@@ -303,7 +304,7 @@ public class GameInfo extends iGameInfo {
 
     public Route getRouteById(int id) {
         if (routes == null) {
-            routes = new ArrayList<>(Constants.ROUTES);
+            routes = new ArrayList<>(InitializeRoutes.initializeRoutes());
         }
         for (Route route: routes) {
             if (route.getId() == id) {
