@@ -99,11 +99,37 @@ public class ClientModelRoot extends Observable {
     public GameInfo getGameInfo() {
         return gameInfo;
     }
+
     public void setGameInfo(GameInfo gameInfo) {
-        this.gameInfo = gameInfo;
+        if (this.gameInfo == null) {
+            this.gameInfo = new GameInfo();
+            return;
+        }
+        this.gameInfo.setTurn(gameInfo.getTurn());
+        this.gameInfo.setFaceUpTrainCardDeck(gameInfo.getFaceUpTrainCardDeck());
+        this.gameInfo.setChat(gameInfo.getChat());
+        this.gameInfo.setPlayers(gameInfo.getPlayers());
+        this.gameInfo.setHistory(gameInfo.getHistory());
+        this.gameInfo.setDestinationCarDeckSize(gameInfo.getDestinationCarDeckSize());
+        this.gameInfo.setTrainCardDeckSize(gameInfo.getTrainCardDeckSize());
+        setClientRoutesFromServerRoutes(gameInfo.getRoutes());
         setChanged();
         notifyObservers();
     }
+
+    private void setClientRoutesFromServerRoutes(List<Route> routes) {
+        List<Route> clientRoutes = this.gameInfo.getRoutes();
+        Route clientRoute = null;
+        Route route;
+        for (int i = 0; i < routes.size(); i++) {
+            route = routes.get(i);
+            clientRoute = clientRoutes.get(i);
+            if (route.isClaimed()) {
+                clientRoute.claim(route.getPlayer());
+            }
+        }
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -156,17 +182,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public List<Route> getRoutes() {
-        if (routes == null) {
-            routes = new ArrayList<>(Constants.ROUTES);
-        }
-        return routes;
-    }
-
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
-        setChanged();
-        notifyObservers();
-
+        return gameInfo.getRoutes();
     }
 
     public Set<DestinationCard> getDestinationCards() {
@@ -180,6 +196,16 @@ public class ClientModelRoot extends Observable {
         this.player.addTrainCard(trainCard);
         setChanged();
         notifyObservers();
+    }
+
+    public void sendNotification() {
+        setChanged();
+        notifyObservers();
+    }
+
+    public void claimRouteById(int id, Player player) {
+        Route route = gameInfo.getRouteById(id);
+        route.claim(player);
     }
 
 }

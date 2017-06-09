@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import server.constants.Constants;
+import server.constants.InitializeRoutes;
 import shared.classes.City;
 import shared.classes.DestinationCard;
 import shared.classes.Game;
@@ -27,7 +28,7 @@ import static shared.classes.TrainCardColors.WILD;
 
 public class GameInfo extends iGameInfo {
 
-    private List<Route> serverRoutes = new ArrayList<>();
+    private List<Route> routes = new ArrayList<>();
     private List<TrainCard> faceUpTrainCardDeck = new ArrayList<>();
     private List<TrainCard>  faceDownTrainCardDeck = new ArrayList<>();
     private Set<TrainCard> discardPile = new HashSet<>();
@@ -39,21 +40,12 @@ public class GameInfo extends iGameInfo {
         return isLastTurn;
     }
 
-    public enum State {
-        FIRST_TURN,
-        NOT_FIRST_TURN,
-        LAST_TURN,
-        GAME_OVER
-    }
-    private State state;
-
-
     public Player getPlayerToTakeLasTurn() {
         return playerToTakeLasTurn;
     }
 
     public GameInfo(Game game) {
-        state = State.FIRST_TURN;
+        setState(State.FIRST_TURN);
         faceDownTrainCardDeck.addAll(Constants.UNSHUFFLED_TRAINCARD_DECK);
         Collections.shuffle(faceDownTrainCardDeck);
         for (int i = 0; i < 5; i++) {
@@ -67,7 +59,7 @@ public class GameInfo extends iGameInfo {
         setTrainCardDeckSize(faceDownTrainCardDeck.size());
         setDestinationCarDeckSize(destinationCardDeck.size());
 
-        serverRoutes.addAll(Constants.ROUTES);
+        routes = new ArrayList<>(InitializeRoutes.initializeRoutes());
 
         List<PlayerColors> colors = new ArrayList<>();
         colors.add(PlayerColors.BLUE);
@@ -83,12 +75,12 @@ public class GameInfo extends iGameInfo {
         isLastTurn = false;
     }
 
-    public List<Route> getServerRoutes() {
-        return serverRoutes;
+    public List<Route> getRoutes() {
+        return routes;
     }
 
-    public void setServerRoutes(List<Route> serverRoutes) {
-        this.serverRoutes = serverRoutes;
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
     }
 
     public List<TrainCard> getFaceUpTrainCardDeck() {
@@ -179,14 +171,6 @@ public class GameInfo extends iGameInfo {
         getPlayers().add(new Player(color, dealtCards, userName));
     }
 
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public State getState() {
-        return state;
-    }
-
     public void addCardsToDiscardPile(Set<TrainCard> cards) {
         discardPile.addAll(cards);
     }
@@ -195,7 +179,7 @@ public class GameInfo extends iGameInfo {
 
         List<Route> playerRoutes = new ArrayList<Route>();
 
-        List<Route> routes = getServerRoutes();
+        List<Route> routes = getRoutes();
 
         for(Route route: routes ) {
             Player player = route.getPlayer();
@@ -254,7 +238,7 @@ public class GameInfo extends iGameInfo {
 //        Set<TrainCard> trainCards = new HashSet<TrainCard>();
 //        Player player1 = new Player(PlayerColors.RED,trainCards,"John");
 //
-//        List<Route> routes = getServerRoutes();
+//        List<Route> routes = getRoutes();
 //
 //        int count = 0;
 //
@@ -264,7 +248,7 @@ public class GameInfo extends iGameInfo {
 //        r1.claim(player1);
 //        r2.claim(player1);
 //
-//        setServerRoutes(routes);
+//        setRoutes(routes);
 ////        for (Route r : routes) {
 ////            r.claim(player1);
 ////            if (count < 1) {
@@ -274,7 +258,7 @@ public class GameInfo extends iGameInfo {
 ////                count = 0;
 ////            }
 ////        }
-////        setServerRoutes(routes);
+////        setRoutes(routes);
 //
 //
 ////        City city1 = new City("Denver");
@@ -302,10 +286,10 @@ public class GameInfo extends iGameInfo {
     }
 
     public Route getRouteById(int id) {
-        if (serverRoutes == null) {
-            serverRoutes = new ArrayList<>(Constants.ROUTES);
+        if (routes == null) {
+            routes = new ArrayList<>(InitializeRoutes.initializeRoutes());
         }
-        for (Route route: serverRoutes) {
+        for (Route route: routes) {
             if (route.getId() == id) {
                 return route;
             }
@@ -314,9 +298,9 @@ public class GameInfo extends iGameInfo {
     }
 
     public void setRouteById(int id, Route route) {
-        for (int i = 0; i < serverRoutes.size(); i++) {
-            if (serverRoutes.get(i).getId() == id) {
-                serverRoutes.set(i, route);
+        for (int i = 0; i < routes.size(); i++) {
+            if (routes.get(i).getId() == id) {
+                routes.set(i, route);
                 return;
             }
         }

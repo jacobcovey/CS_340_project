@@ -14,12 +14,13 @@ import android.widget.TextView;
 import com.example.jacobcovey.Activities.LoginActivity;
 import com.example.jacobcovey.Presenters.GameOverPresenter;
 import com.example.jacobcovey.Presenters.iGameOverPresenter;
-import com.example.jacobcovey.model.PlayerPoints;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
+import shared.classes.PlayerPoints;
 
 /**
  * Created by jacobcovey on 6/5/17.

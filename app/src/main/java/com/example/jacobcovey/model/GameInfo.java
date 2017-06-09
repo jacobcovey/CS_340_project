@@ -15,24 +15,24 @@ import shared.interfaces.iGameInfo;
 
 public class GameInfo extends iGameInfo {
     private TrainCard[] faceUpTrainCardDeck;
-    private List<Route> clientRoutes;
+    private List<Route> routes;
 
     public GameInfo() {
-        clientRoutes = new ArrayList<>(Constants.ROUTES);
+        routes = new ArrayList<>(Constants.ROUTES);
     }
 
-    public List<Route> getClientRoutes() {
-        if (clientRoutes == null) {
-            clientRoutes = new ArrayList<>(Constants.ROUTES);
+    public List<Route> getRoutes() {
+        if (routes == null) {
+            routes = new ArrayList<>(Constants.ROUTES);
         }
-        return clientRoutes;
+        return routes;
     }
 
     public Route getRouteById(int id) {
-        if (clientRoutes == null) {
-            clientRoutes = new ArrayList<>(Constants.ROUTES);
+        if (routes == null) {
+            routes = new ArrayList<>(Constants.ROUTES);
         }
-        for (Route route: clientRoutes) {
+        for (Route route: routes) {
             if (route.getId() == id) {
                 return route;
             }
@@ -41,9 +41,9 @@ public class GameInfo extends iGameInfo {
     }
 
     public void setRouteById(int id, Route route) {
-        for (int i = 0; i < clientRoutes.size(); i++) {
-            if (clientRoutes.get(i).getId() == id) {
-                clientRoutes.set(i, route);
+        for (int i = 0; i < routes.size(); i++) {
+            if (routes.get(i).getId() == id) {
+                routes.set(i, route);
                 return;
             }
         }

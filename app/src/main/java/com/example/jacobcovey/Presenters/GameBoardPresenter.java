@@ -3,15 +3,20 @@ package com.example.jacobcovey.Presenters;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.jacobcovey.Views.iGameBoardView;
+import com.example.jacobcovey.commands.RouteClaimed;
 import com.example.jacobcovey.game_board.Route;
 
 import com.example.jacobcovey.game_board.TouchHandler;
 import com.example.jacobcovey.gamestates.DestinationCardsDrawnTurn;
+import com.example.jacobcovey.gamestates.GameOver;
 import com.example.jacobcovey.gamestates.NotYourTurn;
 import com.example.jacobcovey.gamestates.OneTrainCardSelectedTurn;
 import com.example.jacobcovey.gamestates.YourFirstTurn;
@@ -21,10 +26,16 @@ import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 
+import shared.classes.ClaimRouteData;
+import shared.classes.Player;
+import shared.classes.TrainCard;
+import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 
 import static com.example.jacobcovey.constants.Constants.CLAIMING_ROUTE;
@@ -33,8 +44,10 @@ import static com.example.jacobcovey.constants.Constants.FIRST_TURN;
 import static com.example.jacobcovey.constants.Constants.NOT_YOUR_TURN;
 import static com.example.jacobcovey.constants.Constants.ONE_TRAIN_CARD_SELECTED;
 import static com.example.jacobcovey.constants.Constants.YOUR_TURN;
+import static shared.classes.TrainCardColors.WILD;
 import static shared.classes.Turn.TurnState.DESTINATIONCARDSDRAWN;
 import static shared.classes.Turn.TurnState.FIRSTTURN;
+import static shared.classes.Turn.TurnState.LASTTURN;
 import static shared.classes.Turn.TurnState.ONETRAINCARDSELECTED;
 
 
@@ -60,8 +73,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (boardView == null) {
             return;
         }
-//        mRoutes = cpf.getRoutes();
-//        updateBoard();
+        updateBoard();
         determineState();
     }
 
@@ -226,6 +238,15 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     }
 
     @Override
+    public void presentGameOverDrawer() {
+        if (!viewCreated) {
+            return;
+        }
+        boardView.closeDrawers();
+        boardView.presentGameOverDrawer();
+    }
+
+    @Override
     public boolean onMapTouch(View view, MotionEvent event) {
         if (state != null && state.getStateName().equals(CLAIMING_ROUTE)) {
             PointF current = new PointF(event.getX(), event.getY());
@@ -272,10 +293,14 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
 
     private void createClaimRouteOptionsDialog(final Route closest) {
         AlertDialog.Builder builder = new AlertDialog.Builder(boardView.getActivity());
-        CharSequence text = "This Needs to be implemented, but I got to this point..."; //TODO: Implement better
+        String color = closest.getRouteColor() == WILD ? "of ANY ONE COLOR" :  closest.getRouteColor().toString();
+        CharSequence text = "This route requires " + closest.getLength() + " " + color + " to claim"; //TODO: Implement better
         builder.setTitle(text);
         LayoutInflater inflater = boardView.getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.claim_route_options, null);
+        final Spinner colorSelector = (Spinner) v.findViewById(R.id.colorSelector);
+        final EditText numOfColor = (EditText) v.findViewById(R.id.numberOfColor);
+        final EditText numOfWild = (EditText) v.findViewById(R.id.numberOfWild);
         builder.setView(v);
         text = "Cancel";
         builder.setNegativeButton(text, new DialogInterface.OnClickListener() {
@@ -288,7 +313,34 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         builder.setPositiveButton(text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //TODO: Check to make sure everything is kosher 
+                TrainCardColors color = TrainCardColors.valueOf((String) colorSelector.getSelectedItem());
+                if (color != closest.getRouteColor() && closest.getRouteColor() != WILD) {
+                    boardView.displayToast("Invalid color selection, please select " + closest.getRouteColor());
+                    return;
+                }
+
+                int numberOfColor = Integer.parseInt(numOfColor.getText().toString());
+                int numberOfWild = Integer.parseInt(numOfWild.getText().toString());
+                if ((numberOfColor + numberOfWild) != closest.getLength()) {
+                    boardView.displayToast("Invalid number of cards selected, color cards and wild cards should add up to " + closest.getLength());
+                    return;
+                }
+
+                List<TrainCard> cardsToClaimRouteWith = new ArrayList<TrainCard>();
+                cardsToClaimRouteWith.addAll(cpf.getTrainCardsOfColor(numberOfColor, color));
+                if (cardsToClaimRouteWith.isEmpty() && numberOfColor != 0) {
+                    boardView.displayToast("Not enough " + color + " train cards to claim route as specified");
+                    return;
+                }
+                int tempSize = cardsToClaimRouteWith.size();
+
+                cardsToClaimRouteWith.addAll(cpf.getTrainCardsOfColor(numberOfWild, WILD));
+                if (cardsToClaimRouteWith.size() == tempSize && numberOfWild != 0) {
+                    boardView.displayToast("Not enough " + WILD + " train cards to claim route as specified");
+                    return;
+                }
+                claimRouteRequest claimRouteRequest = new claimRouteRequest();
+                claimRouteRequest.execute(new ClaimRouteData(cardsToClaimRouteWith, closest.getId()));
                 dialogInterface.dismiss();
             }
         });
@@ -303,6 +355,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     private void determineState() {
         if (cpf.isMyTurn()) {
             Turn.TurnState turnState = cpf.getTurn().getState();
+            String lastPlayer = cpf.getTurn().getPlayer();
             if (turnState == FIRSTTURN) {
                 if (getStateName().equals(FIRST_TURN)) {
                     return;
@@ -332,6 +385,29 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
             return;
         }
         setState(new NotYourTurn(this));
+    }
+
+    private class claimRouteRequest extends AsyncTask<ClaimRouteData, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(ClaimRouteData... params) {
+            try {
+                cpf.claimRoute(params[0]);
+            } catch (IOException e) {
+                System.err.printf(e.getMessage());
+                boardView.displayToast(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                boardView.displayToast("Route Claimed");
+            }
+        }
     }
 }
 

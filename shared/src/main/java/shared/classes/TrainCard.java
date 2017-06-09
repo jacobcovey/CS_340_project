@@ -49,4 +49,17 @@ public class TrainCard {
         return "";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TrainCard)) {
+            return false;
+        }
+        TrainCard card = (TrainCard) obj;
+        return card.getId().equals(this.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

@@ -1,18 +1,24 @@
-package com.example.jacobcovey.model;
+package shared.classes;
 
-import android.support.annotation.NonNull;
+/**
+ * Created by Dylan on 6/8/2017.
+ */
+
+import java.util.Comparator;
+import java.util.Set;
 
 import java.util.Comparator;
 import java.util.Set;
 
 import shared.classes.DestinationCard;
 import shared.classes.Player;
+import shared.interfaces.iGameInfo;
 
 /**
  * Created by jacobcovey on 6/5/17.
  */
 
-public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<PlayerPoints> {
+public class PlayerPoints {
 
     private Player player;
     private int claimedRoutPoints;
@@ -22,27 +28,23 @@ public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<Player
     private int totalPoints;
     private int destinationTicketsCompleted;
 
-    public PlayerPoints(Player player, GameInfo gameInfo) {
+    public PlayerPoints(Player player, int points, boolean hasLongestPath, Set<DestinationCard> destinationCards) {
         this.player = player;
-        this.claimedRoutPoints = player.getPoints();
-        if (player.getHasLongestRoad()) {
+        this.claimedRoutPoints = points;
+        if (hasLongestPath) {
             this.longestRoutePoints = 10;
         }
         else {
             this.longestRoutePoints = 0;
         }
         this.destinationTicketsCompleted = 0;
-        calculateDestinationPoints(gameInfo);
+        calculateDestinationPoints(destinationCards);
         this.totalPoints = claimedRoutPoints + longestRoutePoints + destinationsReachedPoints + unreachedDestinationPoints;
     }
 
     public void setAddLongestRoutePoints(){
         longestRoutePoints = 10;
         totalPoints = claimedRoutPoints + longestRoutePoints + destinationsReachedPoints + unreachedDestinationPoints;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public int getClaimedRoutPoints() {
@@ -73,9 +75,9 @@ public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<Player
         return claimedRoutPoints + longestRoutePoints + destinationsReachedPoints + unreachedDestinationPoints;
     }
 
-    public void calculateDestinationPoints(GameInfo gameInfo) {
+    public void calculateDestinationPoints(Set<DestinationCard> destinationCards) {
 
-        Set<DestinationCard> cards = player.getDestinationCards();
+        Set<DestinationCard> cards = destinationCards;
 
         for (DestinationCard card : cards ) {
             if (card.isComplete()) {
@@ -87,14 +89,7 @@ public class PlayerPoints implements Comparator<PlayerPoints>, Comparable<Player
             }
         }
     }
-
-    @Override
-    public int compare(PlayerPoints o1, PlayerPoints o2) {
-        return o1.totalPoints - o2.totalPoints;
-    }
-
-    @Override
-    public int compareTo(@NonNull PlayerPoints o) {
-        return 0;
+    public Player getPlayer() {
+        return player;
     }
 }

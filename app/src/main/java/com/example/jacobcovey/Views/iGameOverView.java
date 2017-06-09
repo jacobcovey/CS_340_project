@@ -1,8 +1,8 @@
 package com.example.jacobcovey.Views;
 
-import com.example.jacobcovey.model.PlayerPoints;
-
 import java.util.List;
+
+import shared.classes.PlayerPoints;
 
 /**
  * Created by jacobcovey on 6/5/17.

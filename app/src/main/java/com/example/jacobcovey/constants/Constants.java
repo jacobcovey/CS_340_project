@@ -62,6 +62,7 @@ public class Constants {
     public static final String ONE_TRAIN_CARD_SELECTED = "OneTrainCardSelected";
     public static final String CLAIMING_ROUTE = "ClaimingRoute";
     public static final String NOT_YOUR_TURN = "NotYourTurn";
+    public static final String GAME_OVER = "GameOver";
     public static final List<Route> ROUTES = initializeRoutes();
 
     private static List<Route> initializeRoutes() {

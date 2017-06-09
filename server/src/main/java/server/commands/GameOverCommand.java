@@ -39,6 +39,11 @@ public class GameOverCommand implements iCommand {
         for (Player player : longestRoutePlayers) {
             player.setHasLongestRoad(true);
         }
+
+        for (Player player : players) {
+            player.addPlayerPoints();
+        }
+
         ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
         return null;
     }
@@ -46,7 +51,7 @@ public class GameOverCommand implements iCommand {
     //LONGEST ROUTE POINTS
     //Maps each claimed Route to the associated Player
     public Map<Player, List<Route>> getPlayerRoutes(List<Player> players) {
-        List<Route> allRoutes = ServerFacade._instance.getGameInfo(gameId).getServerRoutes();
+        List<Route> allRoutes = ServerFacade._instance.getGameInfo(gameId).getRoutes();
         Map<Player, List<Route>> playerRoutes = new HashMap<>();
         for (Player player : players) {
             if (!playerRoutes.containsKey(player)) {

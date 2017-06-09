@@ -51,6 +51,8 @@ public interface iGameBoardPresenter extends Observer{
 
     public void presentDestinationCardDrawer();
 
+    public void presentGameOverDrawer();
+
     public void presentGameInfoDrawer();
 
     public void presentChatDrawer();

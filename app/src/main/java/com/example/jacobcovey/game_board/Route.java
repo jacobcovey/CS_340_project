@@ -49,6 +49,7 @@ public class Route {
         this.city2 = new City(city2);
         this.playerColor = Color.TRANSPARENT;
         centerPoint = calculateCenterPoint(this.segments);
+        isClaimed = false;
     }
 
     private PointF calculateCenterPoint(List<PointF> points) {
@@ -127,25 +128,28 @@ public class Route {
     }
 
     public void claim(Player player) {
+        isClaimed = true;
         this.player = player;
         switch (player.getColor()) {
             case BLUE:
-                playerColor = Color.BLUE;
-                return;
+                setPlayerColor(Color.BLUE);
+                break;
             case BLACK:
-                playerColor = Color.BLACK;
-                return;
+                setPlayerColor(Color.BLACK);
+                break;
             case RED:
-                playerColor = Color.RED;
-                return;
+                setPlayerColor(Color.RED);
+                break;
             case GREEN:
-                playerColor = Color.GREEN;
-                return;
+                setPlayerColor(Color.GREEN);
+                break;
             case YELLOW:
-                playerColor = Color.YELLOW;
-                return;
+                setPlayerColor(Color.YELLOW);
+                break;
         }
     }
+
+    public Player getPlayer() { return player; }
 
     public String getCity1() {
         return city1.getName();
@@ -153,5 +157,9 @@ public class Route {
 
     public String getCity2() {
         return city2.getName();
+    }
+
+    public boolean isClaimed() {
+        return isClaimed;
     }
 }

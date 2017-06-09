@@ -4,6 +4,8 @@ import com.example.jacobcovey.communication.ServerProxy;
 import com.example.jacobcovey.gamestates.YourTurn;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Observer;
 import java.util.Set;
@@ -20,6 +22,7 @@ import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.Route;
 import shared.classes.TrainCard;
+import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 import shared.classes.User;
 
@@ -92,12 +95,11 @@ public class ClientPresenterFacade {
     public void sendHistoryAction(HistoryAction action) throws  IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.SENDHISTORY, action, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
-    public void claimRoute(Route route, List<TrainCard> trainCards) throws IOException {
-        ClaimRouteData data = new ClaimRouteData(trainCards, route);
+    public void claimRoute(ClaimRouteData data) throws IOException {
         ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.CLAIMROUTE, data, ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
-    public void calculateLongestRoute() throws IOException {
-        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.GAMEOVER, "Calculating Longest Path", ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
+    public void calculateGameOverPoints() throws IOException {
+        ServerProxy._instance.executeCommand(new CommandData(CommandData.Type.GAMEOVER, "Calculating Game Over Points", ClientModelRoot._instance.getCurrentGame().getId(), ClientModelRoot._instance.getUser().getUsername()));
     }
 
     public Chat getChat() { return ClientFacade._instance.getChat(); }
@@ -172,13 +174,28 @@ public class ClientPresenterFacade {
         ClientModelRoot._instance.setDestCardsToSelectFrom(null);
     }
 
-    public void setRoutes(List<com.example.jacobcovey.game_board.Route> routes) {
-        ClientModelRoot._instance.setRoutes(routes);
-    }
-
     public boolean isTrainCardTurn() {
         Turn.TurnState state = getTurn().getState();
-        return (state == Turn.TurnState.BEGINNING || state == Turn.TurnState.ONETRAINCARDSELECTED);
+        return (state == Turn.TurnState.BEGINNING || state == Turn.TurnState.ONETRAINCARDSELECTED || state == Turn.TurnState.LASTTURN);
     }
 
+    public List<TrainCard> getTrainCardsOfColor(int number, TrainCardColors color) {
+        Player player = ClientModelRoot._instance.getPlayer();
+        List<TrainCard> returnCards = new ArrayList<>();
+        if (number == 0) {
+            return returnCards;
+        }
+        for (TrainCard card : player.getTrainCards()) {
+            if (card.getColor() == color) {
+                returnCards.add(card);
+                if (returnCards.size() == number) {
+                    break;
+                }
+            }
+        }
+        if (returnCards.size() == number) {
+            return returnCards;
+        }
+        return new ArrayList<TrainCard>();
+    }
 }

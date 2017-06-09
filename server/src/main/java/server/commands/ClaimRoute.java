@@ -1,6 +1,7 @@
 package server.commands;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import server.model.GameInfo;
 import shared.classes.ClaimRouteData;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
+import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.Route;
 import shared.classes.TrainCard;
@@ -26,27 +28,36 @@ public class ClaimRoute implements iCommand {
     public List<CommandData> execute() {
         ServerFacade serverFacade = ServerFacade._instance;
         GameInfo gameInfo = serverFacade.getGameInfo(gameId);
-        Route claimedRoute = data.getRoute();
+        int claimedRouteId = data.getRouteId();
+        Route claimedRoute = gameInfo.getRouteById(claimedRouteId);
         List<TrainCard> trainCards = data.getTrainCards();
 
         List<Player> players = gameInfo.getPlayers();
         Player currentPlayer = null;
         for (Player player : players) {
-            if (player.getUserName() == userName) {
+            if (player.getUserName().equals(userName)) {
                 currentPlayer = player;
             }
         }
 
-        List<Route> routeList = gameInfo.getServerRoutes();
+        List<Route> routeList = gameInfo.getRoutes();
+        Route currentRoute = null;
         for (Route route : routeList) {
             if (route.isRoute(claimedRoute)) {
                 if (route.canClaim(currentPlayer, trainCards)) {
+                    currentRoute = route;
+                    gameInfo.addCardsToDiscardPile(new HashSet<TrainCard>(trainCards));
                     route.claim(currentPlayer, trainCards);
+                    serverFacade.setNextTurn(gameInfo, currentPlayer);
+                } else {
+                    List<CommandData> ret = new ArrayList<>();
+                    ret.add(new CommandData(CommandData.Type.ERROR, "Failed to claim route"));
+                    return ret;
                 }
             }
         }
 
-        serverFacade.setNextTurn(gameInfo, currentPlayer);
+
 
         // Check if it should be the last round of turns
         if (currentPlayer.getNumberOfTrains() < 3 && !gameInfo.isLastTurn()) {
@@ -54,7 +65,12 @@ public class ClaimRoute implements iCommand {
         }
 
         serverFacade.addCommandToGame(
-                new CommandData(CommandData.Type.ROUTECLAIMED, data), gameId);
+                new CommandData(CommandData.Type.ROUTECLAIMED, currentRoute), gameId);
+        HistoryAction action = new HistoryAction(userName, "claimed a route");
+        serverFacade.addCommandToGame(
+                new CommandData(CommandData.Type.SENDHISTORY, action), gameId);
+        serverFacade.addCommandToGame(
+                new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
 
         Set<DestinationCard> playerDestinationCards = currentPlayer.getDestinationCards();
         for (DestinationCard card: playerDestinationCards) {
