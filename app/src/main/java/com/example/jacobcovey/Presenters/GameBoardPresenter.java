@@ -33,6 +33,7 @@ import java.util.Observable;
 
 
 import shared.classes.ClaimRouteData;
+import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.Turn;
@@ -354,6 +355,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     private void determineState() {
         if (cpf.isMyTurn()) {
             Turn.TurnState turnState = cpf.getTurn().getState();
+            String lastPlayer = cpf.getTurn().getPlayer();
             if (turnState == FIRSTTURN) {
                 if (getStateName().equals(FIRST_TURN)) {
                     return;
@@ -371,12 +373,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
                     return;
                 }
                 setState(new OneTrainCardSelectedTurn(this));
-                return;
-            } else if (turnState == LASTTURN) {
-                if (getStateName().equals(LASTTURN)) {
-                    return;
-                }
-                setState(new GameOver(this));
                 return;
             }
             if (getStateName().equals(YOUR_TURN)) {
