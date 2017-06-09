@@ -60,6 +60,8 @@ public class ClaimRoute implements iCommand {
         HistoryAction action = new HistoryAction(userName, "claimed a route");
         serverFacade.addCommandToGame(
                 new CommandData(CommandData.Type.SENDHISTORY, action), gameId);
+        serverFacade.addCommandToGame(
+                new CommandData(CommandData.Type.UPDATEGAMEINFO, gameInfo), gameId);
 
         Set<DestinationCard> playerDestinationCards = currentPlayer.getDestinationCards();
         for (DestinationCard card: playerDestinationCards) {
