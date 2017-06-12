@@ -303,6 +303,18 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         final Spinner colorSelector = (Spinner) v.findViewById(R.id.colorSelector);
         final EditText numOfColor = (EditText) v.findViewById(R.id.numberOfColor);
         final EditText numOfWild = (EditText) v.findViewById(R.id.numberOfWild);
+
+        String[] colorsArray = boardView.getActivity().getResources().getStringArray(R.array.train_card_colors);
+        int correctIndex = -1;
+        for (int i = 0; i < colorsArray.length; i++) {
+            if (colorsArray[i].toLowerCase().equals(color.toLowerCase())) {
+                correctIndex = i;
+            }
+        }
+        if (correctIndex != -1) {
+            colorSelector.setSelection(correctIndex);
+        }
+
         builder.setView(v);
         text = "Cancel";
         builder.setNegativeButton(text, new DialogInterface.OnClickListener() {
