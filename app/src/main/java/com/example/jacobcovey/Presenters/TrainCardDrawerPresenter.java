@@ -129,6 +129,8 @@ public class TrainCardDrawerPresenter implements iTrainCardDrawerPresenter {
         }
         if (requestExecuting) {
             trainCardDrawerView.displayToast("Waiting for server...");
+        } else if (!cpf.isTrainCardTurn()) {
+            trainCardDrawerView.displayToast("Destination Cards Already Drawn, Please Select your Destinations");
         } else {
             trainCardDrawerView.displayToast("It's not your turn");
         }
