@@ -56,4 +56,16 @@ public class GameInfo extends iGameInfo {
     public void setFaceUpTrainCardDeck(TrainCard[] faceUpTrainCardDeck) {
         this.faceUpTrainCardDeck = faceUpTrainCardDeck;
     }
+
+    public void removeById(int compNumb) {
+        if (routes == null) {
+            routes = new ArrayList<>(Constants.ROUTES);
+        }
+        for (int i = 0; i < routes.size(); i++) {
+            if (routes.get(i).getId() == compNumb) {
+                routes.remove(i);
+                return;
+            }
+        }
+    }
 }

@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.jacobcovey.constants.Constants;
+import com.example.jacobcovey.model.ClientPresenterFacade;
 import com.example.jacobcovey.ticket_to_ride.R;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class ViewGameMap extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
+//        ClientPresenterFacade cpf = new ClientPresenterFacade();
+//        mRoutes = cpf.getRoutes();
         //draw the map
         Resources res = getResources();
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.game_board);

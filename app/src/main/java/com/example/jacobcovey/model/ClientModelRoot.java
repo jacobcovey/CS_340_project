@@ -188,6 +188,11 @@ public class ClientModelRoot extends Observable {
     public void claimRouteById(int id, Player player) {
         Route route = gameInfo.getRouteById(id);
         route.claim(player);
+        int compNumb = route.getCompanionRouteNumb();
+        ClientPresenterFacade cpf = new ClientPresenterFacade();
+        if (compNumb > 0 && cpf.getPlayers().size() < 4) {
+            gameInfo.removeById(compNumb);
+        }
     }
 
 }

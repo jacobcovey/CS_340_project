@@ -27,6 +27,7 @@ public class Route {
     private City city1;
     private City city2;
     private TrainCardColors routeColor;
+    private int companionRouteNumb;
 
     public Route(int size, int id, TrainCardColors routeColor, String city1, String city2, String segments) {
         this.id = id;
@@ -50,6 +51,7 @@ public class Route {
         this.playerColor = Color.TRANSPARENT;
         centerPoint = calculateCenterPoint(this.segments);
         isClaimed = false;
+        this.companionRouteNumb = 0;
     }
 
     private PointF calculateCenterPoint(List<PointF> points) {
@@ -161,5 +163,13 @@ public class Route {
 
     public boolean isClaimed() {
         return isClaimed;
+    }
+
+    public int getCompanionRouteNumb() {
+        return companionRouteNumb;
+    }
+
+    public void setCompanionRouteNumb(int companionRouteNumb) {
+        this.companionRouteNumb = companionRouteNumb;
     }
 }

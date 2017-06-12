@@ -271,6 +271,10 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     }
 
     private void createClaimRouteConfirmationDialog(final Route closest) {
+        if (closest.isClaimed()) {
+            boardView.displayToast("Route from " + closest.getCity1() + " to " + closest.getCity2() + " is unavailable");
+            return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(boardView.getActivity());
         CharSequence text = "Do You Want To Claim The Route Connecting  " + closest.getCity1()
                 + " and " + closest.getCity2() + "?";
