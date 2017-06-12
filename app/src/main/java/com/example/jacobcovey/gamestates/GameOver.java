@@ -16,11 +16,18 @@ public class GameOver implements iGameBoardState {
     public GameOver(iGameBoardPresenter gameBoardPresenter) {
         this.gameBoardPresenter = gameBoardPresenter;
         gameBoardPresenter.presentGameOverDrawer();
+        setButtons();
+    }
+
+    private void setButtons() {
+        gameBoardPresenter.setDrawTrainButton("View Game Results", true);
+        gameBoardPresenter.setDrawDestinationButton("Draw Destinations", false);
+        gameBoardPresenter.setClaimRouteButton("Claim a Route", false);
     }
 
     @Override
     public void drawDestinationCardsButtonPressed() {
-
+        gameBoardPresenter.presentGameOverDrawer();
     }
 
     @Override

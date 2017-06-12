@@ -160,14 +160,10 @@ public class GameInfo extends iGameInfo {
 
     public void addPlayer(String userName, PlayerColors color) {
         Set<TrainCard> dealtCards = new HashSet<>();
-        dealtCards.add(faceDownTrainCardDeck.get(0));
-        faceDownTrainCardDeck.remove(0);
-        dealtCards.add(faceDownTrainCardDeck.get(0));
-        faceDownTrainCardDeck.remove(0);
-        dealtCards.add(faceDownTrainCardDeck.get(0));
-        faceDownTrainCardDeck.remove(0);
-        dealtCards.add(faceDownTrainCardDeck.get(0));
-        faceDownTrainCardDeck.remove(0);
+        dealtCards.add(drawFaceDownCard());
+        dealtCards.add(drawFaceDownCard());
+        dealtCards.add(drawFaceDownCard());
+        dealtCards.add(drawFaceDownCard());
         getPlayers().add(new Player(color, dealtCards, userName));
     }
 

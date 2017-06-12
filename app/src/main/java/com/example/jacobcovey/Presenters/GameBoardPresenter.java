@@ -199,7 +199,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentTrainCardDrawer();
     }
 
@@ -208,7 +207,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentDestinationCardDrawer();
     }
 
@@ -217,7 +215,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentGameInfoDrawer();
     }
 
@@ -226,7 +223,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentChatDrawer();
     }
 
@@ -235,7 +231,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentHistoryDrawer();
     }
 
@@ -244,7 +239,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentGameOverDrawer();
     }
 
