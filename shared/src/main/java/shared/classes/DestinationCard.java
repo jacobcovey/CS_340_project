@@ -51,6 +51,9 @@ public class DestinationCard {
 
     @Override
     public String toString() {
-        return  city1.toString() + " - " + city2.toString() + " " + points;
+        if (isComplete) {
+            return  "COMPLETED " + city1.toString() + " - " + city2.toString() + " " + points + " points";
+        }
+        return  city1.toString() + " - " + city2.toString() + " " + points + " points";
     }
 }
