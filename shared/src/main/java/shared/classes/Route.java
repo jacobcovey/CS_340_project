@@ -144,4 +144,9 @@ public class Route {
         }
     }
 
+    @Override
+    public String toString() {
+        return city1.getName() + " to " + city2.getName();
+    }
+
 }
