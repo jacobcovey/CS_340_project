@@ -236,7 +236,7 @@ public class GameOverView extends Fragment implements iGameOverView {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 for (int x = 0; x < playerPointsList.size(); x++) {
-                    playerNamesList.get(x).setText(playerPointsList.get(x).getPlayer().getUserName());
+                    playerNamesList.get(x).setText(playerPointsList.get(x).getUserName());
                     playerCrpList.get(x).setText((Integer.toString(playerPointsList.get(x).getClaimedRoutPoints())));
                     playerLrpList.get(x).setText(Integer.toString(playerPointsList.get(x).getLongestRoutePoints()));
                     playerDrpList.get(x).setText(Integer.toString(playerPointsList.get(x).getDestinationsReachedPoints()));

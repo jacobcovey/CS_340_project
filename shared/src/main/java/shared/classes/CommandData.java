@@ -50,6 +50,8 @@ public class CommandData {
     public CommandData(Type type, Object data) {
         this.type = type;
         this.data = data;
+        gameId = "";
+        userName = "";
     }
 
     public CommandData(Type type, Object data, String gameId, String userName) {

@@ -20,7 +20,7 @@ import shared.interfaces.iGameInfo;
 
 public class PlayerPoints {
 
-    private Player player;
+    private String userName;
     private int claimedRoutPoints;
     private int longestRoutePoints;
     private int destinationsReachedPoints;
@@ -28,8 +28,8 @@ public class PlayerPoints {
     private int totalPoints;
     private int destinationTicketsCompleted;
 
-    public PlayerPoints(Player player, int points, boolean hasLongestPath, Set<DestinationCard> destinationCards) {
-        this.player = player;
+    public PlayerPoints(String userName, int points, boolean hasLongestPath, Set<DestinationCard> destinationCards) {
+        this.userName = userName;
         this.claimedRoutPoints = points;
         if (hasLongestPath) {
             this.longestRoutePoints = 10;
@@ -89,7 +89,8 @@ public class PlayerPoints {
             }
         }
     }
-    public Player getPlayer() {
-        return player;
+
+    public String getUserName() {
+        return userName;
     }
 }

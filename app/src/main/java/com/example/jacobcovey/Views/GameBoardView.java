@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +38,11 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
     private FragmentManager fragmentManager;
     private ViewGameMap mMap;
     private iGameBoardPresenter gameBoardPresenter;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
+    }
 
 
     @Override
@@ -96,13 +102,13 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+//                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
 
         });
@@ -233,71 +239,74 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
 
     private void showLeftDrawer(final Fragment fragment) {
 
-        if (!drawerLayout.isDrawerOpen(leftDrawer) && !drawerLayout.isDrawerOpen(rightDrawer)) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.left_drawer, fragment);
-                    fragmentTransaction.commit();
-                    drawerLayout.requestLayout();
-                    drawerLayout.openDrawer(leftDrawer);
+                    if (!drawerLayout.isDrawerOpen(leftDrawer)) {
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.add(R.id.left_drawer, fragment);
+                        fragmentTransaction.commit();
+                        drawerLayout.requestLayout();
+                        drawerLayout.openDrawer(leftDrawer);
+                    }
                 }
             });
-        }
 
     }
 
     private void showRightDrawer(final Fragment fragment) {
 
-        if (!drawerLayout.isDrawerOpen(rightDrawer) && !drawerLayout.isDrawerOpen(leftDrawer)) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.right_drawer, fragment);
-                    fragmentTransaction.commit();
-                    drawerLayout.requestLayout();
-                    drawerLayout.openDrawer(rightDrawer);
+                    if (!drawerLayout.isDrawerOpen(rightDrawer)) {
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.add(R.id.right_drawer, fragment);
+                        fragmentTransaction.commit();
+                        drawerLayout.requestLayout();
+                        drawerLayout.openDrawer(rightDrawer);
+                    }
                 }
             });
-        }
 
     }
 
     private void dismissLeftDrawer() {
 
-        if (drawerLayout.isDrawerOpen(leftDrawer)) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    removeFragmentFromDrawer(R.id.left_drawer);
-                    drawerLayout.closeDrawer(leftDrawer);
+                    if (drawerLayout.isDrawerOpen(leftDrawer)) {
+                        removeFragmentFromDrawer(R.id.left_drawer);
+                        drawerLayout.closeDrawer(leftDrawer);
+                    }
                 }
             });
-        }
 
     }
 
     private void dismissRightDrawer() {
 
-        if (drawerLayout.isDrawerOpen(rightDrawer)) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    removeFragmentFromDrawer(R.id.right_drawer);
-                    drawerLayout.closeDrawer(rightDrawer);
+                    if (drawerLayout.isDrawerOpen(rightDrawer)) {
+                        removeFragmentFromDrawer(R.id.right_drawer);
+                        drawerLayout.closeDrawer(rightDrawer);
+                    }
                 }
             });
-        }
 
     }
 
     private void removeFragmentFromDrawer(int drawerId) {
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove(fragmentManager.findFragmentById(drawerId));
-        fragmentTransaction.commit();
+        if (fragmentManager.findFragmentById(drawerId) != null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.remove(fragmentManager.findFragmentById(drawerId));
+            fragmentTransaction.commit();
+        }
 
     }
 

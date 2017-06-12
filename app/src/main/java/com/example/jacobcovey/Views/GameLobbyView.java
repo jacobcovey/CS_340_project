@@ -28,7 +28,7 @@ public class GameLobbyView extends Fragment implements iGameLobbyView {
 
     public static final int MAXNUMBEROFPLAYERS = 5;
 
-    private Button mLeaveGameButton;
+//    private Button mLeaveGameButton;
 
     private TextView mGameName;
     private TextView mGameCreatorName;
@@ -110,13 +110,13 @@ public class GameLobbyView extends Fragment implements iGameLobbyView {
         playerNameTextViewList.add(mPlayerNameFour);
         playerNameTextViewList.add(mPlayerNameFive);
 
-        mLeaveGameButton = (Button) v.findViewById(R.id.lobby_leave_game_button);
-        mLeaveGameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gameLobbyPresenter.leaveGame();
-            }
-        });
+//        mLeaveGameButton = (Button) v.findViewById(R.id.lobby_leave_game_button);
+//        mLeaveGameButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                gameLobbyPresenter.leaveGame();
+//            }
+//        });
 
         gameLobbyPresenter.setViewCreated(true);
         return v;

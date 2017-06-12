@@ -54,8 +54,12 @@ public class LoginView extends android.support.v4.app.Fragment implements iLogin
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginPresenter.login();
-                setIPandPort();
+                if (mIpTextEdit.getText().toString().isEmpty() || mPortTextEdit.getText().toString().isEmpty()) {
+                    displayToast("Please enter a IP and port");
+                } else {
+                    setIPandPort();
+                    loginPresenter.login();
+                }
             }
         });
 
@@ -63,8 +67,12 @@ public class LoginView extends android.support.v4.app.Fragment implements iLogin
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginPresenter.register();
-                setIPandPort();
+                if (mIpTextEdit.getText().toString().isEmpty() || mPortTextEdit.getText().toString().isEmpty()) {
+                    displayToast("Please enter a IP and port");
+                } else {
+                    setIPandPort();
+                    loginPresenter.register();
+                }
             }
         });
 

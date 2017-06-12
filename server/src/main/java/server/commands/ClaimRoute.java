@@ -48,7 +48,6 @@ public class ClaimRoute implements iCommand {
                     currentRoute = route;
                     gameInfo.addCardsToDiscardPile(new HashSet<TrainCard>(trainCards));
                     route.claim(currentPlayer, trainCards);
-                    serverFacade.setNextTurn(gameInfo, currentPlayer);
                 } else {
                     List<CommandData> ret = new ArrayList<>();
                     ret.add(new CommandData(CommandData.Type.ERROR, "Failed to claim route"));
@@ -58,11 +57,12 @@ public class ClaimRoute implements iCommand {
         }
 
 
-
+        serverFacade.setNextTurn(gameInfo, currentPlayer);
         // Check if it should be the last round of turns
         if (currentPlayer.getNumberOfTrains() < 3 && !gameInfo.isLastTurn()) {
             serverFacade.setLastTurn(gameInfo, currentPlayer);
         }
+
 
         serverFacade.addCommandToGame(
                 new CommandData(CommandData.Type.ROUTECLAIMED, currentRoute), gameId);

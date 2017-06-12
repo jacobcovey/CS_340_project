@@ -34,6 +34,18 @@ public class ServerCommunicator {
     }
 
     public static void main(String[] args) {
+//        if (args.length < 1) {
+//            System.err.println("usage: ServerCommunicator.main <port>");
+//            return;
+//        }
+//        int port;
+//        try {
+//            port = Integer.parseInt(args[0]);
+//        } catch (NumberFormatException e) {
+//            System.err.println("port must be a number");
+//            return;
+//        }
+//        new ServerCommunicator().run(port);
         new ServerCommunicator().run(4000);
     }
 }

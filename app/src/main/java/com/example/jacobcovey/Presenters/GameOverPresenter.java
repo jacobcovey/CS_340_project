@@ -27,12 +27,11 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     public GameOverPresenter() {
         cpf = new ClientPresenterFacade();
         cpf.addObserver(this);
-        try {
-            cpf.calculateGameOverPoints();
+        List<PlayerPoints> playerPoints = new ArrayList<>();
+        for (Player player: cpf.getGameInfo().getPlayers()) {
+            playerPoints.add(player.getPlayerPoints());
         }
-        catch (IOException e) {
-            System.err.printf(e.getMessage());
-        }
+        playerPointsList = playerPoints;
     }
 
     @Override
@@ -53,7 +52,7 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
     @Override
     public String getWinningPlayerName() {
         //Total Points Winners
-        int mostPoints = 0;
+        int mostPoints = playerPointsList.get(0).calculateTotalPoints();
         for (PlayerPoints playerPoints : playerPointsList) {
             if (mostPoints < playerPoints.calculateTotalPoints()) {
                 mostPoints = playerPoints.calculateTotalPoints();
@@ -66,7 +65,7 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
             }
         }
         if (totalPointsWinners.size() == 1) {
-            return totalPointsWinners.get(0).getPlayer().getUserName();
+            return totalPointsWinners.get(0).getUserName();
         }
         //Destination Tickets Winners
         int mostDestinations = 0;
@@ -82,11 +81,11 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
             }
         }
         if (destinationWinners.size() == 1) {
-            return destinationWinners.get(0).getPlayer().getUserName();
+            return destinationWinners.get(0).getUserName();
         }
         for (PlayerPoints playerPoints : playerPointsList) {
             if (playerPoints.getLongestRoutePoints() == 10) {
-                return playerPoints.getPlayer().getUserName();
+                return playerPoints.getUserName();
             }
         }
         return  null;
@@ -99,6 +98,9 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if (gameOverView != null) {
+            return;
+        }
         gameOverView.setScores(playerPointsList);
         gameOverView.setWinner(getWinningPlayerName());
 

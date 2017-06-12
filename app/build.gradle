@@ -28,7 +28,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile project(':shared')
-    compile 'com.google.code.gson:gson:2.8.0'
+//    compile 'com.google.code.gson:gson:2.8.0'
     compile files('jars/gson-2.2.2.jar')
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
     compile 'com.joanzapata.android:android-iconify:1.0.9'
