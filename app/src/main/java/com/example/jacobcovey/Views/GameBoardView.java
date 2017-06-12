@@ -148,7 +148,9 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
     }
 
     @Override
-    public void presentDestinationCardDrawer() {showLeftDrawer(new DestinationPickerView());}
+    public void presentDestinationCardDrawer() {
+        showLeftDrawer(new DestinationPickerView());
+    }
 
     @Override
     public void presentGameInfoDrawer() {
@@ -299,7 +301,7 @@ public class GameBoardView extends android.support.v4.app.Fragment implements iG
 
     }
 
-    private void removeFragmentFromDrawer(int drawerId) {
+    private void removeFragmentFromDrawer(final int drawerId) {
 
         if (fragmentManager.findFragmentById(drawerId) != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

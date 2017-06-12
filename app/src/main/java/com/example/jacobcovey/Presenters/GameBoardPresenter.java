@@ -199,7 +199,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentTrainCardDrawer();
     }
 
@@ -208,7 +207,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentDestinationCardDrawer();
     }
 
@@ -217,7 +215,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentGameInfoDrawer();
     }
 
@@ -226,7 +223,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentChatDrawer();
     }
 
@@ -235,7 +231,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentHistoryDrawer();
     }
 
@@ -244,7 +239,6 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         if (!viewCreated) {
             return;
         }
-        boardView.closeDrawers();
         boardView.presentGameOverDrawer();
     }
 
@@ -307,6 +301,18 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
         final Spinner colorSelector = (Spinner) v.findViewById(R.id.colorSelector);
         final EditText numOfColor = (EditText) v.findViewById(R.id.numberOfColor);
         final EditText numOfWild = (EditText) v.findViewById(R.id.numberOfWild);
+
+        String[] colorsArray = boardView.getActivity().getResources().getStringArray(R.array.train_card_colors);
+        int correctIndex = -1;
+        for (int i = 0; i < colorsArray.length; i++) {
+            if (colorsArray[i].toLowerCase().equals(color.toLowerCase())) {
+                correctIndex = i;
+            }
+        }
+        if (correctIndex != -1) {
+            colorSelector.setSelection(correctIndex);
+        }
+
         builder.setView(v);
         text = "Cancel";
         builder.setNegativeButton(text, new DialogInterface.OnClickListener() {
@@ -373,6 +379,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
                 if (getStateName().equals(FIRST_TURN)) {
                     return;
                 }
+                boardView.displayToast("Your First Turn! Select Your Destination Cards!");
                 setState(new YourFirstTurn(this));
                 return;
             } else if (turnState == DESTINATIONCARDSDRAWN) {
@@ -391,12 +398,14 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
             if (getStateName().equals(YOUR_TURN)) {
                 return;
             }
+            boardView.displayToast("Your Turn!");
             setState(new YourTurn(this));
             return;
         }
         if (getStateName().equals(NOT_YOUR_TURN)) {
             return;
         }
+        boardView.displayToast("It Is Not Your Turn");
         setState(new NotYourTurn(this));
     }
 
