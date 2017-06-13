@@ -19,6 +19,7 @@ public class Route {
     private City city1;
     private City city2;
     private TrainCardColors routeColor;
+    int companionRouteNumb;
 
     public Route(int size, int id, TrainCardColors routeColor, String city1, String city2) {
         this.id = id;
@@ -29,6 +30,7 @@ public class Route {
         this.city1 = new City(city1);
         this.city2 = new City(city2);
         isClaimed = false;
+        this.companionRouteNumb = 0;
     }
 
     public TrainCardColors getRouteColor() { return routeColor; }
@@ -54,6 +56,10 @@ public class Route {
     public Player getPlayer() { return player; }
 
     public boolean getIsClaimed() { return isClaimed; }
+
+    public void setIsClaimed() {
+        this.isClaimed = true;
+    }
 
     public boolean isRoute(Route route) {
         return this.equals(route);
@@ -149,4 +155,10 @@ public class Route {
         return city1.getName() + " to " + city2.getName();
     }
 
+    public void setCompanionRouteNumb(int companionRouteNumb) {
+        this.companionRouteNumb = companionRouteNumb;
+    }
+    public int getCompanionRouteNumb() {
+        return companionRouteNumb;
+    }
 }

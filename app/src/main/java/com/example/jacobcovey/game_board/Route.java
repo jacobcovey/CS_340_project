@@ -165,6 +165,10 @@ public class Route {
         return isClaimed;
     }
 
+    public void setIsClaimed() {
+        isClaimed = true;
+    }
+
     public int getCompanionRouteNumb() {
         return companionRouteNumb;
     }

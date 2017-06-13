@@ -48,6 +48,10 @@ public class ClaimRoute implements iCommand {
                     currentRoute = route;
                     gameInfo.addCardsToDiscardPile(new HashSet<TrainCard>(trainCards));
                     route.claim(currentPlayer, trainCards);
+                    if (route.getCompanionRouteNumb() > 0 && gameInfo.getPlayers().size() < 4) {
+                        Route companionRoute = gameInfo.getRouteById(route.getCompanionRouteNumb());
+                        companionRoute.setIsClaimed();
+                    }
                 } else {
                     List<CommandData> ret = new ArrayList<>();
                     ret.add(new CommandData(CommandData.Type.ERROR, "Failed to claim route"));

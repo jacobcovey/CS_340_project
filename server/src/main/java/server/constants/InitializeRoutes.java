@@ -160,6 +160,8 @@ public class InitializeRoutes {
         routeArray.add(new Route(4, 99, PURPLE, CHARLESTON, MIAMI));
         routeArray.add(new Route(5, 100, BLUE, ATLANTA, MIAMI));
 
+        DblRouteHandler.setDoubleRoutes(routeArray);
+
         return routeArray;
     }
 }

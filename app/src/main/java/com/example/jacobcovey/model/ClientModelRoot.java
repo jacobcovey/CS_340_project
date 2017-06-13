@@ -106,7 +106,7 @@ public class ClientModelRoot extends Observable {
         for (int i = 0; i < routes.size(); i++) {
             route = routes.get(i);
             clientRoute = clientRoutes.get(i);
-            if (route.isClaimed()) {
+            if (route.isClaimed() && route.getPlayer() != null) {
                 clientRoute.claim(route.getPlayer());
             }
         }
@@ -191,7 +191,8 @@ public class ClientModelRoot extends Observable {
         int compNumb = route.getCompanionRouteNumb();
         ClientPresenterFacade cpf = new ClientPresenterFacade();
         if (compNumb > 0 && cpf.getPlayers().size() < 4) {
-            gameInfo.removeById(compNumb);
+            Route companionRoute = gameInfo.getRouteById(compNumb);
+            companionRoute.setIsClaimed();
         }
     }
 

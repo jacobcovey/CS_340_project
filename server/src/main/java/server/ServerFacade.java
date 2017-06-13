@@ -220,7 +220,7 @@ public class ServerFacade {
                 playerRoutes.put(player, new ArrayList<Route>());
             }
             for (Route route : allRoutes) {
-                if (route.getIsClaimed()) {
+                if (route.getIsClaimed() && route.getPlayer() != null) {
                     if (route.getPlayer().getUserName().equals(player.getUserName())) {
                         playerRoutes.get(player).add(route);
                     }
