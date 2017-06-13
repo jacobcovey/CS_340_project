@@ -41,7 +41,7 @@ public class CommandHandler implements HttpHandler {
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
             List<CommandData> result = command.execute();
-//            Type commandDataListType = new TypeToken<List<CommandData>>(){}.getType();
+//            Type commandDataListType zx2xz= new TypeToken<List<CommandData>>(){}.getType();
             String toClient = gson.toJson(result.toArray());
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();

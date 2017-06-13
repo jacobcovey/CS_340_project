@@ -185,8 +185,7 @@ public class ServerFacade {
 
         List<Player> players = gameInfo.getPlayers();
 
-        List<Route> newList = new ArrayList<>();
-        Map<Player, List<Route>> playerRoutes = getPlayerRoutes(players, gameInfo, newList);
+        Map<Player, List<Route>> playerRoutes = getPlayerRoutes(players, gameInfo);
         playerRoutes = attachAdjacentRoutes(playerRoutes, players);
         List<Player> longestRoutePlayers = getLongestRouteLength(playerRoutes, players);
 
@@ -213,17 +212,14 @@ public class ServerFacade {
 
     //LONGEST ROUTE POINTS
     //Maps each claimed Route to the associated Player
-    private Map<Player, List<Route>> getPlayerRoutes(List<Player> players, GameInfo gameInfo, List<Route> newList) {
+    private Map<Player, List<Route>> getPlayerRoutes(List<Player> players, GameInfo gameInfo) {
         List<Route> allRoutes = gameInfo.getRoutes();
-        for (Route route : allRoutes) {
-            newList.add(route.clone());
-        }
         Map<Player, List<Route>> playerRoutes = new HashMap<>();
         for (Player player : players) {
             if (!playerRoutes.containsKey(player)) {
                 playerRoutes.put(player, new ArrayList<Route>());
             }
-            for (Route route : newList) {
+            for (Route route : allRoutes) {
                 if (route.getIsClaimed() && route.getPlayer() != null) {
                     if (route.getPlayer().getUserName().equals(player.getUserName())) {
                         playerRoutes.get(player).add(route);
@@ -240,7 +236,7 @@ public class ServerFacade {
                 for (Route childRoute : playerRoutes.get(player)) {
                     if (parentRoute.getCity1().getName() != childRoute.getCity1().getName() || parentRoute.getCity2().getName() != childRoute.getCity2().getName()) {
                         if (parentRoute.getCity1().getName() == childRoute.getCity1().getName() || parentRoute.getCity2().getName() == childRoute.getCity2().getName() || parentRoute.getCity1().getName() == childRoute.getCity2().getName() || parentRoute.getCity2().getName() == childRoute.getCity1().getName()) {
-                            playerRoutes.get(player).get(playerRoutes.get(player).indexOf(parentRoute)).addAdjacentRoutes(playerRoutes.get(player).get(playerRoutes.get(player).indexOf(childRoute)));
+                            playerRoutes.get(player).get(playerRoutes.get(player).indexOf(parentRoute)).addAdjacentRoutes(playerRoutes.get(player).get(playerRoutes.get(player).indexOf(childRoute)).getId());
                         }
                     }
                 }
@@ -275,7 +271,7 @@ public class ServerFacade {
     private int calcLongestRouteEachPlayer(List<Route> playerRoutes) {
         int longestSingleRoute = 0;
         for (Route playerRoute : playerRoutes) {
-            int longestRouteFromThisCity = calcLongestRouteEachRoute(playerRoute);
+            int longestRouteFromThisCity = calcLongestRouteEachRoute(playerRoute, playerRoutes);
             if (longestSingleRoute < longestRouteFromThisCity){
                 longestSingleRoute = longestRouteFromThisCity;
             }
@@ -283,19 +279,25 @@ public class ServerFacade {
         return longestSingleRoute;
     }
     //Finds the Longest Route starting at a specific Route
-    private int calcLongestRouteEachRoute(Route route) {
+    private int calcLongestRouteEachRoute(Route route, List<Route> allRoutes) {
         int longestRoute = 0;
         Set<Route> visitedRoutes = new HashSet<>();
         List<Integer> routeLengths = new ArrayList<>();
         Stack<Route> currentPath = new Stack<>();
         visitedRoutes.add(route);
         currentPath.push(route);
-        traverseUnvisitedChildRoute(new Stack<String>(), route, route.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+        traverseUnvisitedChildRoute(allRoutes, new Stack<String>(), route, route.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
         return calculateLargestLength(routeLengths);
     }
     //Traverses the Connected Claimed Routes
-    private void traverseUnvisitedChildRoute(Stack<String> cityPath, Route currentRoute, List<Route> routeChildren, Stack<Route> currentPath, List<Integer> routeLengths, Set<Route> visitedRoutes){
-        for (Route routeChild : routeChildren) {
+    private void traverseUnvisitedChildRoute(List<Route> allRoutes, Stack<String> cityPath, Route currentRoute, List<Integer> routeChildren, Stack<Route> currentPath, List<Integer> routeLengths, Set<Route> visitedRoutes){
+        for (Integer routeChildId : routeChildren) {
+            Route routeChild = null;
+            for (Route someRoute : allRoutes) {
+                if (someRoute.getId() == routeChildId) {
+                    routeChild = someRoute;
+                }
+            }
             if (!visitedRoutes.contains(routeChild)) {
                 if (cityPath.size() > 0) {
                     if (!cityPath.peek().equals(routeChild.getCity1().getName()) && !cityPath.peek().equals(routeChild.getCity2().getName())) {
@@ -307,7 +309,7 @@ public class ServerFacade {
                         }
                         currentPath.push(routeChild);
                         visitedRoutes.add(routeChild);
-                        traverseUnvisitedChildRoute(cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                        traverseUnvisitedChildRoute(allRoutes, cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
                     }
                 }
                 else {
@@ -319,7 +321,7 @@ public class ServerFacade {
                     }
                     currentPath.push(routeChild);
                     visitedRoutes.add(routeChild);
-                    traverseUnvisitedChildRoute(cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
+                    traverseUnvisitedChildRoute(allRoutes, cityPath, routeChild, routeChild.getAdjacentRoutes(), currentPath, routeLengths, visitedRoutes);
                 }
             }
         }

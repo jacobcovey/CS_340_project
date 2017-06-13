@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Route {
 
-    List<Route> adjacentRoutes = new ArrayList<>();
+    List<Integer> adjacentRoutes = new ArrayList<>();
     private int id;
     private int length;
     private int points;
@@ -120,11 +120,11 @@ public class Route {
         }
     }
 
-    public List<Route> getAdjacentRoutes() {
+    public List<Integer> getAdjacentRoutes() {
         return adjacentRoutes;
     }
-    public void addAdjacentRoutes(Route route) {
-        adjacentRoutes.add(route);
+    public void addAdjacentRoutes(int routeId) {
+        adjacentRoutes.add(routeId);
     }
 
     public void setPointsBasedOnLength() {
