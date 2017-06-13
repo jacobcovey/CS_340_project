@@ -208,6 +208,17 @@ public class GameInfo extends iGameInfo {
                 }
             }
         }
+        for (Player player : getPlayers()) {
+            if (player.getUserName().equals(userName)) {
+                for (DestinationCard dc : player.getDestinationCards()) {
+                    if (dc.getId().equals(destinationCard.getId())) {
+                        if (destinationCard.isComplete()) {
+                            dc.setComplete(true);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void dcCompletedHelper(City city, List<Route> pr, Route route, DestinationCard dc) {

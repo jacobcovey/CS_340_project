@@ -31,6 +31,8 @@ public class PlayerPoints {
     public PlayerPoints(String userName, int points, boolean hasLongestPath, Set<DestinationCard> destinationCards) {
         this.userName = userName;
         this.claimedRoutPoints = points;
+        this.destinationsReachedPoints = 0;
+        this.unreachedDestinationPoints = 0;
         if (hasLongestPath) {
             this.longestRoutePoints = 10;
         }
@@ -81,11 +83,11 @@ public class PlayerPoints {
 
         for (DestinationCard card : cards ) {
             if (card.isComplete()) {
-                destinationsReachedPoints += card.getPoints();
-                destinationTicketsCompleted++;
+                this.destinationsReachedPoints += card.getPoints();
+                this.destinationTicketsCompleted++;
             }
             else {
-                unreachedDestinationPoints -= card.getPoints();
+                this.unreachedDestinationPoints -= card.getPoints();
             }
         }
     }

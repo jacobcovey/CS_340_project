@@ -161,4 +161,9 @@ public class Route {
     public int getCompanionRouteNumb() {
         return companionRouteNumb;
     }
+
+    @Override
+    public Route clone() {
+       return new Route(length, id, routeColor, city1.getName(), city2.getName());
+    }
 }

@@ -185,7 +185,8 @@ public class ServerFacade {
 
         List<Player> players = gameInfo.getPlayers();
 
-        Map<Player, List<Route>> playerRoutes = getPlayerRoutes(players, gameInfo);
+        List<Route> newList = new ArrayList<>();
+        Map<Player, List<Route>> playerRoutes = getPlayerRoutes(players, gameInfo, newList);
         playerRoutes = attachAdjacentRoutes(playerRoutes, players);
         List<Player> longestRoutePlayers = getLongestRouteLength(playerRoutes, players);
 
@@ -212,14 +213,17 @@ public class ServerFacade {
 
     //LONGEST ROUTE POINTS
     //Maps each claimed Route to the associated Player
-    private Map<Player, List<Route>> getPlayerRoutes(List<Player> players, GameInfo gameInfo) {
+    private Map<Player, List<Route>> getPlayerRoutes(List<Player> players, GameInfo gameInfo, List<Route> newList) {
         List<Route> allRoutes = gameInfo.getRoutes();
+        for (Route route : allRoutes) {
+            newList.add(route.clone());
+        }
         Map<Player, List<Route>> playerRoutes = new HashMap<>();
         for (Player player : players) {
             if (!playerRoutes.containsKey(player)) {
                 playerRoutes.put(player, new ArrayList<Route>());
             }
-            for (Route route : allRoutes) {
+            for (Route route : newList) {
                 if (route.getIsClaimed() && route.getPlayer() != null) {
                     if (route.getPlayer().getUserName().equals(player.getUserName())) {
                         playerRoutes.get(player).add(route);
