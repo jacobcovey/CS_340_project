@@ -29,6 +29,8 @@ public class PlayerPoints {
     private int destinationTicketsCompleted;
 
     public PlayerPoints(String userName, int points, boolean hasLongestPath, Set<DestinationCard> destinationCards) {
+        destinationsReachedPoints = 0;
+        unreachedDestinationPoints = 0;
         this.userName = userName;
         this.claimedRoutPoints = points;
         this.destinationsReachedPoints = 0;
