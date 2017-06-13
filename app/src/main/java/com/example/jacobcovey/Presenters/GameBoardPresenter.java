@@ -351,6 +351,10 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
                     boardView.displayToast("Not enough " + WILD + " train cards to claim route as specified");
                     return;
                 }
+                if (cpf.getCurrentPlayer().getNumberOfTrains() < closest.getLength()) {
+                    boardView.displayToast("Not enough trains to claim route as specified");
+                    return;
+                }
                 claimRouteRequest claimRouteRequest = new claimRouteRequest();
                 claimRouteRequest.execute(new ClaimRouteData(cardsToClaimRouteWith, closest.getId()));
                 dialogInterface.dismiss();

@@ -27,8 +27,8 @@ public class Player {
 
     public Player(PlayerColors color, Set<TrainCard> trainCards, String userName) {
         this.color = color;
-        this.numberOfTrains = NUMBEROFTRAINCARS;
-        //this.numberOfTrains = 5;
+        //this.numberOfTrains = NUMBEROFTRAINCARS;
+        this.numberOfTrains = 5;
         this.trainCards = trainCards;
         this.destinationCards = new HashSet<DestinationCard>();
         this.points = 0;
