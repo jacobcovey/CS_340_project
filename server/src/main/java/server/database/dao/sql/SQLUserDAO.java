@@ -3,6 +3,10 @@ package server.database.dao.sql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import server.database.dao.iUserDAO;
@@ -102,8 +106,55 @@ public class SQLUserDAO implements iUserDAO {
 
     @Override
     public Set<User> read() {
-        return null;
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String selectUserStmt = "SELECT * FROM USERS";
+        Set<User> output = new HashSet<>();
+
+
+        try {
+            db.openConnection();
+
+            preparedStatement = db.mConnection.prepareStatement(selectUserStmt);
+            resultSet = preparedStatement.executeQuery();
+            output.addAll(getSetOfUsersFromRS(resultSet));
+
+
+            resultSet.close();
+            return output;
+
+        } catch (SQLException e) {
+            return null;
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                db.closeConnection();
+            } catch (SQLException e) {
+                System.out.println("unable to close result set/prep staement");
+            }
+
+        }
     }
+
+    private Collection<? extends User> getSetOfUsersFromRS(ResultSet resultSet) {
+        Collection<User> output = new HashSet<>();
+        try {
+            while (resultSet.next()) {
+                output.add(new User(resultSet.getString("userName"),resultSet.getString("password")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to get from Result set");
+            e.printStackTrace();
+        }
+        return output;
+    }
+
 
     @Override
     public boolean update() {

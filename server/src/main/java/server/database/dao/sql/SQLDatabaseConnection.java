@@ -71,21 +71,20 @@ public class SQLDatabaseConnection {
         String create_users_table = "CREATE TABLE IF NOT EXISTS USERS"+
                 "("+
                 "userName varchar(64) primary key,"+
-                "password varchar(64),"+
+                "password varchar(64)"+
                 ");";
 
         String create_games_table = "CREATE TABLE IF NOT EXISTS GAMES"+
                 "("+
                 "gameId varchar(64),"+
-                "gameInfoObject TEXT,"+
+                "gameInfoObject TEXT"+
                 ");";
 
 
         String create_commands_table = "CREATE TABLE IF NOT EXISTS COMMANDS"+
                 "("+
                 "commandId integer primary key autoincrement,"+
-                "data text,"+
-                "gameId text,"+
+                "data text"+
                 ");";
 
         PreparedStatement usersStmt = this.mConnection.prepareStatement(create_users_table);

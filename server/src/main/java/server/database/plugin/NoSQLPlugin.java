@@ -1,16 +1,10 @@
 package server.database.plugin;
 
-<<<<<<< HEAD
-import server.database.NoSQLDatabase;
+import server.database.iDatabaseFactory;
 import server.database.dao.nosql.NoSQLCommandDAO;
 import server.database.dao.nosql.NoSQLGameDAO;
 import server.database.dao.nosql.NoSQLUserDAO;
-=======
 import server.database.NoSQLDatabaseFactory;
-import server.database.dao.NoSQLCommandDAO;
-import server.database.dao.NoSQLGameDAO;
-import server.database.dao.NoSQLUserDAO;
->>>>>>> e02b1e32a6e5660844f0bf1d8e72cbe41e03dc02
 import server.database.dao.iCommandDAO;
 import server.database.dao.iGameDAO;
 import server.database.dao.iUserDAO;

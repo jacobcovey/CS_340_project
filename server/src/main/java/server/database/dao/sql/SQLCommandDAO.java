@@ -10,7 +10,6 @@ import java.util.List;
 
 import server.database.dao.iCommandDAO;
 import shared.classes.CommandData;
-import shared.interfaces.iCommand;
 
 /**
  * Created by Dylan on 6/15/2017.
@@ -144,14 +143,67 @@ public class SQLCommandDAO implements iCommandDAO {
 
 
     @Override
-    public boolean create(CommandData commandData) {
+    public boolean create() {
         return false;
     }
 
     @Override
     public List<CommandData> read() {
-        return null;
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String selectUserStmt = "SELECT data FROM COMMANDS";
+
+        List<CommandData> output = new ArrayList<>();
+
+        try {
+            db.openConnection();
+
+            preparedStatement = db.mConnection.prepareStatement(selectUserStmt);
+            resultSet = preparedStatement.executeQuery();
+            output.addAll(getListOfCommandsFromRS(resultSet));
+
+
+            resultSet.close();
+            return output;
+
+        } catch (SQLException e) {
+            return null;
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                db.closeConnection();
+            } catch (SQLException e) {
+                System.out.println("unable to close result set/prep staement");
+            }
+
+        }
     }
+
+    private List<CommandData> getListOfCommandsFromRS(ResultSet resultSet) {
+        List<CommandData> output = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                output.add(turnGsonToCommand(resultSet.getString("data")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to get command from Result set");
+            e.printStackTrace();
+        }
+        return output;
+    }
+
+    private CommandData turnGsonToCommand(String data) {
+        Gson gson = new Gson();
+
+        return gson.fromJson(data, CommandData.class);
+    }
+
 
     @Override
     public boolean update() {

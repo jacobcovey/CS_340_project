@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import server.database.dao.iGameDAO;
@@ -104,8 +106,61 @@ public class SQLGameDAO implements iGameDAO {
 
     @Override
     public List<Game> read() {
-        return null;
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String selectUserStmt = "SELECT gameInfoObject FROM GAMES";
+
+        List<Game> output = new ArrayList<>();
+
+        try {
+            db.openConnection();
+
+            preparedStatement = db.mConnection.prepareStatement(selectUserStmt);
+            resultSet = preparedStatement.executeQuery();
+            output.addAll(getListOfGamesFromRS(resultSet));
+
+
+            resultSet.close();
+            return output;
+
+        } catch (SQLException e) {
+            return null;
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                db.closeConnection();
+            } catch (SQLException e) {
+                System.out.println("unable to close result set/prep staement");
+            }
+
+        }
     }
+
+    private List<Game> getListOfGamesFromRS(ResultSet resultSet) {
+        List<Game> output = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                output.add(turnGsonToGame(resultSet.getString("gameInfoObject")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to get games from Result set");
+            e.printStackTrace();
+        }
+        return output;
+    }
+
+    private Game turnGsonToGame(String gameInfoObject) {
+        Gson gson = new Gson();
+
+        return gson.fromJson(gameInfoObject, Game.class);
+    }
+
 
     @Override
     public boolean update() {

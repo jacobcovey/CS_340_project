@@ -4,6 +4,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':shared')
     compile 'com.google.code.gson:gson:2.2.4'
+    compile files('libs/sqlite-jdbc-3.7.2.jar')
 }
 
 sourceCompatibility = "1.7"

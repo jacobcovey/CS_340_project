@@ -12,7 +12,7 @@ import shared.interfaces.iCommand;
  */
 
 public interface iCommandDAO {
-    public boolean create(CommandData commandData);
+    public boolean create();
 //    public iCommand read();
     public List<CommandData> read();
     public boolean update();

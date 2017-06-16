@@ -34,6 +34,7 @@ public class ServerFacade {
 
     private iDatabaseFactory databaseFactory;
 
+
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
 
     // FIXME needs to be a list of commands
@@ -362,6 +363,7 @@ public class ServerFacade {
         game.incramentComandsSaved();
 
 //        iCommandDAO commandDAO = databaseFactory.getCommandDAO();
+
 //        commandDAO.create(commandData);
 
         if (game.getCommandsSaved() >= ServerModelRoot.getInstance().getResetCountLimit()) {
@@ -390,11 +392,19 @@ public class ServerFacade {
     }
     public void restoreUsers(Set<User> allUsers) {
         serverModelRoot.restoreUsers(allUsers);
+//        System.out.println("restoreUsers: " + allUsers.size());
     }
     public void restoreGames(List<Game> allGames) {
+        if (allGames == null) {
+            return;
+        }
         serverModelRoot.restoreGames(allGames);
+//        System.out.println("restoreGames: " + allGames.toString());
     }
     public void runCommands(List<CommandData> allCommands) {
+        if (allCommands == null) {
+            return;
+        }
         serverModelRoot.runCommands(allCommands);
     }
 }
