@@ -1,19 +1,12 @@
 package server.database;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-
 /**
  * Created by Dylan on 6/15/2017.
  */
 
 public class PluginRegistery {
 
-    iPersistenceProvider plugin;
+    iDatabaseFactory plugin;
 
     public void loadConfig(String pluginName)  {
 
@@ -23,9 +16,9 @@ public class PluginRegistery {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        iPersistenceProvider p = null;
+        iDatabaseFactory p = null;
         try {
-            p = (iPersistenceProvider)c.newInstance();
+            p = (iDatabaseFactory)c.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -34,7 +27,7 @@ public class PluginRegistery {
         this.plugin = p;
     }
 
-    public iPersistenceProvider getPlugin() {
+    public iDatabaseFactory getPlugin() {
         return plugin;
     }
 
@@ -50,8 +43,8 @@ public class PluginRegistery {
 //            method.setAccessible(true);
 //            method.invoke(classLoader, url);
 //
-//            iPersistenceProvider p = null;
-//            p = (iPersistenceProvider)classLoader.loadClass("com.server.")
+//            iDatabaseFactory p = null;
+//            p = (iDatabaseFactory)classLoader.loadClass("com.server.")
 //        } catch (Exception ex) {
 //            ex.printStackTrace();
 //        }

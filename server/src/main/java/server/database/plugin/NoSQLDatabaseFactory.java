@@ -1,32 +1,27 @@
 package server.database.plugin;
 
-import server.database.dao.iGameDAO;
-import server.database.dao.sql.SQLCommandDAO;
-import server.database.dao.sql.SQLGameDAO;
-import server.database.dao.sql.SQLUserDAO;
-import server.database.SQLDatabaseFactory;
+import server.database.dao.nosql.NoSQLCommandDAO;
+import server.database.dao.nosql.NoSQLGameDAO;
+import server.database.dao.nosql.NoSQLUserDAO;
 import server.database.dao.iCommandDAO;
 import server.database.dao.iGameDAO;
 import server.database.dao.iUserDAO;
 import server.database.iDatabaseFactory;
-import server.database.iPersistenceProvider;
 
 /**
  * Created by Dylan on 6/15/2017.
  */
 
-public class SQLPlugin implements iPersistenceProvider {
-
-    private iDatabaseFactory db = new SQLDatabaseFactory();
+public class NoSQLDatabaseFactory implements iDatabaseFactory {
 
     private iGameDAO GameDAO;
     private iUserDAO UserDAO;
     private iCommandDAO CommandDAO;
 
-    public SQLPlugin() {
-        GameDAO = new SQLGameDAO();
-        UserDAO = new SQLUserDAO();
-        CommandDAO = new SQLCommandDAO();
+    public NoSQLDatabaseFactory() {
+        GameDAO = new NoSQLGameDAO();
+        UserDAO = new NoSQLUserDAO();
+        CommandDAO = new NoSQLCommandDAO();
     }
 
     @Override
@@ -58,5 +53,4 @@ public class SQLPlugin implements iPersistenceProvider {
     public iCommandDAO getCommandDAO() {
         return this.CommandDAO;
     }
-
 }

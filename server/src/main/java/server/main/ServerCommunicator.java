@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 
 import server.ServerFacade;
 import server.database.PluginRegistery;
-import server.database.iPersistenceProvider;
+import server.database.iDatabaseFactory;
 import server.handler.CommandHandler;
 import server.model.ServerModelRoot;
 
@@ -24,7 +24,7 @@ public class ServerCommunicator {
 
     private ServerCommunicator(String pluginName,int incrementer) {
         ServerFacade serverFacade = ServerFacade._instance;
-        iPersistenceProvider plugin = this.initializePlugin(pluginName);
+        iDatabaseFactory plugin = this.initializePlugin(pluginName);
         plugin.startTransaction();
         serverFacade.restoreUsers(plugin.getUserDAO().read());
         serverFacade.restoreGames(plugin.getGameDAO().read());
@@ -33,7 +33,7 @@ public class ServerCommunicator {
     }
 
 
-    private iPersistenceProvider initializePlugin(String pluginName) {
+    private iDatabaseFactory initializePlugin(String pluginName) {
         PluginRegistery r = new PluginRegistery();
         r.loadConfig(pluginName);
         return r.getPlugin();
@@ -74,15 +74,17 @@ public class ServerCommunicator {
             new ServerCommunicator().run(port);
             return;
         }
-        String pluginName = args[1];
-        int incrementer;
-        try {
-            incrementer = Integer.parseInt(args[2]);
-            ServerModelRoot.getInstance().setResetCountLimit(incrementer);
-        } catch (NumberFormatException e) {
-            System.err.println("increment must be a number");
-            return;
+        if (args.length > 1) {
+            String pluginName = args[1];
+            int incrementer;
+            try {
+                incrementer = Integer.parseInt(args[2]);
+                ServerModelRoot.getInstance().setResetCountLimit(incrementer);
+            } catch (NumberFormatException e) {
+                System.err.println("increment must be a number");
+                return;
+            }
+            new ServerCommunicator(pluginName, incrementer).run(port);
         }
-        new ServerCommunicator(pluginName,incrementer).run(port);
     }
 }

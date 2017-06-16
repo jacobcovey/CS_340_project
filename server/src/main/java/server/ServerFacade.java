@@ -8,11 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import server.database.SQLDatabaseFactory;
-import server.database.dao.iCommandDAO;
-import server.database.dao.iGameDAO;
-import server.database.iDatabaseFactory;
-import server.main.ServerCommunicator;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
@@ -20,11 +15,8 @@ import shared.classes.Game;
 import shared.classes.HistoryAction;
 import shared.classes.Player;
 import shared.classes.Route;
-import shared.classes.TrainCard;
-import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 import shared.classes.User;
-import shared.interfaces.iCommand;
 
 public class ServerFacade {
 
@@ -32,7 +24,6 @@ public class ServerFacade {
 
     private ServerFacade() {}
 
-    private iDatabaseFactory databaseFactory;
 
 
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
