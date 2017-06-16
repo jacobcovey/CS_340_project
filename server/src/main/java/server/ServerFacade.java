@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import server.main.ServerCommunicator;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
@@ -19,6 +20,7 @@ import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 import shared.classes.User;
+import shared.interfaces.iCommand;
 
 public class ServerFacade {
 
@@ -179,6 +181,16 @@ public class ServerFacade {
         }
     }
 
+
+    public void setLastTurn(GameInfo gameInfo, Player player) {
+        gameInfo.setLastTurn(player);
+    }
+
+    public void addHistoryItemToGame(HistoryAction historyAction, GameInfo gameInfo, String gameId) {
+        gameInfo.getHistory().addAction(historyAction);
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
+    }
+
     private void gameOver(GameInfo gameInfo) {
         gameInfo.setState(GameInfo.State.GAME_OVER);
         Map<Player, Map<String, Integer>> playerPointsInfo = new HashMap<>();
@@ -198,17 +210,6 @@ public class ServerFacade {
         }
 
     }
-
-    public void setLastTurn(GameInfo gameInfo, Player player) {
-        gameInfo.setLastTurn(player);
-    }
-
-    public void addHistoryItemToGame(HistoryAction historyAction, GameInfo gameInfo, String gameId) {
-        gameInfo.getHistory().addAction(historyAction);
-        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
-    }
-
-
 
     //LONGEST ROUTE POINTS
     //Maps each claimed Route to the associated Player
@@ -359,5 +360,14 @@ public class ServerFacade {
             }
         }
         return null;
+    }
+    public void restoreUsers(Set<User> allUsers) {
+        serverModelRoot.restoreUsers(allUsers);
+    }
+    public void restoreGames(List<Game> allGames) {
+        serverModelRoot.restoreGames(allGames);
+    }
+    public void runCommands(List<CommandData> allCommands) {
+        serverModelRoot.runCommands(allCommands);
     }
 }

@@ -1,5 +1,8 @@
 package server.model;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map;
 
+import server.commands.CommandManager;
 import shared.classes.City;
 import shared.classes.CommandData;
 import shared.classes.Game;
@@ -16,6 +20,7 @@ import shared.classes.PlayerColors;
 import shared.classes.Turn;
 import shared.classes.User;
 import server.model.GameInfo;
+import shared.interfaces.iCommand;
 import shared.interfaces.iGameInfo;
 
 public class ServerModelRoot {
@@ -37,6 +42,28 @@ public class ServerModelRoot {
     private Set<String> authTokens = new HashSet<>();
     private Map<String, GameInfo> gameInfos = new HashMap<>();
     private Map<String,List<CommandData>> commandsForUser = new HashMap<>();
+    private Integer resetCount = 0;
+    private Integer resetCountLimit = null;
+
+    public Integer getResetCount() {
+        return resetCount;
+    }
+
+    public void setResetCount(Integer resetCount) {
+        this.resetCount = resetCount;
+    }
+
+    public Integer getResetCountLimit() {
+        return resetCountLimit;
+    }
+
+    public void setResetCountLimit(Integer resetCountLimit) {
+        this.resetCountLimit = resetCountLimit;
+    }
+
+    public void incrementResetCount() {
+        this.resetCount++;
+    }
 
     public Set<User> getUsers() {
         return users;
@@ -82,7 +109,28 @@ public class ServerModelRoot {
         return commandsForUser.get(userName);
     }
 
+    public void restoreUsers(Set<User> allUsers) {
 
+        users = allUsers;
+    }
+    public void restoreGames(List<Game> allGames) {
+        gameList = allGames;
+        for (Game game : allGames) {
+            addGameInfo(game);
+        }
+    }
+    public void runCommands(List<CommandData> allCommands) {
+        CommandManager manager = new CommandManager();
+        Gson gson = new Gson();
+        for (CommandData commandData : allCommands) {
+            iCommand command = manager.createCommand(commandData, gson.toJson(commandData));
+            try {
+                command.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 }
