@@ -8,6 +8,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import server.database.SQLDatabaseFactory;
+import server.database.dao.iCommandDAO;
+import server.database.dao.iGameDAO;
+import server.database.iDatabaseFactory;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
@@ -25,6 +29,8 @@ public class ServerFacade {
     public static ServerFacade _instance = new ServerFacade();
 
     private ServerFacade() {}
+
+    private iDatabaseFactory databaseFactory;
 
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
 
@@ -347,6 +353,23 @@ public class ServerFacade {
             }
         }
         return largestLength;
+    }
+
+    public void saveCommand(CommandData commandData) {
+        Game game = getGameById(commandData.getGameId());
+        game.incramentComandsSaved();
+
+//        iCommandDAO commandDAO = databaseFactory.getCommandDAO();
+//        commandDAO.create(commandData);
+
+        if (game.getCommandsSaved() >= ServerModelRoot.getInstance().getResetCountLimit()) {
+            game.resetCommandsSaved();
+//            commandDAO.clear();
+//            iGameDAO gameDAO = databaseFactory.getGameDAO();
+//            gameDAO.delete(game.getId());
+//            gameDAO.create(game);
+        }
+
     }
 
 //    private void restoreUsers(plugin.getUserDAO().read());

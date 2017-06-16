@@ -15,7 +15,9 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.ServerFacade;
 import server.commands.CommandManager;
+import server.model.ServerModelRoot;
 import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 
@@ -33,6 +35,7 @@ public class CommandHandler implements HttpHandler {
                 exchange.getResponseBody().close();
                 return;
             }
+
             Gson gson = new Gson();
             InputStream reqBody = exchange.getRequestBody();
             String serialized = readString(reqBody);
@@ -40,6 +43,7 @@ public class CommandHandler implements HttpHandler {
             if (!commandData.getType().equals(GETOUTSTANDINGCOMMANDS) && !commandData.getType().equals(UPDATEGAMELIST) && !commandData.getType().equals(UPDATECURRENTGAME)) {System.out.println(commandData.getType());}
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
+            ServerFacade._instance.saveCommand(commandData);
             List<CommandData> result = command.execute();
 //            Type commandDataListType zx2xz= new TypeToken<List<CommandData>>(){}.getType();
             String toClient = gson.toJson(result.toArray());

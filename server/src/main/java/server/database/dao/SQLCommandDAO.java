@@ -1,5 +1,6 @@
 package server.database.dao;
 
+import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 
 /**
@@ -8,7 +9,7 @@ import shared.interfaces.iCommand;
 
 public class SQLCommandDAO implements iCommandDAO {
     @Override
-    public boolean create() {
+    public boolean create(CommandData commandData) {
         return true;
     }
 

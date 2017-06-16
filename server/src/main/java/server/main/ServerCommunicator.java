@@ -11,6 +11,7 @@ import server.ServerFacade;
 import server.database.PluginRegistery;
 import server.database.iPersistenceProvider;
 import server.handler.CommandHandler;
+import server.model.ServerModelRoot;
 
 public class ServerCommunicator {
 
@@ -74,6 +75,7 @@ public class ServerCommunicator {
         pluginName = args[1];
         try {
             incrementer = Integer.parseInt(args[2]);
+            ServerModelRoot.getInstance().setResetCountLimit(incrementer);
         } catch (NumberFormatException e) {
             System.err.println("port must be a number");
             return;

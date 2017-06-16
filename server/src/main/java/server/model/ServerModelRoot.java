@@ -37,16 +37,7 @@ public class ServerModelRoot {
     private Set<String> authTokens = new HashSet<>();
     private Map<String, GameInfo> gameInfos = new HashMap<>();
     private Map<String,List<CommandData>> commandsForUser = new HashMap<>();
-    private Integer resetCount = 0;
     private Integer resetCountLimit = null;
-
-    public Integer getResetCount() {
-        return resetCount;
-    }
-
-    public void setResetCount(Integer resetCount) {
-        this.resetCount = resetCount;
-    }
 
     public Integer getResetCountLimit() {
         return resetCountLimit;
@@ -54,10 +45,6 @@ public class ServerModelRoot {
 
     public void setResetCountLimit(Integer resetCountLimit) {
         this.resetCountLimit = resetCountLimit;
-    }
-
-    public void incrementResetCount() {
-        this.resetCount++;
     }
 
     public Set<User> getUsers() {

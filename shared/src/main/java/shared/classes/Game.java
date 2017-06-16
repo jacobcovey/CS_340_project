@@ -11,6 +11,7 @@ public class Game {
     private int playerLimit;
     private User owner;
     private List<User> players;
+    private int commandsSaved;
 
     public Game(String name, int playerLimit, User owner) {
         this.id = String.valueOf(UUID.randomUUID());
@@ -18,6 +19,19 @@ public class Game {
         this.playerLimit = playerLimit;
         this.owner = owner;
         this.players = new ArrayList<>();
+        this.commandsSaved = 0;
+    }
+
+    public int getCommandsSaved() {
+        return commandsSaved;
+    }
+
+    public void incramentComandsSaved() {
+        this.commandsSaved++;
+    }
+
+    public void resetCommandsSaved() {
+        this.commandsSaved = 0;
     }
 
     public User getOwner() {
