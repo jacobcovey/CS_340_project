@@ -1,19 +1,20 @@
-package server.database.dao;
+package server.database.dao.nosql;
 
-import shared.classes.Game;
+import server.database.dao.iCommandDAO;
+import shared.interfaces.iCommand;
 
 /**
  * Created by Dylan on 6/15/2017.
  */
 
-public class SQLGameDAO implements iGameDAO {
+public class NoSQLCommandDAO implements iCommandDAO {
     @Override
     public boolean create() {
         return true;
     }
 
     @Override
-    public Game read() {
+    public iCommand read() {
         return null;
     }
 
@@ -26,5 +27,4 @@ public class SQLGameDAO implements iGameDAO {
     public boolean delete() {
         return true;
     }
-
 }

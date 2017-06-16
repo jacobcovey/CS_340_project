@@ -1,5 +1,6 @@
-package server.database.dao;
+package server.database.dao.nosql;
 
+import server.database.dao.iUserDAO;
 import shared.classes.User;
 
 /**
