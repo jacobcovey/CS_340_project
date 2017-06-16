@@ -1,14 +1,13 @@
 package server.database.plugin;
 
-import server.database.NoSQLDatabase;
-import server.database.SQLDatabase;
+import server.database.NoSQLDatabaseFactory;
 import server.database.dao.NoSQLCommandDAO;
 import server.database.dao.NoSQLGameDAO;
 import server.database.dao.NoSQLUserDAO;
 import server.database.dao.iCommandDAO;
 import server.database.dao.iGameDAO;
 import server.database.dao.iUserDAO;
-import server.database.iDatabase;
+import server.database.iDatabaseFactory;
 import server.database.iPersistenceProvider;
 
 /**
@@ -16,7 +15,7 @@ import server.database.iPersistenceProvider;
  */
 
 public class NoSQLPlugin implements iPersistenceProvider {
-    private iDatabase db = new NoSQLDatabase();
+    private iDatabaseFactory db = new NoSQLDatabaseFactory();
 
     private iGameDAO GameDAO;
     private iUserDAO UserDAO;
