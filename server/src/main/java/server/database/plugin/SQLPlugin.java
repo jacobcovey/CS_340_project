@@ -1,13 +1,13 @@
 package server.database.plugin;
 
-import server.database.SQLDatabase;
+import server.database.SQLDatabaseFactory;
 import server.database.dao.SQLCommandDAO;
 import server.database.dao.SQLGameDAO;
 import server.database.dao.SQLUserDAO;
 import server.database.dao.iCommandDAO;
 import server.database.dao.iGameDAO;
 import server.database.dao.iUserDAO;
-import server.database.iDatabase;
+import server.database.iDatabaseFactory;
 import server.database.iPersistenceProvider;
 
 /**
@@ -16,7 +16,7 @@ import server.database.iPersistenceProvider;
 
 public class SQLPlugin implements iPersistenceProvider {
 
-    private iDatabase db = new SQLDatabase();
+    private iDatabaseFactory db = new SQLDatabaseFactory();
 
     private iGameDAO GameDAO;
     private iUserDAO UserDAO;

@@ -179,6 +179,16 @@ public class ServerFacade {
         }
     }
 
+
+    public void setLastTurn(GameInfo gameInfo, Player player) {
+        gameInfo.setLastTurn(player);
+    }
+
+    public void addHistoryItemToGame(HistoryAction historyAction, GameInfo gameInfo, String gameId) {
+        gameInfo.getHistory().addAction(historyAction);
+        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
+    }
+
     private void gameOver(GameInfo gameInfo) {
         gameInfo.setState(GameInfo.State.GAME_OVER);
         Map<Player, Map<String, Integer>> playerPointsInfo = new HashMap<>();
@@ -198,17 +208,6 @@ public class ServerFacade {
         }
 
     }
-
-    public void setLastTurn(GameInfo gameInfo, Player player) {
-        gameInfo.setLastTurn(player);
-    }
-
-    public void addHistoryItemToGame(HistoryAction historyAction, GameInfo gameInfo, String gameId) {
-        gameInfo.getHistory().addAction(historyAction);
-        ServerFacade._instance.addCommandToGame(new CommandData(CommandData.Type.UPDATEHISTORY, historyAction), gameId);
-    }
-
-
 
     //LONGEST ROUTE POINTS
     //Maps each claimed Route to the associated Player
@@ -350,4 +349,7 @@ public class ServerFacade {
         return largestLength;
     }
 
+//    private void restoreUsers(plugin.getUserDAO().read());
+//    private void restoreGames(plugin.getGameDAO().read());
+//    private void runCommands(plugin.getCommandDAO().read());
 }
