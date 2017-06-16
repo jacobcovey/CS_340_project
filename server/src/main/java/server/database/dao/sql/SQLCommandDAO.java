@@ -142,13 +142,14 @@ public class SQLCommandDAO implements iCommandDAO {
 //        return output;
 //    }
 
+
     @Override
-    public boolean create() {
-        return true;
+    public boolean create(CommandData commandData) {
+        return false;
     }
 
     @Override
-    public iCommand read() {
+    public List<CommandData> read() {
         return null;
     }
 

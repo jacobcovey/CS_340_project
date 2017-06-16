@@ -21,6 +21,9 @@ import shared.classes.Game;
 public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
 
     private List<Game> games;
+    private GameListAdapter.ViewHolder viewHolder;
+    private iGameListView parent;
+
 
     protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -28,6 +31,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         public TextView mNumberOfPlayersTextView;
         public TextView mCreatorTextView;
         public Game game;
+        public iGameListView parentView;
 
 
         public ViewHolder(View view) {
@@ -43,9 +47,9 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);
-            intent.putExtra("gameId", game.getId());
-            v.getContext().startActivity(intent);
+            if (parentView != null) {
+                parentView.joinGame(game);
+            }
         }
     }
 
@@ -70,11 +74,12 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Game currentGame = games.get(position);
-        GameListAdapter.ViewHolder vh = (GameListAdapter.ViewHolder)holder;
-        vh.mCreatorTextView.setText(currentGame.getOwner().getUsername());
-        vh.mNumberOfPlayersTextView.setText( Integer.toString(currentGame.getPlayers().size()) + "/" +  Integer.toString(currentGame.getPlayerLimit()) );
-        vh.mGameNameTextView.setText(currentGame.getName());
-        vh.game = currentGame;
+        viewHolder = (GameListAdapter.ViewHolder)holder;
+        viewHolder.mCreatorTextView.setText(currentGame.getOwner().getUsername());
+        viewHolder.mNumberOfPlayersTextView.setText( Integer.toString(currentGame.getPlayers().size()) + "/" +  Integer.toString(currentGame.getPlayerLimit()) );
+        viewHolder.mGameNameTextView.setText(currentGame.getName());
+        viewHolder.game = currentGame;
+        viewHolder.parentView = parent;
     }
 
 
@@ -84,5 +89,12 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
             return  0;
         }
         return games.size();
+    }
+
+    public void setParent(iGameListView parent) {
+        this.parent = parent;
+        if (viewHolder != null) {
+            viewHolder.parentView = parent;
+        }
     }
 }

@@ -76,7 +76,11 @@ public class LoginPresenter implements iLoginPresenter {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-//                cpf.notifyObservers();
+                if (cpf.getGame() != null) {
+                    loginView.navToGameLobbyScreenActivity();
+                    cpf.setState(ClientModelRoot.State.GAMELOBBY);
+                    return;
+                }
                 loginView.navToGameListScreenActivity();
                 cpf.setState(ClientModelRoot.State.GAMELIST);
             }
@@ -101,7 +105,6 @@ public class LoginPresenter implements iLoginPresenter {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-//                cpf.notifyObservers();
                 loginView.navToGameListScreenActivity();
                 cpf.setState(ClientModelRoot.State.GAMELIST);
             }

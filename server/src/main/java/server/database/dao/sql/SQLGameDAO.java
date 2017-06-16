@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import server.database.dao.iGameDAO;
 import shared.classes.Game;
@@ -102,7 +103,7 @@ public class SQLGameDAO implements iGameDAO {
     }
 
     @Override
-    public Game read() {
+    public List<Game> read() {
         return null;
     }
 

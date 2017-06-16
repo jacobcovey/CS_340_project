@@ -1,6 +1,9 @@
 package server.database.dao.nosql;
 
 import server.database.dao.iUserDAO;
+import java.util.List;
+import java.util.Set;
+
 import shared.classes.User;
 
 /**
@@ -14,7 +17,7 @@ public class NoSQLUserDAO implements iUserDAO {
     }
 
     @Override
-    public User read() {
+    public Set<User> read() {
         return null;
     }
 

@@ -3,6 +3,7 @@ package server.database.dao.sql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 
 import server.database.dao.iUserDAO;
 import shared.classes.User;
@@ -100,7 +101,7 @@ public class SQLUserDAO implements iUserDAO {
     }
 
     @Override
-    public User read() {
+    public Set<User> read() {
         return null;
     }
 

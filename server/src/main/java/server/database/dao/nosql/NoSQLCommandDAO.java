@@ -1,20 +1,25 @@
 package server.database.dao.nosql;
 
 import server.database.dao.iCommandDAO;
-import shared.interfaces.iCommand;
+import shared.classes.CommandData;
+import server.database.dao.iCommandDAO;
+import java.util.List;
+import java.util.Set;
+
 
 /**
  * Created by Dylan on 6/15/2017.
  */
 
 public class NoSQLCommandDAO implements iCommandDAO {
+
     @Override
-    public boolean create() {
-        return true;
+    public boolean create(CommandData commandData) {
+        return false;
     }
 
     @Override
-    public iCommand read() {
+    public List<CommandData> read() {
         return null;
     }
 

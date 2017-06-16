@@ -11,19 +11,24 @@ import server.ServerFacade;
 import server.database.PluginRegistery;
 import server.database.iPersistenceProvider;
 import server.handler.CommandHandler;
+import server.model.ServerModelRoot;
 
 public class ServerCommunicator {
 
     private HttpServer server;
     private static final int MAX_WAITING_CONNECTIONS = 12;
 
-    private ServerCommunicator(String pluginName) {
+    private ServerCommunicator() {
+
+    }
+
+    private ServerCommunicator(String pluginName,int incrementer) {
         ServerFacade serverFacade = ServerFacade._instance;
         iPersistenceProvider plugin = this.initializePlugin(pluginName);
         plugin.startTransaction();
-//      serverFacade.restoreUsers(plugin.getUserDAO());
-//      serverFacade.restoreGames(plugin.getGameDAO());
-//      serverFacade.runCommands(plugin.getCommandDAO());
+        serverFacade.restoreUsers(plugin.getUserDAO().read());
+        serverFacade.restoreGames(plugin.getGameDAO().read());
+        serverFacade.runCommands(plugin.getCommandDAO().read());
         plugin.endTransaction();
     }
 
@@ -54,20 +59,30 @@ public class ServerCommunicator {
     }
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println("usage: ServerCommunicator.main <port>");
+        if (args.length < 1 || args.length == 2 || args.length > 3) {
+            System.err.println("usage: ServerCommunicator.main <port> [<database> <increment>]");
             return;
         }
         int port;
-        String pluginName;
         try {
             port = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
             System.err.println("port must be a number");
             return;
         }
-        pluginName = args[1];
-
-        new ServerCommunicator(pluginName).run(port);
+        if (args.length == 1) {
+            new ServerCommunicator().run(port);
+            return;
+        }
+        String pluginName = args[1];
+        int incrementer;
+        try {
+            incrementer = Integer.parseInt(args[2]);
+            ServerModelRoot.getInstance().setResetCountLimit(incrementer);
+        } catch (NumberFormatException e) {
+            System.err.println("increment must be a number");
+            return;
+        }
+        new ServerCommunicator(pluginName,incrementer).run(port);
     }
 }

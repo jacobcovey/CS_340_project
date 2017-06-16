@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import shared.interfaces.iGameInfo;
+
 public class Game {
 
     private String id;
@@ -11,6 +13,8 @@ public class Game {
     private int playerLimit;
     private User owner;
     private List<User> players;
+    private int commandsSaved;
+    private iGameInfo gameInfo;
 
     public Game(String name, int playerLimit, User owner) {
         this.id = String.valueOf(UUID.randomUUID());
@@ -18,6 +22,19 @@ public class Game {
         this.playerLimit = playerLimit;
         this.owner = owner;
         this.players = new ArrayList<>();
+        this.commandsSaved = 0;
+    }
+
+    public int getCommandsSaved() {
+        return commandsSaved;
+    }
+
+    public void incramentComandsSaved() {
+        this.commandsSaved++;
+    }
+
+    public void resetCommandsSaved() {
+        this.commandsSaved = 0;
     }
 
     public User getOwner() {
@@ -71,5 +88,11 @@ public class Game {
                 return;
             }
         }
+    }
+    public iGameInfo getGameInfo() {
+        return gameInfo;
+    }
+    public void setGameInfo(iGameInfo gameInfo) {
+        this.gameInfo = gameInfo;
     }
 }

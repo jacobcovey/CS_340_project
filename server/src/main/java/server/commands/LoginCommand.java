@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.ServerFacade;
+import server.model.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.CommandData.Type;
+import shared.classes.Game;
 import shared.classes.User;
 import shared.interfaces.iCommand;
 
@@ -35,8 +37,18 @@ public class LoginCommand implements iCommand {
 
         } else {
             // send the userobject to the client
-            CommandData successCmd = new CommandData(Type.LOGINSUCCESSFUL, data);
+            CommandData successCmd = new CommandData(Type.LOGINSUCCESSFUL, myUser);
             dList.add(successCmd);
+            Game usersGame = ServerFacade._instance.findGameWithUser(myUser);
+            if (usersGame != null) {
+                successCmd = new CommandData(Type.GAMEJOINED, usersGame);
+                dList.add(successCmd);
+                GameInfo gameInfo = ServerFacade._instance.getGameInfo(usersGame.getId());
+                if (gameInfo != null) {
+                    successCmd = new CommandData(Type.UPDATEGAMEINFO, gameInfo);
+                    dList.add(successCmd);
+                }
+            }
 
         }
         return dList;

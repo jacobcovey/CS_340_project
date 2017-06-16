@@ -50,17 +50,6 @@ public class GameLobbyPresenter implements iGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void leaveGame() {
-        Game currentGame = cpf.getGame();
-        User currentUser = cpf.getUser();
-
-        GameRequest gameRequest = new GameRequest(currentUser,currentGame);
-
-        leaveGameRequest leaveGame = new leaveGameRequest();
-        leaveGame.execute(gameRequest);
-    }
-
-    @Override
     public void setCurrentGame(String gameID) {
         List<Game> games = cpf.getGameList();
         for (Game game : games) {
@@ -109,19 +98,6 @@ public class GameLobbyPresenter implements iGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void joinCurrentGame() {
-
-        User currentUser = cpf.getUser();
-        Game currentGame = cpf.getGame();
-
-        GameRequest gameRequest = new GameRequest(currentUser,currentGame);
-
-        joinGameRequest joinGame = new joinGameRequest();
-        joinGame.execute(gameRequest);
-
-    }
-
-    @Override
     public void setViewCreated(Boolean viewCreated) {
         this.viewCreated = viewCreated;
     }
@@ -129,28 +105,6 @@ public class GameLobbyPresenter implements iGameLobbyPresenter, Observer {
     @Override
     public void setToCurrentState() {
         cpf.setState(ClientModelRoot.State.GAMELOBBY);
-    }
-
-    private class joinGameRequest extends AsyncTask<GameRequest, Integer, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(GameRequest... params) {
-            try {
-                cpf.joinGame(params[0]);
-            } catch (IOException e) {
-                System.out.printf(e.getMessage());
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (success) {
-                cpf.setState(ClientModelRoot.State.GAMELOBBY);
-            }
-        }
     }
 
     private class startGameRequest extends AsyncTask<Game, Integer, Boolean> {
@@ -179,29 +133,6 @@ public class GameLobbyPresenter implements iGameLobbyPresenter, Observer {
 
     private void prepareStartGame() {
         cpf.removeObserver(this);
-    }
-
-    private class leaveGameRequest extends AsyncTask<GameRequest, Integer, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(GameRequest... params) {
-            try {
-                cpf.leaveGame(params[0]);
-            } catch (IOException e) {
-                System.out.printf(e.getMessage());
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (success) {
-                cpf.setState(ClientModelRoot.State.GAMELIST);
-                gameLobbyView.navToGameListScreenActivity();
-            }
-        }
     }
 
 }
