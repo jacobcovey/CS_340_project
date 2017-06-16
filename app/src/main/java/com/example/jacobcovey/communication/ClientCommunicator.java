@@ -28,7 +28,7 @@ public class ClientCommunicator {
     public static List<CommandData> sendToServer(CommandData commandData) {
         List<CommandData> data = null;
         try {
-            String serverHost =  "192.168.0.4";
+            String serverHost =  "192.168.1.150";
             String serverPort = "4000";
 
             URL url = new URL("http://" + serverHost + ":" + serverPort + "/executecommand");
@@ -37,10 +37,6 @@ public class ClientCommunicator {
 
             http.setRequestMethod("POST");
             User user = ClientFacade._instance.getUser();
-            if (user != null) {
-                String token = user.getAuthToken();
-                http.setRequestProperty("authorization", token);
-            }
             http.setDoOutput(true);
 
             OutputStreamWriter os = new OutputStreamWriter(http.getOutputStream());

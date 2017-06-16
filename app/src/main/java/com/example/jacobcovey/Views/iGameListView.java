@@ -20,4 +20,5 @@ public interface iGameListView {
 
     void updateGameList(List<Game> games);
 
+    void displayToast(String message);
 }

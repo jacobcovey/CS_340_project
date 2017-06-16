@@ -350,4 +350,14 @@ public class ServerFacade {
         return largestLength;
     }
 
+    public Game findGameWithUser(User myUser) {
+        for (Game game : serverModelRoot.getGameList()) {
+            for (User player : game.getPlayers()) {
+                if (player.getUsername().equals(myUser.getUsername())) {
+                    return game;
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -1,6 +1,9 @@
 package com.example.jacobcovey.Presenters;
 
+import android.os.AsyncTask;
+
 import com.example.jacobcovey.Views.iGameListView;
+import com.example.jacobcovey.model.ClientModelRoot;
 import com.example.jacobcovey.model.ClientPresenterFacade;
 
 import java.io.IOException;
@@ -43,14 +46,8 @@ public class GameListPresenter implements iGameListPresenter, Observer {
     @Override
     public void joinGame(Game game) {
         User user = cpf.getUser();
-        try {
-            GameRequest gameRequest = new GameRequest(user, game);
-            cpf.joinGame(gameRequest);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        cpf.removeObserver(this);
-        gameListView.navToGameLobbyScreenActivity();
+        joinGameRequest joinGameRequest = new joinGameRequest();
+        joinGameRequest.execute(new GameRequest(user, game));
     }
 
     @Override
@@ -64,17 +61,33 @@ public class GameListPresenter implements iGameListPresenter, Observer {
         gameListView.updateGameList(games);
     }
 
-//    private class loginRequest extends AsyncTask<User, Integer, Void> {
-//
-//        @Override
-//        protected Void doInBackground(User... params) {
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//        }
-//    }
+    private class joinGameRequest extends AsyncTask<GameRequest, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(GameRequest... params) {
+            try {
+                cpf.joinGame(params[0]);
+            } catch (IOException e) {
+                System.out.printf(e.getMessage());
+                gameListView.displayToast(e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                removeObserver();
+                cpf.setState(ClientModelRoot.State.GAMELOBBY);
+                gameListView.navToGameLobbyScreenActivity();
+            }
+        }
+    }
+
+    private void removeObserver() {
+        cpf.removeObserver(this);
+    }
 
 }

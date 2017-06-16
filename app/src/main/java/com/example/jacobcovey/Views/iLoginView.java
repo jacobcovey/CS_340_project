@@ -18,4 +18,5 @@ public interface iLoginView {
 
     void navToGameListScreenActivity();
 
+    void navToGameLobbyScreenActivity();
 }
