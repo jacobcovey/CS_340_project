@@ -1,5 +1,9 @@
 package server.database.dao;
 
+import java.util.List;
+import java.util.Set;
+
+import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 
 /**
@@ -8,7 +12,7 @@ import shared.interfaces.iCommand;
 
 public interface iCommandDAO {
     public boolean create();
-    public iCommand read();
+    public List<CommandData> read();
     public boolean update();
     public boolean delete();
 }

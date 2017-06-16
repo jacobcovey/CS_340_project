@@ -25,9 +25,9 @@ public class ServerCommunicator {
         ServerFacade serverFacade = ServerFacade._instance;
         iPersistenceProvider plugin = this.initializePlugin(pluginName);
         plugin.startTransaction();
-//        serverFacade.restoreUsers(plugin.getUserDAO().read());
-//        serverFacade.restoreGames(plugin.getGameDAO().read());
-//        serverFacade.runCommands(plugin.getCommandDAO().read());
+        serverFacade.restoreUsers(plugin.getUserDAO().read());
+        serverFacade.restoreGames(plugin.getGameDAO().read());
+        serverFacade.runCommands(plugin.getCommandDAO().read());
         plugin.endTransaction();
     }
 
