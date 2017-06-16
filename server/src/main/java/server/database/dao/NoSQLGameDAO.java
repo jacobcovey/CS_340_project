@@ -1,5 +1,8 @@
 package server.database.dao;
 
+import java.util.List;
+import java.util.Set;
+
 import shared.classes.Game;
 
 /**
@@ -13,7 +16,7 @@ public class NoSQLGameDAO implements iGameDAO {
     }
 
     @Override
-    public Game read() {
+    public List<Game> read() {
         return null;
     }
 

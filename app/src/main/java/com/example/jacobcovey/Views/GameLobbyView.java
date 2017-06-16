@@ -63,13 +63,6 @@ public class GameLobbyView extends Fragment implements iGameLobbyView {
         gameLobbyPresenter = new GameLobbyPresenter();
         gameLobbyPresenter.setGameLobbyView(this);
 
-        if (getActivity().getIntent().hasExtra("gameId")) {
-            gameLobbyPresenter.setToCurrentState();
-            String gameId = (String) getActivity().getIntent().getExtras().get("gameId");
-            gameLobbyPresenter.setCurrentGame(gameId);
-            gameLobbyPresenter.joinCurrentGame();
-        }
-
         playerBoxStack = new Stack<LinearLayout>();
         playerNameTextViewList = new ArrayList<TextView>();
         playerNameList = new ArrayList<String>();

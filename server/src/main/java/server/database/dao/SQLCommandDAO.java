@@ -1,5 +1,8 @@
 package server.database.dao;
 
+import java.util.List;
+import java.util.Set;
+
 import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 
@@ -14,7 +17,7 @@ public class SQLCommandDAO implements iCommandDAO {
     }
 
     @Override
-    public iCommand read() {
+    public List<CommandData> read() {
         return null;
     }
 

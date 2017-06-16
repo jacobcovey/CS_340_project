@@ -22,8 +22,15 @@ public class JoinGameCommand implements iCommand {
         //add user to game
         Game game = data.getGame();
         User user = data.getUser();
-        Game mygame = ServerFacade._instance.addUserToGame(game, user);
         ArrayList<CommandData> dList = new ArrayList<>();
+        for (User player: game.getPlayers()) {
+            if (user.getUsername().equals(player)) {
+                CommandData unSuccessCmd = new CommandData(Type.ERROR, "UNABLE TO ADD PLAYER TO GAME");
+                dList.add(unSuccessCmd);
+                return dList;
+            }
+        }
+        Game mygame = ServerFacade._instance.addUserToGame(game, user);
 
         if (mygame != null) {
             CommandData successCmd = new CommandData(Type.GAMEJOINED, mygame);

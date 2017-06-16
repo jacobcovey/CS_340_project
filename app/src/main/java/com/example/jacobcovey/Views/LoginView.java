@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jacobcovey.Activities.GameListActivity;
+import com.example.jacobcovey.Activities.GameLobbyActivity;
 import com.example.jacobcovey.Presenters.iLoginPresenter;
 import com.example.jacobcovey.Presenters.LoginPresenter;
 import com.example.jacobcovey.ticket_to_ride.R;
@@ -78,6 +79,12 @@ public class LoginView extends android.support.v4.app.Fragment implements iLogin
     @Override
     public void navToGameListScreenActivity() {
         Intent intent = new Intent(getActivity(), GameListActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void navToGameLobbyScreenActivity() {
+        Intent intent = new Intent(getActivity(), GameLobbyActivity.class);
         startActivity(intent);
     }
 

@@ -12,6 +12,7 @@ import server.database.SQLDatabaseFactory;
 import server.database.dao.iCommandDAO;
 import server.database.dao.iGameDAO;
 import server.database.iDatabaseFactory;
+import server.main.ServerCommunicator;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
@@ -23,6 +24,7 @@ import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
 import shared.classes.Turn;
 import shared.classes.User;
+import shared.interfaces.iCommand;
 
 public class ServerFacade {
 
@@ -375,4 +377,24 @@ public class ServerFacade {
 //    private void restoreUsers(plugin.getUserDAO().read());
 //    private void restoreGames(plugin.getGameDAO().read());
 //    private void runCommands(plugin.getCommandDAO().read());
+
+    public Game findGameWithUser(User myUser) {
+        for (Game game : serverModelRoot.getGameList()) {
+            for (User player : game.getPlayers()) {
+                if (player.getUsername().equals(myUser.getUsername())) {
+                    return game;
+                }
+            }
+        }
+        return null;
+    }
+    public void restoreUsers(Set<User> allUsers) {
+        serverModelRoot.restoreUsers(allUsers);
+    }
+    public void restoreGames(List<Game> allGames) {
+        serverModelRoot.restoreGames(allGames);
+    }
+    public void runCommands(List<CommandData> allCommands) {
+        serverModelRoot.runCommands(allCommands);
+    }
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.jacobcovey.Activities.GameLobbyActivity;
 import com.example.jacobcovey.Activities.GameOptionsActivity;
@@ -66,6 +67,7 @@ public class GameListView extends Fragment implements iGameListView {
         List<Game> games = gameListPresenter.getGames();
 
         GameListAdapter adapter = new GameListAdapter(games);
+        adapter.setParent(this);
 
         mGamesRecyclerView.setAdapter(adapter);
 
@@ -104,6 +106,19 @@ public class GameListView extends Fragment implements iGameListView {
 
     @Override
     public void setList(List<Object> list) {
+
+    }
+
+    @Override
+    public void displayToast(final String message) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getActivity(), message,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 }

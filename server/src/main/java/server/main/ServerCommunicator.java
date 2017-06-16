@@ -26,9 +26,9 @@ public class ServerCommunicator {
         ServerFacade serverFacade = ServerFacade._instance;
         iPersistenceProvider plugin = this.initializePlugin(pluginName);
         plugin.startTransaction();
-//        serverFacade.restoreUsers(plugin.getUserDAO().read());
-//        serverFacade.restoreGames(plugin.getGameDAO().read());
-//        serverFacade.runCommands(plugin.getCommandDAO().read());
+        serverFacade.restoreUsers(plugin.getUserDAO().read());
+        serverFacade.restoreGames(plugin.getGameDAO().read());
+        serverFacade.runCommands(plugin.getCommandDAO().read());
         plugin.endTransaction();
     }
 
@@ -59,33 +59,30 @@ public class ServerCommunicator {
     }
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println("usage: ServerCommunicator.main <port>");
+        if (args.length < 1 || args.length == 2 || args.length > 3) {
+            System.err.println("usage: ServerCommunicator.main <port> [<database> <increment>]");
             return;
         }
         int port;
-        String pluginName = "";
-        int incrementer;
         try {
             port = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
             System.err.println("port must be a number");
             return;
         }
-        pluginName = args[1];
+        if (args.length == 1) {
+            new ServerCommunicator().run(port);
+            return;
+        }
+        String pluginName = args[1];
+        int incrementer;
         try {
             incrementer = Integer.parseInt(args[2]);
             ServerModelRoot.getInstance().setResetCountLimit(incrementer);
         } catch (NumberFormatException e) {
-            System.err.println("port must be a number");
+            System.err.println("increment must be a number");
             return;
         }
-
-        if (args.length != 1) {
-            new ServerCommunicator(pluginName,incrementer).run(port);
-        }
-        else {
-            new ServerCommunicator().run(port);
-        }
+        new ServerCommunicator(pluginName,incrementer).run(port);
     }
 }

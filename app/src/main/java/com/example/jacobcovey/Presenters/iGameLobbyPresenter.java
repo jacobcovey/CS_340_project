@@ -12,13 +12,9 @@ public interface iGameLobbyPresenter {
 
     void startGame();
 
-    void leaveGame();
-
     void setCurrentGame(String gameID);
 
     public void setViewCreated(Boolean viewCreated);
-
-    public void joinCurrentGame();
 
     public void setToCurrentState();
 

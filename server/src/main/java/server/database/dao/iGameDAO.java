@@ -1,5 +1,8 @@
 package server.database.dao;
 
+import java.util.List;
+import java.util.Set;
+
 import shared.classes.Game;
 
 /**
@@ -8,7 +11,7 @@ import shared.classes.Game;
 
 public interface iGameDAO {
     public boolean create();
-    public Game read();
+    public List<Game> read();
     public boolean update();
     public boolean delete();
 }

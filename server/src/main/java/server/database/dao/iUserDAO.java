@@ -1,5 +1,8 @@
 package server.database.dao;
 
+import java.util.List;
+import java.util.Set;
+
 import shared.classes.User;
 
 /**
@@ -8,7 +11,7 @@ import shared.classes.User;
 
 public interface iUserDAO {
     public boolean create();
-    public User read();
+    public Set<User> read();
     public boolean update();
     public boolean delete();
 }
