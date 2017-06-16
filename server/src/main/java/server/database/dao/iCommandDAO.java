@@ -1,12 +1,14 @@
 package server.database.dao;
 
+import shared.interfaces.iCommand;
+
 /**
  * Created by Dylan on 6/15/2017.
  */
 
 public interface iCommandDAO {
-    public void create();
-    public void read();
-    public void update();
-    public void delete();
+    public boolean create();
+    public iCommand read();
+    public boolean update();
+    public boolean delete();
 }

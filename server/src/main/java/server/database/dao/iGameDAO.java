@@ -1,12 +1,14 @@
 package server.database.dao;
 
+import shared.classes.Game;
+
 /**
  * Created by Dylan on 6/15/2017.
  */
 
 public interface iGameDAO {
-    public void create();
-    public void read();
-    public void update();
-    public void delete();
+    public boolean create();
+    public Game read();
+    public boolean update();
+    public boolean delete();
 }

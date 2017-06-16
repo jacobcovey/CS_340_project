@@ -1,27 +1,29 @@
 package server.database.dao;
 
+import shared.classes.User;
+
 /**
  * Created by Dylan on 6/15/2017.
  */
 
 public class NoSQLUserDAO implements iUserDAO {
     @Override
-    public void create() {
-
+    public boolean create() {
+        return true;
     }
 
     @Override
-    public void read() {
-
+    public User read() {
+        return null;
     }
 
     @Override
-    public void update() {
-
+    public boolean update() {
+        return true;
     }
 
     @Override
-    public void delete() {
-
+    public boolean delete() {
+        return true;
     }
 }
