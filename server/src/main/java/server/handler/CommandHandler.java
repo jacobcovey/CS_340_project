@@ -43,7 +43,9 @@ public class CommandHandler implements HttpHandler {
             if (!commandData.getType().equals(GETOUTSTANDINGCOMMANDS) && !commandData.getType().equals(UPDATEGAMELIST) && !commandData.getType().equals(UPDATECURRENTGAME)) {System.out.println(commandData.getType());}
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
-            ServerFacade._instance.saveCommand(commandData);
+            if (commandData.getGameId() != null) {
+                ServerFacade._instance.saveCommand(commandData);
+            }
             List<CommandData> result = command.execute();
 //            Type commandDataListType zx2xz= new TypeToken<List<CommandData>>(){}.getType();
             String toClient = gson.toJson(result.toArray());

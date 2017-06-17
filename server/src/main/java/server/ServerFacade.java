@@ -32,7 +32,7 @@ public class ServerFacade {
 
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
 
-    iDatabaseFactory databaseFactory;
+//    iDatabaseFactory databaseFactory;
 
     // FIXME needs to be a list of commands
     public void executeCommand(List<String> commands) {
@@ -358,6 +358,8 @@ public class ServerFacade {
     public void saveCommand(CommandData commandData) {
         Game game = getGameById(commandData.getGameId());
         game.incramentComandsSaved();
+
+        iDatabaseFactory databaseFactory = serverModelRoot.getPlugin();
 
         iCommandDAO commandDAO = databaseFactory.getCommandDAO();
 
