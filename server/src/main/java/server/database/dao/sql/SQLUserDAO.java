@@ -79,7 +79,7 @@ public class SQLUserDAO implements iUserDAO {
                 "(userName, password) " +
                 "VALUES (" +
                 "'" + user.getUsername() + "', " +
-                "'" + user.getPassword() + "', " +
+                "'" + user.getPassword() + "'" +
                 ")";
 
         SQLDatabaseConnection db = new SQLDatabaseConnection();

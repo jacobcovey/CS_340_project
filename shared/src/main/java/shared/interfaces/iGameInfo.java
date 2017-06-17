@@ -16,6 +16,9 @@ import shared.classes.Turn;
  */
 
 public abstract class iGameInfo {
+    public iGameInfo() {
+
+    }
 
     private List<Player> players = new ArrayList<>();
     private Chat chat = new Chat(new ArrayList<ChatMessage>());

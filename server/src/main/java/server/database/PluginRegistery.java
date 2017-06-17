@@ -1,5 +1,7 @@
 package server.database;
 
+import server.ServerFacade;
+
 /**
  * Created by Dylan on 6/15/2017.
  */
@@ -27,6 +29,7 @@ public class PluginRegistery {
         iDatabaseFactory p = null;
         try {
             p = (iDatabaseFactory)c.newInstance();
+            ServerFacade._instance.setDatabaseFactory(p);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

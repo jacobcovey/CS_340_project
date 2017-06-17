@@ -75,7 +75,7 @@ public class SQLCommandDAO implements iCommandDAO {
         String commandAddString = "INSERT INTO COMMANDS " +
                 "(data, gameId) VALUES (" +
                 "'" + serializedCommand + "', " +
-                "'" + gameId + "', " +
+                "'" + gameId + "'" +
                 ")";
 
         SQLDatabaseConnection db = new SQLDatabaseConnection();

@@ -43,7 +43,8 @@ public class CommandHandler implements HttpHandler {
             if (!commandData.getType().equals(GETOUTSTANDINGCOMMANDS) && !commandData.getType().equals(UPDATEGAMELIST) && !commandData.getType().equals(UPDATECURRENTGAME)) {System.out.println(commandData.getType());}
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
-            if (commandData.getGameId() != null) {
+            //deleted this v : commandData.getGameId() != null ||
+            if (! commandData.getGameId().equals("")) {
                 ServerFacade._instance.saveCommand(commandData);
             }
             List<CommandData> result = command.execute();

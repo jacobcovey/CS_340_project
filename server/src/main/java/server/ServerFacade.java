@@ -8,9 +8,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import server.database.PluginRegistery;
 import server.database.dao.iCommandDAO;
 import server.database.dao.iGameDAO;
-import server.database.PluginRegistery;
+import server.database.dao.iUserDAO;
 import server.database.iDatabaseFactory;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
@@ -28,11 +29,13 @@ public class ServerFacade {
 
     private ServerFacade() {}
 
-
+    public void setDatabaseFactory(iDatabaseFactory databaseFactory) {
+        this.databaseFactory = databaseFactory;
+    }
 
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
 
-    iDatabaseFactory databaseFactory = serverModelRoot.getPlugin();
+    iDatabaseFactory databaseFactory;
 
     // FIXME needs to be a list of commands
     public void executeCommand(List<String> commands) {
@@ -55,13 +58,15 @@ public class ServerFacade {
 
     public void addUser(User user) {
         serverModelRoot.getUsers().add(user);
-        databaseFactory.getUserDAO().create(user);
+        iUserDAO tempDAO = databaseFactory.getUserDAO();
+        tempDAO.create(user); // TODO: 6/17/2017 delete eventually
+//        databaseFactory.getUserDAO().create(user);
     }
 
     public void addGame(Game game) {
         serverModelRoot.getGameList().add(game);
-        databaseFactory.getGameDAO().create(game);
         databaseFactory.getGameDAO().delete(game.getId());
+        databaseFactory.getGameDAO().create(game);
     }
 
     public void addAuthToken(String token) {
@@ -93,8 +98,8 @@ public class ServerFacade {
         if (g == null) {
             return null;
         }
-        databaseFactory.getGameDAO().create(game);
         databaseFactory.getGameDAO().delete(game.getId());
+        databaseFactory.getGameDAO().create(game);
         g.addPlayerToGame(user);
         return g;
     }

@@ -76,7 +76,7 @@ public class SQLGameDAO implements iGameDAO {
         String gameAddString = "INSERT INTO GAMES " +
                 "(gameId, gameInfoObject) VALUES (" +
                 "'" + game.getId() + "', " +
-                "'" + serializedGame + "', " +
+                "'" + serializedGame + "'" +
                 ")";
 
         SQLDatabaseConnection db = new SQLDatabaseConnection();
@@ -138,6 +138,7 @@ public class SQLGameDAO implements iGameDAO {
                 db.closeConnection();
             } catch (SQLException e) {
                 System.out.println("unable to close result set/prep staement");
+                e.printStackTrace();
             }
 
         }
