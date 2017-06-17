@@ -10,6 +10,7 @@ import java.util.Stack;
 
 import server.database.dao.iCommandDAO;
 import server.database.dao.iGameDAO;
+import server.database.PluginRegistery;
 import server.database.iDatabaseFactory;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
@@ -402,5 +403,15 @@ public class ServerFacade {
             return;
         }
         serverModelRoot.runCommands(allCommands);
+    }
+
+    public void initializePlugin(String pluginName) {
+        PluginRegistery r = new PluginRegistery();
+        r.loadConfig(pluginName);
+        serverModelRoot.setPlugin(r.getPlugin());
+    }
+
+    public iDatabaseFactory getPlugin() {
+        return serverModelRoot.getPlugin();
     }
 }
