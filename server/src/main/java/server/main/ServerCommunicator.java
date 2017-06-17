@@ -22,6 +22,7 @@ public class ServerCommunicator {
 
     }
 
+
     private ServerCommunicator(String pluginName) {
         ServerFacade._instance.initializePlugin(pluginName);
     }
@@ -90,7 +91,7 @@ public class ServerCommunicator {
         plugin.startTransaction();
         ServerFacade._instance.restoreUsers(plugin.getUserDAO().read());
         ServerFacade._instance.restoreGames(plugin.getGameDAO().read());
-        ServerFacade._instance.runCommands(plugin.getCommandDAO().read());
+        ServerFacade._instance.runCommands(plugin.getCommandDAO().read(null));
         plugin.endTransaction();
 
     }

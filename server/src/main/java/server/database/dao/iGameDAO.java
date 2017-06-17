@@ -10,8 +10,8 @@ import shared.classes.Game;
  */
 
 public interface iGameDAO {
-    public boolean create();
+    public boolean create(Game game);
     public List<Game> read();
     public boolean update();
-    public boolean delete();
+    public boolean delete(String id);
 }

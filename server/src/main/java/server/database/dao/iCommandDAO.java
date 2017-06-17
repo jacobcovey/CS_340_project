@@ -12,8 +12,8 @@ import shared.interfaces.iCommand;
  */
 
 public interface iCommandDAO {
-    public boolean create();
-    public List<CommandData> read();
+    public boolean create(CommandData commandData);
+    public List<CommandData> read(String id);
     public boolean update();
-    public boolean delete();
+    public boolean delete(String id);
 }
