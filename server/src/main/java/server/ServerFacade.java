@@ -32,7 +32,7 @@ public class ServerFacade {
 
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
 
-//    iDatabaseFactory databaseFactory;
+    iDatabaseFactory databaseFactory = serverModelRoot.getPlugin();
 
     // FIXME needs to be a list of commands
     public void executeCommand(List<String> commands) {
@@ -55,10 +55,13 @@ public class ServerFacade {
 
     public void addUser(User user) {
         serverModelRoot.getUsers().add(user);
+        databaseFactory.getUserDAO().create(user);
     }
 
     public void addGame(Game game) {
         serverModelRoot.getGameList().add(game);
+        databaseFactory.getGameDAO().create(game);
+        databaseFactory.getGameDAO().delete(game.getId());
     }
 
     public void addAuthToken(String token) {
@@ -90,6 +93,8 @@ public class ServerFacade {
         if (g == null) {
             return null;
         }
+        databaseFactory.getGameDAO().create(game);
+        databaseFactory.getGameDAO().delete(game.getId());
         g.addPlayerToGame(user);
         return g;
     }
@@ -124,6 +129,10 @@ public class ServerFacade {
 
     public void addGameInfo(Game game) {
         serverModelRoot.instance.addGameInfo(game);
+        GameInfo gameInfo = serverModelRoot.getGameInfo(game.getId());
+        game.setGameInfo(gameInfo);
+        databaseFactory.getGameDAO().delete(game.getId());
+        databaseFactory.getGameDAO().create(game);
     }
 
     public GameInfo getGameInfo(String gameId) {
@@ -358,8 +367,6 @@ public class ServerFacade {
     public void saveCommand(CommandData commandData) {
         Game game = getGameById(commandData.getGameId());
         game.incramentComandsSaved();
-
-        iDatabaseFactory databaseFactory = serverModelRoot.getPlugin();
 
         iCommandDAO commandDAO = databaseFactory.getCommandDAO();
 
