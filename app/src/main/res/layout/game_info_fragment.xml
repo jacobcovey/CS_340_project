@@ -84,7 +84,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:background="@color/orange"
+                android:background="@color/blue"
                 >
 
                 <TextView
@@ -127,7 +127,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:background="@color/green"
+                android:background="@color/red"
                 >
 
                 <TextView
@@ -170,7 +170,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:background="@color/blue"
+                android:background="@color/green"
                 >
 
                 <TextView
@@ -213,7 +213,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:background="@color/purple"
+                android:background="@color/yellow"
                 >
 
                 <TextView
@@ -256,39 +256,44 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:background="@color/red"
+                android:background="@color/black"
                 >
 
                 <TextView
                     android:id="@+id/game_info_p5_name"
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
-                    android:text="Player5"/>
+                    android:text="Player5"
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/game_info_p5_points"
                     android:layout_height="wrap_content"
                     android:layout_width="40dp"
                     android:textAlignment="center"
-                    android:text="0"/>
+                    android:text="0"
+                    android:textColor="@color/white"/>
                 <TextView
                     android:id="@+id/game_info_p5_trains"
                     android:layout_height="wrap_content"
                     android:layout_width="78dp"
                     android:textAlignment="center"
-                    android:text="0"/>
+                    android:text="0"
+                    android:textColor="@color/white"/>
                 <TextView
                     android:id="@+id/game_info_p5_cards"
                     android:layout_height="wrap_content"
                     android:layout_width="50dp"
                     android:textAlignment="center"
-                    android:text="0"/>
+                    android:text="0"
+                    android:textColor="@color/white"/>
                 <TextView
                     android:id="@+id/game_info_p5_routes"
                     android:layout_height="wrap_content"
                     android:layout_width="80dp"
                     android:textAlignment="center"
-                    android:text="0"/>
+                    android:text="0"
+                    android:textColor="@color/white"/>
             </LinearLayout>
 
             <TextView
