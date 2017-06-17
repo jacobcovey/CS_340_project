@@ -21,7 +21,7 @@ public class CreateGameCommand implements iCommand {
     public List<CommandData> execute() {
         Game game = data.getGame();
         User user = data.getUser();
-        ServerFacade._instance.addGame((server.model.Game) game);
+        ServerFacade._instance.addGame(new server.model.Game(game));
         Game mygame = ServerFacade._instance.addUserToGame(new server.model.Game(game), user);
         ArrayList<CommandData> dList = new ArrayList<>();
 
