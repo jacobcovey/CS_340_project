@@ -22,7 +22,7 @@ public class ServerCommunicator {
 
     }
 
-    private ServerCommunicator(String pluginName,int incrementer) {
+    private ServerCommunicator(String pluginName) {
         ServerFacade serverFacade = ServerFacade._instance;
         iDatabaseFactory plugin = this.initializePlugin(pluginName);
         plugin.startTransaction();
@@ -84,7 +84,7 @@ public class ServerCommunicator {
                 System.err.println("increment must be a number");
                 return;
             }
-            new ServerCommunicator(pluginName, incrementer).run(port);
+            new ServerCommunicator(pluginName).run(port);
         }
     }
 }
