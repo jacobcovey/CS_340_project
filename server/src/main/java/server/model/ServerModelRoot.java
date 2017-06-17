@@ -100,13 +100,14 @@ public class ServerModelRoot {
     }
 
     public void restoreUsers(Set<User> allUsers) {
-
         users = allUsers;
     }
     public void restoreGames(List<Game> allGames) {
         gameList = allGames;
         for (Game game : allGames) {
-            addGameInfo(game);
+            if (game.getGameInfo() != null) {
+                gameInfos.put(game.getId(), (GameInfo) game.getGameInfo());
+            }
         }
     }
     public void runCommands(List<CommandData> allCommands) {
