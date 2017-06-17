@@ -84,7 +84,8 @@ public class SQLDatabaseConnection {
         String create_commands_table = "CREATE TABLE IF NOT EXISTS COMMANDS"+
                 "("+
                 "commandId integer primary key autoincrement,"+
-                "data text"+
+                "data text,"+
+                "gameId text"+
                 ");";
 
         PreparedStatement usersStmt = this.mConnection.prepareStatement(create_users_table);
@@ -104,7 +105,7 @@ public class SQLDatabaseConnection {
         clearCommandsTable();
     }
 
-    private void clearCommandsTable() {
+    public void clearCommandsTable() {
         try {
             PreparedStatement dropUsersStmt = this.mConnection.prepareStatement("DROP TABLE IF EXISTS COMMANDS; ");
             dropUsersStmt.execute();
@@ -115,7 +116,7 @@ public class SQLDatabaseConnection {
         }
     }
 
-    private void clearGamesTable() {
+    public void clearGamesTable() {
         try {
             PreparedStatement dropUsersStmt = this.mConnection.prepareStatement("DROP TABLE IF EXISTS GAMES; ");
             dropUsersStmt.execute();
@@ -126,7 +127,7 @@ public class SQLDatabaseConnection {
         }
     }
 
-    private void clearUsersTable() {
+    public void clearUsersTable() {
         try {
             PreparedStatement dropUsersStmt = this.mConnection.prepareStatement("DROP TABLE IF EXISTS USERS; ");
             dropUsersStmt.execute();

@@ -10,7 +10,7 @@ import shared.classes.User;
  */
 
 public interface iUserDAO {
-    public boolean create();
+    public boolean create(User user);
     public Set<User> read();
     public boolean update();
     public boolean delete();

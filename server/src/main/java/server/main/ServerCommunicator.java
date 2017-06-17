@@ -28,7 +28,7 @@ public class ServerCommunicator {
         plugin.startTransaction();
         serverFacade.restoreUsers(plugin.getUserDAO().read());
         serverFacade.restoreGames(plugin.getGameDAO().read());
-        serverFacade.runCommands(plugin.getCommandDAO().read());
+        serverFacade.runCommands(plugin.getCommandDAO().read(null));
         plugin.endTransaction();
     }
 

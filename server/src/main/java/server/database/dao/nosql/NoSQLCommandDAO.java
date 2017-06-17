@@ -29,58 +29,105 @@ import static server.database.dao.nosql.NoSQLDatabaseConnection.serializeObject;
 public class NoSQLCommandDAO implements iCommandDAO {
 
     @Override
-    public boolean create() {
-        File yourFile = new File("database/commands.json");
-//        FileWriter fw = null;
-//        BufferedWriter bw = null;
-        try {
-            yourFile.createNewFile(); // if file already exists will do nothing
-//            fw = new FileWriter(yourFile);
-//            bw = new BufferedWriter(fw);
-//            bw.write(" " + serializeObject(commandData));
-        } catch (IOException e) {
-            System.out.println("Failed to create non sql commands.json database");
-            return false;
-        } finally {
-//            try {
-//
-//                if (bw != null)
-//                    bw.close();
-//
-//                if (fw != null)
-//                    fw.close();
-//
-//            } catch (IOException ex) {
-//
-//                ex.printStackTrace();
-//
-//            }
+    public boolean create(CommandData commandData) {
+        if (commandData == null) {
+            File yourFile = new File("database/commands.json");
+            try {
+                yourFile.createNewFile(); // if file already exists will do nothing
+            } catch (IOException e) {
+                System.out.println("Failed to create non sql commands.json database");
+                return false;
+            }
+
+            return true;
+        } else {
+            File yourFile = new File("database/commands.json");
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+            List<CommandData> commands = new ArrayList<>();
+            commands = read(commandData.getGameId());
+            try {
+                yourFile.createNewFile(); // if file already exists will do nothing
+                fw = new FileWriter(yourFile);
+                bw = new BufferedWriter(fw);
+                commands.add(commandData);
+                bw.write(" " + serializeObject(commands));
+            } catch (IOException e) {
+                System.out.println("Failed to create non sql commands.json database");
+                return false;
+            } finally {
+                try {
+
+                    if (bw != null)
+                        bw.close();
+
+                    if (fw != null)
+                        fw.close();
+
+                } catch (IOException ex) {
+
+                    ex.printStackTrace();
+
+                }
+            }
+
+            return true;
         }
 
-        return true;
     }
 
     @Override
-    public List<CommandData> read() {
-        if (create()) {
+    public List<CommandData> read(String id) {
+        if (create(null)) {
 
         }
-        String filePath = "database/commands.json";
+        if (id == null) {
+            String filePath = "database/commands.json";
 
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(new FileReader(filePath));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            StringBuilder sb = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                sb.append(scanner.nextLine() + "\n");
+            }
+            scanner.close();
+
+            return turnStringToListOfCommands(sb.toString());
+        } else {
+            String filePath = "database/commands.json";
+
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(new FileReader(filePath));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            StringBuilder sb = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                sb.append(scanner.nextLine() + "\n");
+            }
+            scanner.close();
+
+            List<CommandData> allCmds = turnStringToListOfCommands(sb.toString());
+            return getCommandsFromListById(allCmds, id);
         }
 
-        StringBuilder sb = new StringBuilder();
-        while (scanner.hasNextLine()) {
-            sb.append(scanner.nextLine() + "\n");
-        }
-        scanner.close();
+    }
 
-        return turnStringToListOfCommands(sb.toString());
+    private List<CommandData> getCommandsFromListById(List<CommandData> allCmds, String id) {
+        List<CommandData> output = new ArrayList<>();
+        for (CommandData c : allCmds) {
+            if (c.getGameId().equals(id)) {
+                output.add(c);
+            }
+        }
+        return output;
     }
 
     private List<CommandData> turnStringToListOfCommands(String s) {
@@ -105,9 +152,12 @@ public class NoSQLCommandDAO implements iCommandDAO {
     }
 
     @Override
-    public boolean delete() {
-        File file = new File("database/commands.json");
-        file.delete();
+    public boolean delete(String id) {
+        if (id == null) {
+            File file = new File("database/commands.json");
+            file.delete();
+        }
+
         return true;
     }
 }

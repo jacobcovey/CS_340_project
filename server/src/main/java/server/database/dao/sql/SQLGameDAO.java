@@ -100,7 +100,8 @@ public class SQLGameDAO implements iGameDAO {
     }
 
     @Override
-    public boolean create() {
+    public boolean create(Game game) {
+        addGameToDB(game);
         return true;
     }
 
@@ -168,8 +169,37 @@ public class SQLGameDAO implements iGameDAO {
     }
 
     @Override
-    public boolean delete() {
+    public boolean delete(String id) {
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+
+        if (id == null) {
+            db.openConnection();
+            db.clearGamesTable();
+            db.closeConnection();
+        } else {
+            deleteGamesById(id);
+        }
         return true;
+    }
+
+    private void deleteGamesById(String id) {
+        String deleteSqlString = "DELETE FROM GAMES WHERE gameId = '" + id + "'";
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+
+        db.openConnection();
+
+        PreparedStatement ps = null;
+        try {
+            ps = db.mConnection.prepareStatement(deleteSqlString);
+            ps.execute();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println("Error when deleting from commands");
+
+        }
+
+
+        db.closeConnection();
     }
 
 }

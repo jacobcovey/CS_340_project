@@ -25,19 +25,20 @@ import static server.database.dao.nosql.NoSQLDatabaseConnection.serializeObject;
 
 public class NoSQLGameDAO implements iGameDAO {
     @Override
-    public boolean create() {
-        File yourFile = new File("database/games.json");
+    public boolean create(Game game) {
+        if (game == null) {
+            File yourFile = new File("database/games.json");
 //        FileWriter fw = null;
 //        BufferedWriter bw = null;
-        try {
-            yourFile.createNewFile(); // if file already exists will do nothing
+            try {
+                yourFile.createNewFile(); // if file already exists will do nothing
 //            fw = new FileWriter(yourFile);
 //            bw = new BufferedWriter(fw);
 //            bw.write(" " + serializeObject(gameData));
-        } catch (IOException e) {
-            System.out.println("Failed to create non sql games.json database");
-            return false;
-        } finally {
+            } catch (IOException e) {
+                System.out.println("Failed to create non sql games.json database");
+                return false;
+            } finally {
 //            try {
 //
 //                if (bw != null)
@@ -51,14 +52,45 @@ public class NoSQLGameDAO implements iGameDAO {
 //                ex.printStackTrace();
 //
 //            }
-        }
+            }
 
-        return true;
+            return true;
+        } else {
+            File yourFile = new File("database/games.json");
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+            try {
+                yourFile.createNewFile(); // if file already exists will do nothing
+                fw = new FileWriter(yourFile);
+                bw = new BufferedWriter(fw);
+                bw.write(" " + serializeObject(game));
+            } catch (IOException e) {
+                System.out.println("Failed to create non sql games.json database");
+                return false;
+            } finally {
+                try {
+
+                    if (bw != null)
+                        bw.close();
+
+                    if (fw != null)
+                        fw.close();
+
+                } catch (IOException ex) {
+
+                    ex.printStackTrace();
+
+//            }
+                }
+
+                return true;
+            }
+        }
     }
 
     @Override
     public List<Game> read() {
-        if (create()) {
+        if (create(null)) {
 
         }
         String filePath = "database/games.json";
@@ -101,9 +133,14 @@ public class NoSQLGameDAO implements iGameDAO {
     }
 
     @Override
-    public boolean delete() {
-        File file = new File("database/games.json");
-        file.delete();
+    public boolean delete(String id) {
+        if (id == null) {
+            File file = new File("database/games.json");
+            file.delete();
+        } else {
+            // TODO: 6/17/2017 need to delete game by id
+        }
+
         return true;
     }
 }

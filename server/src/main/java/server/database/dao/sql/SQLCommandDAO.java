@@ -70,7 +70,7 @@ public class SQLCommandDAO implements iCommandDAO {
         return output;
     }
 
-    public static void addGameToDB(CommandData data, String gameId) {
+    public static void addCommandToDB(CommandData data, String gameId) {
         String serializedCommand = serializeObject(data);
         String commandAddString = "INSERT INTO COMMANDS " +
                 "(data, gameId) VALUES (" +
@@ -143,16 +143,17 @@ public class SQLCommandDAO implements iCommandDAO {
 
 
     @Override
-    public boolean create() {
+    public boolean create(CommandData commandData) {
+        addCommandToDB(commandData, commandData.getGameId());
         return false;
     }
 
     @Override
-    public List<CommandData> read() {
+    public List<CommandData> read(String id) {
         SQLDatabaseConnection db = new SQLDatabaseConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String selectUserStmt = "SELECT data FROM COMMANDS";
+        String selectUserStmt = "SELECT data FROM COMMANDS WHERE gameId = '" + id + "'";
 
         List<CommandData> output = new ArrayList<>();
 
@@ -211,7 +212,35 @@ public class SQLCommandDAO implements iCommandDAO {
     }
 
     @Override
-    public boolean delete() {
+    public boolean delete(String id) {
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+        if (id == null) {
+            db.openConnection();
+            db.clearCommandsTable();
+            db.closeConnection();
+        } else {
+            deleteCommandsByGameId(id);
+        }
         return true;
+    }
+
+    private void deleteCommandsByGameId(String id) {
+        String deleteSqlString = "DELETE FROM COMMANDS WHERE gameId = '" + id + "'";
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+
+        db.openConnection();
+
+        PreparedStatement ps = null;
+        try {
+            ps = db.mConnection.prepareStatement(deleteSqlString);
+            ps.execute();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println("Error when deleting from commands");
+
+        }
+
+
+        db.closeConnection();
     }
 }

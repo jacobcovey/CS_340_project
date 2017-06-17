@@ -100,7 +100,8 @@ public class SQLUserDAO implements iUserDAO {
 
 
     @Override
-    public boolean create() {
+    public boolean create(User user) {
+        addUserToDb(user);
         return true;
     }
 
@@ -163,6 +164,10 @@ public class SQLUserDAO implements iUserDAO {
 
     @Override
     public boolean delete() {
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+        db.openConnection();
+        db.clearUsersTable();
+        db.closeConnection();
         return true;
     }
 }
