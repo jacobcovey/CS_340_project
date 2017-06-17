@@ -22,22 +22,11 @@ public class ServerCommunicator {
 
     }
 
-    private ServerCommunicator(String pluginName,int incrementer) {
-        ServerFacade serverFacade = ServerFacade._instance;
-        iDatabaseFactory plugin = this.initializePlugin(pluginName);
-        plugin.startTransaction();
-        serverFacade.restoreUsers(plugin.getUserDAO().read());
-        serverFacade.restoreGames(plugin.getGameDAO().read());
-        serverFacade.runCommands(plugin.getCommandDAO().read(null));
-        plugin.endTransaction();
+
+    private ServerCommunicator(String pluginName) {
+        ServerFacade._instance.initializePlugin(pluginName);
     }
 
-
-    private iDatabaseFactory initializePlugin(String pluginName) {
-        PluginRegistery r = new PluginRegistery();
-        r.loadConfig(pluginName);
-        return r.getPlugin();
-    }
 
     private void run(int port) {
         try {
@@ -59,8 +48,8 @@ public class ServerCommunicator {
     }
 
     public static void main(String[] args) {
-        if (args.length < 1 || args.length == 2 || args.length > 3) {
-            System.err.println("usage: ServerCommunicator.main <port> [<database> <increment>]");
+        if (args.length < 1 || args.length == 2 || args.length > 4) {
+            System.err.println("usage: ServerCommunicator.main <port> [<database> <increment> -wipe]");
             return;
         }
         int port;
@@ -84,7 +73,26 @@ public class ServerCommunicator {
                 System.err.println("increment must be a number");
                 return;
             }
-            new ServerCommunicator(pluginName, incrementer).run(port);
+            ServerCommunicator server = new ServerCommunicator(pluginName);
+            if (args.length == 4 && args[3].equals("-wipe")) {
+                server.clearAllTables();
+            } else {
+                server.restoreTables();
+            }
+            server.run(port);
         }
+    }
+
+    private void clearAllTables() {
+    }
+
+    private void restoreTables() {
+        iDatabaseFactory plugin = ServerFacade._instance.getPlugin();
+        plugin.startTransaction();
+        ServerFacade._instance.restoreUsers(plugin.getUserDAO().read());
+        ServerFacade._instance.restoreGames(plugin.getGameDAO().read());
+        ServerFacade._instance.runCommands(plugin.getCommandDAO().read(null));
+        plugin.endTransaction();
+
     }
 }

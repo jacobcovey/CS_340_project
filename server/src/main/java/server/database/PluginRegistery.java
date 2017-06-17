@@ -12,7 +12,15 @@ public class PluginRegistery {
 
         Class c = null;
         try {
-            c = Class.forName("server.database.plugin." + pluginName);
+            if (pluginName.equals("SQL")) {
+                c = Class.forName("server.database.plugin.SQLDatabaseFactory");
+            }
+            else if (pluginName.equals("NoSQL")) {
+                c = Class.forName("server.database.plugin.NoSQLDatabaseFactory");
+            }
+            else {
+                c = Class.forName("server.database.plugin." + pluginName);
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

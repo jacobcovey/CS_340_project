@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import server.database.PluginRegistery;
+import server.database.iDatabaseFactory;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
@@ -397,5 +399,15 @@ public class ServerFacade {
             return;
         }
         serverModelRoot.runCommands(allCommands);
+    }
+
+    public void initializePlugin(String pluginName) {
+        PluginRegistery r = new PluginRegistery();
+        r.loadConfig(pluginName);
+        serverModelRoot.setPlugin(r.getPlugin());
+    }
+
+    public iDatabaseFactory getPlugin() {
+        return serverModelRoot.getPlugin();
     }
 }

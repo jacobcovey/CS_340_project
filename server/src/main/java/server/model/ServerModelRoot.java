@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.Map;
 
 import server.commands.CommandManager;
+import server.database.iDatabaseFactory;
 import shared.classes.City;
 import shared.classes.CommandData;
 import shared.classes.Game;
@@ -36,6 +37,8 @@ public class ServerModelRoot {
 
     private ServerModelRoot() {
     }
+
+    private iDatabaseFactory plugin;
 
     private Set<User> users = new HashSet<>();
     private List<Game> gameList = new ArrayList<>();
@@ -97,13 +100,14 @@ public class ServerModelRoot {
     }
 
     public void restoreUsers(Set<User> allUsers) {
-
         users = allUsers;
     }
     public void restoreGames(List<Game> allGames) {
         gameList = allGames;
         for (Game game : allGames) {
-            addGameInfo(game);
+            if (game.getGameInfo() != null) {
+                gameInfos.put(game.getId(), (GameInfo) game.getGameInfo());
+            }
         }
     }
     public void runCommands(List<CommandData> allCommands) {
@@ -119,5 +123,11 @@ public class ServerModelRoot {
         }
     }
 
+    public void setPlugin(iDatabaseFactory plugin) {
+        this.plugin = plugin;
+    }
 
+    public iDatabaseFactory getPlugin() {
+        return plugin;
+    }
 }
