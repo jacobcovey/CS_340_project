@@ -15,7 +15,6 @@ import server.commands.CommandManager;
 import server.database.iDatabaseFactory;
 import shared.classes.City;
 import shared.classes.CommandData;
-import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
 import shared.classes.Turn;

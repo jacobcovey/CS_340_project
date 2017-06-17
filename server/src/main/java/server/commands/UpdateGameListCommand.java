@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.ServerFacade;
+import server.model.Game;
 import shared.classes.CommandData;
-import shared.classes.Game;
 import shared.interfaces.iCommand;
 
 public class UpdateGameListCommand implements iCommand {

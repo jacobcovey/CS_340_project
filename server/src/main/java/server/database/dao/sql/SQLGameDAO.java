@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import server.database.dao.iGameDAO;
-import shared.classes.Game;
+import server.model.Game;
 
 /**
  * Created by Dylan on 6/15/2017.

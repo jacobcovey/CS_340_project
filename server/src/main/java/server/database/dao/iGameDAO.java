@@ -3,7 +3,8 @@ package server.database.dao;
 import java.util.List;
 import java.util.Set;
 
-import shared.classes.Game;
+import server.model.Game;
+
 
 /**
  * Created by Dylan on 6/15/2017.

@@ -3,6 +3,7 @@ package server.database.dao.nosql;
 import com.google.gson.Gson;
 
 import server.database.dao.iGameDAO;
+import server.model.Game;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import shared.classes.Game;
 
 import static server.database.dao.nosql.NoSQLDatabaseConnection.serializeObject;
 

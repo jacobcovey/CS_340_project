@@ -25,7 +25,7 @@ public class StartGameCommand implements iCommand {
     @Override
     public List<CommandData> execute() {
         if (ServerFacade._instance.getGameInfo(gameId) == null) {
-            ServerFacade._instance.addGameInfo(data);
+            ServerFacade._instance.addGameInfo(new server.model.Game(data));
         }
         GameInfo gameInfo = ServerFacade._instance.getGameInfo(gameId);
 

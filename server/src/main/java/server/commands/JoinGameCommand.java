@@ -30,7 +30,7 @@ public class JoinGameCommand implements iCommand {
                 return dList;
             }
         }
-        Game mygame = ServerFacade._instance.addUserToGame(game, user);
+        Game mygame = ServerFacade._instance.addUserToGame(new server.model.Game(game), user);
 
         if (mygame != null) {
             CommandData successCmd = new CommandData(Type.GAMEJOINED, mygame);
