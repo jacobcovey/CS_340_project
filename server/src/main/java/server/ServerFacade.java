@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import server.database.dao.iCommandDAO;
+import server.database.dao.iGameDAO;
+import server.database.iDatabaseFactory;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
@@ -27,6 +30,8 @@ public class ServerFacade {
 
 
     ServerModelRoot serverModelRoot = ServerModelRoot.getInstance();
+
+    iDatabaseFactory databaseFactory;
 
     // FIXME needs to be a list of commands
     public void executeCommand(List<String> commands) {
@@ -353,16 +358,16 @@ public class ServerFacade {
         Game game = getGameById(commandData.getGameId());
         game.incramentComandsSaved();
 
-//        iCommandDAO commandDAO = databaseFactory.getCommandDAO();
+        iCommandDAO commandDAO = databaseFactory.getCommandDAO();
 
-//        commandDAO.create(commandData);
+        commandDAO.create(commandData);
 
         if (game.getCommandsSaved() >= ServerModelRoot.getInstance().getResetCountLimit()) {
             game.resetCommandsSaved();
-//            commandDAO.clear();
-//            iGameDAO gameDAO = databaseFactory.getGameDAO();
-//            gameDAO.delete(game.getId());
-//            gameDAO.create(game);
+            commandDAO.delete(game.getId());
+            iGameDAO gameDAO = databaseFactory.getGameDAO();
+            gameDAO.delete(game.getId());
+            gameDAO.create(game);
         }
 
     }
