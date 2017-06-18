@@ -1,130 +1,55 @@
 package server.database.dao.nosql;
 
-import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import server.database.dao.iGameDAO;
 import server.model.Game;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+public class NoSQLGameDAO extends JSONDatabase implements iGameDAO {
 
+    public NoSQLGameDAO() {
+        super("database/games.json");
+    }
 
-import static server.database.dao.nosql.NoSQLDatabaseConnection.serializeObject;
-
-/**
- * Created by Dylan on 6/15/2017.
- */
-
-public class NoSQLGameDAO implements iGameDAO {
     @Override
     public boolean create(Game game) {
-        if (game == null) {
-            File yourFile = new File("database/games.json");
-//        FileWriter fw = null;
-//        BufferedWriter bw = null;
-            try {
-                yourFile.createNewFile(); // if file already exists will do nothing
-//            fw = new FileWriter(yourFile);
-//            bw = new BufferedWriter(fw);
-//            bw.write(" " + serializeObject(gameData));
-            } catch (IOException e) {
-                System.out.println("Failed to create non sql games.json database");
-                return false;
-            } finally {
-//            try {
-//
-//                if (bw != null)
-//                    bw.close();
-//
-//                if (fw != null)
-//                    fw.close();
-//
-//            } catch (IOException ex) {
-//
-//                ex.printStackTrace();
-//
-//            }
-            }
-
-            return true;
-        } else {
-            File yourFile = new File("database/games.json");
-            FileWriter fw = null;
-            BufferedWriter bw = null;
-            try {
-                yourFile.createNewFile(); // if file already exists will do nothing
-                fw = new FileWriter(yourFile);
-                bw = new BufferedWriter(fw);
-                bw.write(" " + serializeObject(game));
-            } catch (IOException e) {
-                System.out.println("Failed to create non sql games.json database");
-                return false;
-            } finally {
-                try {
-
-                    if (bw != null)
-                        bw.close();
-
-                    if (fw != null)
-                        fw.close();
-
-                } catch (IOException ex) {
-
-                    ex.printStackTrace();
-
-//            }
-                }
-
-                return true;
-            }
-        }
+        List<Game> games = read();
+        games.add(game);
+        return writeToDb(gson.toJson(games));
     }
+
 
     @Override
     public List<Game> read() {
-        if (create(null)) {
-
-        }
-        String filePath = "database/games.json";
-
-        Scanner scanner = null;
+        String gamesString;
         try {
-            scanner = new Scanner(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
+            gamesString = readFromDb();
+        } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-
-        StringBuilder sb = new StringBuilder();
-        while (scanner.hasNextLine()) {
-            sb.append(scanner.nextLine() + "\n");
-        }
-        scanner.close();
-
-        return turnStringToListOfGames(sb.toString());
+        Game[] games = gson.fromJson(gamesString, Game[].class);
+        return new ArrayList<>(Arrays.asList(games));
     }
 
-    private List<Game> turnStringToListOfGames(String s) {
-        List<Game> output = new ArrayList<>();
-        String[] gameStrings = s.split(" ");
-        for (String str : gameStrings) {
-            if (str.length() > 0) {
-                output.add(turnStringToGame(str));
+    @Override
+    public boolean clear() {
+        return writeToDb("[]");
+    }
+
+    @Override
+    public boolean delete(String id) {
+        List<Game> games = read();
+        List<Game> filteredGames = new ArrayList<>();
+        for (Game g : games) {
+            if (!g.getId().equals(id)) {
+                filteredGames.add(g);
             }
         }
-        return output;
-    }
-
-    private Game turnStringToGame(String str) {
-        Gson gson = new Gson();
-        return gson.fromJson(str, Game.class);
+        return writeToDb(gson.toJson(filteredGames));
     }
 
     @Override
@@ -132,15 +57,4 @@ public class NoSQLGameDAO implements iGameDAO {
         return true;
     }
 
-    @Override
-    public boolean delete(String id) {
-        if (id == null) {
-            File file = new File("database/games.json");
-            file.delete();
-        } else {
-            // TODO: 6/17/2017 need to delete game by id
-        }
-
-        return true;
-    }
 }

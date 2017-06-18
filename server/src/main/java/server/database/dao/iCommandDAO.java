@@ -13,7 +13,8 @@ import shared.interfaces.iCommand;
 
 public interface iCommandDAO {
     public boolean create(CommandData commandData);
-    public List<CommandData> read(String id);
+    public List<CommandData> read();
     public boolean update();
     public boolean delete(String id);
+    public boolean clear();
 }

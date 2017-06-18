@@ -164,6 +164,11 @@ public class SQLUserDAO implements iUserDAO {
 
     @Override
     public boolean delete() {
+        return true;
+    }
+
+    @Override
+    public boolean clear() {
         SQLDatabaseConnection db = new SQLDatabaseConnection();
         db.openConnection();
         db.clearUsersTable();

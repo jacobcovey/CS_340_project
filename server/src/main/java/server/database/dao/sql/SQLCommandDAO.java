@@ -149,7 +149,7 @@ public class SQLCommandDAO implements iCommandDAO {
     }
 
     @Override
-    public List<CommandData> read(String id) {
+    public List<CommandData> read() {
 
         SQLDatabaseConnection db = new SQLDatabaseConnection();
         PreparedStatement preparedStatement = null;
@@ -214,15 +214,17 @@ public class SQLCommandDAO implements iCommandDAO {
 
     @Override
     public boolean delete(String id) {
-        SQLDatabaseConnection db = new SQLDatabaseConnection();
-        if (id == null) {
-            db.openConnection();
-            db.clearCommandsTable();
-            db.closeConnection();
-        } else {
-            deleteCommandsByGameId(id);
-        }
+        deleteCommandsByGameId(id);
         return true;
+    }
+
+    @Override
+    public boolean clear() {
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+        db.openConnection();
+        db.clearCommandsTable();
+        db.closeConnection();
+        return false;
     }
 
     private void deleteCommandsByGameId(String id) {

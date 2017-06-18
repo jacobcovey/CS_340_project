@@ -172,14 +172,16 @@ public class SQLGameDAO implements iGameDAO {
     @Override
     public boolean delete(String id) {
         SQLDatabaseConnection db = new SQLDatabaseConnection();
+        deleteGamesById(id);
+        return true;
+    }
 
-        if (id == null) {
-            db.openConnection();
-            db.clearGamesTable();
-            db.closeConnection();
-        } else {
-            deleteGamesById(id);
-        }
+    @Override
+    public boolean clear() {
+        SQLDatabaseConnection db = new SQLDatabaseConnection();
+        db.openConnection();
+        db.clearGamesTable();
+        db.closeConnection();
         return true;
     }
 

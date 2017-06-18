@@ -15,4 +15,5 @@ public interface iGameDAO {
     public List<Game> read();
     public boolean update();
     public boolean delete(String id);
+    public boolean clear();
 }

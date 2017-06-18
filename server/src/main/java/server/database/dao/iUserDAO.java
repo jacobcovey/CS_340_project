@@ -14,4 +14,5 @@ public interface iUserDAO {
     public Set<User> read();
     public boolean update();
     public boolean delete();
+    public boolean clear();
 }

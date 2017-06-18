@@ -84,6 +84,12 @@ public class ServerCommunicator {
     }
 
     private void clearAllTables() {
+        iDatabaseFactory plugin = ServerFacade._instance.getPlugin();
+        plugin.startTransaction();
+        plugin.getUserDAO().clear();
+        plugin.getGameDAO().clear();
+        plugin.getCommandDAO().clear();
+        plugin.endTransaction();
     }
 
     private void restoreTables() {
@@ -91,7 +97,7 @@ public class ServerCommunicator {
         plugin.startTransaction();
         ServerFacade._instance.restoreUsers(plugin.getUserDAO().read());
         ServerFacade._instance.restoreGames(plugin.getGameDAO().read());
-        ServerFacade._instance.runCommands(plugin.getCommandDAO().read(null));
+        ServerFacade._instance.runCommands(plugin.getCommandDAO().read());
         plugin.endTransaction();
 
     }

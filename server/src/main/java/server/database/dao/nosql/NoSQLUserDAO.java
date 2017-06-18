@@ -1,145 +1,52 @@
 package server.database.dao.nosql;
 
-import com.google.gson.Gson;
-
-import server.database.dao.iUserDAO;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
+import server.database.dao.iUserDAO;
 import shared.classes.User;
 
-import static server.database.dao.nosql.NoSQLDatabaseConnection.serializeObject;
+public class NoSQLUserDAO extends JSONDatabase implements iUserDAO {
 
-/**
- * Created by Dylan on 6/15/2017.
- */
+    public NoSQLUserDAO() {
+        super("database/users.json");
+    }
 
-public class NoSQLUserDAO implements iUserDAO {
     @Override
     public boolean create(User user) {
-        if (user == null) {
-            File yourFile = new File("database/users.json");
-//        FileWriter fw = null;
-//        BufferedWriter bw = null;
-            try {
-                yourFile.createNewFile(); // if file already exists will do nothing
-//            fw = new FileWriter(yourFile);
-//            bw = new BufferedWriter(fw);
-//            bw.write(" " + serializeObject(userData));
-            } catch (IOException e) {
-                System.out.println("Failed to create non sql users.json database");
-                return false;
-            } finally {
-//            try {
-//
-//                if (bw != null)
-//                    bw.close();
-//
-//                if (fw != null)
-//                    fw.close();
-//
-//            } catch (IOException ex) {
-//
-//                ex.printStackTrace();
-//
-//            }
-            }
-
-            return true;
-        } else {
-            File yourFile = new File("database/users.json");
-            FileWriter fw = null;
-            BufferedWriter bw = null;
-            Set<User> tUsers = new HashSet<>();
-            tUsers = read();
-            tUsers.add(user);
-            try {
-                yourFile.createNewFile(); // if file already exists will do nothing
-                fw = new FileWriter(yourFile);
-                bw = new BufferedWriter(fw);
-                bw.write(serializeObject(tUsers));
-            } catch (IOException e) {
-                System.out.println("Failed to create non sql users.json database");
-                return false;
-            } finally {
-                try {
-
-                    if (bw != null)
-                        bw.close();
-
-                    if (fw != null)
-                        fw.close();
-
-                } catch (IOException ex) {
-
-                    ex.printStackTrace();
-
-                }
-            }
-
-            return true;
-        }
-
+        Set<User> users = read();
+        users.add(user);
+        return writeToDb(gson.toJson(users));
     }
 
     @Override
     public Set<User> read() {
-        if (create(null)) {
-
-        }
-        String filePath = "database/users.json";
-
-        Scanner scanner = null;
+        String usersString;
         try {
-            scanner = new Scanner(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
+            usersString = readFromDb();
+        } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-
-        StringBuilder sb = new StringBuilder();
-        while (scanner.hasNextLine()) {
-            sb.append(scanner.nextLine() + "\n");
-        }
-        scanner.close();
-
-        return turnStringToSetOfUsers(sb.toString());
-    }
-
-    private Set<User> turnStringToSetOfUsers(String s) {
-        Set<User> output = new HashSet<>();
-        String[] userStrings = s.split(" ");
-        for (String str : userStrings) {
-            if (str.length() > 0) {
-                output.add(turnStringToUser(str));
-            }
-        }
-        return output;
-    }
-
-    private User turnStringToUser(String str) {
-        Gson gson = new Gson();
-        return gson.fromJson(str, User.class);
+        User[] users = gson.fromJson(usersString, User[].class);
+        return new HashSet<>(Arrays.asList(users));
     }
 
     @Override
-    public boolean update() {
+    public boolean clear() {
+        return writeToDb("[]");
+    }
+
+
+    @Override
+    public boolean delete() {
         return true;
     }
 
     @Override
-    public boolean delete() {
-        File file = new File("database/users.json");
-        file.delete();
+    public boolean update() {
         return true;
     }
 }
