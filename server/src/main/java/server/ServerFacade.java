@@ -65,8 +65,7 @@ public class ServerFacade {
 
     public void addGame(Game game) {
         serverModelRoot.getGameList().add(game);
-        databaseFactory.getGameDAO().delete(game.getId());
-        databaseFactory.getGameDAO().create(game);
+        resyncGameInfoToOriginalGameInfoObjectSpencerToldMeTo(game);
     }
 
     public void addAuthToken(String token) {
@@ -93,13 +92,13 @@ public class ServerFacade {
         }
         return null;
     }
+
     public Game addUserToGame(Game game, User user) {
         Game g = getGameById(game.getId());
         if (g == null) {
             return null;
         }
-        databaseFactory.getGameDAO().delete(game.getId());
-        databaseFactory.getGameDAO().create(game);
+        resyncGameInfoToOriginalGameInfoObjectSpencerToldMeTo(game);
         g.addPlayerToGame(user);
         return g;
     }
@@ -135,9 +134,7 @@ public class ServerFacade {
     public void addGameInfo(Game game) {
         serverModelRoot.instance.addGameInfo(game);
         GameInfo gameInfo = serverModelRoot.getGameInfo(game.getId());
-        game.setGameInfo(gameInfo);
-        databaseFactory.getGameDAO().delete(game.getId());
-        databaseFactory.getGameDAO().create(game);
+        resyncGameInfoToOriginalGameInfoObjectSpencerToldMeTo(game);
     }
 
     public GameInfo getGameInfo(String gameId) {
@@ -381,9 +378,15 @@ public class ServerFacade {
             game.resetCommandsSaved();
             commandDAO.delete(game.getId());
             iGameDAO gameDAO = databaseFactory.getGameDAO();
-            gameDAO.delete(game.getId());
-            gameDAO.create(game);
+            resyncGameInfoToOriginalGameInfoObjectSpencerToldMeTo(game);
         }
+
+    }
+
+    private void resyncGameInfoToOriginalGameInfoObjectSpencerToldMeTo(Game game) {
+        databaseFactory.getGameDAO().delete(game.getId());
+        game.setGameInfo(getGameInfo(game.getId()));
+        databaseFactory.getGameDAO().create(game);
 
     }
 

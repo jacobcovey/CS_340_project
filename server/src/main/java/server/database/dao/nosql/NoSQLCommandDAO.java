@@ -47,10 +47,11 @@ public class NoSQLCommandDAO implements iCommandDAO {
             List<CommandData> commands = new ArrayList<>();
             commands = read(commandData.getGameId());
             try {
-                yourFile.createNewFile(); // if file already exists will do nothing
+                commands.add(commandData);
+                yourFile.delete();
+                yourFile.createNewFile();
                 fw = new FileWriter(yourFile);
                 bw = new BufferedWriter(fw);
-                commands.add(commandData);
                 bw.write(" " + serializeObject(commands));
             } catch (IOException e) {
                 System.out.println("Failed to create non sql commands.json database");

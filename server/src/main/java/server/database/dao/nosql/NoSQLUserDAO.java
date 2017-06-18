@@ -60,11 +60,14 @@ public class NoSQLUserDAO implements iUserDAO {
             File yourFile = new File("database/users.json");
             FileWriter fw = null;
             BufferedWriter bw = null;
+            Set<User> tUsers = new HashSet<>();
+            tUsers = read();
+            tUsers.add(user);
             try {
                 yourFile.createNewFile(); // if file already exists will do nothing
-            fw = new FileWriter(yourFile);
-            bw = new BufferedWriter(fw);
-            bw.write(" " + serializeObject(user));
+                fw = new FileWriter(yourFile);
+                bw = new BufferedWriter(fw);
+                bw.write(serializeObject(tUsers));
             } catch (IOException e) {
                 System.out.println("Failed to create non sql users.json database");
                 return false;

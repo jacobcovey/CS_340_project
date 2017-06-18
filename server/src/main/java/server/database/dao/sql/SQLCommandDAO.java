@@ -150,10 +150,11 @@ public class SQLCommandDAO implements iCommandDAO {
 
     @Override
     public List<CommandData> read(String id) {
+
         SQLDatabaseConnection db = new SQLDatabaseConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String selectUserStmt = "SELECT data FROM COMMANDS WHERE gameId = '" + id + "'";
+        String selectUserStmt = "SELECT data FROM COMMANDS";
 
         List<CommandData> output = new ArrayList<>();
 
