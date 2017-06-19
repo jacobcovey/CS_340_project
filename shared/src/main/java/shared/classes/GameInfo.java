@@ -1,4 +1,4 @@
-package server.model;
+package shared.classes;
 
 /**
  * Created by Dylan on 5/25/2017.
@@ -10,17 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import server.constants.Constants;
-import server.constants.InitializeRoutes;
-import shared.classes.City;
-import shared.classes.DestinationCard;
-import shared.classes.Game;
-import shared.classes.Player;
-import shared.classes.PlayerColors;
-import shared.classes.Route;
-import shared.classes.TrainCard;
-import shared.classes.Turn;
-import shared.classes.User;
+
+import shared.constants.Constants;
+import shared.constants.InitializeRoutes;
 import shared.interfaces.iGameInfo;
 
 import static shared.classes.TrainCardColors.WILD;

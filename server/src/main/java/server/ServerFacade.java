@@ -14,7 +14,7 @@ import shared.interfaces.dao.iGameDAO;
 import shared.interfaces.dao.iUserDAO;
 import shared.interfaces.iDatabaseFactory;
 import shared.classes.Game;
-import server.model.GameInfo;
+import shared.classes.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;
 import shared.classes.HistoryAction;

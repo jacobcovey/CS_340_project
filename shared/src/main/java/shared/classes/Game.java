@@ -13,7 +13,7 @@ public class Game {
     private int playerLimit;
     private User owner;
     private List<User> players;
-    private iGameInfo gameInfo;
+    private GameInfo gameInfo;
     private int commandsSaved;
 
 
@@ -82,10 +82,10 @@ public class Game {
         }
     }
 
-    public iGameInfo getGameInfo() {
+    public GameInfo getGameInfo() {
         return gameInfo;
     }
-    public void setGameInfo(iGameInfo gameInfo) {
+    public void setGameInfo(GameInfo gameInfo) {
         this.gameInfo = gameInfo;
     }
 

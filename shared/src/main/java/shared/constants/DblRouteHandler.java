@@ -1,4 +1,4 @@
-package server.constants;
+package shared.constants;
 
 import java.util.List;
 

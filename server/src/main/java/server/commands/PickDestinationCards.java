@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 import server.ServerFacade;
-import server.model.GameInfo;
+import shared.classes.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
 import shared.classes.HistoryAction;
 import shared.classes.Player;
-import shared.classes.Turn;
 import shared.interfaces.iCommand;
 
 /**

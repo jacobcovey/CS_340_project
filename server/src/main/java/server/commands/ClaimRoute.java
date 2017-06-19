@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import server.ServerFacade;
-import server.model.GameInfo;
+import shared.classes.GameInfo;
 import shared.classes.ClaimRouteData;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;

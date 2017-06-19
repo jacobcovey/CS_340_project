@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.ServerFacade;
-import server.model.GameInfo;
+import shared.classes.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.CommandData.Type;
 import shared.classes.Game;

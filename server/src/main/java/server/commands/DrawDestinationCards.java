@@ -2,21 +2,15 @@ package server.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import server.ServerFacade;
-import server.model.GameInfo;
+import shared.classes.GameInfo;
 import shared.classes.CommandData;
 import shared.classes.DestinationCard;
-import shared.classes.Game;
-import shared.classes.GameRequest;
 import shared.classes.Player;
-import shared.classes.TrainCard;
 import shared.classes.Turn;
-import shared.classes.User;
 import shared.interfaces.iCommand;
 
 /**

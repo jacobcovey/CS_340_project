@@ -369,7 +369,7 @@ public class GameBoardPresenter implements iGameBoardPresenter, iGameBoardState 
     }
 
     private void determineState() {
-        if (cpf.getGameInfo().getState() == iGameInfo.State.GAME_OVER) {
+        if (cpf.getGameInfo().getState() == com.example.jacobcovey.model.iGameInfo.State.GAME_OVER) {
             if (getStateName().equals(GAME_OVER)) {
                 return;
             }

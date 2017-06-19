@@ -15,10 +15,10 @@ public class PluginRegistery {
 
         Class c = null;
         try {
-            if (pluginName.equals("sql")) {
+            if (pluginName.toLowerCase().equals("sql")) {
                 c = Class.forName("sql_plugin.SQLDatabaseFactory");
             }
-            else if (pluginName.equals("nosql")) {
+            else if (pluginName.toLowerCase().equals("nosql")) {
                 c = Class.forName("no_sql_plugin.NoSQLDatabaseFactory");
             }
             else {

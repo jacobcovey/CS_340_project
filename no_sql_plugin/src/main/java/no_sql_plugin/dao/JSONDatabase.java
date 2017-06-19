@@ -42,7 +42,10 @@ public class JSONDatabase {
             writer = new PrintWriter(dbFilePath);
             writer.write("[]");
         } catch (FileNotFoundException e) {
-            e.printStackTrace(); }
+            e.printStackTrace();
+        } finally {
+            writer.close();
+        }
     }
 
     protected boolean writeToDb(String str) {
@@ -54,6 +57,8 @@ public class JSONDatabase {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            writer.close();
         }
         return true;
     }

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import server.commands.CommandManager;
 import shared.classes.Game;
+import shared.classes.GameInfo;
 import shared.interfaces.iDatabaseFactory;
 import shared.classes.CommandData;
 import shared.classes.User;
