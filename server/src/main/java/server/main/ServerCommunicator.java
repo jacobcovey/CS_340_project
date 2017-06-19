@@ -8,8 +8,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
 import server.ServerFacade;
-import server.database.PluginRegistery;
-import server.database.iDatabaseFactory;
+import shared.interfaces.iDatabaseFactory;
 import server.handler.CommandHandler;
 import server.model.ServerModelRoot;
 

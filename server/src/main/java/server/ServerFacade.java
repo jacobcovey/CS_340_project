@@ -9,11 +9,11 @@ import java.util.Set;
 import java.util.Stack;
 
 import server.database.PluginRegistery;
-import server.database.dao.iCommandDAO;
-import server.database.dao.iGameDAO;
-import server.database.dao.iUserDAO;
-import server.database.iDatabaseFactory;
-import server.model.Game;
+import shared.interfaces.dao.iCommandDAO;
+import shared.interfaces.dao.iGameDAO;
+import shared.interfaces.dao.iUserDAO;
+import shared.interfaces.iDatabaseFactory;
+import shared.classes.Game;
 import server.model.GameInfo;
 import server.model.ServerModelRoot;
 import shared.classes.CommandData;

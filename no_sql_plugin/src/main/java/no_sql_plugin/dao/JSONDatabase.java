@@ -1,4 +1,4 @@
-package server.database.dao.nosql;
+package no_sql_plugin.dao;
 
 import com.google.gson.Gson;
 
@@ -37,8 +37,9 @@ public class JSONDatabase {
             e.printStackTrace();
             return;
         }
-
-        try (PrintWriter writer = new PrintWriter(dbFilePath)) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(dbFilePath);
             writer.write("[]");
         } catch (FileNotFoundException e) {
             e.printStackTrace(); }
@@ -46,7 +47,9 @@ public class JSONDatabase {
 
     protected boolean writeToDb(String str) {
         createEmptyDbMaybe();
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream(dbFilePath, false))) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileOutputStream(dbFilePath, false));
             writer.write(str);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

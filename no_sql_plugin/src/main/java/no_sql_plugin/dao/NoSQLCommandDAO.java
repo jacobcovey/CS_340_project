@@ -1,12 +1,11 @@
-package server.database.dao.nosql;
+package no_sql_plugin.dao;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import server.database.dao.iCommandDAO;
+import shared.interfaces.dao.iCommandDAO;
 import shared.classes.CommandData;
 
 

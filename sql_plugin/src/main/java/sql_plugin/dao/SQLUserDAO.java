@@ -1,15 +1,13 @@
-package server.database.dao.sql;
+package sql_plugin.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import server.database.dao.iUserDAO;
+import shared.interfaces.dao.iUserDAO;
 import shared.classes.User;
 
 /**

@@ -1,6 +1,5 @@
-package server.database.dao;
+package shared.interfaces.dao;
 
-import java.util.List;
 import java.util.Set;
 
 import shared.classes.User;

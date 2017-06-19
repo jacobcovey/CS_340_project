@@ -6,22 +6,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
 
 import server.commands.CommandManager;
-import server.database.iDatabaseFactory;
-import shared.classes.City;
+import shared.classes.Game;
+import shared.interfaces.iDatabaseFactory;
 import shared.classes.CommandData;
-import shared.classes.Player;
-import shared.classes.PlayerColors;
-import shared.classes.Turn;
 import shared.classes.User;
-import server.model.GameInfo;
 import shared.interfaces.iCommand;
-import shared.interfaces.iGameInfo;
 
 public class ServerModelRoot {
 

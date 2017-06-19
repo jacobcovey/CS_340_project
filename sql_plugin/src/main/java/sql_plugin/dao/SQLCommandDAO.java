@@ -1,4 +1,4 @@
-package server.database.dao.sql;
+package sql_plugin.dao;
 
 import com.google.gson.Gson;
 
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import server.database.dao.iCommandDAO;
+import shared.interfaces.dao.iCommandDAO;
 import shared.classes.CommandData;
 
 /**

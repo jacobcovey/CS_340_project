@@ -1,4 +1,4 @@
-package server.database.dao.sql;
+package sql_plugin.dao;
 
 import java.io.File;
 import java.sql.Connection;

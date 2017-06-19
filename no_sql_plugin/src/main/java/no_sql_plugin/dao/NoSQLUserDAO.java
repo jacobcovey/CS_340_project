@@ -1,11 +1,11 @@
-package server.database.dao.nosql;
+package no_sql_plugin.dao;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import server.database.dao.iUserDAO;
+import shared.interfaces.dao.iUserDAO;
 import shared.classes.User;
 
 public class NoSQLUserDAO extends JSONDatabase implements iUserDAO {

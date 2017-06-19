@@ -1,6 +1,7 @@
 package server.database;
 
 import server.ServerFacade;
+import shared.interfaces.iDatabaseFactory;
 
 /**
  * Created by Dylan on 6/15/2017.
@@ -14,11 +15,11 @@ public class PluginRegistery {
 
         Class c = null;
         try {
-            if (pluginName.equals("SQL")) {
-                c = Class.forName("server.database.plugin.SQLDatabaseFactory");
+            if (pluginName.equals("sql")) {
+                c = Class.forName("sql_plugin.SQLDatabaseFactory");
             }
-            else if (pluginName.equals("NoSQL")) {
-                c = Class.forName("server.database.plugin.NoSQLDatabaseFactory");
+            else if (pluginName.equals("nosql")) {
+                c = Class.forName("no_sql_plugin.NoSQLDatabaseFactory");
             }
             else {
                 c = Class.forName("server.database.plugin." + pluginName);

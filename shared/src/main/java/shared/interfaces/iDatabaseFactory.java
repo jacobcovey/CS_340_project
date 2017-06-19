@@ -1,8 +1,8 @@
-package server.database;
+package shared.interfaces;
 
-import server.database.dao.iCommandDAO;
-import server.database.dao.iGameDAO;
-import server.database.dao.iUserDAO;
+import shared.interfaces.dao.iCommandDAO;
+import shared.interfaces.dao.iGameDAO;
+import shared.interfaces.dao.iUserDAO;
 
 /**
  * Created by Dylan on 6/15/2017.

@@ -14,6 +14,7 @@ import server.constants.Constants;
 import server.constants.InitializeRoutes;
 import shared.classes.City;
 import shared.classes.DestinationCard;
+import shared.classes.Game;
 import shared.classes.Player;
 import shared.classes.PlayerColors;
 import shared.classes.Route;

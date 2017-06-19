@@ -5,6 +5,8 @@ dependencies {
     compile project(':shared')
     compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/sqlite-jdbc-3.7.2.jar')
+    compile project(':sql_plugin')
+    compile project(':no_sql_plugin')
 }
 
 sourceCompatibility = "1.7"

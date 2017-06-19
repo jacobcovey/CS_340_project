@@ -1,11 +1,8 @@
-package server.database.dao;
+package shared.interfaces.dao;
 
 import shared.classes.CommandData;
-import shared.interfaces.iCommand;
+
 import java.util.List;
-import java.util.Set;
-import shared.classes.CommandData;
-import shared.interfaces.iCommand;
 
 /**
  * Created by Dylan on 6/15/2017.

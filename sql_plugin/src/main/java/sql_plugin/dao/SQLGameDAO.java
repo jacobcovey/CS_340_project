@@ -1,4 +1,4 @@
-package server.database.dao.sql;
+package sql_plugin.dao;
 
 import com.google.gson.Gson;
 
@@ -6,11 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import server.database.dao.iGameDAO;
-import server.model.Game;
+import shared.interfaces.dao.iGameDAO;
+import shared.classes.Game;
 
 /**
  * Created by Dylan on 6/15/2017.

@@ -1,27 +1,27 @@
-package server.database.plugin;
+package no_sql_plugin;
 
-import server.database.dao.iGameDAO;
-import server.database.dao.sql.SQLCommandDAO;
-import server.database.dao.sql.SQLGameDAO;
-import server.database.dao.sql.SQLUserDAO;
-import server.database.dao.iCommandDAO;
-import server.database.dao.iUserDAO;
-import server.database.iDatabaseFactory;
+import no_sql_plugin.dao.NoSQLCommandDAO;
+import no_sql_plugin.dao.NoSQLGameDAO;
+import no_sql_plugin.dao.NoSQLUserDAO;
+import shared.interfaces.dao.iCommandDAO;
+import shared.interfaces.dao.iGameDAO;
+import shared.interfaces.dao.iUserDAO;
+import shared.interfaces.iDatabaseFactory;
 
 /**
  * Created by Dylan on 6/15/2017.
  */
 
-public class SQLDatabaseFactory implements iDatabaseFactory {
+public class NoSQLDatabaseFactory implements iDatabaseFactory {
 
     private iGameDAO GameDAO;
     private iUserDAO UserDAO;
     private iCommandDAO CommandDAO;
 
-    public SQLDatabaseFactory() {
-        GameDAO = new SQLGameDAO();
-        UserDAO = new SQLUserDAO();
-        CommandDAO = new SQLCommandDAO();
+    public NoSQLDatabaseFactory() {
+        GameDAO = new NoSQLGameDAO();
+        UserDAO = new NoSQLUserDAO();
+        CommandDAO = new NoSQLCommandDAO();
     }
 
     @Override
@@ -53,5 +53,4 @@ public class SQLDatabaseFactory implements iDatabaseFactory {
     public iCommandDAO getCommandDAO() {
         return this.CommandDAO;
     }
-
 }

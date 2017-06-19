@@ -1,9 +1,8 @@
-package server.database.dao;
+package shared.interfaces.dao;
 
 import java.util.List;
-import java.util.Set;
 
-import server.model.Game;
+import shared.classes.Game;
 
 
 /**
