@@ -376,8 +376,6 @@ public class ServerFacade {
 
         if (game.getCommandsSaved() >= ServerModelRoot.getInstance().getResetCountLimit()) {
             game.resetCommandsSaved();
-            commandDAO.delete(game.getId());
-            iGameDAO gameDAO = databaseFactory.getGameDAO();
             resyncGameInfoToOriginalGameInfoObjectSpencerToldMeTo(game);
         }
 

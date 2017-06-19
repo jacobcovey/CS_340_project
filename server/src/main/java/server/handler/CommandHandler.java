@@ -22,6 +22,7 @@ import shared.classes.CommandData;
 import shared.interfaces.iCommand;
 
 import static shared.classes.CommandData.Type.GETOUTSTANDINGCOMMANDS;
+import static shared.classes.CommandData.Type.STARTGAME;
 import static shared.classes.CommandData.Type.UPDATECURRENTGAME;
 import static shared.classes.CommandData.Type.UPDATEGAMELIST;
 
@@ -44,7 +45,7 @@ public class CommandHandler implements HttpHandler {
             CommandManager manager = new CommandManager();
             iCommand command = manager.createCommand(commandData, serialized);
             //deleted this v : commandData.getGameId() != null ||
-            if (! commandData.getGameId().equals("")) {
+            if (!commandData.getGameId().equals("") && commandData.getType() != STARTGAME) {
                 ServerFacade._instance.saveCommand(commandData);
             }
             List<CommandData> result = command.execute();
