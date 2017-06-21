@@ -2,6 +2,7 @@ package com.example.jacobcovey.Views;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,7 @@ import shared.classes.DestinationCard;
 import shared.classes.Player;
 import shared.classes.TrainCard;
 import shared.classes.TrainCardColors;
+import shared.classes.Turn;
 
 /**
  * Created by jacobcovey on 5/24/17.
@@ -257,6 +259,7 @@ public class GameInfoView extends Fragment implements iGameInfoView {
         setRoutesInfo(currentPlayer.getDestinationCards());
         setTrainCardsInfo(currentPlayer.getTrainCards());
         setDeckNums(gameInfo);
+        setTurnIndicator(gameInfo.getTurn());
 
         return v;
     }
@@ -313,6 +316,52 @@ public class GameInfoView extends Fragment implements iGameInfoView {
                 numTrainDeck.setText(gameInfo.getTrainCardDeckSize()+"");
             }
         });
+    }
+
+    @Override
+    public void setTurnIndicator(Turn turn) {
+        removeTurnMarkerFromAll();
+        final String player1, player2, player3, player4, player5;
+        player1 = player1NameTextView.getText().toString();
+        player2 = player2NameTextView.getText().toString();
+        player3 = player3NameTextView.getText().toString();
+        player4 = player4NameTextView.getText().toString();
+        player5 = player5NameTextView.getText().toString();
+        if(turn.getPlayer().equals(player1)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    player1NameTextView.setBackground(getActivity().getDrawable(R.drawable.border));
+                }
+                return;
+        } else if (turn.getPlayer().equals(player2)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                player2NameTextView.setBackground(getActivity().getDrawable(R.drawable.border));
+            }
+            return;
+        } else if (turn.getPlayer().equals(player3)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                player3NameTextView.setBackground(getActivity().getDrawable(R.drawable.border));
+            }
+            return;
+        } else if (turn.getPlayer().equals(player4)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                player4NameTextView.setBackground(getActivity().getDrawable(R.drawable.border));
+            }
+            return;
+        } else if (turn.getPlayer().equals(player5)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                player5NameTextView.setBackground(getActivity().getDrawable(R.drawable.border));
+            }
+            return;
+        }
+
+    }
+
+    private void removeTurnMarkerFromAll() {
+        player1NameTextView.setBackground(null);
+        player2NameTextView.setBackground(null);
+        player3NameTextView.setBackground(null);
+        player4NameTextView.setBackground(null);
+        player5NameTextView.setBackground(null);
     }
 
     @Override

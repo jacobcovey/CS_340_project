@@ -61,6 +61,7 @@ public class GameInfoPresenter implements iGameInfoPresenter, Observer {
             gameInfoView.setRoutesInfo(currentPlayer.getDestinationCards());
             gameInfoView.setTrainCardsInfo(currentPlayer.getTrainCards());
             gameInfoView.setDeckNums(gameInfo);
+            gameInfoView.setTurnIndicator(gameInfo.getTurn());
         }
     }
 }
