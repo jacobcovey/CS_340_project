@@ -102,7 +102,6 @@ public class GameOverPresenter implements iGameOverPresenter, Observer {
             return;
         }
         gameOverView.setScores(playerPointsList);
-        gameOverView.setWinner("Riley");
 
     }
 }
